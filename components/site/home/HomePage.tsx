@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   Target,
   Search,
-  Filter,
   TrendingUp,
   Compass,
   Sparkles,
@@ -89,20 +88,6 @@ function Hero() {
             <ShieldCheck className="h-3.5 w-3.5 text-primary" /> For businesses that need more than
             a beautiful website.
           </p>
-
-          <div className="mt-10 grid grid-cols-2 gap-5 border-t border-border pt-6 sm:grid-cols-4">
-            {[
-              { icon: Target, label: "Conversion strategy" },
-              { icon: Search, label: "SEO-ready structure" },
-              { icon: Bot, label: "AI-search visibility" },
-              { icon: Inbox, label: "Lead generation" },
-            ].map((s, i) => (
-              <div key={i} className="flex items-start gap-2.5">
-                <s.icon className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <span className="text-xs leading-snug text-muted-foreground">{s.label}</span>
-              </div>
-            ))}
-          </div>
         </motion.div>
 
         <motion.div {...fade} transition={{ duration: 0.6, delay: 0.1 }}>
@@ -117,11 +102,11 @@ function Hero() {
 function TrustBar() {
   const items = [
     { icon: Compass, label: "Website Strategy" },
-    { icon: Filter, label: "Conversion Planning" },
-    { icon: Search, label: "SEO Structure" },
-    { icon: Globe2, label: "GEO / AEO Visibility" },
+    { icon: Target, label: "Conversion Strategy & Planning" },
+    { icon: Search, label: "SEO-Ready Structure" },
+    { icon: Bot, label: "AI Search / GEO / AEO Visibility" },
     { icon: Sparkles, label: "AI-Ready Content" },
-    { icon: Inbox, label: "Lead Capture" },
+    { icon: Inbox, label: "Lead Generation & Capture" },
     { icon: AppWindow, label: "Web Applications" },
     { icon: BarChart3, label: "Analytics Path" },
   ];
