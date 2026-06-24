@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -100,6 +101,7 @@ function Hero() {
 
 /* ---------- 2. TRUST BAR ---------- */
 function TrustBar() {
+  const [isMarqueePaused, setIsMarqueePaused] = useState(false);
   const items = [
     { icon: Compass, label: "Website Strategy" },
     { icon: Target, label: "Conversion Strategy & Planning" },
@@ -124,19 +126,28 @@ function TrustBar() {
           </p>
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-          {items.map((it, i) => (
-            <motion.div
-              key={i}
-              {...fade}
-              transition={{ duration: 0.4, delay: i * 0.04 }}
-              className="glass-card flex flex-col items-center gap-2 p-4 text-center"
-            >
-              <it.icon className="h-5 w-5 text-primary" />
-              <span className="text-[11px] leading-tight text-muted-foreground">{it.label}</span>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          {...fade}
+          className="marquee-frame mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+          onMouseEnter={() => setIsMarqueePaused(true)}
+          onMouseLeave={() => setIsMarqueePaused(false)}
+        >
+          <div
+            className="marquee-track animate-marquee flex w-max gap-3"
+            style={{ animationPlayState: isMarqueePaused ? "paused" : "running" }}
+          >
+            {[...items, ...items].map((it, i) => (
+              <div
+                key={`${it.label}-${i}`}
+                aria-hidden={i >= items.length}
+                className="glass-card flex h-24 w-40 shrink-0 flex-col items-center justify-center gap-2 p-4 text-center sm:w-44 lg:w-40"
+              >
+                <it.icon className="h-5 w-5 shrink-0 text-primary" />
+                <span className="text-[11px] leading-tight text-muted-foreground">{it.label}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         <p className="mt-8 text-center text-xs text-muted-foreground/80">
           Every section, page, and CTA is planned around business growth — not decoration.

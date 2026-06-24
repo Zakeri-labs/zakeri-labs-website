@@ -170,6 +170,9 @@
 [dir="rtl"] .animate-marquee {
   animation: marquee-rtl 40s linear infinite;
 }
+.marquee-frame:hover .marquee-track {
+  animation-play-state: paused;
+}
 
 @keyframes float-slow {
   0%,
