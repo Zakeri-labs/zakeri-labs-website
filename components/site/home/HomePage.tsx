@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  ArrowDown,
   PlayCircle,
   ShieldCheck,
   Target,
@@ -36,7 +37,7 @@ import { ContactForm } from "@/components/site/ContactForm";
 import { SITE } from "@/lib/site";
 
 const fade = {
-  initial: { opacity: 0, y: 20 },
+  initial: false,
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
   transition: { duration: 0.5, ease: "easeOut" as const },
@@ -216,12 +217,13 @@ function ProblemSolution() {
 
   return (
     <section id="solution" className="py-20 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_10rem_minmax(0,1fr)] lg:gap-6 lg:px-8">
         {/* Problem card */}
         <motion.div {...fade}>
-          <Card className="glass-card relative h-full overflow-hidden border-0 p-8 lg:p-10">
+          <Card className="glass-card relative h-full overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-ember/80 to-transparent" />
             <SectionBadge tone="ember">Growth Gaps</SectionBadge>
-            <h2 className="mt-3 font-display text-3xl font-bold leading-tight lg:text-4xl">
+            <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
               Most Websites Look Fine —<br /> But Don&apos;t Create Growth.
             </h2>
             <ul className="mt-7 space-y-5">
@@ -240,7 +242,7 @@ function ProblemSolution() {
             <Button
               asChild
               variant="outline"
-              className="mt-8 border-ember/40 text-ember hover:bg-ember/10 hover:text-ember"
+              className="mt-8 w-full justify-between border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm"
             >
               <Link href="/contact">
                 Find the Gaps in My Website <ArrowRight className="ms-2 h-4 w-4" />
@@ -249,11 +251,70 @@ function ProblemSolution() {
           </Card>
         </motion.div>
 
+        <motion.div
+          {...fade}
+          transition={{ duration: 0.5, delay: 0.06 }}
+          className="relative flex items-center justify-center lg:self-stretch"
+        >
+          <div className="relative flex min-h-16 w-full flex-col items-center justify-center gap-2 lg:min-h-0 lg:w-auto">
+            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-ember/60 via-primary/60 to-primary/20 lg:hidden" />
+            <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full border border-ember/70 bg-background lg:hidden" />
+            <span className="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full border border-primary/70 bg-background lg:hidden" />
+            <div
+              data-testid="growth-bridge-desktop"
+              className="relative z-10 hidden w-36 flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 px-4 py-3 shadow-[var(--shadow-elegant)] backdrop-blur lg:flex"
+            >
+              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember">
+                Diagnose
+              </span>
+              <ArrowDown className="h-3 w-3 text-muted-foreground" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                Structure
+              </span>
+              <ArrowDown className="h-3 w-3 text-muted-foreground" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+                Convert
+              </span>
+            </div>
+            <div
+              data-testid="growth-bridge-mobile"
+              className="relative z-10 flex flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 px-4 py-2 shadow-[var(--shadow-elegant)] backdrop-blur lg:hidden"
+            >
+              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember sm:tracking-[0.16em]">
+                Diagnose
+              </span>
+              <ArrowDown className="h-3 w-3 text-muted-foreground" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:tracking-[0.16em]">
+                Structure
+              </span>
+              <ArrowDown className="h-3 w-3 text-muted-foreground" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary sm:tracking-[0.16em]">
+                Convert
+              </span>
+            </div>
+            <div
+              data-testid="growth-card-connector"
+              className="relative z-10 hidden h-8 w-36 lg:block"
+              aria-hidden="true"
+            >
+              <span className="absolute left-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
+              <span className="absolute left-2 right-3 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-ember via-primary/80 to-primary shadow-[0_0_14px_rgba(65,145,255,0.55)]" />
+              <span className="absolute right-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[6px] border-l-[11px] border-y-transparent border-l-primary drop-shadow-[0_0_8px_rgba(65,145,255,0.75)]" />
+            </div>
+            <div className="relative z-10 h-12 w-8 lg:hidden" aria-hidden="true">
+              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
+              <span className="absolute bottom-3 top-2 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-ember via-primary/80 to-primary shadow-[0_0_14px_rgba(65,145,255,0.55)]" />
+              <span className="absolute bottom-0 left-1/2 h-0 w-0 -translate-x-1/2 border-x-[6px] border-t-[11px] border-x-transparent border-t-primary drop-shadow-[0_0_8px_rgba(65,145,255,0.75)]" />
+            </div>
+          </div>
+        </motion.div>
+
         {/* Solution card */}
         <motion.div {...fade} transition={{ duration: 0.5, delay: 0.1 }}>
-          <Card className="glass-card relative h-full overflow-hidden border-0 p-8 lg:p-10">
+          <Card className="glass-card relative h-full overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/80 to-transparent" />
             <SectionBadge>Core Solution</SectionBadge>
-            <h2 className="mt-3 font-display text-3xl font-bold leading-tight lg:text-4xl">
+            <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
               Website as Growth Infrastructure
             </h2>
             <ul className="mt-7 space-y-4">
@@ -274,7 +335,7 @@ function ProblemSolution() {
                 Your website shouldn&apos;t just look good.
                 <br /> It should grow your business.
               </p>
-              <Button asChild size="sm">
+              <Button asChild size="sm" className="w-full justify-center sm:w-auto">
                 <Link href="/contact">Let&apos;s Build Your Growth Engine</Link>
               </Button>
             </div>
