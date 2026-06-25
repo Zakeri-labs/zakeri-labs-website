@@ -460,10 +460,10 @@ const cases = [
     desc: "Designed to present listings, developer credibility, project details, and inquiry paths in a more professional and conversion-focused way.",
   },
   {
-    industry: "Personal Brand",
-    image: "/case-personal.png",
-    title: "Personal Brand Hub Built for Lead Generation",
-    desc: "Organized scattered content, offers, and contact paths into one clear website funnel for audience conversions.",
+    industry: "Clinic / Healthcare",
+    image: "/case-clinic.png",
+    title: "Clinic Website Built for Trust and Appointment Booking",
+    desc: "Designed to present services, doctor credibility, patient trust signals, and clear booking paths.",
   },
   {
     industry: "B2B Consulting",
@@ -472,10 +472,10 @@ const cases = [
     desc: "Created to help a consulting business present services, company trust, and professional inquiry channels.",
   },
   {
-    industry: "Clinic / Healthcare",
-    image: "/case-clinic.png",
-    title: "Clinic Website Built for Trust and Appointment Booking",
-    desc: "Designed to present services, doctor credibility, patient trust signals, and clear booking paths.",
+    industry: "Personal Brand",
+    image: "/case-personal.png",
+    title: "Personal Brand Hub Built for Lead Generation",
+    desc: "Organized scattered content, offers, and contact paths into one clear website funnel for audience conversions.",
   },
 ];
 
@@ -546,10 +546,10 @@ function CaseStudies() {
                       src={c.image}
                       alt={c.title}
                       fill
-                      className="object-cover object-top transition duration-500 group-hover:scale-105"
+                      className="object-contain transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 rounded bg-primary/90 px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                    <span className="absolute bottom-3 left-3 rounded border border-primary/70 bg-transparent px-2 py-0.5 text-[10px] font-semibold text-primary">
                       {c.industry}
                     </span>
                   </div>
