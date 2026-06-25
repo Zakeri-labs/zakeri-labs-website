@@ -453,27 +453,27 @@ function Services() {
 const cases = [
   {
     industry: "Real Estate",
+    image: "/case-realestate.png",
     title: "Property Website Built for Trust and Lead Capture",
     desc: "Designed to present listings, developer credibility, project details, and inquiry paths in a more professional and conversion-focused way.",
-    hue: 210,
   },
   {
-    industry: "Car Rental",
-    title: "Rental Website Built for Fast Booking Intent",
-    desc: "Structure prioritizes fleet options, pricing clarity, service areas, and direct contact paths for faster customer inquiries.",
-    hue: 25,
-  },
-  {
-    industry: "Steel / B2B Trading",
-    title: "B2B Website Built for Credibility and Inquiries",
-    desc: "Created to help a trading business present products, company trust, supplier confidence, and professional inquiry channels.",
-    hue: 200,
-  },
-  {
-    industry: "Education / Personal Brand",
+    industry: "Personal Brand",
+    image: "/case-personal.png",
     title: "Personal Brand Hub Built for Lead Generation",
     desc: "Organized scattered content, offers, and contact paths into one clear website funnel for audience conversions.",
-    hue: 260,
+  },
+  {
+    industry: "B2B Consulting",
+    image: "/case-consulting.png",
+    title: "B2B Website Built for Credibility and Inquiries",
+    desc: "Created to help a consulting business present services, company trust, and professional inquiry channels.",
+  },
+  {
+    industry: "Clinic / Healthcare",
+    image: "/case-clinic.png",
+    title: "Clinic Website Built for Trust and Appointment Booking",
+    desc: "Designed to present services, doctor credibility, patient trust signals, and clear booking paths.",
   },
 ];
 
@@ -500,17 +500,20 @@ function CaseStudies() {
             <div className="grid min-w-[800px] grid-cols-4 gap-4 lg:min-w-0">
               {cases.map((c, i) => (
                 <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
-                  <Card className="glass-card flex h-full flex-col gap-4 border-0 p-3">
-                    <div className="relative">
-                      <BrowserMockup
-                        hue={c.hue}
-                        label={`${c.industry.toLowerCase().replace(/[\s/]/g, "-")}.preview`}
+                  <Card className="glass-card group flex h-full flex-col gap-0 overflow-hidden border-0 p-0">
+                    <div className="relative h-44 w-full overflow-hidden">
+                      <Image
+                        src={c.image}
+                        alt={c.title}
+                        fill
+                        className="object-cover object-top transition duration-500 group-hover:scale-105"
                       />
-                      <span className="absolute left-3 top-9 rounded bg-primary/90 px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
+                      <span className="absolute left-3 bottom-3 rounded bg-primary/90 px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
                         {c.industry}
                       </span>
                     </div>
-                    <div className="px-1 pb-2">
+                    <div className="flex flex-1 flex-col p-4">
                       <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
                       <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
                         {c.desc}
