@@ -513,11 +513,8 @@ function CaseStudies() {
                         {c.industry}
                       </span>
                     </div>
-                    <div className="flex flex-1 flex-col p-4">
+                    <div className="flex flex-1 flex-col justify-between p-4">
                       <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
-                      <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
-                        {c.desc}
-                      </p>
                       <Link
                         href="/insights"
                         className="mt-4 inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
