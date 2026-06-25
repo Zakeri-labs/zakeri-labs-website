@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
   ArrowDown,
   PlayCircle,
+  ChevronLeft,
+  ChevronRight,
   ShieldCheck,
   Target,
   Search,
@@ -478,54 +480,94 @@ const cases = [
 ];
 
 function CaseStudies() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const card = scrollRef.current.firstElementChild as HTMLElement | null;
+    const amount = card ? card.offsetWidth + 16 : 320;
+    scrollRef.current.scrollBy({ left: dir === "right" ? amount : -amount, behavior: "smooth" });
+  };
+
   return (
     <section id="case-studies" className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1fr_2.4fr] lg:items-end">
+        {/* Header row — full width with arrows on the right */}
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <motion.div {...fade}>
             <SectionBadge>Proof of Execution</SectionBadge>
             <h2 className="mt-3 font-display text-3xl font-bold lg:text-4xl">
               Websites We&apos;ve Designed and Deployed
             </h2>
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
               Real projects, clear execution, and practical growth systems for businesses that need
               stronger websites, better positioning, and smarter search visibility.
             </p>
-            <Button asChild variant="outline" className="mt-6">
-              <Link href="/insights">View All Case Studies</Link>
-            </Button>
           </motion.div>
 
-          <div className="-mx-4 overflow-x-auto px-4 lg:overflow-visible">
-            <div className="grid min-w-[800px] grid-cols-4 gap-4 lg:min-w-0">
-              {cases.map((c, i) => (
-                <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
-                  <Card className="glass-card group flex h-full flex-col gap-0 overflow-hidden border-0 p-0">
-                    <div className="relative h-44 w-full overflow-hidden">
-                      <Image
-                        src={c.image}
-                        alt={c.title}
-                        fill
-                        className="object-cover object-top transition duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
-                      <span className="absolute left-3 bottom-3 rounded bg-primary/90 px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
-                        {c.industry}
-                      </span>
-                    </div>
-                    <div className="flex flex-1 flex-col justify-between p-4">
-                      <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="outline">
+              <Link href="/insights">View All Case Studies</Link>
+            </Button>
+            <button
+              onClick={() => scroll("left")}
+              aria-label="Scroll left"
+              className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              aria-label="Scroll right"
+              className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable card track — full width below header */}
+        <div>
+          <div
+            ref={scrollRef}
+            className="mt-8 flex gap-4 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {cases.map((c, i) => (
+              <motion.div
+                key={i}
+                {...fade}
+                transition={{ duration: 0.45, delay: i * 0.06 }}
+                className="w-[82vw] shrink-0 sm:w-[300px]"
+              >
+                <Card className="glass-card group flex h-[420px] flex-col overflow-hidden border-0 p-0">
+                  {/* Image — fills remaining space */}
+                  <div className="relative flex-1 overflow-hidden">
+                    <Image
+                      src={c.image}
+                      alt={c.title}
+                      fill
+                      className="object-cover object-top transition duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
+                    <span className="absolute bottom-3 left-3 rounded bg-primary/90 px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                      {c.industry}
+                    </span>
+                  </div>
+                  {/* Content */}
+                  <div className="flex shrink-0 flex-col p-4">
+                    <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
+                    <div className="mt-5 flex justify-center">
                       <Link
                         href="/insights"
-                        className="mt-4 inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
+                        className="inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
                       >
                         View Case Study <ArrowRight className="h-3 w-3" />
                       </Link>
                     </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
