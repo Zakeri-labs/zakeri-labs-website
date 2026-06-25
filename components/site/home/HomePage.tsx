@@ -220,11 +220,12 @@ function ProblemSolution() {
       <div className="relative mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_10rem_minmax(0,1fr)] lg:gap-6 lg:px-8">
         {/* Problem card */}
         <motion.div {...fade}>
-          <Card className="glass-card relative h-full overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
+          <Card className="glass-card relative flex h-full flex-col overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-ember/80 to-transparent" />
             <SectionBadge tone="ember">Growth Gaps</SectionBadge>
             <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
-              Most Websites Look Fine —<br /> But Don&apos;t Create Growth.
+              Most Websites Look Fine,
+              <br /> But Don&apos;t Create Growth.
             </h2>
             <ul className="mt-7 space-y-5">
               {problems.map((p, i) => (
@@ -242,7 +243,7 @@ function ProblemSolution() {
             <Button
               asChild
               variant="outline"
-              className="mt-8 w-full justify-between border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm"
+              className="mt-8 w-full justify-between border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm lg:mt-auto"
             >
               <Link href="/contact">
                 Find the Gaps in My Website <ArrowRight className="ms-2 h-4 w-4" />
@@ -311,7 +312,7 @@ function ProblemSolution() {
 
         {/* Solution card */}
         <motion.div {...fade} transition={{ duration: 0.5, delay: 0.1 }}>
-          <Card className="glass-card relative h-full overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
+          <Card className="glass-card relative flex h-full flex-col overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/80 to-transparent" />
             <SectionBadge>Core Solution</SectionBadge>
             <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
@@ -330,12 +331,12 @@ function ProblemSolution() {
                 </li>
               ))}
             </ul>
-            <div className="mt-7 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-background/40 p-4">
-              <p className="text-xs text-muted-foreground">
-                Your website shouldn&apos;t just look good.
-                <br /> It should grow your business.
-              </p>
-              <Button asChild size="sm" className="w-full justify-center sm:w-auto">
+            <div className="mt-8 lg:mt-auto">
+              <Button
+                asChild
+                size="sm"
+                className="w-full justify-between sm:w-auto sm:justify-center"
+              >
                 <Link href="/contact">Let&apos;s Build Your Growth Engine</Link>
               </Button>
             </div>
