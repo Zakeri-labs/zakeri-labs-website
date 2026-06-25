@@ -365,24 +365,28 @@ function Services() {
   const services = [
     {
       icon: Globe2,
+      image: "/GEO-AEO-Ranking.png",
       title: "GEO & AEO Ranking",
       desc: "Improve how your business appears in Google, AI search, answer engines, and modern discovery platforms.",
       cta: "Improve Visibility",
     },
     {
       icon: Bot,
+      image: "/AI-Solution.png",
       title: "AI Solution",
       desc: "Add practical AI workflows, automation systems, content processes, and customer-facing tools.",
       cta: "Explore AI Systems",
     },
     {
       icon: AppWindow,
+      image: "/Website-Web Application.png",
       title: "Website & Web Application",
       desc: "Build premium websites, landing pages, portals, and lightweight web applications tailored to your offer.",
       cta: "Build the Platform",
     },
     {
       icon: Sparkles,
+      image: "/AI-Visibility.png",
       title: "AI Visibility",
       desc: "Make your business easier for AI systems to understand, categorize, recommend, and explain.",
       cta: "Get AI-Ready",
@@ -405,18 +409,29 @@ function Services() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
             <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
-              <Card className="glass-card group h-full border-0 p-6 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
-                <span className="grid h-10 w-10 place-items-center rounded-md bg-primary/10">
-                  <s.icon className="h-5 w-5 text-primary" />
-                </span>
-                <h3 className="mt-5 text-base font-semibold">{s.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{s.desc}</p>
-                <Link
-                  href="/services"
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-primary transition group-hover:gap-2.5"
-                >
-                  {s.cta} <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+              <Card className="glass-card group flex h-full flex-col overflow-hidden border-0 p-0 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
+                <div className="relative h-44 w-full shrink-0 overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <span className="grid h-9 w-9 place-items-center rounded-md bg-primary/10">
+                    <s.icon className="h-4 w-4 text-primary" />
+                  </span>
+                  <h3 className="mt-4 text-base font-semibold">{s.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{s.desc}</p>
+                  <Link
+                    href="/services"
+                    className="mt-auto pt-5 inline-flex items-center gap-1.5 text-xs font-medium text-primary transition group-hover:gap-2.5"
+                  >
+                    {s.cta} <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
               </Card>
             </motion.div>
           ))}
