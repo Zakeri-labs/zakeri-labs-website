@@ -28,10 +28,10 @@ import {
   MessageCircle,
   Quote,
 } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionBadge } from "@/components/site/SectionBadge";
-import { HeroVisual } from "@/components/site/HeroVisual";
 import { BrowserMockup } from "@/components/site/BrowserMockup";
 import { ContactForm } from "@/components/site/ContactForm";
 import { SITE } from "@/lib/site";
@@ -60,9 +60,26 @@ export function HomePage() {
 /* ---------- 1. HERO ---------- */
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-12 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-8 lg:px-8 lg:pb-24 lg:pt-20">
-        <motion.div {...fade}>
+    <section className="relative -mt-[68px] flex min-h-[100svh] items-center overflow-hidden">
+      {/* Cinematic full-bleed background image */}
+      <Image
+        src="/hero-image.png"
+        alt="Zakeri Labs – AI Website Growth Infrastructure"
+        fill
+        priority
+        className="object-cover object-center"
+      />
+
+      {/* Left gradient — keeps text readable */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10" />
+      {/* Top fade — blends behind the header */}
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/70 to-transparent" />
+      {/* Bottom fade — blends into next section */}
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-36 sm:px-6 lg:px-8 lg:pb-32 lg:pt-44">
+        <motion.div {...fade} className="max-w-xl lg:max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium text-primary">
             <Sparkles className="h-3 w-3" /> AI Website Growth Infrastructure
           </span>
@@ -90,10 +107,6 @@ function Hero() {
             <ShieldCheck className="h-3.5 w-3.5 text-primary" /> For businesses that need more than
             a beautiful website.
           </p>
-        </motion.div>
-
-        <motion.div {...fade} transition={{ duration: 0.6, delay: 0.1 }}>
-          <HeroVisual />
         </motion.div>
       </div>
     </section>

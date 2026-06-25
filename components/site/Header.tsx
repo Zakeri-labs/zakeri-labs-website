@@ -28,7 +28,7 @@ export function Header() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-border/30 bg-background/40 backdrop-blur-xl">
       <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="flex min-w-0 flex-col">
           <Logo />

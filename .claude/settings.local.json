@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/farzan/Workspace/Projects/zakeri-labs-website/public)",
+      "Bash(cp \"/Users/farzan/Workspace/Image & Info/Zakeri/new/Hero-image.png\" /Users/farzan/Workspace/Projects/zakeri-labs-website/public/hero-image.png)",
+      "Bash(npm run *)"
+    ]
+  }
+}

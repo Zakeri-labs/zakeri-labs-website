@@ -1,4 +1,3 @@
-
 # Zakeri Labs — AI Website Growth Infrastructure (Demo)
 
 A premium dark, visual-first marketing site closely matching the uploaded reference design. Built on TanStack Start with file-based routes.
