@@ -260,7 +260,8 @@ function ProblemSolution() {
             <Button
               asChild
               variant="outline"
-              className="mt-8 w-full justify-between border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm"
+              size="sm"
+              className="mt-8 w-full justify-between border-ember/40 text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm"
             >
               <Link href="/contact">
                 Find the Gaps in My Website <ArrowRight className="ms-2 h-4 w-4" />
@@ -352,13 +353,17 @@ function ProblemSolution() {
                 ))}
               </ul>
             </div>
-            <div className="mt-8">
+            <div className="relative mt-8">
+              <span className="animate-heartbeat absolute inset-0 rounded-md bg-primary blur-md" />
               <Button
                 asChild
+                variant="outline"
                 size="sm"
-                className="w-full justify-between sm:w-auto sm:justify-center"
+                className="relative w-full justify-between border-primary/40 text-primary hover:bg-primary/10 hover:text-primary sm:text-sm"
               >
-                <Link href="/contact">Let&apos;s Build Your Growth Engine</Link>
+                <Link href="/contact">
+                  Let&apos;s Build Your Growth Engine <ArrowRight className="ms-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </Card>
