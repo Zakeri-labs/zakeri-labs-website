@@ -539,9 +539,9 @@ function CaseStudies() {
                 transition={{ duration: 0.45, delay: i * 0.06 }}
                 className="w-[82vw] shrink-0 sm:w-[300px]"
               >
-                <Card className="group flex h-[420px] flex-col overflow-hidden rounded-[var(--radius)] border border-border/40 bg-background p-0">
-                  {/* Image — fills remaining space */}
-                  <div className="relative flex-1 overflow-hidden bg-background">
+                <Card className="group flex flex-col overflow-hidden rounded-[var(--radius)] border border-border/40 bg-background p-0">
+                  {/* Image — exact 4:3 ratio matches source images (1448×1086) */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-background">
                     <Image
                       src={c.image}
                       alt={c.title}
@@ -550,12 +550,12 @@ function CaseStudies() {
                     />
                   </div>
                   {/* Content */}
-                  <div className="flex shrink-0 flex-col px-4 pb-4 pt-1">
+                  <div className="flex shrink-0 flex-col px-4 pb-4 pt-2">
                     <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
                       {c.industry}
                     </span>
                     <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
-                    <div className="mt-5 flex justify-center">
+                    <div className="mt-8 flex justify-center">
                       <Link
                         href="/insights"
                         className="inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
