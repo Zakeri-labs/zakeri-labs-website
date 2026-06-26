@@ -539,17 +539,16 @@ function CaseStudies() {
                 transition={{ duration: 0.45, delay: i * 0.06 }}
                 className="w-[82vw] shrink-0 sm:w-[300px]"
               >
-                <Card className="glass-card group flex h-[420px] flex-col overflow-hidden border-0 p-0">
+                <Card className="group flex h-[420px] flex-col overflow-hidden rounded-[var(--radius)] border border-border/40 bg-background p-0">
                   {/* Image — fills remaining space */}
-                  <div className="relative flex-1 overflow-hidden">
+                  <div className="relative flex-1 overflow-hidden bg-background">
                     <Image
                       src={c.image}
                       alt={c.title}
                       fill
-                      className="object-contain transition duration-500 group-hover:scale-105"
+                      className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 rounded border border-primary/70 bg-transparent px-2 py-0.5 text-[10px] font-semibold text-primary">
+                    <span className="absolute bottom-3 left-3 rounded border border-primary/70 bg-transparent px-2 py-0.5 text-[10px] font-semibold text-white">
                       {c.industry}
                     </span>
                   </div>
