@@ -421,10 +421,7 @@ function Services() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <span className="grid h-9 w-9 place-items-center rounded-md bg-primary/10">
-                    <s.icon className="h-4 w-4 text-primary" />
-                  </span>
-                  <h3 className="mt-4 text-base font-semibold">{s.title}</h3>
+                  <h3 className="text-base font-semibold">{s.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{s.desc}</p>
                   <Link
                     href="/services"
