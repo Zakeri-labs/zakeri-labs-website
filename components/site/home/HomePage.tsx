@@ -235,30 +235,32 @@ function ProblemSolution() {
       <div className="relative mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_10rem_minmax(0,1fr)] lg:gap-6 lg:px-8">
         {/* Problem card */}
         <motion.div {...fade}>
-          <Card className="glass-card relative flex h-full flex-col overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
+          <Card className="glass-card relative flex h-full flex-col justify-between overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-ember/80 to-transparent" />
-            <SectionBadge tone="ember">Growth Gaps</SectionBadge>
-            <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
-              Most Websites Look Fine,
-              <br /> But Don&apos;t Create Growth.
-            </h2>
-            <ul className="mt-7 space-y-5">
-              {problems.map((p, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-ember/30 bg-ember/10">
-                    <p.icon className="h-4 w-4 text-ember" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{p.title}</p>
-                    <p className="text-xs text-muted-foreground">{p.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <SectionBadge tone="ember">Growth Gaps</SectionBadge>
+              <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
+                Most Websites Look Fine,
+                <br /> But Don&apos;t Create Growth.
+              </h2>
+              <ul className="mt-7 space-y-5">
+                {problems.map((p, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-ember/30 bg-ember/10">
+                      <p.icon className="h-4 w-4 text-ember" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{p.title}</p>
+                      <p className="text-xs text-muted-foreground">{p.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <Button
               asChild
               variant="outline"
-              className="mt-8 w-full justify-between border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm lg:mt-auto"
+              className="mt-8 w-full justify-between border-ember/40 text-xs text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm"
             >
               <Link href="/contact">
                 Find the Gaps in My Website <ArrowRight className="ms-2 h-4 w-4" />
@@ -329,26 +331,28 @@ function ProblemSolution() {
 
         {/* Solution card */}
         <motion.div {...fade} transition={{ duration: 0.5, delay: 0.1 }}>
-          <Card className="glass-card relative flex h-full flex-col overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
+          <Card className="glass-card relative flex h-full flex-col justify-between overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/80 to-transparent" />
-            <SectionBadge>Core Solution</SectionBadge>
-            <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
-              Website as Growth Infrastructure
-            </h2>
-            <ul className="mt-7 space-y-4">
-              {solutions.map((s, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-primary/30 bg-primary/10">
-                    <s.icon className="h-4 w-4 text-primary" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{s.title}</p>
-                    <p className="text-xs text-muted-foreground">{s.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 lg:mt-auto">
+            <div>
+              <SectionBadge>Core Solution</SectionBadge>
+              <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
+                Website as Growth Infrastructure
+              </h2>
+              <ul className="mt-7 space-y-4">
+                {solutions.map((s, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-primary/30 bg-primary/10">
+                      <s.icon className="h-4 w-4 text-primary" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{s.title}</p>
+                      <p className="text-xs text-muted-foreground">{s.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-8">
               <Button
                 asChild
                 size="sm"
