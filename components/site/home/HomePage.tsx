@@ -412,14 +412,13 @@ function Services() {
           {services.map((s, i) => (
             <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
               <Card className="glass-card group flex h-full flex-col overflow-hidden border-0 p-0 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
-                <div className="relative h-44 w-full shrink-0 overflow-hidden">
+                <div className="relative aspect-square w-full overflow-hidden bg-background">
                   <Image
                     src={s.image}
                     alt={s.title}
                     fill
-                    className="object-cover transition duration-500 group-hover:scale-105"
+                    className="object-contain object-top transition duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <span className="grid h-9 w-9 place-items-center rounded-md bg-primary/10">
