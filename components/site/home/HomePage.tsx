@@ -289,7 +289,7 @@ function ProblemSolution() {
             {/* Box — z-10, sits on top of arrow, 4px top padding */}
             <div
               data-testid="growth-bridge-desktop"
-              className="relative z-10 hidden w-24 flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 py-2 shadow-[var(--shadow-elegant)] backdrop-blur lg:flex"
+              className="relative z-10 hidden w-24 flex-col items-center gap-1 rounded-md border border-white/15 bg-background/20 py-2 shadow-[var(--shadow-elegant)] backdrop-blur-[2px] lg:flex"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember">
                 Diagnose
