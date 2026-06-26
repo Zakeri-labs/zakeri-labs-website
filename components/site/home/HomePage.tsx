@@ -272,13 +272,24 @@ function ProblemSolution() {
           transition={{ duration: 0.5, delay: 0.06 }}
           className="relative flex items-center justify-center lg:self-stretch"
         >
-          <div className="relative flex min-h-16 w-full flex-col items-center justify-center gap-2 lg:min-h-0 lg:w-auto">
+          <div className="relative flex min-h-16 w-full flex-col items-center justify-end lg:min-h-0 lg:w-36 lg:justify-center">
             <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-ember/60 via-primary/60 to-primary/20 lg:hidden" />
             <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full border border-ember/70 bg-background lg:hidden" />
             <span className="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full border border-primary/70 bg-background lg:hidden" />
+            {/* Arrow — extends 16px beyond each side of box so endpoints are visible */}
+            <div
+              data-testid="growth-card-connector"
+              className="absolute -inset-x-4 top-1/2 z-0 hidden h-8 -translate-y-1/2 lg:block"
+              aria-hidden="true"
+            >
+              <span className="absolute left-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
+              <span className="absolute left-2 right-3 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-ember via-primary/80 to-primary shadow-[0_0_14px_rgba(65,145,255,0.55)]" />
+              <span className="absolute right-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[6px] border-l-[11px] border-y-transparent border-l-primary drop-shadow-[0_0_8px_rgba(65,145,255,0.75)]" />
+            </div>
+            {/* Box — z-10, sits on top of arrow, 4px top padding */}
             <div
               data-testid="growth-bridge-desktop"
-              className="relative z-10 hidden w-36 flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 px-4 py-3 shadow-[var(--shadow-elegant)] backdrop-blur lg:flex"
+              className="relative z-10 hidden w-24 flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 py-2 shadow-[var(--shadow-elegant)] backdrop-blur lg:flex"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember">
                 Diagnose
@@ -307,15 +318,6 @@ function ProblemSolution() {
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary sm:tracking-[0.16em]">
                 Convert
               </span>
-            </div>
-            <div
-              data-testid="growth-card-connector"
-              className="relative z-10 hidden h-8 w-36 lg:block"
-              aria-hidden="true"
-            >
-              <span className="absolute left-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
-              <span className="absolute left-2 right-3 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-ember via-primary/80 to-primary shadow-[0_0_14px_rgba(65,145,255,0.55)]" />
-              <span className="absolute right-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[6px] border-l-[11px] border-y-transparent border-l-primary drop-shadow-[0_0_8px_rgba(65,145,255,0.75)]" />
             </div>
             <div className="relative z-10 h-12 w-8 lg:hidden" aria-hidden="true">
               <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
