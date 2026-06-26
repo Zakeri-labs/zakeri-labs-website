@@ -548,12 +548,12 @@ function CaseStudies() {
                       fill
                       className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
-                    <span className="absolute bottom-3 left-3 rounded border border-primary/70 bg-transparent px-2 py-0.5 text-[10px] font-semibold text-white">
-                      {c.industry}
-                    </span>
                   </div>
                   {/* Content */}
-                  <div className="flex shrink-0 flex-col p-4">
+                  <div className="flex shrink-0 flex-col px-4 pb-4 pt-1">
+                    <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                      {c.industry}
+                    </span>
                     <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
                     <div className="mt-5 flex justify-center">
                       <Link
