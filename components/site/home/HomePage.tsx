@@ -108,12 +108,16 @@ function Hero() {
             {t("hero.desc")}
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg" className="shadow-[var(--shadow-elegant)]">
+            <Button
+              asChild
+              size="lg"
+              className="w-full shadow-[var(--shadow-elegant)] sm:w-auto"
+            >
               <Link href="/contact">
                 {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
               <a href="#solution">
                 <PlayCircle className="me-2 h-4 w-4" /> {t("cta.system")}
               </a>
