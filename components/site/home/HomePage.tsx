@@ -547,7 +547,7 @@ function Testimonials() {
       <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
         {items.map((t, i) => (
           <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
-            <Card className="glass-card h-full border-0 p-6">
+            <Card className="glass-card group h-full border-0 p-6 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
               <Quote className="h-5 w-5 text-primary" />
               <p className="mt-3 text-sm leading-relaxed text-foreground/90">{t.quote}</p>
               <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
