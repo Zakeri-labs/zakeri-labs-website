@@ -71,17 +71,24 @@ function Hero() {
   const { t } = useI18n();
   return (
     <section className="relative -mt-[68px] flex min-h-[100svh] items-center overflow-hidden">
-      {/* Cinematic full-bleed background image */}
+      {/* Cinematic full-bleed background image — separate crop for mobile */}
+      <Image
+        src="/hero-image-mobile.png"
+        alt="Zakeri Labs – AI Website Growth Infrastructure"
+        fill
+        priority
+        className="object-cover object-center rtl:-scale-x-100 lg:hidden"
+      />
       <Image
         src="/hero-image.png"
         alt="Zakeri Labs – AI Website Growth Infrastructure"
         fill
         priority
-        className="object-cover object-center"
+        className="hidden object-cover object-center rtl:-scale-x-100 lg:block"
       />
 
-      {/* Left gradient — keeps text readable */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10" />
+      {/* Side gradient — keeps text readable; flips to the right edge in RTL */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10 rtl:bg-gradient-to-l" />
       {/* Top fade — blends behind the header */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/70 to-transparent" />
       {/* Bottom fade — blends into next section */}
@@ -93,12 +100,14 @@ function Hero() {
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium text-primary">
             <Sparkles className="h-3 w-3" /> {t("hero.badge")}
           </span>
-          <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] text-foreground sm:text-5xl lg:text-[3.5rem]">
+          <h1 className="mt-5 max-w-[15rem] font-display text-4xl font-bold leading-[1.05] text-foreground sm:max-w-none sm:text-5xl lg:text-[3.5rem]">
             {t("hero.titlePre")}
             <span className="gradient-text">{t("hero.titleHl")}</span>
             {t("hero.titlePost")}
           </h1>
-          <p className="mt-5 max-w-xl text-base text-muted-foreground">{t("hero.desc")}</p>
+          <p className="mt-5 max-w-[15rem] text-base text-muted-foreground sm:max-w-xl">
+            {t("hero.desc")}
+          </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="shadow-[var(--shadow-elegant)]">
               <Link href="/contact">
