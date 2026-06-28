@@ -213,3 +213,18 @@
 .animate-heartbeat {
   animation: heartbeat 2.4s ease-in-out infinite;
 }
+
+/* ---------- RTL mirroring ---------- */
+/* Flip directional icons (arrows, chevrons, paper-plane) and the horizontal
+   "Diagnose → Convert" connector so they point with the reading direction.
+   Non-directional icons (logo, message, play, mail, etc.) are left as-is. */
+[dir="rtl"] .lucide-arrow-right,
+[dir="rtl"] .lucide-arrow-left,
+[dir="rtl"] .lucide-chevron-right,
+[dir="rtl"] .lucide-chevron-left,
+[dir="rtl"] .lucide-move-right,
+[dir="rtl"] .lucide-move-left,
+[dir="rtl"] .lucide-send,
+[dir="rtl"] [data-testid="growth-card-connector"] {
+  transform: scaleX(-1);
+}
