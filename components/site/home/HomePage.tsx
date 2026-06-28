@@ -159,7 +159,7 @@ function TrustBar() {
               <div
                 key={`${it.label}-${i}`}
                 aria-hidden={i >= items.length}
-                className="glass-card flex h-24 w-40 shrink-0 flex-col items-center justify-center gap-2 p-4 text-center sm:w-44 lg:w-40"
+                className="glass-card flex h-24 w-40 shrink-0 flex-col items-center justify-center gap-2 p-4 text-center transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)] sm:w-44 lg:w-40"
               >
                 <it.icon className="h-5 w-5 shrink-0 text-primary" />
                 <span className="text-[11px] leading-tight text-muted-foreground">{it.label}</span>
