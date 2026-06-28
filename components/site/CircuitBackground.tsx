@@ -28,17 +28,33 @@ export function CircuitBackground() {
     { y: "90%", dur: 6, delay: 3.6, color: "var(--ember)" },
   ];
 
-  // Extra pulses shown only on mobile/tablet (hidden at lg+), interleaved
-  // between the rows above to fill the larger section/card gaps on small screens.
+  // Mobile-only pulses: dense rows (every ~4%) with short cycle time (~1.4s)
+  // so a pulse crosses any visible area within ~1.5s of the user arriving.
+  // strokeDasharray "60 800" → period 860px → at ~600px/s → repeats every ~1.4s per row.
+  // With 22 rows and ~6 visible at once, probability of seeing a pulse ≈ 98%.
   const mobilePulses = [
-    { y: "4%", dur: 6.4, delay: 2, color: "var(--cyan)" },
-    { y: "14%", dur: 5.8, delay: 0.8, color: "var(--ember)" },
-    { y: "27%", dur: 7.2, delay: 3.2, color: "var(--primary)" },
-    { y: "41%", dur: 6, delay: 1.5, color: "var(--cyan)" },
-    { y: "55%", dur: 7.6, delay: 2.7, color: "var(--ember)" },
-    { y: "69%", dur: 5.6, delay: 0.4, color: "var(--primary)" },
-    { y: "83%", dur: 7, delay: 3.4, color: "var(--cyan)" },
-    { y: "96%", dur: 6.6, delay: 1.1, color: "var(--primary)" },
+    { y: "2%", dur: 1.3, delay: 0.2, color: "var(--cyan)" },
+    { y: "6%", dur: 1.6, delay: 0.7, color: "var(--primary)" },
+    { y: "10%", dur: 1.4, delay: 1.1, color: "var(--ember)" },
+    { y: "15%", dur: 1.7, delay: 0.4, color: "var(--cyan)" },
+    { y: "19%", dur: 1.3, delay: 1.5, color: "var(--primary)" },
+    { y: "24%", dur: 1.5, delay: 0.9, color: "var(--ember)" },
+    { y: "28%", dur: 1.6, delay: 0.1, color: "var(--cyan)" },
+    { y: "33%", dur: 1.4, delay: 1.3, color: "var(--primary)" },
+    { y: "38%", dur: 1.7, delay: 0.6, color: "var(--ember)" },
+    { y: "43%", dur: 1.3, delay: 1.0, color: "var(--cyan)" },
+    { y: "47%", dur: 1.5, delay: 0.3, color: "var(--primary)" },
+    { y: "52%", dur: 1.6, delay: 1.7, color: "var(--ember)" },
+    { y: "56%", dur: 1.4, delay: 0.8, color: "var(--cyan)" },
+    { y: "61%", dur: 1.7, delay: 1.2, color: "var(--primary)" },
+    { y: "66%", dur: 1.3, delay: 0.5, color: "var(--ember)" },
+    { y: "71%", dur: 1.5, delay: 1.6, color: "var(--cyan)" },
+    { y: "75%", dur: 1.6, delay: 0.2, color: "var(--primary)" },
+    { y: "80%", dur: 1.4, delay: 1.4, color: "var(--ember)" },
+    { y: "85%", dur: 1.7, delay: 0.7, color: "var(--cyan)" },
+    { y: "89%", dur: 1.3, delay: 1.0, color: "var(--primary)" },
+    { y: "94%", dur: 1.5, delay: 0.4, color: "var(--ember)" },
+    { y: "98%", dur: 1.6, delay: 1.8, color: "var(--cyan)" },
   ];
 
   return (
@@ -112,7 +128,8 @@ export function CircuitBackground() {
               />
             </line>
           ))}
-          {/* mobile-only extra density */}
+          {/* mobile-only dense rows: short cycle (~1.4s) so a pulse is nearly
+              always crossing when the user scrolls to any empty space */}
           {mobilePulses.map((p, i) => (
             <line
               key={`m-${i}`}
@@ -122,14 +139,14 @@ export function CircuitBackground() {
               x2="100%"
               y2={p.y}
               stroke={p.color}
-              strokeWidth="1.6"
+              strokeWidth="1.4"
               strokeLinecap="round"
-              strokeDasharray="70 4000"
+              strokeDasharray="60 800"
             >
               <animate
                 attributeName="stroke-dashoffset"
                 from="0"
-                to="-4070"
+                to="-860"
                 dur={`${p.dur}s`}
                 begin={`${p.delay}s`}
                 repeatCount="indefinite"
