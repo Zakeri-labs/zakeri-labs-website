@@ -28,6 +28,19 @@ export function CircuitBackground() {
     { y: "90%", dur: 6, delay: 3.6, color: "var(--ember)" },
   ];
 
+  // Extra pulses shown only on mobile/tablet (hidden at lg+), interleaved
+  // between the rows above to fill the larger section/card gaps on small screens.
+  const mobilePulses = [
+    { y: "4%", dur: 6.4, delay: 2, color: "var(--cyan)" },
+    { y: "14%", dur: 5.8, delay: 0.8, color: "var(--ember)" },
+    { y: "27%", dur: 7.2, delay: 3.2, color: "var(--primary)" },
+    { y: "41%", dur: 6, delay: 1.5, color: "var(--cyan)" },
+    { y: "55%", dur: 7.6, delay: 2.7, color: "var(--ember)" },
+    { y: "69%", dur: 5.6, delay: 0.4, color: "var(--primary)" },
+    { y: "83%", dur: 7, delay: 3.4, color: "var(--cyan)" },
+    { y: "96%", dur: 6.6, delay: 1.1, color: "var(--primary)" },
+  ];
+
   return (
     <div
       aria-hidden="true"
@@ -80,6 +93,30 @@ export function CircuitBackground() {
           {pulses.map((p, i) => (
             <line
               key={i}
+              x1="0"
+              y1={p.y}
+              x2="100%"
+              y2={p.y}
+              stroke={p.color}
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeDasharray="70 4000"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from="0"
+                to="-4070"
+                dur={`${p.dur}s`}
+                begin={`${p.delay}s`}
+                repeatCount="indefinite"
+              />
+            </line>
+          ))}
+          {/* mobile-only extra density */}
+          {mobilePulses.map((p, i) => (
+            <line
+              key={`m-${i}`}
+              className="lg:hidden"
               x1="0"
               y1={p.y}
               x2="100%"
