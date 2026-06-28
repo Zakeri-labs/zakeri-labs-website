@@ -36,6 +36,7 @@ import { Card } from "@/components/ui/card";
 import { SectionBadge } from "@/components/site/SectionBadge";
 import { BrowserMockup } from "@/components/site/BrowserMockup";
 import { ContactForm } from "@/components/site/ContactForm";
+import { CircuitBackground } from "@/components/site/CircuitBackground";
 import { SITE } from "@/lib/site";
 
 const fade = {
@@ -49,12 +50,17 @@ export function HomePage() {
   return (
     <>
       <Hero />
-      <TrustBar />
-      <ProblemSolution />
-      <Services />
-      <CaseStudies />
-      <Testimonials />
-      <FinalCTA />
+      <div className="relative">
+        <CircuitBackground />
+        <div className="relative z-10">
+          <TrustBar />
+          <ProblemSolution />
+          <Services />
+          <CaseStudies />
+          <Testimonials />
+          <FinalCTA />
+        </div>
+      </div>
     </>
   );
 }

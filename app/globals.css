@@ -188,11 +188,27 @@
 }
 
 @keyframes heartbeat {
-  0%, 100% { opacity: 0.12; transform: scale(1); }
-  15%       { opacity: 0.5;  transform: scale(1.07); }
-  30%       { opacity: 0.12; transform: scale(1); }
-  45%       { opacity: 0.35; transform: scale(1.04); }
-  65%       { opacity: 0.08; transform: scale(1); }
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: scale(1);
+  }
+  15% {
+    opacity: 0.5;
+    transform: scale(1.07);
+  }
+  30% {
+    opacity: 0.12;
+    transform: scale(1);
+  }
+  45% {
+    opacity: 0.35;
+    transform: scale(1.04);
+  }
+  65% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
 }
 .animate-heartbeat {
   animation: heartbeat 2.4s ease-in-out infinite;
