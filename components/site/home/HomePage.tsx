@@ -99,7 +99,7 @@ function Hero() {
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium text-primary">
             <Sparkles className="h-3 w-3" /> {t("hero.badge")}
           </span>
-          <h1 className="mt-5 max-w-[15rem] font-display text-4xl font-bold leading-[1.05] text-foreground sm:max-w-none sm:text-5xl lg:text-[3.5rem]">
+          <h1 className="mt-5 max-w-[12rem] font-display text-3xl font-bold leading-[1.05] text-foreground sm:max-w-none sm:text-5xl lg:text-[3.5rem]">
             {t("hero.titlePre")}
             <span className="gradient-text">{t("hero.titleHl")}</span>
             {t("hero.titlePost")}
@@ -108,11 +108,7 @@ function Hero() {
             {t("hero.desc")}
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <Button
-              asChild
-              size="lg"
-              className="w-full shadow-[var(--shadow-elegant)] sm:w-auto"
-            >
+            <Button asChild size="lg" className="w-full shadow-[var(--shadow-elegant)] sm:w-auto">
               <Link href="/contact">
                 {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
               </Link>
