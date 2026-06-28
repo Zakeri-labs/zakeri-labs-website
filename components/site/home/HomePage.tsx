@@ -38,6 +38,7 @@ import { BrowserMockup } from "@/components/site/BrowserMockup";
 import { ContactForm } from "@/components/site/ContactForm";
 import { CircuitBackground } from "@/components/site/CircuitBackground";
 import { SITE } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 
 const fade = {
   initial: false,
@@ -67,6 +68,7 @@ export function HomePage() {
 
 /* ---------- 1. HERO ---------- */
 function Hero() {
+  const { t } = useI18n();
   return (
     <section className="relative -mt-[68px] flex min-h-[100svh] items-center overflow-hidden">
       {/* Cinematic full-bleed background image */}
@@ -89,31 +91,28 @@ function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-36 sm:px-6 lg:px-8 lg:pb-32 lg:pt-44">
         <motion.div {...fade} className="max-w-xl lg:max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium text-primary">
-            <Sparkles className="h-3 w-3" /> AI Website Growth Infrastructure
+            <Sparkles className="h-3 w-3" /> {t("hero.badge")}
           </span>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] text-foreground sm:text-5xl lg:text-[3.5rem]">
-            Websites Built to Drive <span className="gradient-text">Traffic, Trust, Leads</span> &
-            Search Visibility.
+            {t("hero.titlePre")}
+            <span className="gradient-text">{t("hero.titleHl")}</span>
+            {t("hero.titlePost")}
           </h1>
-          <p className="mt-5 max-w-xl text-base text-muted-foreground">
-            We design premium websites as growth systems — combining strategy, SEO, AI-ready
-            content, conversion flow, and lead capture.
-          </p>
+          <p className="mt-5 max-w-xl text-base text-muted-foreground">{t("hero.desc")}</p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="shadow-[var(--shadow-elegant)]">
               <Link href="/contact">
-                Book a Growth Audit <ArrowRight className="ms-2 h-4 w-4" />
+                {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <a href="#solution">
-                <PlayCircle className="me-2 h-4 w-4" /> See the System
+                <PlayCircle className="me-2 h-4 w-4" /> {t("cta.system")}
               </a>
             </Button>
           </div>
           <p className="mt-5 inline-flex items-center gap-2 text-xs text-muted-foreground">
-            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> For businesses that need more than
-            a beautiful website.
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> {t("hero.note")}
           </p>
         </motion.div>
       </div>
@@ -123,29 +122,27 @@ function Hero() {
 
 /* ---------- 2. TRUST BAR ---------- */
 function TrustBar() {
+  const { t } = useI18n();
   const [isMarqueePaused, setIsMarqueePaused] = useState(false);
   const items = [
-    { icon: Compass, label: "Website Strategy" },
-    { icon: Target, label: "Conversion Strategy & Planning" },
-    { icon: Search, label: "SEO-Ready Structure" },
-    { icon: Bot, label: "AI Search / GEO / AEO Visibility" },
-    { icon: Sparkles, label: "AI-Ready Content" },
-    { icon: Inbox, label: "Lead Generation & Capture" },
-    { icon: AppWindow, label: "Web Applications" },
-    { icon: BarChart3, label: "Analytics Path" },
+    { icon: Compass, label: t("trust.item.strategy") },
+    { icon: Target, label: t("trust.item.conversion") },
+    { icon: Search, label: t("trust.item.seo") },
+    { icon: Bot, label: t("trust.item.aiSearch") },
+    { icon: Sparkles, label: t("trust.item.aiContent") },
+    { icon: Inbox, label: t("trust.item.lead") },
+    { icon: AppWindow, label: t("trust.item.webapp") },
+    { icon: BarChart3, label: t("trust.item.analytics") },
   ];
   return (
     <section className="border-y border-border bg-background/40 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div {...fade} className="text-center">
-          <SectionBadge>Built for Visibility, Trust, and Conversion</SectionBadge>
+          <SectionBadge>{t("trust.badge")}</SectionBadge>
           <h2 className="mx-auto mt-3 max-w-2xl text-2xl font-bold sm:text-3xl">
-            Built for Growth, Not Decoration
+            {t("trust.title")}
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">
-            Every page, section, and CTA is planned to help your website attract, explain, and
-            convert.
-          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">{t("trust.desc")}</p>
         </motion.div>
 
         <motion.div
@@ -171,9 +168,7 @@ function TrustBar() {
           </div>
         </motion.div>
 
-        <p className="mt-8 text-center text-xs text-muted-foreground/80">
-          Every section, page, and CTA is planned around business growth — not decoration.
-        </p>
+        <p className="mt-8 text-center text-xs text-muted-foreground/80">{t("trust.foot")}</p>
       </div>
     </section>
   );
@@ -181,59 +176,20 @@ function TrustBar() {
 
 /* ---------- 3. PROBLEM + SOLUTION ---------- */
 function ProblemSolution() {
+  const { t } = useI18n();
   const problems = [
-    {
-      icon: TrendingUp,
-      title: "No Qualified Traffic",
-      desc: "The right people are not finding you.",
-    },
-    {
-      icon: UserX,
-      title: "No Trust Architecture",
-      desc: "Visitors do not see enough proof to believe.",
-    },
-    {
-      icon: RouteIcon,
-      title: "No Conversion Path",
-      desc: "Interest disappears without a clear next step.",
-    },
-    {
-      icon: CircleAlert,
-      title: "No AI/Search Visibility",
-      desc: "Your business is not structured for modern discovery.",
-    },
+    { icon: TrendingUp, title: t("problem.1.title"), desc: t("problem.1.desc") },
+    { icon: UserX, title: t("problem.2.title"), desc: t("problem.2.desc") },
+    { icon: RouteIcon, title: t("problem.3.title"), desc: t("problem.3.desc") },
+    { icon: CircleAlert, title: t("problem.4.title"), desc: t("problem.4.desc") },
   ];
   const solutions = [
-    {
-      icon: Workflow,
-      title: "Conversion-Focused Structure",
-      desc: "Planned around visitor intent, decision flow and clear CTAs.",
-    },
-    {
-      icon: Layers,
-      title: "SEO-Ready Architecture",
-      desc: "Structured for long-term search performance.",
-    },
-    {
-      icon: Sparkles,
-      title: "AI-Ready Content",
-      desc: "Organized to be understood and surfaced by AI and search engines.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Trust-Building Sections",
-      desc: "Proof, positioning, case studies, FAQs and authority signals.",
-    },
-    {
-      icon: Inbox,
-      title: "Lead Capture System",
-      desc: "Forms, WhatsApp, offers and clear inquiry paths.",
-    },
-    {
-      icon: BarChart3,
-      title: "Analytics & Improvement Path",
-      desc: "Measurement, review and optimization for continuous growth.",
-    },
+    { icon: Workflow, title: t("solution.1.title"), desc: t("solution.1.desc") },
+    { icon: Layers, title: t("solution.2.title"), desc: t("solution.2.desc") },
+    { icon: Sparkles, title: t("solution.3.title"), desc: t("solution.3.desc") },
+    { icon: ShieldCheck, title: t("solution.4.title"), desc: t("solution.4.desc") },
+    { icon: Inbox, title: t("solution.5.title"), desc: t("solution.5.desc") },
+    { icon: BarChart3, title: t("solution.6.title"), desc: t("solution.6.desc") },
   ];
 
   return (
@@ -244,10 +200,10 @@ function ProblemSolution() {
           <Card className="glass-card relative flex h-full flex-col justify-between overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-ember/80 to-transparent" />
             <div>
-              <SectionBadge tone="ember">Growth Gaps</SectionBadge>
+              <SectionBadge tone="ember">{t("problem.badge")}</SectionBadge>
               <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
-                Most Websites Look Fine,
-                <br /> But Don&apos;t Create Growth.
+                {t("problem.title1")}
+                <br /> {t("problem.title2")}
               </h2>
               <ul className="mt-7 space-y-5">
                 {problems.map((p, i) => (
@@ -270,7 +226,7 @@ function ProblemSolution() {
               className="mt-8 w-full justify-between border-ember/40 text-ember hover:bg-ember/10 hover:text-ember sm:w-auto sm:text-sm"
             >
               <Link href="/contact">
-                Find the Gaps in My Website <ArrowRight className="ms-2 h-4 w-4" />
+                {t("problem.cta")} <ArrowRight className="ms-2 h-4 w-4" />
               </Link>
             </Button>
           </Card>
@@ -301,15 +257,15 @@ function ProblemSolution() {
               className="relative z-10 hidden w-24 flex-col items-center gap-1 rounded-md border border-white/15 bg-background/20 py-2 shadow-[var(--shadow-elegant)] backdrop-blur-[2px] lg:flex"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember">
-                Diagnose
+                {t("bridge.diagnose")}
               </span>
               <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                Structure
+                {t("bridge.structure")}
               </span>
               <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
-                Convert
+                {t("bridge.convert")}
               </span>
             </div>
             <div
@@ -317,15 +273,15 @@ function ProblemSolution() {
               className="relative z-10 flex flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 px-4 py-2 shadow-[var(--shadow-elegant)] backdrop-blur lg:hidden"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember sm:tracking-[0.16em]">
-                Diagnose
+                {t("bridge.diagnose")}
               </span>
               <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:tracking-[0.16em]">
-                Structure
+                {t("bridge.structure")}
               </span>
               <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary sm:tracking-[0.16em]">
-                Convert
+                {t("bridge.convert")}
               </span>
             </div>
             <div className="relative z-10 h-12 w-8 lg:hidden" aria-hidden="true">
@@ -341,9 +297,9 @@ function ProblemSolution() {
           <Card className="glass-card relative flex h-full flex-col justify-between overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/80 to-transparent" />
             <div>
-              <SectionBadge>Core Solution</SectionBadge>
+              <SectionBadge>{t("solution.badge")}</SectionBadge>
               <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl lg:text-[2rem]">
-                Website as Growth Infrastructure
+                {t("solution.title")}
               </h2>
               <ul className="mt-7 space-y-4">
                 {solutions.map((s, i) => (
@@ -368,7 +324,7 @@ function ProblemSolution() {
                 className="relative w-full justify-between border-primary/40 text-primary hover:bg-primary/10 hover:text-primary sm:text-sm"
               >
                 <Link href="/contact">
-                  Let&apos;s Build Your Growth Engine <ArrowRight className="ms-2 h-4 w-4" />
+                  {t("solution.cta")} <ArrowRight className="ms-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -381,47 +337,47 @@ function ProblemSolution() {
 
 /* ---------- 4. SERVICES ---------- */
 function Services() {
+  const { t } = useI18n();
   const services = [
     {
       icon: Globe2,
       image: "/GEO-AEO-Ranking.png",
-      title: "GEO & AEO Ranking",
-      desc: "Improve how your business appears in Google, AI search, answer engines, and modern discovery platforms.",
-      cta: "Improve Visibility",
+      title: t("engines.1.title"),
+      desc: t("engines.1.desc"),
+      cta: t("engines.1.cta"),
     },
     {
       icon: Bot,
       image: "/AI-Solution.png",
-      title: "AI Solution",
-      desc: "Add practical AI workflows, automation systems, content processes, and customer-facing tools.",
-      cta: "Explore AI Systems",
+      title: t("engines.2.title"),
+      desc: t("engines.2.desc"),
+      cta: t("engines.2.cta"),
     },
     {
       icon: AppWindow,
       image: "/Website-Web Application.png",
-      title: "Website & Web Application",
-      desc: "Build premium websites, landing pages, portals, and lightweight web applications tailored to your offer.",
-      cta: "Build the Platform",
+      title: t("engines.3.title"),
+      desc: t("engines.3.desc"),
+      cta: t("engines.3.cta"),
     },
     {
       icon: Sparkles,
       image: "/AI-Visibility.png",
-      title: "AI Visibility",
-      desc: "Make your business easier for AI systems to understand, categorize, recommend, and explain.",
-      cta: "Get AI-Ready",
+      title: t("engines.4.title"),
+      desc: t("engines.4.desc"),
+      cta: t("engines.4.cta"),
     },
   ];
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div {...fade} className="text-center">
-          <SectionBadge>Growth Engines</SectionBadge>
+          <SectionBadge>{t("engines.badge")}</SectionBadge>
           <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold sm:text-4xl">
-            The Engines Behind Every High-Performing Website
+            {t("engines.title")}
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">
-            Strategy, technology, and visibility working together to help your business attract the
-            right audience, build trust faster, and turn visitors into leads.
+            {t("engines.desc")}
           </p>
         </motion.div>
 
@@ -455,7 +411,7 @@ function Services() {
         <div className="mt-10 text-center">
           <Button asChild variant="outline">
             <Link href="/services">
-              Explore All Services <ArrowRight className="ms-2 h-4 w-4" />
+              {t("engines.cta")} <ArrowRight className="ms-2 h-4 w-4" />
             </Link>
           </Button>
         </div>
@@ -466,33 +422,14 @@ function Services() {
 
 /* ---------- 5. CASE STUDIES ---------- */
 const cases = [
-  {
-    industry: "Real Estate",
-    image: "/case-realestate.png",
-    title: "Property Website Built for Trust and Lead Capture",
-    desc: "Designed to present listings, developer credibility, project details, and inquiry paths in a more professional and conversion-focused way.",
-  },
-  {
-    industry: "Clinic / Healthcare",
-    image: "/case-clinic.png",
-    title: "Clinic Website Built for Trust and Appointment Booking",
-    desc: "Designed to present services, doctor credibility, patient trust signals, and clear booking paths.",
-  },
-  {
-    industry: "B2B Consulting",
-    image: "/case-consulting.png",
-    title: "B2B Website Built for Credibility and Inquiries",
-    desc: "Created to help a consulting business present services, company trust, and professional inquiry channels.",
-  },
-  {
-    industry: "Personal Brand",
-    image: "/case-personal.png",
-    title: "Personal Brand Hub Built for Lead Generation",
-    desc: "Organized scattered content, offers, and contact paths into one clear website funnel for audience conversions.",
-  },
+  { key: "cases.1", image: "/case-realestate.png" },
+  { key: "cases.2", image: "/case-clinic.png" },
+  { key: "cases.3", image: "/case-consulting.png" },
+  { key: "cases.4", image: "/case-personal.png" },
 ];
 
 function CaseStudies() {
+  const { t } = useI18n();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: "left" | "right") => {
@@ -508,19 +445,14 @@ function CaseStudies() {
         {/* Header row — full width with arrows on the right */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <motion.div {...fade}>
-            <SectionBadge>Proof of Execution</SectionBadge>
-            <h2 className="mt-3 font-display text-3xl font-bold lg:text-4xl">
-              Websites We&apos;ve Designed and Deployed
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
-              Real projects, clear execution, and practical growth systems for businesses that need
-              stronger websites, better positioning, and smarter search visibility.
-            </p>
+            <SectionBadge>{t("cases.badge")}</SectionBadge>
+            <h2 className="mt-3 font-display text-3xl font-bold lg:text-4xl">{t("cases.title")}</h2>
+            <p className="mt-4 max-w-2xl text-sm text-muted-foreground">{t("cases.desc")}</p>
           </motion.div>
 
           <div className="flex items-center gap-2">
             <Button asChild variant="outline">
-              <Link href="/insights">View All Case Studies</Link>
+              <Link href="/insights">{t("cases.viewAll")}</Link>
             </Button>
             <button
               onClick={() => scroll("left")}
@@ -557,7 +489,7 @@ function CaseStudies() {
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-background">
                     <Image
                       src={c.image}
-                      alt={c.title}
+                      alt={t(`${c.key}.title`)}
                       fill
                       className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
@@ -565,15 +497,15 @@ function CaseStudies() {
                   {/* Content */}
                   <div className="flex shrink-0 flex-col px-4 pb-4 pt-2">
                     <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                      {c.industry}
+                      {t(`${c.key}.industry`)}
                     </span>
-                    <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
+                    <h3 className="text-sm font-semibold leading-snug">{t(`${c.key}.title`)}</h3>
                     <div className="mt-8 flex justify-center">
                       <Link
                         href="/insights"
                         className="inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
                       >
-                        View Case Study <ArrowRight className="h-3 w-3" />
+                        {t("cases.view")} <ArrowRight className="h-3 w-3" />
                       </Link>
                     </div>
                   </div>
@@ -589,27 +521,25 @@ function CaseStudies() {
 
 /* ---------- 6. TESTIMONIALS ---------- */
 function Testimonials() {
+  const { t } = useI18n();
   const items = [
     {
-      quote:
-        "The website finally explains what we do clearly and gives visitors a reason to contact us.",
-      name: "Client Name Placeholder",
-      role: "Founder / Managing Director",
-      company: "Company Placeholder",
+      quote: t("testimonials.1.quote"),
+      name: t("testimonials.namePlaceholder"),
+      role: t("testimonials.1.role"),
+      company: t("testimonials.companyPlaceholder"),
     },
     {
-      quote:
-        "The structure helped us move from a basic online presence to a more serious lead-generation system.",
-      name: "Client Name Placeholder",
-      role: "Marketing Lead",
-      company: "Company Placeholder",
+      quote: t("testimonials.2.quote"),
+      name: t("testimonials.namePlaceholder"),
+      role: t("testimonials.2.role"),
+      company: t("testimonials.companyPlaceholder"),
     },
     {
-      quote:
-        "The process was strategic, clear, and focused on business outcomes instead of just design.",
-      name: "Client Name Placeholder",
-      role: "Business Owner",
-      company: "Company Placeholder",
+      quote: t("testimonials.3.quote"),
+      name: t("testimonials.namePlaceholder"),
+      role: t("testimonials.3.role"),
+      company: t("testimonials.companyPlaceholder"),
     },
   ];
   return (
@@ -643,45 +573,38 @@ function Testimonials() {
 
 /* ---------- 7. FINAL CTA ---------- */
 function FinalCTA() {
+  const { t } = useI18n();
   return (
     <section id="contact" className="pb-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Card className="glass-card grid gap-10 overflow-hidden border-0 p-8 lg:grid-cols-2 lg:p-12">
           <div>
-            <SectionBadge>Start the Growth Audit</SectionBadge>
+            <SectionBadge>{t("finalcta.badge")}</SectionBadge>
             <h2 className="mt-3 font-display text-3xl font-bold leading-tight lg:text-4xl">
-              Ready to Turn Your Website Into a Growth Engine?
+              {t("finalcta.title")}
             </h2>
-            <p className="mt-4 max-w-md text-sm text-muted-foreground">
-              If your current website is not bringing qualified traffic, building trust, generating
-              leads, or supporting search and AI visibility, it may be time to rebuild it as a
-              business system.
-            </p>
+            <p className="mt-4 max-w-md text-sm text-muted-foreground">{t("finalcta.desc")}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button asChild size="lg">
                 <Link href="/contact">
-                  Book a Growth Audit <ArrowRight className="ms-2 h-4 w-4" />
+                  {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a href={SITE.whatsapp} target="_blank" rel="noreferrer">
-                  <MessageCircle className="me-2 h-4 w-4" /> Contact on WhatsApp
+                  <MessageCircle className="me-2 h-4 w-4" /> {t("cta.whatsapp")}
                 </a>
               </Button>
             </div>
             <p className="mt-6 flex items-start gap-2 text-xs text-muted-foreground">
               <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-              Best for businesses that need a premium website, stronger positioning, better search
-              visibility, and a clear path to more qualified inquiries.
+              {t("finalcta.note")}
             </p>
           </div>
 
           <div className="rounded-lg border border-border bg-background/40 p-6">
-            <h3 className="text-base font-semibold">Tell Us About Your Website</h3>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Share your current website, business goal, and the growth problem you want to solve.
-              We&apos;ll review the opportunity and suggest the best next step.
-            </p>
+            <h3 className="text-base font-semibold">{t("finalcta.formTitle")}</h3>
+            <p className="mt-1 text-xs text-muted-foreground">{t("finalcta.formDesc")}</p>
             <div className="mt-5">
               <ContactForm />
             </div>

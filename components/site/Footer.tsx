@@ -32,7 +32,7 @@ export function Footer() {
             </div>
           </div>
           <FooterCol
-            title="Navigate"
+            title={t("footer.col.navigate")}
             items={[
               { to: "/", label: t("nav.home") },
               { to: "/services", label: t("nav.services") },
@@ -43,17 +43,19 @@ export function Footer() {
             ]}
           />
           <FooterCol
-            title="Services"
+            title={t("footer.col.services")}
             items={[
-              { to: "/services", label: "Website Strategy" },
-              { to: "/services", label: "SEO Structure" },
-              { to: "/services", label: "GEO / AEO" },
-              { to: "/services", label: "AI Visibility" },
-              { to: "/services", label: "Web Applications" },
+              { to: "/services", label: t("footer.svc.strategy") },
+              { to: "/services", label: t("footer.svc.seo") },
+              { to: "/services", label: t("footer.svc.geo") },
+              { to: "/services", label: t("footer.svc.ai") },
+              { to: "/services", label: t("footer.svc.webapp") },
             ]}
           />
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-foreground">Contact</h4>
+            <h4 className="mb-3 text-sm font-semibold text-foreground">
+              {t("footer.col.contact")}
+            </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>{SITE.phone}</li>
               <li>{SITE.email}</li>
@@ -64,7 +66,7 @@ export function Footer() {
                   rel="noreferrer"
                   className="text-primary hover:underline"
                 >
-                  WhatsApp Us
+                  {t("footer.whatsappUs")}
                 </a>
               </li>
             </ul>

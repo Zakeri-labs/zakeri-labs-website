@@ -25,7 +25,7 @@ export function ContactForm() {
     setTimeout(() => {
       setLoading(false);
       (e.target as HTMLFormElement).reset();
-      toast.success("Request received — we'll be in touch shortly.");
+      toast.success(t("form.toast"));
     }, 600);
   }
 
@@ -46,11 +46,11 @@ export function ContactForm() {
             <SelectValue placeholder={t("form.goal")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="traffic">More Qualified Traffic</SelectItem>
-            <SelectItem value="leads">Generate More Leads</SelectItem>
-            <SelectItem value="trust">Build Trust & Authority</SelectItem>
-            <SelectItem value="ai">AI / Search Visibility</SelectItem>
-            <SelectItem value="rebuild">Rebuild Existing Website</SelectItem>
+            <SelectItem value="traffic">{t("form.goal.traffic")}</SelectItem>
+            <SelectItem value="leads">{t("form.goal.leads")}</SelectItem>
+            <SelectItem value="trust">{t("form.goal.trust")}</SelectItem>
+            <SelectItem value="ai">{t("form.goal.ai")}</SelectItem>
+            <SelectItem value="rebuild">{t("form.goal.rebuild")}</SelectItem>
           </SelectContent>
         </Select>
         <Select name="budget">
@@ -58,10 +58,10 @@ export function ContactForm() {
             <SelectValue placeholder={t("form.budget")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="s">Under $3K</SelectItem>
-            <SelectItem value="m">$3K – $8K</SelectItem>
-            <SelectItem value="l">$8K – $20K</SelectItem>
-            <SelectItem value="xl">$20K+</SelectItem>
+            <SelectItem value="s">{t("form.budget.s")}</SelectItem>
+            <SelectItem value="m">{t("form.budget.m")}</SelectItem>
+            <SelectItem value="l">{t("form.budget.l")}</SelectItem>
+            <SelectItem value="xl">{t("form.budget.xl")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -72,7 +72,7 @@ export function ContactForm() {
         className="bg-background/40"
       />
       <Button type="submit" disabled={loading} className="w-full">
-        {loading ? "Sending..." : t("cta.send")}
+        {loading ? t("cta.sending") : t("cta.send")}
         <Send className="ms-2 h-4 w-4" />
       </Button>
     </form>
