@@ -246,11 +246,17 @@ function ProblemSolution() {
           transition={{ duration: 0.5, delay: 0.06 }}
           className="relative flex items-center justify-center lg:self-stretch"
         >
-          <div className="relative flex min-h-16 w-full flex-col items-center justify-end lg:min-h-0 lg:w-28 lg:justify-center">
-            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-ember/60 via-primary/60 to-primary/20 lg:hidden" />
-            <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full border border-ember/70 bg-background lg:hidden" />
-            <span className="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full border border-primary/70 bg-background lg:hidden" />
-            {/* Arrow — extends 16px beyond each side of box so endpoints are visible */}
+          <div className="relative flex min-h-16 w-full flex-col items-center justify-center lg:min-h-0 lg:w-28">
+            {/* Mobile connector — vertical, behind the box (top → bottom) */}
+            <div
+              className="absolute -inset-y-4 left-1/2 z-0 w-8 -translate-x-1/2 lg:hidden"
+              aria-hidden="true"
+            >
+              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
+              <span className="absolute bottom-3 top-2 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-ember via-primary/80 to-primary shadow-[0_0_14px_rgba(65,145,255,0.55)]" />
+              <span className="absolute bottom-0 left-1/2 h-0 w-0 -translate-x-1/2 border-x-[6px] border-t-[11px] border-x-transparent border-t-primary drop-shadow-[0_0_8px_rgba(65,145,255,0.75)]" />
+            </div>
+            {/* Desktop arrow — extends 16px beyond each side of box so endpoints are visible */}
             <div
               data-testid="growth-card-connector"
               className="absolute -inset-x-4 top-1/2 z-0 hidden h-8 -translate-y-1/2 lg:block"
@@ -263,7 +269,7 @@ function ProblemSolution() {
             {/* Box — z-10, sits on top of arrow, 4px top padding */}
             <div
               data-testid="growth-bridge-desktop"
-              className="relative z-10 hidden w-24 flex-col items-center gap-1 rounded-md border border-white/15 bg-background/20 py-2 shadow-[var(--shadow-elegant)] backdrop-blur-[2px] lg:flex"
+              className="relative z-10 hidden w-24 flex-col items-center gap-1 rounded-md border border-white/15 bg-background/30 py-2 shadow-[var(--shadow-elegant)] backdrop-blur-[2px] lg:flex"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember">
                 {t("bridge.diagnose")}
@@ -279,7 +285,7 @@ function ProblemSolution() {
             </div>
             <div
               data-testid="growth-bridge-mobile"
-              className="relative z-10 flex flex-col items-center gap-1 rounded-md border border-primary/20 bg-background/95 px-4 py-2 shadow-[var(--shadow-elegant)] backdrop-blur lg:hidden"
+              className="relative z-10 flex w-24 flex-col items-center gap-1 rounded-md border border-white/15 bg-background/30 py-2 shadow-[var(--shadow-elegant)] backdrop-blur-[2px] lg:hidden"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember sm:tracking-[0.16em]">
                 {t("bridge.diagnose")}
@@ -292,11 +298,6 @@ function ProblemSolution() {
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary sm:tracking-[0.16em]">
                 {t("bridge.convert")}
               </span>
-            </div>
-            <div className="relative z-10 h-12 w-8 lg:hidden" aria-hidden="true">
-              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-ember/80 bg-background shadow-[0_0_12px_rgba(255,105,75,0.45)]" />
-              <span className="absolute bottom-3 top-2 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-ember via-primary/80 to-primary shadow-[0_0_14px_rgba(65,145,255,0.55)]" />
-              <span className="absolute bottom-0 left-1/2 h-0 w-0 -translate-x-1/2 border-x-[6px] border-t-[11px] border-x-transparent border-t-primary drop-shadow-[0_0_8px_rgba(65,145,255,0.75)]" />
             </div>
           </div>
         </motion.div>
