@@ -232,7 +232,7 @@ function ProblemSolution() {
 
   return (
     <section id="solution" className="py-20 lg:py-28">
-      <div className="relative mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_10rem_minmax(0,1fr)] lg:gap-6 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_7rem_minmax(0,1fr)] lg:gap-6 lg:px-8">
         {/* Problem card */}
         <motion.div {...fade}>
           <Card className="glass-card relative flex h-full flex-col justify-between overflow-hidden border-0 p-6 sm:p-8 lg:p-10">
@@ -275,7 +275,7 @@ function ProblemSolution() {
           transition={{ duration: 0.5, delay: 0.06 }}
           className="relative flex items-center justify-center lg:self-stretch"
         >
-          <div className="relative flex min-h-16 w-full flex-col items-center justify-end lg:min-h-0 lg:w-36 lg:justify-center">
+          <div className="relative flex min-h-16 w-full flex-col items-center justify-end lg:min-h-0 lg:w-28 lg:justify-center">
             <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-ember/60 via-primary/60 to-primary/20 lg:hidden" />
             <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full border border-ember/70 bg-background lg:hidden" />
             <span className="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full border border-primary/70 bg-background lg:hidden" />
