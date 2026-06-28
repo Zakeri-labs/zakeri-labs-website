@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  ArrowDown,
   PlayCircle,
   ChevronLeft,
   ChevronRight,
@@ -274,11 +273,9 @@ function ProblemSolution() {
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember">
                 {t("bridge.diagnose")}
               </span>
-              <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 {t("bridge.structure")}
               </span>
-              <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
                 {t("bridge.convert")}
               </span>
@@ -290,11 +287,9 @@ function ProblemSolution() {
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-ember sm:tracking-[0.16em]">
                 {t("bridge.diagnose")}
               </span>
-              <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:tracking-[0.16em]">
                 {t("bridge.structure")}
               </span>
-              <ArrowDown className="h-3 w-3 text-muted-foreground" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary sm:tracking-[0.16em]">
                 {t("bridge.convert")}
               </span>
