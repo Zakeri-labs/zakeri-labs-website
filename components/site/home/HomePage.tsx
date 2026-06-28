@@ -76,18 +76,18 @@ function Hero() {
         alt="Zakeri Labs – AI Website Growth Infrastructure"
         fill
         priority
-        className="object-cover object-center rtl:-scale-x-100 lg:hidden"
+        className="object-cover object-[60%_top] translate-y-8 rtl:-scale-x-100 lg:hidden"
       />
       <Image
         src="/hero-image.png"
         alt="Zakeri Labs – AI Website Growth Infrastructure"
         fill
         priority
-        className="hidden object-cover object-center rtl:-scale-x-100 lg:block"
+        className="hidden object-cover object-top rtl:-scale-x-100 lg:block lg:translate-y-12"
       />
 
-      {/* Side gradient — keeps text readable; flips to the right edge in RTL */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10 rtl:bg-gradient-to-l" />
+      {/* Side gradient — keeps text readable; lighter on desktop, flips to the right edge in RTL */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10 rtl:bg-gradient-to-l lg:via-background/45 lg:to-transparent" />
       {/* Top fade — blends behind the header */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/70 to-transparent" />
       {/* Bottom fade — blends into next section */}
