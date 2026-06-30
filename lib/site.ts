@@ -5,5 +5,5 @@ export const SITE = {
   phone: "+971 50 715 8137",
   phoneRaw: "971507158137",
   whatsapp: "https://wa.me/971507158137",
-  email: "hello@zakerilabs.com",
+  email: "contact@zakeri.dev",
 };
