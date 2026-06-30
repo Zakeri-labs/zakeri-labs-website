@@ -60,7 +60,7 @@ export function CircuitBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-0 overflow-hidden opacity-40"
+      className="pointer-events-none absolute inset-0 -z-0 overflow-hidden opacity-50"
       style={{
         // Organic, non-uniform visibility: bright patches at the radial centers
         // (full intensity, like before) fading to a very faint base in between,
