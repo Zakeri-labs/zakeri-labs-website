@@ -40,10 +40,20 @@ import { SITE } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 
 const fade = {
-  initial: false,
+  "data-aos": "fade-up",
+  initial: { opacity: 0, y: 34 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
+  viewport: { once: true, amount: 0.18, margin: "-80px" },
   transition: { duration: 0.5, ease: "easeOut" as const },
+};
+
+const flipUp = {
+  "data-aos": "flip-up",
+  initial: { opacity: 0, rotateX: 12, y: 42 },
+  whileInView: { opacity: 1, rotateX: 0, y: 0 },
+  viewport: { once: true, amount: 0.25, margin: "-80px" },
+  transition: { duration: 1.05, ease: "easeOut" as const },
+  style: { transformPerspective: 1200, transformOrigin: "center bottom" },
 };
 
 export function HomePage() {
@@ -582,39 +592,41 @@ function FinalCTA() {
   return (
     <section id="contact" className="pb-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Card className="glass-card grid gap-10 overflow-hidden border-0 p-8 lg:grid-cols-2 lg:p-12">
-          <div>
-            <SectionBadge>{t("finalcta.badge")}</SectionBadge>
-            <h2 className="mt-3 font-display text-3xl font-bold leading-tight lg:text-4xl">
-              {t("finalcta.title")}
-            </h2>
-            <p className="mt-4 max-w-md text-sm text-muted-foreground">{t("finalcta.desc")}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link href="/contact">
-                  {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={SITE.whatsapp} target="_blank" rel="noreferrer">
-                  <MessageCircle className="me-2 h-4 w-4" /> {t("cta.whatsapp")}
-                </a>
-              </Button>
+        <motion.div {...flipUp}>
+          <Card className="glass-card grid gap-10 overflow-hidden border-0 p-8 lg:grid-cols-2 lg:p-12">
+            <div>
+              <SectionBadge>{t("finalcta.badge")}</SectionBadge>
+              <h2 className="mt-3 font-display text-3xl font-bold leading-tight lg:text-4xl">
+                {t("finalcta.title")}
+              </h2>
+              <p className="mt-4 max-w-md text-sm text-muted-foreground">{t("finalcta.desc")}</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button asChild size="lg">
+                  <Link href="/contact">
+                    {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <a href={SITE.whatsapp} target="_blank" rel="noreferrer">
+                    <MessageCircle className="me-2 h-4 w-4" /> {t("cta.whatsapp")}
+                  </a>
+                </Button>
+              </div>
+              <p className="mt-6 flex items-start gap-2 text-xs text-muted-foreground">
+                <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                {t("finalcta.note")}
+              </p>
             </div>
-            <p className="mt-6 flex items-start gap-2 text-xs text-muted-foreground">
-              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-              {t("finalcta.note")}
-            </p>
-          </div>
 
-          <div className="rounded-lg border border-border bg-background/40 p-6">
-            <h3 className="text-base font-semibold">{t("finalcta.formTitle")}</h3>
-            <p className="mt-1 text-xs text-muted-foreground">{t("finalcta.formDesc")}</p>
-            <div className="mt-5">
-              <ContactForm />
+            <div className="rounded-lg border border-border bg-background/40 p-6">
+              <h3 className="text-base font-semibold">{t("finalcta.formTitle")}</h3>
+              <p className="mt-1 text-xs text-muted-foreground">{t("finalcta.formDesc")}</p>
+              <div className="mt-5">
+                <ContactForm />
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );
