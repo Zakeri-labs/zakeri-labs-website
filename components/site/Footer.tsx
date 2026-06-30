@@ -19,16 +19,23 @@ export function Footer() {
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">{t("footer.slogan")}</p>
             <p className="mt-2 max-w-sm text-xs text-muted-foreground/80">{t("footer.desc")}</p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Button asChild size="sm">
+              <Button asChild size="sm" className="w-full sm:w-52">
                 <Link href="/contact">
                   {t("cta.audit")} <ArrowRight className="ms-1.5 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="sm" variant="outline">
-                <a href={SITE.whatsapp} target="_blank" rel="noreferrer">
-                  <MessageCircle className="me-1.5 h-4 w-4" /> {t("cta.whatsapp")}
-                </a>
-              </Button>
+              <a
+                href={SITE.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                className="relative inline-flex h-8 w-full items-center justify-center gap-2 rounded-full border border-primary/35 bg-background/75 px-3 text-xs font-semibold text-foreground shadow-[var(--shadow-elegant)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-primary/70 hover:bg-primary/15 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 sm:w-52"
+              >
+                <span className="absolute inset-0 -z-10 rounded-full bg-primary/15 blur-md" />
+                <span className="grid h-5 w-5 place-items-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)]">
+                  <MessageCircle className="h-3 w-3" />
+                </span>
+                <span>{t("cta.whatsapp")}</span>
+              </a>
             </div>
           </div>
           <FooterCol

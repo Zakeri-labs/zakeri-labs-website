@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 import { Footer } from "@/components/site/Footer";
+import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { Header } from "@/components/site/Header";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { SITE } from "@/lib/site";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Header />
             <main className="flex-1 pb-20 lg:pb-0">{children}</main>
             <Footer />
+            <FloatingWhatsApp />
             <MobileBottomNav />
           </div>
         </Providers>
