@@ -438,11 +438,51 @@ function Services() {
 }
 
 /* ---------- 5. CASE STUDIES ---------- */
-const cases = [
-  { key: "cases.1", image: "/case-realestate.png" },
-  { key: "cases.2", image: "/case-clinic.png" },
-  { key: "cases.3", image: "/case-consulting.png" },
-  { key: "cases.4", image: "/case-personal.png" },
+type CaseStudyContentKey = "cases.1" | "cases.2" | "cases.3" | "cases.4";
+
+type CaseStudy = {
+  image: string;
+  url: string;
+  contentKey?: CaseStudyContentKey;
+};
+
+const caseStudies: CaseStudy[] = [
+  {
+    image: "/case-1.png",
+    url: "https://rahil--mostafaee.zakeri.dev/",
+    contentKey: "cases.1",
+  },
+  {
+    image: "/case-2.png",
+    url: "https://negar-derakhshan.zakeri.dev/",
+    contentKey: "cases.2",
+  },
+  {
+    image: "/case-3.png",
+    url: "https://dr-arefeh-lotfi.zakeri.dev/",
+    contentKey: "cases.3",
+  },
+  {
+    image: "/case-4.png",
+    url: "https://tabasom.zakeri.dev/",
+    contentKey: "cases.4",
+  },
+  {
+    image: "/case-5.png",
+    url: "https://anfal-saleh.zakeri.dev/",
+  },
+  {
+    image: "/case-6.png",
+    url: "https://farhad-lotfi.zakeri.dev/",
+  },
+  {
+    image: "/case-7.png",
+    url: "https://himangharani.zakeri.dev/",
+  },
+  {
+    image: "/case-8.png",
+    url: "https://mahmud-haghzade.zakeri.dev/",
+  },
 ];
 
 function CaseStudies() {
@@ -492,38 +532,52 @@ function CaseStudies() {
         <div>
           <div
             ref={scrollRef}
-            className="mt-8 flex gap-4 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="mt-8 flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {cases.map((c, i) => (
+            {caseStudies.map((c, i) => (
               <motion.div
                 key={i}
                 {...fade}
                 transition={{ duration: 0.45, delay: i * 0.06 }}
-                className="w-[82vw] shrink-0 sm:w-[300px]"
+                className="w-[82vw] shrink-0 snap-start sm:w-[calc((100%_-_1rem)_/_2)] lg:w-[calc((100%_-_3rem)_/_4)]"
               >
                 <Card className="group flex flex-col overflow-hidden rounded-[var(--radius)] border border-border/40 bg-background p-0">
                   {/* Image — exact 4:3 ratio matches source images (1448×1086) */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-background">
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={c.contentKey ? t(`${c.contentKey}.title`) : `Case study ${i + 1}`}
+                    className="relative block aspect-[4/3] w-full overflow-hidden bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
+                  >
                     <Image
                       src={c.image}
-                      alt={t(`${c.key}.title`)}
+                      alt={c.contentKey ? t(`${c.contentKey}.title`) : `Case study ${i + 1}`}
                       fill
                       className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
-                  </div>
+                  </a>
                   {/* Content */}
                   <div className="flex shrink-0 flex-col px-4 pb-4 pt-2">
-                    <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                      {t(`${c.key}.industry`)}
-                    </span>
-                    <h3 className="text-sm font-semibold leading-snug">{t(`${c.key}.title`)}</h3>
-                    <div className="mt-8 flex justify-center">
-                      <Link
-                        href="/insights"
-                        className="inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary"
+                    {c.contentKey && (
+                      <>
+                        <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                          {t(`${c.contentKey}.industry`)}
+                        </span>
+                        <h3 className="text-sm font-semibold leading-snug">
+                          {t(`${c.contentKey}.title`)}
+                        </h3>
+                      </>
+                    )}
+                    <div className={`flex justify-center ${c.contentKey ? "mt-8" : "mt-4"}`}>
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         {t("cases.view")} <ArrowRight className="h-3 w-3" />
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </Card>
