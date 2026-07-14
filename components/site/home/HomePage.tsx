@@ -438,12 +438,20 @@ function Services() {
 }
 
 /* ---------- 5. CASE STUDIES ---------- */
-type CaseStudyContentKey = "cases.1" | "cases.2" | "cases.3" | "cases.4";
+type CaseStudyContentKey =
+  | "cases.1"
+  | "cases.2"
+  | "cases.3"
+  | "cases.4"
+  | "cases.5"
+  | "cases.6"
+  | "cases.7"
+  | "cases.8";
 
 type CaseStudy = {
   image: string;
   url: string;
-  contentKey?: CaseStudyContentKey;
+  contentKey: CaseStudyContentKey;
 };
 
 const caseStudies: CaseStudy[] = [
@@ -470,18 +478,22 @@ const caseStudies: CaseStudy[] = [
   {
     image: "/case-5.png",
     url: "https://anfal-saleh.zakeri.dev/",
+    contentKey: "cases.5",
   },
   {
     image: "/case-6.png",
     url: "https://farhad-lotfi.zakeri.dev/",
+    contentKey: "cases.6",
   },
   {
     image: "/case-7.png",
     url: "https://himangharani.zakeri.dev/",
+    contentKey: "cases.7",
   },
   {
     image: "/case-8.png",
     url: "https://mahmud-haghzade.zakeri.dev/",
+    contentKey: "cases.8",
   },
 ];
 
@@ -547,29 +559,25 @@ function CaseStudies() {
                     href={c.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={c.contentKey ? t(`${c.contentKey}.title`) : `Case study ${i + 1}`}
+                    aria-label={t(`${c.contentKey}.title`)}
                     className="relative block aspect-[4/3] w-full overflow-hidden bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                   >
                     <Image
                       src={c.image}
-                      alt={c.contentKey ? t(`${c.contentKey}.title`) : `Case study ${i + 1}`}
+                      alt={t(`${c.contentKey}.title`)}
                       fill
                       className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
                   </a>
                   {/* Content */}
                   <div className="flex shrink-0 flex-col px-4 pb-4 pt-2">
-                    {c.contentKey && (
-                      <>
-                        <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                          {t(`${c.contentKey}.industry`)}
-                        </span>
-                        <h3 className="text-sm font-semibold leading-snug">
-                          {t(`${c.contentKey}.title`)}
-                        </h3>
-                      </>
-                    )}
-                    <div className={`flex justify-center ${c.contentKey ? "mt-8" : "mt-4"}`}>
+                    <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                      {t(`${c.contentKey}.industry`)}
+                    </span>
+                    <h3 className="text-sm font-semibold leading-snug">
+                      {t(`${c.contentKey}.title`)}
+                    </h3>
+                    <div className="mt-8 flex justify-center">
                       <a
                         href={c.url}
                         target="_blank"
