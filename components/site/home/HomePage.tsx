@@ -86,7 +86,7 @@ function Hero() {
         alt="Zakeri Labs – AI Website Growth Infrastructure"
         fill
         priority
-        className="object-cover object-[60%_top] translate-y-8 rtl:-scale-x-100 lg:hidden"
+        className="object-cover object-[68%_top] lg:hidden"
       />
       <Image
         src="/hero-image.png"
@@ -105,7 +105,10 @@ function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-24 pt-36 sm:px-8 lg:px-8 lg:pb-32 lg:pt-44">
-        <motion.div {...fade} className="max-w-[12rem] sm:max-w-[16rem] md:max-w-sm lg:max-w-2xl">
+        <motion.div
+          {...fade}
+          className="w-[54%] max-w-[12rem] sm:w-auto sm:max-w-[16rem] md:max-w-sm lg:max-w-2xl"
+        >
           <span className="inline-flex max-w-[12rem] items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium leading-tight text-primary sm:max-w-none">
             <Sparkles className="h-3 w-3" /> {t("hero.badge")}
           </span>
