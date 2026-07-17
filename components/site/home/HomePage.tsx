@@ -519,24 +519,29 @@ function CaseStudies() {
             <p className="mt-4 max-w-2xl text-sm text-muted-foreground">{t("cases.desc")}</p>
           </motion.div>
 
-          <div className="flex items-center gap-2">
+          <div
+            dir="ltr"
+            className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end"
+          >
             <Button asChild variant="outline">
               <Link href="/insights">{t("cases.viewAll")}</Link>
             </Button>
-            <button
-              onClick={() => scroll("left")}
-              aria-label="Scroll left"
-              className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              aria-label="Scroll right"
-              className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => scroll("left")}
+                aria-label="Scroll left"
+                className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                aria-label="Scroll right"
+                className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -544,13 +549,12 @@ function CaseStudies() {
         <div>
           <div
             ref={scrollRef}
+            id="case-studies-track"
             className="mt-8 flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {caseStudies.map((c, i) => (
-              <motion.div
+              <div
                 key={i}
-                {...fade}
-                transition={{ duration: 0.45, delay: i * 0.06 }}
                 className="w-[82vw] shrink-0 snap-start sm:w-[calc((100%_-_1rem)_/_2)] lg:w-[calc((100%_-_3rem)_/_4)]"
               >
                 <Card className="group flex flex-col overflow-hidden rounded-[var(--radius)] border border-border/40 bg-background p-0">
@@ -589,7 +593,7 @@ function CaseStudies() {
                     </div>
                   </div>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
