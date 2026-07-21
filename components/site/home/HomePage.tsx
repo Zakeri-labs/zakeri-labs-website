@@ -456,12 +456,6 @@ const caseStudies: CaseStudy[] = [
     title: "Rahil Mostafaee — Legal Website",
   },
   {
-    image: "/case-1.png",
-    url: "https://navid-fateh.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Navid Fateh — Dubai Property Advisory",
-  },
-  {
     image: "/case-2.png",
     url: "https://anfal-saleh.zakeri.dev/",
     industry: "Dubai Real Estate",
@@ -604,7 +598,7 @@ function CaseStudies() {
             className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end"
           >
             <Button asChild variant="outline">
-              <Link href="/insights">{t("cases.viewAll")}</Link>
+              <Link href="/case-study">{t("cases.viewAll")}</Link>
             </Button>
             <div className="flex items-center gap-2">
               <button

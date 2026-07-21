@@ -14,7 +14,7 @@ export function Footer() {
     { to: "/", label: t("nav.home") },
     { to: "/services", label: t("nav.services") },
     { to: "/pricing", label: t("nav.pricing") },
-    { to: "/insights", label: t("nav.insights") },
+    { to: "/case-study", label: t("nav.insights") },
     { to: "/about", label: t("nav.about") },
     { to: "/contact", label: t("nav.contact") },
   ];

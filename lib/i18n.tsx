@@ -24,7 +24,7 @@ const M = {
   "nav.home": { en: "Home", ar: "الرئيسية", fa: "خانه" },
   "nav.services": { en: "Services", ar: "الخدمات", fa: "خدمات" },
   "nav.pricing": { en: "Pricing", ar: "الأسعار", fa: "قیمت‌گذاری" },
-  "nav.insights": { en: "Insights", ar: "رؤى", fa: "بینش‌ها" },
+  "nav.insights": { en: "Case Studies", ar: "دراسات الحالة", fa: "نمونه‌کارها" },
   "nav.about": { en: "About", ar: "من نحن", fa: "درباره ما" },
   "nav.contact": { en: "Contact", ar: "تواصل معنا", fa: "تماس" },
   "nav.caseStudies": { en: "Case Studies", ar: "دراسات الحالة", fa: "نمونه‌کارها" },
@@ -325,6 +325,7 @@ const M = {
     ar: "مواقع صمّمناها وأطلقناها",
     fa: "وب‌سایت‌هایی که طراحی و راه‌اندازی کرده‌ایم",
   },
+  "cases.pageTitle": { en: "Case Studies", ar: "دراسات الحالة", fa: "نمونه‌کارها" },
   "cases.desc": {
     en: "Real projects, clear execution, and practical growth systems for businesses that need stronger websites, better positioning, and smarter search visibility.",
     ar: "مشاريع حقيقية وتنفيذ واضح وأنظمة نمو عملية لأعمال تحتاج مواقع أقوى وتموضعاً أفضل وظهوراً أذكى في البحث.",
