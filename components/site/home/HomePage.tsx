@@ -441,62 +441,139 @@ function Services() {
 }
 
 /* ---------- 5. CASE STUDIES ---------- */
-type CaseStudyContentKey =
-  | "cases.1"
-  | "cases.2"
-  | "cases.3"
-  | "cases.4"
-  | "cases.5"
-  | "cases.6"
-  | "cases.7"
-  | "cases.8";
-
 type CaseStudy = {
   image: string;
   url: string;
-  contentKey: CaseStudyContentKey;
+  industry: string;
+  title: string;
 };
 
 const caseStudies: CaseStudy[] = [
   {
+    image: "/case-17.png",
+    url: "https://rahil-mostafaee.zakeri.dev/",
+    industry: "Legal",
+    title: "Rahil Mostafaee — Legal Website",
+  },
+  {
     image: "/case-1.png",
-    url: "https://rahil--mostafaee.zakeri.dev/",
-    contentKey: "cases.1",
+    url: "https://navid-fateh.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Navid Fateh — Dubai Property Advisory",
   },
   {
     image: "/case-2.png",
-    url: "https://negar-derakhshan.zakeri.dev/",
-    contentKey: "cases.2",
+    url: "https://anfal-saleh.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Anfal Saleh — Dubai Real Estate",
   },
   {
     image: "/case-3.png",
-    url: "https://dr-arefeh-lotfi.zakeri.dev/",
-    contentKey: "cases.3",
+    url: "https://farhad-lotfi.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Farhad Lotfi — Dubai Real Estate",
   },
   {
     image: "/case-4.png",
-    url: "https://tabasom.zakeri.dev/",
-    contentKey: "cases.4",
+    url: "https://siyavush-hashemi.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Siyavush Hashemi — Dubai Property Advisory",
   },
   {
     image: "/case-5.png",
-    url: "https://anfal-saleh.zakeri.dev/",
-    contentKey: "cases.5",
+    url: "https://soha.zakeri.dev/",
+    industry: "Personal Brand",
+    title: "Soha — Personal Brand Website",
   },
   {
     image: "/case-6.png",
-    url: "https://farhad-lotfi.zakeri.dev/",
-    contentKey: "cases.6",
+    url: "https://dr-arefeh-lotfi.zakeri.dev/",
+    industry: "Healthcare",
+    title: "Dr. Arefeh Lotfi — Cosmetic Dentistry",
   },
   {
     image: "/case-7.png",
-    url: "https://himangharani.zakeri.dev/",
-    contentKey: "cases.7",
+    url: "https://iman-attabaei.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Iman Attabaei — Real Estate Advisory",
   },
   {
     image: "/case-8.png",
     url: "https://mahmud-haghzade.zakeri.dev/",
-    contentKey: "cases.8",
+    industry: "Dubai Real Estate",
+    title: "Mahmud Haghzade — Real Estate Consulting",
+  },
+  {
+    image: "/case-9.png",
+    url: "https://kaveh-bahman.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Kaveh Bahman — Real Estate Advisory",
+  },
+  {
+    image: "/case-10.png",
+    url: "https://tabasom.zakeri.dev/",
+    industry: "Bridal Beauty",
+    title: "Tabasom — Bridal Makeup Artist",
+  },
+  {
+    image: "/case-11.png",
+    url: "https://mohammad-amiri.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Mohammad Amiri — Real Estate Advisory",
+  },
+  {
+    image: "/case-12.png",
+    url: "https://negar-derakhshan.zakeri.dev/",
+    industry: "Luxury Real Estate",
+    title: "Negar Derakhshan — Luxury Real Estate",
+  },
+  {
+    image: "/case-13.png",
+    url: "https://dr-katayoon-homayoon.zakeri.dev/",
+    industry: "Healthcare",
+    title: "Dr. Katayoon Homayoon — Medical Website",
+  },
+  {
+    image: "/case-14.png",
+    url: "https://gellari-realstate.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Gellari Real Estate — Property Advisory",
+  },
+  {
+    image: "/case-15.png",
+    url: "https://dr-zahra-salehi.zakeri.dev/",
+    industry: "Healthcare",
+    title: "Dr. Zahra Salehi — Medical Website",
+  },
+  {
+    image: "/case-16.png",
+    url: "https://maryam-albluchi.zakeri.dev/bal",
+    industry: "Personal Brand",
+    title: "Maryam Albluchi — Personal Brand Website",
+  },
+  {
+    image: "/case-18.png",
+    url: "https://amirzafel-realestate.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Amirzafel Real Estate — Property Advisory",
+  },
+  {
+    image: "/case-19.png",
+    url: "https://sadaf-rezai.zakeri.dev/",
+    industry: "Personal Brand",
+    title: "Sadaf Rezai — Personal Brand Website",
+  },
+  {
+    image: "/case-21.png",
+    url: "https://dr-amineh-razavian.zakeri.dev/",
+    industry: "Healthcare",
+    title: "Dr. Amineh Razavian — Medical Website",
+  },
+  {
+    image: "/case-22.png",
+    url: "https://jasem-realestate.zakeri.dev/",
+    industry: "Dubai Real Estate",
+    title: "Jasem Real Estate — Property Advisory",
   },
 ];
 
@@ -555,9 +632,9 @@ function CaseStudies() {
             id="case-studies-track"
             className="mt-8 flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {caseStudies.map((c, i) => (
+            {caseStudies.map((c) => (
               <div
-                key={i}
+                key={c.url}
                 className="w-[82vw] shrink-0 snap-start sm:w-[calc((100%_-_1rem)_/_2)] lg:w-[calc((100%_-_3rem)_/_4)]"
               >
                 <Card className="group flex flex-col overflow-hidden rounded-[var(--radius)] border border-border/40 bg-background p-0">
@@ -566,12 +643,12 @@ function CaseStudies() {
                     href={c.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={t(`${c.contentKey}.title`)}
+                    aria-label={c.title}
                     className="relative block aspect-[4/3] w-full overflow-hidden bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                   >
                     <Image
                       src={c.image}
-                      alt={t(`${c.contentKey}.title`)}
+                      alt={c.title}
                       fill
                       className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
@@ -579,11 +656,9 @@ function CaseStudies() {
                   {/* Content */}
                   <div className="flex shrink-0 flex-col px-4 pb-4 pt-2">
                     <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                      {t(`${c.contentKey}.industry`)}
+                      {c.industry}
                     </span>
-                    <h3 className="text-sm font-semibold leading-snug">
-                      {t(`${c.contentKey}.title`)}
-                    </h3>
+                    <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
                     <div className="mt-8 flex justify-center">
                       <a
                         href={c.url}
