@@ -1,22 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Logo } from "./Logo";
+import { LocalizedLink as Link } from "./LocalizedLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
+import { stripLangFromPathname } from "@/lib/locales";
 import { SITE } from "@/lib/site";
 
 const NAV = [
   { to: "/", key: "nav.home" },
   { to: "/services", key: "nav.services" },
-  { to: "/pricing", key: "nav.pricing" },
   { to: "/case-study", key: "nav.insights" },
   { to: "/about", key: "nav.about" },
+  { to: "/pricing", key: "nav.pricing" },
   { to: "/contact", key: "nav.contact" },
 ] as const;
 
@@ -25,18 +26,19 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href);
+  const englishPathname = stripLangFromPathname(pathname);
+  const tagline = t("site.tagline");
+  const primaryCta = t("home.cta.assessment");
+  const isActive = (href: string) =>
+    href === "/" ? englishPathname === "/" : englishPathname === href;
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/30 bg-background/40 backdrop-blur-xl">
       <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="flex min-w-0 flex-col">
           <Logo />
-          <span className="mt-0.5 hidden text-[10px] uppercase tracking-wider text-muted-foreground md:hidden">
-            {SITE.tagline}
-          </span>
           <span className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground md:hidden">
-            {SITE.tagline}
+            {tagline}
           </span>
         </Link>
 
@@ -64,25 +66,23 @@ export function Header() {
             className="hidden bg-primary text-primary-foreground shadow-[var(--shadow-elegant)] hover:bg-primary/90 sm:inline-flex"
           >
             <Link href="/contact">
-              {t("cta.audit")} <ArrowRight className="ms-1.5 h-4 w-4" />
+              {primaryCta} <ArrowRight className="ms-1.5 h-4 w-4" />
             </Link>
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button
                 className="grid h-9 w-9 place-items-center rounded-md border border-border bg-surface/60 lg:hidden"
-                aria-label="Open menu"
+                aria-label={t("nav.openMenu")}
               >
                 <Menu className="h-4 w-4" />
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-80 border-border bg-background">
-              <SheetTitle className="sr-only">Navigation</SheetTitle>
+              <SheetTitle className="sr-only">{t("nav.navigation")}</SheetTitle>
               <div className="flex flex-col gap-6 pt-2">
                 <Logo />
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                  {SITE.tagline}
-                </p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">{tagline}</p>
                 <nav className="flex flex-col gap-1">
                   {NAV.map((n) => (
                     <Link
@@ -103,7 +103,7 @@ export function Header() {
                   <LanguageSwitcher />
                   <Button asChild className="w-full">
                     <Link href="/contact" onClick={() => setOpen(false)}>
-                      {t("cta.audit")}
+                      {primaryCta}
                     </Link>
                   </Button>
                   <Button asChild variant="outline" className="w-full">

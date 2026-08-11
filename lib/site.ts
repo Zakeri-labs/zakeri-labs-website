@@ -1,9 +1,9 @@
 export const SITE = {
   name: "Zakeri Labs",
-  url: "https://zakerilabs.com",
-  tagline: "AI Websites & Growth Infrastructure",
-  phone: "+971 50 715 8137",
-  phoneRaw: "971507158137",
-  whatsapp: "https://wa.me/971507158137",
-  email: "Zakeri1993@gmail.cim",
+  url: "https://www.zakeri.dev",
+  tagline: "Business Systems & Automation in Oman",
+  phone: "+968 7171 3260",
+  phoneRaw: "96871713260",
+  whatsapp: "https://wa.me/96871713260",
+  email: "Zakeri1993@gmail.com",
 };

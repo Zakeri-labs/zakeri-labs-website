@@ -1,19 +1,18 @@
-import type { Metadata } from "next";
 import { ServicesContent } from "@/components/site/pages/ServicesContent";
+import { createPageMetadata, getServicesJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Website strategy, design, web applications, SEO, GEO/AEO, AI visibility, and lead capture systems.",
-  alternates: {
-    canonical: "/services",
-  },
-  openGraph: {
-    title: "Services — Zakeri Labs",
-    url: "/services",
-  },
-};
+export const metadata = createPageMetadata("services", "en");
+
+const servicesJsonLd = getServicesJsonLd("en");
 
 export default function ServicesPage() {
-  return <ServicesContent />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
+      <ServicesContent />
+    </>
+  );
 }

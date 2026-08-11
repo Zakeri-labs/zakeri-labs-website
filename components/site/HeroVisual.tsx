@@ -5,7 +5,7 @@ export function HeroVisual() {
     <div className="relative h-[420px] w-full lg:h-[520px]">
       <Image
         src="/hero-image.png"
-        alt="Zakeri Labs – AI Website Growth Infrastructure"
+        alt="Business operations dashboard with connected workflow visibility"
         fill
         priority
         className="object-contain object-center drop-shadow-2xl"

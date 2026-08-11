@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -25,17 +24,19 @@ import {
   CheckCircle2,
   Layers,
   Workflow,
-  Globe2,
   MessageCircle,
-  Quote,
+  HardHat,
+  Truck,
+  Building2,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionBadge } from "@/components/site/SectionBadge";
-import { BrowserMockup } from "@/components/site/BrowserMockup";
 import { ContactForm } from "@/components/site/ContactForm";
 import { CircuitBackground } from "@/components/site/CircuitBackground";
+import { LocalizedLink as Link } from "@/components/site/LocalizedLink";
+import { getCaseStudies } from "@/lib/case-studies";
 import { SITE } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 
@@ -67,7 +68,7 @@ export function HomePage() {
           <ProblemSolution />
           <Services />
           <CaseStudies />
-          <Testimonials />
+          <PriorityIndustries />
           <FinalCTA />
         </div>
       </div>
@@ -83,14 +84,14 @@ function Hero() {
       {/* Cinematic full-bleed background image — separate crop for mobile */}
       <Image
         src="/hero-image-mobile.png"
-        alt="Zakeri Labs – AI Website Growth Infrastructure"
+        alt={t("hero.imageAlt")}
         fill
         priority
         className="object-cover object-[68%_top] lg:hidden"
       />
       <Image
         src="/hero-image.png"
-        alt="Zakeri Labs – AI Website Growth Infrastructure"
+        alt={t("hero.imageAlt")}
         fill
         priority
         className="hidden object-cover object-top rtl:-scale-x-100 lg:block lg:translate-y-12"
@@ -122,16 +123,21 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="w-full px-4 shadow-[var(--shadow-elegant)] sm:w-auto sm:px-8"
+              className="h-auto w-full whitespace-normal px-4 py-2 text-center leading-snug shadow-[var(--shadow-elegant)] sm:w-auto sm:px-8"
             >
               <Link href="/contact">
-                {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
+                {t("home.cta.assessment")} <ArrowRight className="ms-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="w-full px-4 sm:w-auto sm:px-8">
-              <a href="#solution">
-                <PlayCircle className="me-2 h-4 w-4" /> {t("cta.system")}
-              </a>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="h-auto w-full whitespace-normal px-4 py-2 text-center leading-snug sm:w-auto sm:px-8"
+            >
+              <Link href="/services">
+                <PlayCircle className="me-2 h-4 w-4" /> {t("home.cta.services")}
+              </Link>
             </Button>
           </div>
           <p className="mt-5 inline-flex items-center gap-2 text-xs text-muted-foreground">
@@ -360,28 +366,24 @@ function Services() {
   const { t } = useI18n();
   const services = [
     {
-      icon: Globe2,
       image: "/GEO-AEO-Ranking.png",
       title: t("engines.1.title"),
       desc: t("engines.1.desc"),
       cta: t("engines.1.cta"),
     },
     {
-      icon: Bot,
       image: "/AI-Solution.png",
       title: t("engines.2.title"),
       desc: t("engines.2.desc"),
       cta: t("engines.2.cta"),
     },
     {
-      icon: AppWindow,
       image: "/Website-Web Application.png",
       title: t("engines.3.title"),
       desc: t("engines.3.desc"),
       cta: t("engines.3.cta"),
     },
     {
-      icon: Sparkles,
       image: "/AI-Visibility.png",
       title: t("engines.4.title"),
       desc: t("engines.4.desc"),
@@ -403,7 +405,7 @@ function Services() {
 
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
-            <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
+            <motion.article key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
               <Card className="glass-card group flex h-full flex-col overflow-hidden border-0 p-0 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
                 <div className="relative aspect-square w-full overflow-hidden bg-background">
                   <Image
@@ -424,7 +426,7 @@ function Services() {
                   </Link>
                 </div>
               </Card>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
@@ -441,138 +443,9 @@ function Services() {
 }
 
 /* ---------- 5. CASE STUDIES ---------- */
-type CaseStudy = {
-  image: string;
-  url: string;
-  industry: string;
-  title: string;
-};
-
-const caseStudies: CaseStudy[] = [
-  {
-    image: "/case-17.png",
-    url: "https://rahil-mostafaee.zakeri.dev/",
-    industry: "Legal",
-    title: "Rahil Mostafaee — Legal Website",
-  },
-  {
-    image: "/case-2.png",
-    url: "https://anfal-saleh.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Anfal Saleh — Dubai Real Estate",
-  },
-  {
-    image: "/case-3.png",
-    url: "https://farhad-lotfi.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Farhad Lotfi — Dubai Real Estate",
-  },
-  {
-    image: "/case-4.png",
-    url: "https://siyavush-hashemi.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Siyavush Hashemi — Dubai Property Advisory",
-  },
-  {
-    image: "/case-5.png",
-    url: "https://soha.zakeri.dev/",
-    industry: "Personal Brand",
-    title: "Soha — Personal Brand Website",
-  },
-  {
-    image: "/case-6.png",
-    url: "https://dr-arefeh-lotfi.zakeri.dev/",
-    industry: "Healthcare",
-    title: "Dr. Arefeh Lotfi — Cosmetic Dentistry",
-  },
-  {
-    image: "/case-7.png",
-    url: "https://iman-attabaei.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Iman Attabaei — Real Estate Advisory",
-  },
-  {
-    image: "/case-8.png",
-    url: "https://mahmud-haghzade.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Mahmud Haghzade — Real Estate Consulting",
-  },
-  {
-    image: "/case-9.png",
-    url: "https://kaveh-bahman.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Kaveh Bahman — Real Estate Advisory",
-  },
-  {
-    image: "/case-10.png",
-    url: "https://tabasom.zakeri.dev/",
-    industry: "Bridal Beauty",
-    title: "Tabasom — Bridal Makeup Artist",
-  },
-  {
-    image: "/case-11.png",
-    url: "https://mohammad-amiri.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Mohammad Amiri — Real Estate Advisory",
-  },
-  {
-    image: "/case-12.png",
-    url: "https://negar-derakhshan.zakeri.dev/",
-    industry: "Luxury Real Estate",
-    title: "Negar Derakhshan — Luxury Real Estate",
-  },
-  {
-    image: "/case-13.png",
-    url: "https://dr-katayoon-homayoon.zakeri.dev/",
-    industry: "Healthcare",
-    title: "Dr. Katayoon Homayoon — Medical Website",
-  },
-  {
-    image: "/case-14.png",
-    url: "https://gellari-realstate.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Gellari Real Estate — Property Advisory",
-  },
-  {
-    image: "/case-15.png",
-    url: "https://dr-zahra-salehi.zakeri.dev/",
-    industry: "Healthcare",
-    title: "Dr. Zahra Salehi — Medical Website",
-  },
-  {
-    image: "/case-16.png",
-    url: "https://maryam-albluchi.zakeri.dev/bal",
-    industry: "Personal Brand",
-    title: "Maryam Albluchi — Personal Brand Website",
-  },
-  {
-    image: "/case-18.png",
-    url: "https://amirzafel-realestate.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Amirzafel Real Estate — Property Advisory",
-  },
-  {
-    image: "/case-19.png",
-    url: "https://sadaf-rezai.zakeri.dev/",
-    industry: "Personal Brand",
-    title: "Sadaf Rezai — Personal Brand Website",
-  },
-  {
-    image: "/case-21.png",
-    url: "https://dr-amineh-razavian.zakeri.dev/",
-    industry: "Healthcare",
-    title: "Dr. Amineh Razavian — Medical Website",
-  },
-  {
-    image: "/case-22.png",
-    url: "https://jasem-realestate.zakeri.dev/",
-    industry: "Dubai Real Estate",
-    title: "Jasem Real Estate — Property Advisory",
-  },
-];
-
 function CaseStudies() {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
+  const caseStudies = getCaseStudies(lang);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: "left" | "right") => {
@@ -588,9 +461,11 @@ function CaseStudies() {
         {/* Header row — full width with arrows on the right */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <motion.div {...fade}>
-            <SectionBadge>{t("cases.badge")}</SectionBadge>
-            <h2 className="mt-3 font-display text-3xl font-bold lg:text-4xl">{t("cases.title")}</h2>
-            <p className="mt-4 max-w-2xl text-sm text-muted-foreground">{t("cases.desc")}</p>
+            <SectionBadge>{t("homeCases.badge")}</SectionBadge>
+            <h2 className="mt-3 font-display text-3xl font-bold lg:text-4xl">
+              {t("homeCases.title")}
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm text-muted-foreground">{t("homeCases.desc")}</p>
           </motion.div>
 
           <div
@@ -598,19 +473,19 @@ function CaseStudies() {
             className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end"
           >
             <Button asChild variant="outline">
-              <Link href="/case-study">{t("cases.viewAll")}</Link>
+              <Link href="/case-study">{t("homeCases.viewAll")}</Link>
             </Button>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => scroll("left")}
-                aria-label="Scroll left"
+                aria-label={t("homeCases.previous")}
                 className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
                 onClick={() => scroll("right")}
-                aria-label="Scroll right"
+                aria-label={t("homeCases.next")}
                 className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface/80 text-foreground shadow-sm backdrop-blur transition hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -627,7 +502,7 @@ function CaseStudies() {
             className="mt-8 flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {caseStudies.map((c) => (
-              <div
+              <article
                 key={c.url}
                 className="w-[82vw] shrink-0 snap-start sm:w-[calc((100%_-_1rem)_/_2)] lg:w-[calc((100%_-_3rem)_/_4)]"
               >
@@ -637,12 +512,12 @@ function CaseStudies() {
                     href={c.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={c.title}
+                    aria-label={`${t("homeCases.view")}: ${c.name}`}
                     className="relative block aspect-[4/3] w-full overflow-hidden bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                   >
                     <Image
                       src={c.image}
-                      alt={c.title}
+                      alt={c.alt}
                       fill
                       className="object-contain object-top transition duration-500 group-hover:scale-105"
                     />
@@ -650,9 +525,9 @@ function CaseStudies() {
                   {/* Content */}
                   <div className="flex shrink-0 flex-col px-4 pb-4 pt-2">
                     <span className="mb-1 w-fit rounded border border-primary/70 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                      {c.industry}
+                      {c.category}
                     </span>
-                    <h3 className="text-sm font-semibold leading-snug">{c.title}</h3>
+                    <h3 className="text-sm font-semibold leading-snug">{c.name}</h3>
                     <div className="mt-8 flex justify-center">
                       <a
                         href={c.url}
@@ -660,12 +535,12 @@ function CaseStudies() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 rounded-md border border-border bg-background/40 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
-                        {t("cases.view")} <ArrowRight className="h-3 w-3" />
+                        {t("homeCases.view")} <ArrowRight className="h-3 w-3" />
                       </a>
                     </div>
                   </div>
                 </Card>
-              </div>
+              </article>
             ))}
           </div>
         </div>
@@ -674,53 +549,61 @@ function CaseStudies() {
   );
 }
 
-/* ---------- 6. TESTIMONIALS ---------- */
-function Testimonials() {
+/* ---------- 6. PRIORITY INDUSTRIES ---------- */
+function PriorityIndustries() {
   const { t } = useI18n();
   const items = [
     {
-      quote: t("testimonials.1.quote"),
-      name: t("testimonials.namePlaceholder"),
-      role: t("testimonials.1.role"),
-      company: t("testimonials.companyPlaceholder"),
+      icon: HardHat,
+      title: t("industries.1.title"),
+      desc: t("industries.1.desc"),
     },
     {
-      quote: t("testimonials.2.quote"),
-      name: t("testimonials.namePlaceholder"),
-      role: t("testimonials.2.role"),
-      company: t("testimonials.companyPlaceholder"),
+      icon: Truck,
+      title: t("industries.2.title"),
+      desc: t("industries.2.desc"),
     },
     {
-      quote: t("testimonials.3.quote"),
-      name: t("testimonials.namePlaceholder"),
-      role: t("testimonials.3.role"),
-      company: t("testimonials.companyPlaceholder"),
+      icon: Building2,
+      title: t("industries.3.title"),
+      desc: t("industries.3.desc"),
     },
   ];
   return (
     <section className="pb-20">
-      <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
-        {items.map((t, i) => (
-          <motion.div key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
-            <Card className="glass-card group h-full border-0 p-6 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
-              <Quote className="h-5 w-5 text-primary" />
-              <p className="mt-3 text-sm leading-relaxed text-foreground/90">{t.quote}</p>
-              <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
-                <span
-                  aria-hidden
-                  className="grid h-9 w-9 place-items-center rounded-full bg-surface-2 text-xs text-muted-foreground"
-                >
-                  {t.name.slice(0, 1)}
-                </span>
-                <div className="text-xs">
-                  <p className="font-medium text-foreground">{t.name}</p>
-                  <p className="text-muted-foreground">{t.role}</p>
-                  <p className="text-muted-foreground/70">{t.company}</p>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-        ))}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div {...fade} className="text-center">
+          <SectionBadge>{t("industries.badge")}</SectionBadge>
+          <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-bold lg:text-4xl">
+            {t("industries.title")}
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">
+            {t("industries.desc")}
+          </p>
+        </motion.div>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {items.map((item, i) => (
+            <motion.article key={i} {...fade} transition={{ duration: 0.45, delay: i * 0.06 }}>
+              <Card className="glass-card group h-full border-0 p-6 transition hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]">
+                <item.icon className="h-5 w-5 text-primary" />
+                <h3 className="mt-4 text-base font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+              </Card>
+            </motion.article>
+          ))}
+        </div>
+
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
+          {t("industries.foot")}
+        </p>
+        <div className="mt-6 text-center">
+          <Button asChild variant="outline">
+            <Link href="/about">
+              {t("home.cta.approach")} <ArrowRight className="ms-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -741,12 +624,21 @@ function FinalCTA() {
               </h2>
               <p className="mt-4 max-w-md text-sm text-muted-foreground">{t("finalcta.desc")}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Button asChild size="lg">
+                <Button
+                  asChild
+                  size="lg"
+                  className="h-auto whitespace-normal py-2 text-center leading-snug"
+                >
                   <Link href="/contact">
-                    {t("cta.audit")} <ArrowRight className="ms-2 h-4 w-4" />
+                    {t("home.cta.assessment")} <ArrowRight className="ms-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="h-auto whitespace-normal py-2 text-center leading-snug"
+                >
                   <a href={SITE.whatsapp} target="_blank" rel="noreferrer">
                     <MessageCircle className="me-2 h-4 w-4" /> {t("cta.whatsapp")}
                   </a>
@@ -762,7 +654,7 @@ function FinalCTA() {
               <h3 className="text-base font-semibold">{t("finalcta.formTitle")}</h3>
               <p className="mt-1 text-xs text-muted-foreground">{t("finalcta.formDesc")}</p>
               <div className="mt-5">
-                <ContactForm />
+                <ContactForm variant="operations" />
               </div>
             </div>
           </Card>

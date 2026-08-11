@@ -1,19 +1,18 @@
-import type { Metadata } from "next";
 import { PricingContent } from "@/components/site/pages/PricingContent";
+import { createPageMetadata, getPricingJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Pricing",
-  description:
-    "Website growth packages built around scope. Starter, Growth, and Advanced + AI options.",
-  alternates: {
-    canonical: "/pricing",
-  },
-  openGraph: {
-    title: "Pricing — Zakeri Labs",
-    url: "/pricing",
-  },
-};
+export const metadata = createPageMetadata("pricing", "en");
+
+const pricingJsonLd = getPricingJsonLd("en");
 
 export default function PricingPage() {
-  return <PricingContent />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingJsonLd) }}
+      />
+      <PricingContent />
+    </>
+  );
 }

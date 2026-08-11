@@ -14,7 +14,7 @@ export function BrowserMockup({
         <span className="h-2 w-2 rounded-full bg-yellow-500/60" />
         <span className="h-2 w-2 rounded-full bg-emerald-500/60" />
         <span className="ms-2 truncate text-[10px] text-muted-foreground">
-          {label ?? "preview.zakerilabs.app"}
+          {label ?? "preview.zakeri.dev"}
         </span>
       </div>
       <div

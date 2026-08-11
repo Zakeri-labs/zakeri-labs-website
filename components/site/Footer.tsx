@@ -1,29 +1,48 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowRight, ChevronDown, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./Logo";
+import { LocalizedLink as Link } from "./LocalizedLink";
 import { SITE } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 
 export function Footer() {
   const { t } = useI18n();
   const year = new Date().getFullYear();
+  const primaryCta = t("home.cta.assessment");
+  const slogan = t("footer.slogan");
+  const description = t("footer.desc");
+  const footerTagline = t("site.tagline");
   const navigateItems = [
     { to: "/", label: t("nav.home") },
     { to: "/services", label: t("nav.services") },
-    { to: "/pricing", label: t("nav.pricing") },
     { to: "/case-study", label: t("nav.insights") },
     { to: "/about", label: t("nav.about") },
+    { to: "/pricing", label: t("nav.pricing") },
     { to: "/contact", label: t("nav.contact") },
   ];
   const serviceItems = [
-    { to: "/services", label: t("footer.svc.strategy") },
-    { to: "/services", label: t("footer.svc.seo") },
-    { to: "/services", label: t("footer.svc.geo") },
-    { to: "/services", label: t("footer.svc.ai") },
-    { to: "/services", label: t("footer.svc.webapp") },
+    {
+      to: "/services",
+      label: t("footer.svc.systems"),
+    },
+    {
+      to: "/services",
+      label: t("footer.svc.automation"),
+    },
+    {
+      to: "/services",
+      label: t("footer.svc.crm"),
+    },
+    {
+      to: "/services",
+      label: t("footer.svc.dashboards"),
+    },
+    {
+      to: "/services",
+      label: t("footer.svc.ai"),
+    },
   ];
 
   return (
@@ -31,14 +50,12 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-8 pb-24 sm:px-6 lg:px-8 lg:py-14">
         <div className="lg:hidden">
           <Logo />
-          <p className="mt-3 max-w-sm text-xs leading-relaxed text-muted-foreground">
-            {t("footer.slogan")}
-          </p>
+          <p className="mt-3 max-w-sm text-xs leading-relaxed text-muted-foreground">{slogan}</p>
 
           <div className="mt-5 flex gap-2">
             <Button asChild size="sm" className="min-w-0 flex-1">
               <Link href="/contact">
-                <span className="truncate">{t("cta.audit")}</span>
+                <span className="truncate">{primaryCta}</span>
                 <ArrowRight className="ms-1.5 h-4 w-4 shrink-0" />
               </Link>
             </Button>
@@ -80,15 +97,15 @@ export function Footer() {
         <div className="hidden gap-10 lg:grid lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Logo />
-            <p className="mt-4 max-w-sm text-sm text-muted-foreground">{t("footer.slogan")}</p>
-            <p className="mt-2 max-w-sm text-xs text-muted-foreground/80">{t("footer.desc")}</p>
+            <p className="mt-4 max-w-sm text-sm text-muted-foreground">{slogan}</p>
+            <p className="mt-2 max-w-sm text-xs text-muted-foreground/80">{description}</p>
           </div>
           <FooterCol title={t("footer.col.navigate")} items={navigateItems} />
           <FooterCol title={t("footer.col.services")} items={serviceItems} />
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-foreground">
+            <h2 className="mb-3 text-sm font-semibold text-foreground">
               {t("footer.col.contact")}
-            </h4>
+            </h2>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a
@@ -110,7 +127,7 @@ export function Footer() {
             <div className="mt-5 flex flex-wrap gap-2">
               <Button asChild size="sm" className="w-full sm:w-[200px]">
                 <Link href="/contact">
-                  {t("cta.audit")} <ArrowRight className="ms-1.5 h-4 w-4" />
+                  {primaryCta} <ArrowRight className="ms-1.5 h-4 w-4" />
                 </Link>
               </Button>
               <a
@@ -132,7 +149,7 @@ export function Footer() {
           <p>
             © {year} {SITE.name}. {t("footer.rights")}
           </p>
-          <p className="hidden sm:block">{SITE.tagline}</p>
+          <p className="hidden sm:block">{footerTagline}</p>
         </div>
       </div>
     </footer>
@@ -171,7 +188,7 @@ function MobileFooterGroup({
 function FooterCol({ title, items }: { title: string; items: { to: string; label: string }[] }) {
   return (
     <div>
-      <h4 className="mb-3 text-sm font-semibold text-foreground">{title}</h4>
+      <h2 className="mb-3 text-sm font-semibold text-foreground">{title}</h2>
       <ul className="space-y-2">
         {items.map((it, i) => (
           <li key={i}>

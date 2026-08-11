@@ -1,0 +1,18 @@
+{
+  "collection": "ms_zakeri_labs_website_4691df31",
+  "failed_files": [],
+  "indexed_chunks": 2,
+  "indexed_files": 1,
+  "last_completed_at": "2026-08-11T19:06:10.798382Z",
+  "last_started_at": "2026-08-11T19:06:07.370207Z",
+  "last_success_at": "2026-08-11T19:06:10.798382Z",
+  "milvus_uri": "~/.memsearch/milvus.db",
+  "operation": "index",
+  "paths": [
+    "/Users/farzan/Workspace/Projects/zakeri-labs-website/.memsearch/memory"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "total_files": 1,
+  "updated_at": "2026-08-11T19:06:10.798382Z"
+}

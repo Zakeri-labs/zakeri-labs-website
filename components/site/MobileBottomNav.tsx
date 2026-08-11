@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Home, Briefcase, LayoutGrid, Mail, MessageCircle } from "lucide-react";
+import { LocalizedLink as Link } from "@/components/site/LocalizedLink";
 import { SITE } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 
