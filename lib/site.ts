@@ -1,7 +1,7 @@
 export const SITE = {
-  /** Page titles, Open Graph and structured data. */
-  name: "Zakeri - Idrak AI Solutions",
-  /** Visible brand in the logo and footer. */
+  /** Page titles, logo, Open Graph and structured data. */
+  name: "Zakeri Idrak AI Solutions",
+  /** Footer copyright only — the "@" form is not used anywhere else. */
   brand: "Zakeri @ Idrak AI Solutions",
   /**
    * The registered company, exactly as on Commercial Registration 1662469.
