@@ -173,6 +173,21 @@ export function absoluteUrl(pathname: string): string {
   return new URL(pathname, SITE.url).toString();
 }
 
+/**
+ * The share card from app/opengraph-image.png, set explicitly.
+ *
+ * Next only attaches a file-based OG image to the segment it sits in. Every
+ * other page sets its own `openGraph`/`twitter` object here, and that replaces
+ * the inherited one wholesale — so without this, only "/" had an image.
+ */
+const SHARE_IMAGE = {
+  url: "/opengraph-image.png",
+  width: 1200,
+  height: 630,
+  alt: `${SITE.name} — Business Systems & AI Automation in Oman`,
+  type: "image/png",
+};
+
 export function createPageMetadata(page: PublicPage, lang: Lang): Metadata {
   const path = PUBLIC_PAGE_PATHS[page];
   const localizedPath = localizePathname(path, lang);
@@ -204,11 +219,13 @@ export function createPageMetadata(page: PublicPage, lang: Lang): Metadata {
       alternateLocale: Object.values(OPEN_GRAPH_LOCALES).filter(
         (locale) => locale !== OPEN_GRAPH_LOCALES[lang],
       ),
+      images: [SHARE_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
       description: socialDescription,
+      images: [SHARE_IMAGE],
     },
   };
 }
