@@ -16,8 +16,8 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Business Systems & Automation Consultant in Oman | Zakeri Labs",
-    template: "%s | Zakeri Labs",
+    default: SITE.name,
+    template: `%s | ${SITE.name}`,
   },
   description:
     "Business systems and automation consulting for growing businesses in Oman that need clearer workflows, better management visibility, and less manual follow-up.",
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: SITE.name,
     type: "website",
-    title: "Business Systems & Automation Consultant in Oman | Zakeri Labs",
+    title: SITE.name,
     description:
       "Turn manual, scattered operations into visible workflows, management visibility, and practical automation for growing businesses in Oman.",
     url: SITE.url,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Business Systems & Automation Consultant in Oman | Zakeri Labs",
+    title: SITE.name,
     description:
       "Clearer workflows, better management visibility, and practical automation for growing businesses in Oman.",
   },

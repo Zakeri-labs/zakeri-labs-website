@@ -25,21 +25,21 @@ type SeoEntry = {
 const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
   home: {
     en: {
-      title: "Business Systems & Automation Consultant in Oman | Zakeri Labs",
+      title: SITE.name,
       description:
         "I help growing businesses in Oman replace manual follow-up and scattered operations with visible, trackable, and automated business systems.",
       openGraphDescription:
         "Turn scattered, manual operations into clear workflows, management visibility, and practical automation for your business in Oman.",
     },
     ar: {
-      title: "مستشار أنظمة الأعمال والأتمتة في عُمان | Zakeri Labs",
+      title: SITE.name,
       description:
         "أساعد الشركات النامية في عُمان على استبدال المتابعة اليدوية والعمليات المبعثرة بأنظمة أعمال واضحة وقابلة للتتبّع ومؤتمتة.",
       openGraphDescription:
         "حوّل العمليات المبعثرة واليدوية إلى سير عمل واضح ورؤية إدارية وأتمتة عملية لشركتك في عُمان.",
     },
     fa: {
-      title: "مشاور سیستم‌های کسب‌وکار و اتوماسیون در عمان | Zakeri Labs",
+      title: SITE.name,
       description:
         "به کسب‌وکارهای در حال رشد در عمان کمک می‌کنم پیگیری دستی و عملیات پراکنده را به سیستم‌های شفاف، قابل پیگیری و خودکار تبدیل کنند.",
       openGraphDescription:
@@ -519,6 +519,7 @@ export function getOrganizationJsonLd(lang: Lang) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE.name,
+    legalName: SITE.legalName,
     url: SITE.url,
     telephone: `+${SITE.phoneRaw}`,
     email: SITE.email,

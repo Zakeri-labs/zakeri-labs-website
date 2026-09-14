@@ -147,7 +147,10 @@ export function Footer() {
         </div>
         <div className="mt-8 flex flex-col gap-2 border-t border-border pt-5 text-xs text-muted-foreground lg:mt-12 lg:pt-6 sm:flex-row sm:justify-between">
           <p>
-            © {year} {SITE.name}. {t("footer.rights")}
+            © {year} {SITE.brand}. {t("footer.rights")}
+            <span className="mt-1 block text-muted-foreground/70">
+              {SITE.legalName} · CR {SITE.crNumber} · {SITE.legalCity}
+            </span>
           </p>
           <p className="hidden sm:block">{footerTagline}</p>
         </div>
