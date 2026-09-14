@@ -17,7 +17,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: SITE.name,
-    template: `%s | ${SITE.name}`,
+    // "—", not "|": the name already contains a "|", and "Services | Zakeri | Idrak"
+    // reads as three equal parts.
+    template: `%s — ${SITE.name}`,
   },
   description:
     "Business systems and automation consulting for growing businesses in Oman that need clearer workflows, better management visibility, and less manual follow-up.",

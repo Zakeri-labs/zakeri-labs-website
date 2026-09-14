@@ -1,6 +1,12 @@
 export const SITE = {
-  /** Page titles, logo, footer, Open Graph and structured data. */
-  name: "Zakeri Idrak AI Solutions",
+  /**
+   * Page titles, footer, Open Graph and structured data. The separator keeps
+   * the person and the company readable as two names, not one run-on phrase.
+   */
+  name: "Zakeri | Idrak AI Solutions",
+  /** The logo stacks these two lines instead of printing `name` on one. */
+  personName: "Zakeri",
+  companyName: "Idrak AI Solutions",
   /**
    * The registered company, exactly as on Commercial Registration 1662469.
    * Meta Business verification matches the website against this entity, so

@@ -80,7 +80,7 @@ export function HomePage() {
 function Hero() {
   const { t } = useI18n();
   return (
-    <section className="relative -mt-[68px] flex min-h-[100svh] items-center overflow-hidden">
+    <section className="relative -mt-[68px] flex min-h-[100svh] items-end overflow-hidden lg:items-center">
       {/* Cinematic full-bleed background image — separate crop for mobile */}
       <Image
         src="/hero-image-mobile.png"
@@ -97,20 +97,19 @@ function Hero() {
         className="hidden object-cover object-top rtl:-scale-x-100 lg:block lg:translate-y-12"
       />
 
-      {/* Side gradient — keeps text readable; lighter on desktop, flips to the right edge in RTL */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/10 rtl:bg-gradient-to-l lg:via-background/45 lg:to-transparent" />
+      {/* Side gradient (desktop) — keeps text readable, flips to the right edge in RTL */}
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-background via-background/45 to-transparent rtl:bg-gradient-to-l lg:block" />
+      {/* Bottom gradient (mobile) — the text sits below the portrait, not across it */}
+      <div className="absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-background via-background/90 to-transparent lg:hidden" />
       {/* Top fade — blends behind the header */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/70 to-transparent" />
       {/* Bottom fade — blends into next section */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-24 pt-36 sm:px-8 lg:px-8 lg:pb-32 lg:pt-44">
-        <motion.div
-          {...fade}
-          className="w-[54%] max-w-[12rem] sm:w-auto sm:max-w-[16rem] md:max-w-sm lg:max-w-2xl"
-        >
-          <span className="inline-flex max-w-[12rem] items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium leading-tight text-primary sm:max-w-none">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-24 pt-28 sm:px-8 lg:px-8 lg:pb-32 lg:pt-44">
+        <motion.div {...fade} className="w-full sm:max-w-md lg:max-w-2xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium leading-tight text-primary sm:max-w-none">
             <Sparkles className="h-3 w-3" /> {t("hero.badge")}
           </span>
           <h1 className="mt-5 font-display text-3xl font-bold leading-[1.05] text-foreground sm:text-5xl lg:text-[3.5rem]">
@@ -118,7 +117,9 @@ function Hero() {
             <span className="gradient-text">{t("hero.titleHl")}</span>
             {t("hero.titlePost")}
           </h1>
-          <p className="mt-5 text-base text-muted-foreground">{t("hero.desc")}</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground sm:text-base lg:mt-5 lg:max-w-none">
+            {t("hero.desc")}
+          </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Button
               asChild

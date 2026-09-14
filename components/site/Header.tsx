@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,15 @@ const NAV = [
 export function Header() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
+  // Translucent over the hero, solid once content scrolls underneath —
+  // a see-through bar over body text reads as a detached strip.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const pathname = usePathname();
 
   const englishPathname = stripLangFromPathname(pathname);
@@ -33,13 +42,14 @@ export function Header() {
     href === "/" ? englishPathname === "/" : englishPathname === href;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/30 bg-background/40 backdrop-blur-xl">
+    <header
+      className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-colors duration-300 ${
+        scrolled ? "border-border/60 bg-background/90" : "border-transparent bg-background/30"
+      }`}
+    >
       <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="flex min-w-0 flex-col">
           <Logo />
-          <span className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground md:hidden">
-            {tagline}
-          </span>
         </Link>
 
         <nav className="hidden items-center justify-center gap-7 lg:flex">
