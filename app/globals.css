@@ -5,14 +5,6 @@
 @source "../lib";
 @import "tw-animate-css";
 
-@import "@fontsource/space-grotesk/400.css";
-@import "@fontsource/space-grotesk/500.css";
-@import "@fontsource/space-grotesk/600.css";
-@import "@fontsource/space-grotesk/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -22,8 +14,9 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Fonts come from next/font (app/layout.tsx); Arabic swaps both families. */
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -33,74 +26,65 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary-glow: var(--primary-glow);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-cyan: var(--cyan);
-  --color-ember: var(--ember);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-cyan: var(--cyan);
+  --color-blue: var(--blue);
+  --color-violet: var(--violet);
+  --color-coral: var(--coral);
 }
 
+/* Light, airy identity taken from the IDRAK presentation: warm white rooms,
+   navy type, and the logo ribbon's cyan → blue → violet gradient. */
 :root {
-  --radius: 0.875rem;
+  --radius: 1rem;
 
-  /* Deep navy / graphite base */
-  --background: oklch(0.16 0.04 265);
-  --foreground: oklch(0.96 0.01 250);
+  --background: #fbfaf7;
+  --foreground: #0e1633;
+  --surface: #ffffff;
+  --ink: #0e1633; /* the dark "product" bands */
 
-  --surface: oklch(0.21 0.04 265);
-  --surface-2: oklch(0.25 0.045 265);
+  --card: #ffffff;
+  --card-foreground: #0e1633;
+  --popover: #ffffff;
+  --popover-foreground: #0e1633;
 
-  --card: oklch(0.21 0.04 265);
-  --card-foreground: oklch(0.96 0.01 250);
-  --popover: oklch(0.21 0.04 265);
-  --popover-foreground: oklch(0.96 0.01 250);
+  --primary: #4b3be0;
+  --primary-foreground: #ffffff;
+  --secondary: #f1effb;
+  --secondary-foreground: #0e1633;
+  --muted: #f3f2ef;
+  --muted-foreground: #565d78;
+  --accent: #efedfb;
+  --accent-foreground: #0e1633;
 
-  --primary: oklch(0.65 0.19 258);
-  --primary-foreground: oklch(0.98 0.005 250);
-  --primary-glow: oklch(0.78 0.15 240);
+  --cyan: #19d3c5;
+  --blue: #0a7cff;
+  --violet: #7a3ce5;
+  --coral: #f68084;
 
-  --secondary: oklch(0.27 0.04 265);
-  --secondary-foreground: oklch(0.96 0.01 250);
-  --muted: oklch(0.27 0.04 265);
-  --muted-foreground: oklch(0.7 0.03 255);
-  --accent: oklch(0.3 0.05 260);
-  --accent-foreground: oklch(0.98 0.005 250);
+  --destructive: #d8343f;
+  --destructive-foreground: #ffffff;
 
-  --cyan: oklch(0.82 0.13 200);
-  --ember: oklch(0.72 0.17 25);
+  --border: #e7e5ee;
+  --input: #dcd9e6;
+  --ring: #4b3be0;
 
-  --destructive: oklch(0.65 0.2 25);
-  --destructive-foreground: oklch(0.98 0.005 250);
-
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.65 0.19 258);
-
-  --gradient-hero:
-    radial-gradient(1200px 600px at 80% 10%, oklch(0.4 0.15 258 / 0.35), transparent 60%),
-    radial-gradient(900px 500px at 10% 0%, oklch(0.35 0.12 240 / 0.25), transparent 60%),
-    linear-gradient(180deg, oklch(0.16 0.04 265), oklch(0.13 0.04 265));
-  --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-glow));
-  --gradient-card: linear-gradient(180deg, oklch(0.23 0.04 265 / 0.7), oklch(0.19 0.04 265 / 0.7));
-  --shadow-elegant: 0 20px 60px -20px color-mix(in oklab, var(--primary) 35%, transparent);
-  --shadow-glow: 0 0 50px -10px color-mix(in oklab, var(--primary-glow) 50%, transparent);
-}
-
-.dark {
-  /* Same as :root — site is dark by default */
-  --background: oklch(0.16 0.04 265);
-  --foreground: oklch(0.96 0.01 250);
+  --gradient-brand: linear-gradient(120deg, var(--cyan) 0%, var(--blue) 45%, var(--violet) 100%);
+  --gradient-text: linear-gradient(100deg, var(--blue) 0%, var(--violet) 70%);
+  --shadow-soft: 0 1px 2px rgb(14 22 51 / 0.04), 0 12px 32px -12px rgb(14 22 51 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(14 22 51 / 0.04), 0 24px 60px -20px rgb(75 59 224 / 0.28);
 }
 
 @layer base {
@@ -109,10 +93,11 @@
   }
   html {
     background-color: var(--color-background);
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
   }
   body {
-    background: var(--gradient-hero);
-    background-attachment: fixed;
+    background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -123,108 +108,67 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :lang(ar) body,
+  :lang(ar) h1,
+  :lang(ar) h2,
+  :lang(ar) h3,
+  :lang(ar) h4 {
+    font-family: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0;
   }
   ::selection {
-    background: color-mix(in oklab, var(--primary) 40%, transparent);
+    background: color-mix(in oklab, var(--violet) 22%, transparent);
   }
-}
-
-@utility glass-card {
-  background: var(--gradient-card);
-  border: 1px solid var(--color-border);
-  backdrop-filter: blur(8px);
-  border-radius: var(--radius);
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
 
 @utility gradient-text {
-  background: var(--gradient-primary);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-@utility section-divider {
-  border-top: 1px solid var(--color-border);
+@utility bg-brand {
+  background: var(--gradient-brand);
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-@keyframes marquee-rtl {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(50%);
-  }
-}
-.animate-marquee {
-  animation: marquee 40s linear infinite;
-}
-[dir="rtl"] .animate-marquee {
-  animation: marquee-rtl 40s linear infinite;
-}
-.marquee-frame:hover .marquee-track {
-  animation-play-state: paused;
+@utility card-surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow-soft);
 }
 
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
+/* Soft ambient glow behind heroes — echoes the ribbon colours without noise. */
+@utility hero-glow {
+  background:
+    radial-gradient(40rem 26rem at 88% 8%, rgb(25 211 197 / 0.14), transparent 70%),
+    radial-gradient(36rem 24rem at 70% 60%, rgb(122 60 229 / 0.12), transparent 70%),
+    radial-gradient(30rem 20rem at 5% 0%, rgb(10 124 255 / 0.08), transparent 70%);
 }
 
-@keyframes heartbeat {
-  0%,
-  100% {
-    opacity: 0.12;
-    transform: scale(1);
-  }
-  15% {
-    opacity: 0.5;
-    transform: scale(1.07);
-  }
-  30% {
-    opacity: 0.12;
-    transform: scale(1);
-  }
-  45% {
-    opacity: 0.35;
-    transform: scale(1.04);
-  }
-  65% {
-    opacity: 0.08;
-    transform: scale(1);
-  }
-}
-.animate-heartbeat {
-  animation: heartbeat 2.4s ease-in-out infinite;
-}
-
-/* ---------- RTL mirroring ---------- */
-/* Flip directional icons (arrows, chevrons, paper-plane) and the horizontal
-   "Diagnose → Convert" connector so they point with the reading direction.
-   Non-directional icons (logo, message, play, mail, etc.) are left as-is. */
+/* Flip directional icons so they point with the reading direction. */
 [dir="rtl"] .lucide-arrow-right,
 [dir="rtl"] .lucide-arrow-left,
 [dir="rtl"] .lucide-chevron-right,
 [dir="rtl"] .lucide-chevron-left,
-[dir="rtl"] .lucide-move-right,
-[dir="rtl"] .lucide-move-left,
-[dir="rtl"] .lucide-send,
-[dir="rtl"] [data-testid="growth-card-connector"] {
+[dir="rtl"] .lucide-send {
   transform: scaleX(-1);
+}
+
+/* Unlayered, so it wins over Tailwind's leading-* utilities: Arabic script
+   needs more room above and below than tightly-set Latin display type. */
+:lang(ar) :is(h1, h2) {
+  line-height: 1.3;
 }

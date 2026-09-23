@@ -18,37 +18,35 @@ No automated test suite exists. Before committing, run `npm run lint && npm run 
 
 ## Architecture
 
-This is a **Next.js 15 App Router** site (React 19, TypeScript). It was recently migrated from TanStack Start — ignore the stale `AGENTS.md` which still references the old `src/` layout.
+This is a **Next.js 15 App Router** site (React 19, TypeScript). It was migrated from TanStack Start — ignore the stale `AGENTS.md` which still references the old `src/` layout.
 
 ### Directory layout
 
-- `app/` — Next.js App Router pages (`layout.tsx`, `page.tsx`, `providers.tsx`, route folders)
-- `components/site/` — site-specific sections and layout parts (Header, Footer, HeroVisual, etc.)
-- `components/ui/` — shadcn/ui primitives (Radix UI + class-variance-authority); do not edit these unless upgrading
-- `lib/` — shared utilities: `site.ts` (global SITE config), `i18n.tsx` (language provider), `utils.ts` (cn helper)
-- `hooks/` — custom React hooks
+- `app/` — routes. English lives at the root (`/services`), Arabic under `app/[lang]` (`/ar/services`). Each `page.tsx` is three lines that hand its page component to `lib/pages.tsx` (metadata + JSON-LD).
+- `app/api/contact/route.ts` — contact form endpoint; validates with zod and emails `SITE.email` through Resend (`RESEND_API_KEY` env var, sender `website@omanai.tech`).
+- `components/site/pages/` — one client component per page (Home, Services, Products, Work, About, HowWeWork, Contact).
+- `components/site/blocks.tsx` — shared building blocks (Section, SectionHeading, Cta, Advantage, Flow, Steps, Faq, Visual, Split, FinalCta, PageHero, ProductsBanner). Build new sections from these.
+- `components/ui/` — shadcn/ui primitives; do not edit these unless upgrading
+- `lib/content/*.ts` — all page copy, one module per page, each exporting `{ en, ar }`. `ar` is typed as `typeof en`, so a missing Arabic string is a type error.
+- `lib/projects.ts` — Selected Work projects; `FEATURED_NAMES` picks the six shown on the homepage.
+- `lib/images.ts` + `assets/` — statically imported visuals (cropped from the IDRAK presentation) and project screenshots.
+- `lib/seo.tsx` — per-page titles/descriptions, hreflang, JSON-LD builders.
 
 ### i18n
 
-`lib/i18n.tsx` exports a `LanguageProvider` and `useI18n()` hook with three locales: `en`, `ar`, `fa`. Arabic and Farsi are RTL — the provider sets `document.documentElement.dir` and persists the choice to `localStorage`. All translation strings live directly in that file as flat key/value dictionaries.
-
-### Routing
-
-Each `app/<route>/page.tsx` is a thin shell that renders a heavy client component from `components/site/`. The root layout (`app/layout.tsx`) mounts `<Header>`, `<Footer>`, and `<MobileBottomNav>` around `{children}`.
+Two languages: `en` (default, no prefix) and `ar` (RTL, `/ar/...`). Farsi was retired; `/fa/*` 301s to English in `next.config.ts`, alongside `/pricing → /how-we-work` and `/case-study → /selected-work`. In components: `const c = useCopy(HOME)` returns the current language's copy; `useI18n()` gives `lang`, `dir`, `setLang`.
 
 ### Styling
 
-Tailwind CSS v4 with `@import "tailwindcss"`. The dark-only theme is defined entirely in `app/globals.css` as CSS custom properties (oklch colors). Key custom utilities also live there:
+Tailwind CSS v4, light theme defined in `app/globals.css` (brand tokens: `ink`, `cyan`, `blue`, `violet`; utilities `bg-brand`, `gradient-text`, `card-surface`, `hero-glow`). Fonts via `next/font`: Plus Jakarta Sans (display), Inter (body), IBM Plex Sans Arabic (all Arabic text).
 
-- `.glass-card` — frosted-glass card style
-- `.gradient-text` — primary gradient applied as text clip
-- `.animate-marquee` / `.animate-float-slow` — keyframe animations
+### Analytics
 
-Headings use **Space Grotesk** (`font-display`), body uses **Inter** (`font-sans`). Both are self-hosted via `@fontsource`.
+`lib/track.ts` sends conversion events (`contact_form_started`, `contact_form_submitted` with `interest_type`, `whatsapp|email|phone_contact_clicked`) to gtag/dataLayer. GA4 loads only when `NEXT_PUBLIC_GA_ID` is set.
 
 ### Site config
 
-`lib/site.ts` holds the single source of truth for the brand name, URL, phone, WhatsApp link, and email. Import `SITE` from there rather than hard-coding values.
+`lib/site.ts` holds the brand name, legal entity, phone, email and `whatsappUrl(lang)` (prefilled greeting). Import from there rather than hard-coding values.
 
 ### Path alias
 

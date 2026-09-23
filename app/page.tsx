@@ -1,8 +1,6 @@
-import { HomePage } from "@/components/site/home/HomePage";
-import { createPageMetadata } from "@/lib/seo";
+import { HomePage } from "@/components/site/pages/HomePage";
+import { enPage } from "@/lib/pages";
 
-export const metadata = createPageMetadata("home", "en");
-
-export default function Page() {
-  return <HomePage />;
-}
+const page = enPage("home", HomePage);
+export const metadata = page.metadata;
+export default page.Page;

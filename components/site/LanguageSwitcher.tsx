@@ -1,40 +1,25 @@
 "use client";
 
 import { Globe } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useI18n, type Lang } from "@/lib/i18n";
 
-const LANGS: { code: Lang; label: string }[] = [
-  { code: "en", label: "English" },
-  { code: "ar", label: "العربية" },
-  { code: "fa", label: "فارسی" },
-];
+import { COMMON } from "@/lib/content/common";
+import { useCopy, useI18n } from "@/lib/i18n";
 
-export function LanguageSwitcher() {
+/** Two languages, so a single toggle instead of a menu. */
+export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const { lang, setLang } = useI18n();
-  const current = LANGS.find((l) => l.code === lang)!;
+  const c = useCopy(COMMON);
+  const other = lang === "en" ? "ar" : "en";
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface/60 px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:text-foreground">
-        <Globe className="h-3.5 w-3.5" />
-        <span className="uppercase">{current.code}</span>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-[140px]">
-        {LANGS.map((l) => (
-          <DropdownMenuItem
-            key={l.code}
-            onClick={() => setLang(l.code)}
-            className={lang === l.code ? "font-semibold text-primary" : ""}
-          >
-            {l.label}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <button
+      type="button"
+      onClick={() => setLang(other)}
+      lang={other}
+      aria-label={`${c.language}: ${c.switchTo}`}
+      className={`inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-sm font-medium text-foreground/80 transition hover:border-primary/40 hover:text-primary ${className}`}
+    >
+      <Globe className="h-4 w-4" />
+      {c.switchTo}
+    </button>
   );
 }

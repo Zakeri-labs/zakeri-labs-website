@@ -2,19 +2,27 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4">
+    <div className="hero-glow flex min-h-[70vh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
+        <p className="font-display text-8xl font-extrabold">
+          <span className="gradient-text">404</span>
         </p>
-        <div className="mt-6">
+        <h1 className="mt-4 text-2xl font-bold">Page not found · الصفحة غير موجودة</h1>
+        <p className="mt-3 text-muted-foreground">
+          The page you’re looking for doesn’t exist or has been moved.
+        </p>
+        <div className="mt-8 flex justify-center gap-3">
           <Link
             href="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground"
           >
             Go home
+          </Link>
+          <Link
+            href="/ar"
+            className="rounded-full border border-input bg-surface px-6 py-3 font-semibold"
+          >
+            الرئيسية
           </Link>
         </div>
       </div>

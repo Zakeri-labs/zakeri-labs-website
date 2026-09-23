@@ -1,18 +1,6 @@
-import { ContactContent } from "@/components/site/pages/ContactContent";
-import { createPageMetadata, getFaqJsonLd } from "@/lib/seo";
+import { ContactPage } from "@/components/site/pages/ContactPage";
+import { enPage } from "@/lib/pages";
 
-export const metadata = createPageMetadata("contact", "en");
-
-const faqJsonLd = getFaqJsonLd("en");
-
-export default function ContactPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <ContactContent />
-    </>
-  );
-}
+const page = enPage("contact", ContactPage);
+export const metadata = page.metadata;
+export default page.Page;

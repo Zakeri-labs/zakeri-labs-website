@@ -1,18 +1,6 @@
-import { ServicesContent } from "@/components/site/pages/ServicesContent";
-import { createPageMetadata, getServicesJsonLd } from "@/lib/seo";
+import { ServicesPage } from "@/components/site/pages/ServicesPage";
+import { enPage } from "@/lib/pages";
 
-export const metadata = createPageMetadata("services", "en");
-
-const servicesJsonLd = getServicesJsonLd("en");
-
-export default function ServicesPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
-      />
-      <ServicesContent />
-    </>
-  );
-}
+const page = enPage("services", ServicesPage);
+export const metadata = page.metadata;
+export default page.Page;

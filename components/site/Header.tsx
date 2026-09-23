@@ -2,30 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Logo } from "./Logo";
-import { LocalizedLink as Link } from "./LocalizedLink";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { useI18n } from "@/lib/i18n";
-import { stripLangFromPathname } from "@/lib/locales";
-import { SITE } from "@/lib/site";
+import { Menu } from "lucide-react";
 
-const NAV = [
-  { to: "/", key: "nav.home" },
-  { to: "/services", key: "nav.services" },
-  { to: "/case-study", key: "nav.insights" },
-  { to: "/about", key: "nav.about" },
-  { to: "/pricing", key: "nav.pricing" },
-  { to: "/contact", key: "nav.contact" },
-] as const;
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Cta } from "./blocks";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { LocalizedLink as Link } from "./LocalizedLink";
+import { Logo } from "./Logo";
+import { COMMON, NAV_PATHS } from "@/lib/content/common";
+import { useCopy, useI18n } from "@/lib/i18n";
+import { stripLangFromPathname } from "@/lib/locales";
+import { whatsappUrl } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 export function Header() {
-  const { t } = useI18n();
+  const c = useCopy(COMMON);
+  const { lang } = useI18n();
   const [open, setOpen] = useState(false);
-  // Translucent over the hero, solid once content scrolls underneath —
-  // a see-through bar over body text reads as a detached strip.
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -33,94 +26,91 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const pathname = usePathname();
 
-  const englishPathname = stripLangFromPathname(pathname);
-  const tagline = t("site.tagline");
-  const primaryCta = t("home.cta.assessment");
-  const isActive = (href: string) =>
-    href === "/" ? englishPathname === "/" : englishPathname === href;
+  const current = stripLangFromPathname(usePathname() || "/");
+  const isActive = (href: string) => (href === "/" ? current === "/" : current.startsWith(href));
+  // On the contact page the header CTA jumps straight to the form.
+  const ctaHref = current === "/contact" ? "#contact-form" : "/contact";
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-colors duration-300 ${
-        scrolled ? "border-border/60 bg-background/90" : "border-transparent bg-background/30"
-      }`}
+      className={cn(
+        "sticky top-0 z-40 border-b transition-colors duration-300",
+        scrolled
+          ? "border-border bg-background/90 backdrop-blur-xl"
+          : "border-transparent bg-background/60 backdrop-blur",
+      )}
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="/" className="flex min-w-0 flex-col">
-          <Logo />
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <Link href="/" aria-label="IDRAK AI Solutions" className="shrink-0">
+          <Logo className="h-9 w-auto sm:h-10" />
         </Link>
 
-        <nav className="hidden items-center justify-center gap-7 lg:flex">
-          {NAV.map((n) => (
+        <nav aria-label={c.navigation} className="hidden items-center gap-1 xl:flex">
+          {NAV_PATHS.map((path) => (
             <Link
-              key={n.to}
-              href={n.to}
-              className={`text-sm transition hover:text-foreground ${
-                isActive(n.to) ? "font-medium text-foreground" : "text-muted-foreground"
-              }`}
+              key={path}
+              href={path}
+              aria-current={isActive(path) ? "page" : undefined}
+              className={cn(
+                "rounded-full px-3 py-2 text-sm font-medium transition hover:text-primary",
+                isActive(path) ? "bg-secondary text-primary" : "text-foreground/75",
+              )}
             >
-              {t(n.key)}
+              {c.nav[path]}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 justify-self-end">
-          <div className="hidden sm:block">
-            <LanguageSwitcher />
-          </div>
-          <Button
-            asChild
-            size="sm"
-            className="hidden bg-primary text-primary-foreground shadow-[var(--shadow-elegant)] hover:bg-primary/90 sm:inline-flex"
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher className="hidden sm:inline-flex" />
+          <Cta
+            href={ctaHref}
+            icon="none"
+            className="hidden min-h-10 px-5 py-2 text-sm md:inline-flex"
           >
-            <Link href="/contact">
-              {primaryCta} <ArrowRight className="ms-1.5 h-4 w-4" />
-            </Link>
-          </Button>
+            {c.cta.discuss}
+          </Cta>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button
-                className="grid h-9 w-9 place-items-center rounded-md border border-border bg-surface/60 lg:hidden"
-                aria-label={t("nav.openMenu")}
+                className="grid h-10 w-10 place-items-center rounded-full border border-border bg-surface xl:hidden"
+                aria-label={c.menu}
               >
-                <Menu className="h-4 w-4" />
+                <Menu className="h-5 w-5" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-80 border-border bg-background">
-              <SheetTitle className="sr-only">{t("nav.navigation")}</SheetTitle>
-              <div className="flex flex-col gap-6 pt-2">
-                <Logo />
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">{tagline}</p>
-                <nav className="flex flex-col gap-1">
-                  {NAV.map((n) => (
+            <SheetContent
+              side={lang === "ar" ? "left" : "right"}
+              className="w-[85vw] max-w-sm border-border bg-background"
+            >
+              <SheetTitle className="sr-only">{c.navigation}</SheetTitle>
+              <div className="flex h-full flex-col gap-6 overflow-y-auto p-6">
+                <Logo className="h-9 w-auto self-start" />
+                <nav aria-label={c.navigation} className="flex flex-col gap-1">
+                  {NAV_PATHS.map((path) => (
                     <Link
-                      key={n.to}
-                      href={n.to}
+                      key={path}
+                      href={path}
                       onClick={() => setOpen(false)}
-                      className={`rounded-md px-3 py-2.5 text-sm transition hover:bg-surface hover:text-foreground ${
-                        isActive(n.to)
-                          ? "bg-surface font-medium text-foreground"
-                          : "text-muted-foreground"
-                      }`}
+                      className={cn(
+                        "rounded-xl px-4 py-3 text-base font-medium transition hover:bg-secondary",
+                        isActive(path) ? "bg-secondary text-primary" : "text-foreground/80",
+                      )}
                     >
-                      {t(n.key)}
+                      {c.nav[path]}
                     </Link>
                   ))}
                 </nav>
-                <div className="space-y-3 border-t border-border pt-4">
-                  <LanguageSwitcher />
-                  <Button asChild className="w-full">
-                    <Link href="/contact" onClick={() => setOpen(false)}>
-                      {primaryCta}
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline" className="w-full">
-                    <a href={SITE.whatsapp} target="_blank" rel="noreferrer">
-                      {t("cta.whatsapp")}
-                    </a>
-                  </Button>
+                <div
+                  className="mt-auto flex flex-col gap-3 border-t border-border pt-6"
+                  onClick={() => setOpen(false)}
+                >
+                  <Cta href="/contact">{c.cta.discuss}</Cta>
+                  <Cta href={whatsappUrl(lang)} variant="outline" icon="whatsapp">
+                    {c.cta.whatsapp}
+                  </Cta>
+                  <LanguageSwitcher className="self-center" />
                 </div>
               </div>
             </SheetContent>

@@ -1,8 +1,6 @@
-import { AboutContent } from "@/components/site/pages/AboutContent";
-import { createPageMetadata } from "@/lib/seo";
+import { AboutPage } from "@/components/site/pages/AboutPage";
+import { enPage } from "@/lib/pages";
 
-export const metadata = createPageMetadata("about", "en");
-
-export default function AboutPage() {
-  return <AboutContent />;
-}
+const page = enPage("about", AboutPage);
+export const metadata = page.metadata;
+export default page.Page;

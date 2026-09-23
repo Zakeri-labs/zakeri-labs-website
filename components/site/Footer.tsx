@@ -1,209 +1,127 @@
 "use client";
 
-import { ArrowRight, ChevronDown, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Logo } from "./Logo";
+import { Mail, MessageCircle, Phone } from "lucide-react";
+
+import { Cta } from "./blocks";
 import { LocalizedLink as Link } from "./LocalizedLink";
-import { SITE } from "@/lib/site";
-import { useI18n } from "@/lib/i18n";
+import { Logo } from "./Logo";
+import { COMMON, NAV_PATHS } from "@/lib/content/common";
+import { useCopy, useI18n } from "@/lib/i18n";
+import { SITE, whatsappUrl } from "@/lib/site";
 
 export function Footer() {
-  const { t } = useI18n();
-  const year = new Date().getFullYear();
-  const primaryCta = t("home.cta.assessment");
-  const slogan = t("footer.slogan");
-  const description = t("footer.desc");
-  const footerTagline = t("site.tagline");
-  const navigateItems = [
-    { to: "/", label: t("nav.home") },
-    { to: "/services", label: t("nav.services") },
-    { to: "/case-study", label: t("nav.insights") },
-    { to: "/about", label: t("nav.about") },
-    { to: "/pricing", label: t("nav.pricing") },
-    { to: "/contact", label: t("nav.contact") },
-  ];
-  const serviceItems = [
+  const c = useCopy(COMMON);
+  const { lang } = useI18n();
+  const columns = [
     {
-      to: "/services",
-      label: t("footer.svc.systems"),
+      title: c.footer.services,
+      links: [
+        { href: "/services#automation", label: c.services.automation },
+        { href: "/services#ai-video", label: c.services.aiVideo },
+        { href: "/services#content", label: c.services.content },
+        { href: "/services#web", label: c.services.web },
+      ],
     },
     {
-      to: "/services",
-      label: t("footer.svc.automation"),
+      title: c.footer.products,
+      links: [
+        { href: "/products#construction-reporting", label: c.products.construction },
+        { href: "/products#clinic-crm", label: c.products.clinic },
+      ],
     },
     {
-      to: "/services",
-      label: t("footer.svc.crm"),
-    },
-    {
-      to: "/services",
-      label: t("footer.svc.dashboards"),
-    },
-    {
-      to: "/services",
-      label: t("footer.svc.ai"),
+      title: c.footer.navigate,
+      links: NAV_PATHS.map((path) => ({ href: path, label: c.nav[path] })),
     },
   ];
 
   return (
-    <footer className="mt-24 border-t border-border bg-background/60">
-      <div className="mx-auto max-w-7xl px-4 py-8 pb-24 sm:px-6 lg:px-8 lg:py-14">
-        <div className="lg:hidden">
-          <Logo />
-          <p className="mt-3 max-w-sm text-xs leading-relaxed text-muted-foreground">{slogan}</p>
-
-          <div className="mt-5 flex gap-2">
-            <Button asChild size="sm" className="min-w-0 flex-1">
-              <Link href="/contact">
-                <span className="truncate">{primaryCta}</span>
-                <ArrowRight className="ms-1.5 h-4 w-4 shrink-0" />
-              </Link>
-            </Button>
-            <a
-              href={SITE.whatsapp}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md border border-primary/35 bg-background/75 px-3 text-xs font-semibold text-foreground transition hover:border-primary/70 hover:bg-primary/15 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
-            >
-              <MessageCircle className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span className="truncate">{t("mobile.whatsapp")}</span>
-            </a>
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 lg:px-8 lg:pb-12">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+          <div className="max-w-sm">
+            <Logo className="h-11 w-auto" />
+            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+              {c.footer.description}
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+              <Cta href="/contact" className="min-h-11 px-5 text-sm">
+                {c.cta.discuss}
+              </Cta>
+              <Cta
+                href={whatsappUrl(lang)}
+                variant="outline"
+                icon="whatsapp"
+                className="min-h-11 px-5 text-sm"
+              >
+                {c.cta.whatsappShort}
+              </Cta>
+            </div>
           </div>
 
-          <div className="mt-6 divide-y border-y border-border">
-            <MobileFooterGroup title={t("footer.col.navigate")} items={navigateItems} />
-            <MobileFooterGroup title={t("footer.col.services")} items={serviceItems} />
-            <details className="group">
-              <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 text-sm font-semibold text-foreground [&::-webkit-details-marker]:hidden">
-                <span>{t("footer.col.contact")}</span>
-                <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-              </summary>
-              <ul className="space-y-2 pb-4 ps-1 text-xs text-muted-foreground">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {columns.map((col) => (
+              <div key={col.title}>
+                <h2 className="text-sm font-bold text-foreground">{col.title}</h2>
+                <ul className="mt-4 space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-muted-foreground transition hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div>
+              <h2 className="text-sm font-bold text-foreground">{c.footer.contact}</h2>
+              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                 <li>
-                  <a href={`tel:+${SITE.phoneRaw}`} className="transition hover:text-foreground">
-                    {SITE.phone}
+                  <a
+                    href={`tel:+${SITE.phoneRaw}`}
+                    dir="ltr"
+                    className="inline-flex items-center gap-2 transition hover:text-primary"
+                  >
+                    <Phone className="h-4 w-4 text-primary" /> {SITE.phone}
                   </a>
                 </li>
                 <li>
-                  <a href={`mailto:${SITE.email}`} className="transition hover:text-foreground">
-                    {SITE.email}
+                  <a
+                    href={whatsappUrl(lang)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 transition hover:text-primary"
+                  >
+                    <MessageCircle className="h-4 w-4 text-primary" /> {c.cta.whatsappShort}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    className="inline-flex items-center gap-2 break-all transition hover:text-primary"
+                  >
+                    <Mail className="h-4 w-4 shrink-0 text-primary" /> {SITE.email}
                   </a>
                 </li>
               </ul>
-            </details>
-          </div>
-        </div>
-
-        <div className="hidden gap-10 lg:grid lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <Logo />
-            <p className="mt-4 max-w-sm text-sm text-muted-foreground">{slogan}</p>
-            <p className="mt-2 max-w-sm text-xs text-muted-foreground/80">{description}</p>
-          </div>
-          <FooterCol title={t("footer.col.navigate")} items={navigateItems} />
-          <FooterCol title={t("footer.col.services")} items={serviceItems} />
-          <div>
-            <h2 className="mb-3 text-sm font-semibold text-foreground">
-              {t("footer.col.contact")}
-            </h2>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a
-                  href={`tel:+${SITE.phoneRaw}`}
-                  className="transition hover:text-foreground hover:underline"
-                >
-                  {SITE.phone}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="transition hover:text-foreground hover:underline"
-                >
-                  {SITE.email}
-                </a>
-              </li>
-            </ul>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Button asChild size="sm" className="w-full sm:w-[200px]">
-                <Link href="/contact">
-                  {primaryCta} <ArrowRight className="ms-1.5 h-4 w-4" />
-                </Link>
-              </Button>
-              <a
-                href={SITE.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                className="relative inline-flex h-8 w-full items-center justify-center gap-2 rounded-full border border-primary/35 bg-background/75 px-3 text-xs font-semibold text-foreground shadow-[var(--shadow-elegant)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-primary/70 hover:bg-primary/15 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 sm:w-[200px]"
-              >
-                <span className="absolute inset-0 -z-10 rounded-full bg-primary/15 blur-md" />
-                <span className="grid h-5 w-5 place-items-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)]">
-                  <MessageCircle className="h-3 w-3" />
-                </span>
-                <span>{t("cta.whatsapp")}</span>
-              </a>
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-col gap-2 border-t border-border pt-5 text-xs text-muted-foreground lg:mt-12 lg:pt-6 sm:flex-row sm:justify-between">
+
+        <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {SITE.name}. {t("footer.rights")}
-            <span className="mt-1 block text-muted-foreground/70">
+            © {new Date().getFullYear()} {SITE.name}. {c.footer.rights}
+            <span className="mt-1 block" dir="ltr">
               {SITE.legalName} · CR {SITE.crNumber} · {SITE.legalCity}
             </span>
           </p>
-          <p className="hidden sm:block">{footerTagline}</p>
+          <p className="font-medium text-foreground/70">{c.footer.tagline}</p>
         </div>
       </div>
     </footer>
-  );
-}
-
-function MobileFooterGroup({
-  title,
-  items,
-}: {
-  title: string;
-  items: { to: string; label: string }[];
-}) {
-  return (
-    <details className="group">
-      <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 text-sm font-semibold text-foreground [&::-webkit-details-marker]:hidden">
-        <span>{title}</span>
-        <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
-      </summary>
-      <ul className="space-y-2 pb-4 ps-1">
-        {items.map((item) => (
-          <li key={`${item.to}-${item.label}`}>
-            <Link
-              href={item.to}
-              className="text-xs text-muted-foreground transition hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </details>
-  );
-}
-
-function FooterCol({ title, items }: { title: string; items: { to: string; label: string }[] }) {
-  return (
-    <div>
-      <h2 className="mb-3 text-sm font-semibold text-foreground">{title}</h2>
-      <ul className="space-y-2">
-        {items.map((it, i) => (
-          <li key={i}>
-            <Link
-              href={it.to}
-              className="text-sm text-muted-foreground transition hover:text-foreground"
-            >
-              {it.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
