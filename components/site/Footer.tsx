@@ -59,7 +59,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.8fr_1.3fr]">
             {columns.map((col) => (
               <div key={col.title}>
                 <h2 className="text-sm font-bold text-foreground">{col.title}</h2>
@@ -102,7 +102,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="inline-flex items-center gap-2 break-all transition hover:text-primary"
+                    className="inline-flex items-center gap-2 whitespace-nowrap transition hover:text-primary"
                   >
                     <Mail className="h-4 w-4 shrink-0 text-primary" /> {SITE.email}
                   </a>

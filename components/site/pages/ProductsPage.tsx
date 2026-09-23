@@ -76,10 +76,10 @@ export function ProductsPage() {
         }
         visual={
           <Visual
-            src={IMG.clinicFollowup}
+            src={IMG.products}
             alt={p.hero.imageAlt}
             priority
-            className="mx-auto aspect-[748/941] max-h-[580px] max-w-md"
+            className="mx-auto max-h-[580px] max-w-md"
           />
         }
       />
@@ -120,7 +120,7 @@ export function ProductsPage() {
             <Visual
               src={IMG.construction}
               alt={p.construction.imageAlt}
-              className="aspect-[860/941] max-h-[640px]"
+              className="max-h-[640px]"
             />
           }
         >
@@ -170,13 +170,7 @@ export function ProductsPage() {
       {/* ---------- Product 02 ---------- */}
       <Section id="clinic-crm" tone="tint">
         <Split
-          visual={
-            <Visual
-              src={IMG.clinic}
-              alt={p.clinic.imageAlt}
-              className="aspect-[769/941] max-h-[640px]"
-            />
-          }
+          visual={<Visual src={IMG.clinic} alt={p.clinic.imageAlt} className="max-h-[640px]" />}
         >
           <ProductHeader tag={p.clinic.tag} title={p.clinic.title} subtitle={p.clinic.subtitle} />
           <Prose className="mt-6">
@@ -186,7 +180,7 @@ export function ProductsPage() {
           </Prose>
           <Audience label={p.clinic.audienceLabel} value={p.clinic.audience} icon={Stethoscope} />
         </Split>
-        <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_1fr_0.8fr]">
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
           <Reveal className="card-surface p-7">
             <h3 className="text-lg font-bold">{p.clinic.beforeLabel}</h3>
             <CheckList items={p.clinic.before} className="mt-5" />
@@ -194,14 +188,6 @@ export function ProductsPage() {
           <Reveal className="card-surface p-7" delay={0.06}>
             <h3 className="text-lg font-bold">{p.clinic.afterLabel}</h3>
             <CheckList items={p.clinic.after} className="mt-5" />
-          </Reveal>
-          <Reveal delay={0.12} className="hidden lg:block">
-            <Visual
-              src={IMG.clinicFollowup}
-              alt={p.clinic.followupAlt}
-              className="h-full max-h-[360px]"
-              sizes="25vw"
-            />
           </Reveal>
         </div>
         <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-center">

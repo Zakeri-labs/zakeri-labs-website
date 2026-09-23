@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { motion } from "framer-motion";
 import { ArrowRight, Check, MessageCircle } from "lucide-react";
 
 import {
@@ -28,8 +27,8 @@ export function Container({ children, className }: { children: ReactNode; classN
 type Tone = "plain" | "tint" | "ink";
 const TONES: Record<Tone, string> = {
   plain: "",
-  tint: "bg-gradient-to-b from-secondary/70 to-background",
-  ink: "bg-ink text-white",
+  tint: "bg-gradient-to-b from-white/[0.025] via-transparent to-transparent",
+  ink: "border-y border-white/5 bg-ink/70 text-white backdrop-blur-sm",
 };
 
 export function Section({
@@ -50,25 +49,20 @@ export function Section({
   );
 }
 
+/** Fades up on scroll; animated by the site-wide RevealController (GSAP). */
 export function Reveal({
   children,
   className,
-  delay = 0,
 }: {
   children: ReactNode;
   className?: string;
+  /** Kept for call-site compatibility; ScrollTrigger.batch staggers siblings. */
   delay?: number;
 }) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, ease: "easeOut", delay }}
-    >
+    <div data-reveal className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -138,7 +132,7 @@ const CTA_STYLES: Record<CtaVariant, string> = {
   primary:
     "bg-primary text-primary-foreground shadow-[var(--shadow-lift)] hover:-translate-y-0.5 hover:bg-primary/90",
   outline:
-    "border border-input bg-surface text-foreground hover:border-primary/50 hover:text-primary",
+    "border border-white/15 bg-white/[0.04] text-foreground backdrop-blur hover:border-primary/60 hover:bg-primary/10",
   light: "bg-white text-ink hover:-translate-y-0.5 hover:bg-white/90",
   ghost: "border border-white/25 text-white hover:border-white/60 hover:bg-white/10",
 };
@@ -423,20 +417,18 @@ export function Visual({
   className?: string;
   sizes?: string;
 }) {
+  // The generated visuals share the page navy, so they float frameless: edges
+  // are feathered away and the object drifts gently.
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden rounded-[1.75rem] border border-white bg-surface shadow-[var(--shadow-lift)] ring-1 ring-border",
-        className,
-      )}
-    >
+    <div className={cn("relative mx-auto aspect-square w-full max-w-[520px]", className)}>
+      <div className="pointer-events-none absolute inset-[18%] -z-10 rounded-full bg-violet/25 blur-3xl" />
       <Image
         src={src}
         alt={alt}
         priority={priority}
         placeholder="blur"
         sizes={sizes}
-        className="h-full w-full object-cover"
+        className="float-mask h-full w-full animate-[float_7s_ease-in-out_infinite] object-contain motion-reduce:animate-none"
       />
     </div>
   );

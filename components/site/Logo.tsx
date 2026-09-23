@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 export function Logo({ className = "h-9 w-auto" }: { className?: string }) {
   return (
     <Image
-      src="/brand/idrak-logo.svg"
+      src="/brand/idrak-logo-white.svg"
       alt={SITE.name}
       width={208}
       height={90}

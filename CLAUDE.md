@@ -23,7 +23,8 @@ This is a **Next.js 15 App Router** site (React 19, TypeScript). It was migrated
 ### Directory layout
 
 - `app/` — routes. English lives at the root (`/services`), Arabic under `app/[lang]` (`/ar/services`). Each `page.tsx` is three lines that hand its page component to `lib/pages.tsx` (metadata + JSON-LD).
-- `app/api/contact/route.ts` — contact form endpoint; validates with zod and emails `SITE.email` through Resend (`RESEND_API_KEY` env var, sender `website@omanai.tech`).
+- `app/api/contact/route.ts` — lead endpoint for the `LeadWizard` (size → challenges → focus → contact); validates with zod and emails `SITE.email` through Resend (`RESEND_API_KEY`, sender `website@omanai.tech`).
+- `app/api/chat/route.ts` — the on-site AI assistant (`components/site/AiAgent.tsx`). Streams from Vercel AI Gateway (`AI_GATEWAY_API_KEY`, model `google/gemini-2.5-flash`); its knowledge is built from `lib/content`, so it only knows what the site says.
 - `components/site/pages/` — one client component per page (Home, Services, Products, Work, About, HowWeWork, Contact).
 - `components/site/blocks.tsx` — shared building blocks (Section, SectionHeading, Cta, Advantage, Flow, Steps, Faq, Visual, Split, FinalCta, PageHero, ProductsBanner). Build new sections from these.
 - `components/ui/` — shadcn/ui primitives; do not edit these unless upgrading
@@ -36,9 +37,9 @@ This is a **Next.js 15 App Router** site (React 19, TypeScript). It was migrated
 
 Two languages: `en` (default, no prefix) and `ar` (RTL, `/ar/...`). Farsi was retired; `/fa/*` 301s to English in `next.config.ts`, alongside `/pricing → /how-we-work` and `/case-study → /selected-work`. In components: `const c = useCopy(HOME)` returns the current language's copy; `useI18n()` gives `lang`, `dir`, `setLang`.
 
-### Styling
+### Styling & motion
 
-Tailwind CSS v4, light theme defined in `app/globals.css` (brand tokens: `ink`, `cyan`, `blue`, `violet`; utilities `bg-brand`, `gradient-text`, `card-surface`, `hero-glow`). Fonts via `next/font`: Plus Jakarta Sans (display), Inter (body), IBM Plex Sans Arabic (all Arabic text).
+Tailwind CSS v4, dark theme defined in `app/globals.css` (page navy `#070b1a` matches the generated visuals in `assets/images`; brand tokens `ink`, `cyan`, `blue`, `violet`; utilities `bg-brand`, `gradient-text`, `card-surface`, `float-mask`, `hero-glow`). Animation is GSAP (`components/site/motion.tsx`: ScrollTrigger, SplitText, `useGSAP`, `useMagnetic`). Any element with `data-reveal` (or the `<Reveal>` block) fades up on scroll via the site-wide `RevealController`; it only starts hidden once the inline script has added `html.js`. `CircuitCanvas` is the animated circuit background behind every page. Fonts via `next/font`: Plus Jakarta Sans (display), Inter (body), IBM Plex Sans Arabic (all Arabic text).
 
 ### Analytics
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight, Eye, HeartHandshake, Lightbulb, Scale, Target, Users } from "lucide-react";
 
 import {
@@ -46,9 +47,7 @@ export function AboutPage() {
             </Cta>
           </div>
         }
-        visual={
-          <Visual src={IMG.value} alt={a.hero.imageAlt} priority className="aspect-[992/603]" />
-        }
+        visual={<Visual src={IMG.hero} alt={a.hero.imageAlt} priority className="" />}
       />
 
       {/* ---------- Who we are ---------- */}
@@ -99,11 +98,16 @@ export function AboutPage() {
       <Section id="founder">
         <Split
           visual={
-            <Visual
-              src={IMG.founder}
-              alt={a.founder.imageAlt}
-              className="mx-auto aspect-[848/941] max-w-md lg:max-w-none"
-            />
+            <div className="relative mx-auto w-full max-w-md">
+              <div className="pointer-events-none absolute inset-x-8 bottom-0 top-1/4 -z-10 rounded-full bg-brand opacity-30 blur-3xl" />
+              <Image
+                src={IMG.founder}
+                alt={a.founder.imageAlt}
+                placeholder="blur"
+                sizes="(min-width: 1024px) 35vw, 90vw"
+                className="w-full [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]"
+              />
+            </div>
           }
         >
           <Reveal>
@@ -176,13 +180,7 @@ export function AboutPage() {
       <Section tone="tint">
         <Split
           reverse
-          visual={
-            <Visual
-              src={IMG.challenge}
-              alt={a.oman.imageAlt}
-              className="aspect-[805/941] max-h-[560px]"
-            />
-          }
+          visual={<Visual src={IMG.oman} alt={a.oman.imageAlt} className="max-h-[560px]" />}
         >
           <SectionHeading eyebrow={a.oman.eyebrow} title={a.oman.title} />
           <Prose className="mt-6 text-lg">

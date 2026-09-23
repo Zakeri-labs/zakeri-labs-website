@@ -59,7 +59,7 @@ export function WorkPage() {
               <div
                 key={p.url}
                 className={cn(
-                  "overflow-hidden rounded-2xl border border-white shadow-[var(--shadow-lift)] ring-1 ring-border",
+                  "overflow-hidden rounded-2xl border border-white/10 shadow-[var(--shadow-lift)] ring-1 ring-border",
                   i % 2 === 1 && "translate-y-8",
                 )}
               >

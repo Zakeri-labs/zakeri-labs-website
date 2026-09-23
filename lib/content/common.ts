@@ -12,8 +12,18 @@ export const INTERESTS = [
 ] as const;
 export type Interest = (typeof INTERESTS)[number];
 
-export const TIMELINES = ["asap", "1-month", "1-3-months", "exploring"] as const;
-export type Timeline = (typeof TIMELINES)[number];
+export const SIZES = ["small", "medium", "large"] as const;
+export type Size = (typeof SIZES)[number];
+
+export const CHALLENGES = [
+  "costs",
+  "revenue",
+  "productivity",
+  "followup",
+  "value",
+  "visibility",
+] as const;
+export type Challenge = (typeof CHALLENGES)[number];
 
 export const NAV_PATHS = [
   "/",
@@ -41,9 +51,9 @@ const en = {
   language: "Language",
   switchTo: "العربية",
   cta: {
-    discuss: "Let’s Discuss Your Business",
+    discuss: "Boost Your Business",
     discussShort: "Let’s Talk",
-    explore: "Explore Services & Products",
+    explore: "Explore Solutions",
     whatsapp: "Contact on WhatsApp",
     whatsappShort: "WhatsApp",
     services: "Explore Services",
@@ -77,26 +87,52 @@ const en = {
     tagline: "AI That Creates Business Value.",
   },
   form: {
-    requiredNote: "Fields marked * are required.",
-    name: "Name",
-    company: "Company",
-    email: "Work Email",
-    phone: "WhatsApp / Phone",
-    country: "Country",
-    interest: "What are you interested in?",
-    interestPlaceholder: "Choose an area",
-    message: "What would you like to improve?",
-    messagePlaceholder:
-      "Tell us briefly what is happening today, what you would like to improve, and what a useful result would look like.",
-    timeline: "When are you looking to start?",
-    timelinePlaceholder: "Optional",
-    optional: "optional",
-    submit: "Discuss My Business",
+    stepOf: "Step {n} of {total}",
+    next: "Next",
+    back: "Back",
+    submit: "Send to IDRAK",
     sending: "Sending…",
-    successTitle: "Thank You.",
+    optional: "optional",
+    size: {
+      q: "How big is your business?",
+      hint: "So we suggest something that fits.",
+      options: {
+        small: ["Small", "1–10 people"],
+        medium: ["Medium", "11–100 people"],
+        large: ["Large", "100+ people"],
+      } satisfies Record<Size, [string, string]>,
+    },
+    challenge: {
+      q: "What do you want to change first?",
+      hint: "Pick one or more.",
+      options: {
+        costs: "Reduce costs",
+        revenue: "Grow revenue",
+        productivity: "Boost productivity",
+        followup: "Reply & follow up faster",
+        value: "Show my product’s value",
+        visibility: "Get found online",
+      } satisfies Record<Challenge, string>,
+    },
+    focus: {
+      q: "Anything we should know?",
+      hint: "Optional — pick an area if you already have one in mind.",
+      note: "Tell us in a sentence",
+      notePlaceholder: "e.g. We lose leads on WhatsApp after working hours.",
+    },
+    contact: {
+      q: "Where can we reach you?",
+      hint: "We’ll get back to you on WhatsApp.",
+      name: "Your name",
+      phone: "WhatsApp number",
+      company: "Company",
+      email: "Email",
+    },
+    successTitle: "You’re in. 🚀",
     successText:
-      "We’ve received your message. We’ll review your business challenge and get back to you to discuss the most practical next step.",
-    sendAnother: "Send another message",
+      "We’ve received your answers and will contact you on WhatsApp to discuss the most practical next step.",
+    successWhatsapp: "Say hi on WhatsApp now",
+    sendAnother: "Start over",
     errorTitle: "Your message could not be sent.",
     errorText: "Please try again, or reach us directly:",
     interests: {
@@ -109,12 +145,25 @@ const en = {
       "clinic-crm": "Clinic CRM & WhatsApp Assistant",
       "not-sure": "Not Sure Yet",
     } satisfies Record<Interest, string>,
-    timelines: {
-      asap: "As soon as possible",
-      "1-month": "Within 1 month",
-      "1-3-months": "Within 1–3 months",
-      exploring: "Later / Exploring",
-    } satisfies Record<Timeline, string>,
+  },
+  agent: {
+    open: "Ask IDRAK AI",
+    teaser: "Hi 👋 Ask me how AI can grow your business.",
+    title: "IDRAK AI",
+    status: "Online · replies instantly",
+    greeting:
+      "Hi! I’m IDRAK’s AI assistant. Tell me about your business or ask anything about our solutions — I’ll point you to the right next step.",
+    placeholder: "Ask about automation, AI video, pricing…",
+    send: "Send",
+    close: "Close chat",
+    suggestions: [
+      "What can AI do for my business?",
+      "How does WhatsApp sales automation work?",
+      "How is pricing decided?",
+    ],
+    human: "Prefer a human? Continue on WhatsApp",
+    error: "I couldn’t answer just now. Our team is one tap away on WhatsApp.",
+    disclaimer: "AI assistant · answers can be imperfect",
   },
   notFound: {
     title: "Page not found",
@@ -140,9 +189,9 @@ const ar: CommonCopy = {
   language: "اللغة",
   switchTo: "English",
   cta: {
-    discuss: "لنتحدث عن عملك",
+    discuss: "عزّز أعمالك",
     discussShort: "لنتحدث",
-    explore: "استكشف الخدمات والمنتجات",
+    explore: "استكشف الحلول",
     whatsapp: "تواصل عبر واتساب",
     whatsappShort: "واتساب",
     services: "استكشف الخدمات",
@@ -176,26 +225,51 @@ const ar: CommonCopy = {
     tagline: "ذكاء اصطناعي يصنع قيمة للأعمال.",
   },
   form: {
-    requiredNote: "الحقول المميّزة بعلامة * إلزامية.",
-    name: "الاسم",
-    company: "الشركة",
-    email: "البريد الإلكتروني للعمل",
-    phone: "واتساب / الهاتف",
-    country: "الدولة",
-    interest: "ما المجال الذي يهمّك؟",
-    interestPlaceholder: "اختر مجالاً",
-    message: "ما الذي تودّ تحسينه؟",
-    messagePlaceholder:
-      "أخبرنا باختصار بما يحدث اليوم، وما الذي تودّ تحسينه، وكيف تبدو النتيجة المفيدة بالنسبة لك.",
-    timeline: "متى تودّ البدء؟",
-    timelinePlaceholder: "اختياري",
-    optional: "اختياري",
-    submit: "لنناقش عملي",
+    stepOf: "الخطوة {n} من {total}",
+    next: "التالي",
+    back: "رجوع",
+    submit: "أرسل إلى إدراك",
     sending: "جارٍ الإرسال…",
-    successTitle: "شكراً لك.",
-    successText:
-      "وصلتنا رسالتك. سنراجع التحدي الذي تواجهه ونعود إليك لمناقشة الخطوة التالية الأكثر عملية.",
-    sendAnother: "إرسال رسالة أخرى",
+    optional: "اختياري",
+    size: {
+      q: "ما حجم عملك؟",
+      hint: "لنقترح ما يناسبك فعلاً.",
+      options: {
+        small: ["صغير", "1–10 أشخاص"],
+        medium: ["متوسط", "11–100 شخص"],
+        large: ["كبير", "أكثر من 100 شخص"],
+      },
+    },
+    challenge: {
+      q: "ما الذي تريد تغييره أولاً؟",
+      hint: "اختر خياراً أو أكثر.",
+      options: {
+        costs: "خفض التكاليف",
+        revenue: "زيادة الإيرادات",
+        productivity: "رفع الإنتاجية",
+        followup: "رد ومتابعة أسرع للعملاء",
+        value: "إظهار قيمة منتجي",
+        visibility: "الظهور أكثر على الإنترنت",
+      },
+    },
+    focus: {
+      q: "هل هناك ما يجب أن نعرفه؟",
+      hint: "اختياري — اختر مجالاً إن كان في ذهنك.",
+      note: "أخبرنا بجملة واحدة",
+      notePlaceholder: "مثال: نخسر عملاء على واتساب بعد ساعات العمل.",
+    },
+    contact: {
+      q: "كيف نتواصل معك؟",
+      hint: "سنعود إليك عبر واتساب.",
+      name: "اسمك",
+      phone: "رقم واتساب",
+      company: "الشركة",
+      email: "البريد الإلكتروني",
+    },
+    successTitle: "تم الاستلام. 🚀",
+    successText: "وصلتنا إجاباتك، وسنتواصل معك عبر واتساب لمناقشة الخطوة التالية الأكثر عملية.",
+    successWhatsapp: "راسلنا على واتساب الآن",
+    sendAnother: "ابدأ من جديد",
     errorTitle: "تعذّر إرسال رسالتك.",
     errorText: "يرجى المحاولة مرة أخرى، أو التواصل معنا مباشرة:",
     interests: {
@@ -208,12 +282,25 @@ const ar: CommonCopy = {
       "clinic-crm": "نظام CRM ومساعد واتساب للعيادات",
       "not-sure": "لست متأكداً بعد",
     },
-    timelines: {
-      asap: "في أقرب وقت ممكن",
-      "1-month": "خلال شهر",
-      "1-3-months": "خلال شهر إلى ثلاثة أشهر",
-      exploring: "لاحقاً / أستكشف الخيارات",
-    },
+  },
+  agent: {
+    open: "اسأل مساعد إدراك",
+    teaser: "مرحباً 👋 اسألني كيف يمكن للذكاء الاصطناعي أن ينمّي عملك.",
+    title: "مساعد إدراك الذكي",
+    status: "متصل · يرد فوراً",
+    greeting:
+      "مرحباً! أنا المساعد الذكي لإدراك. حدّثني عن عملك أو اسألني أي شيء عن حلولنا، وسأدلّك على الخطوة التالية المناسبة.",
+    placeholder: "اسأل عن الأتمتة أو الفيديو أو التسعير…",
+    send: "إرسال",
+    close: "إغلاق المحادثة",
+    suggestions: [
+      "ماذا يمكن للذكاء الاصطناعي أن يقدّم لعملي؟",
+      "كيف تعمل أتمتة المبيعات عبر واتساب؟",
+      "كيف يتم تحديد التكلفة؟",
+    ],
+    human: "تفضّل التحدث مع شخص؟ تابع عبر واتساب",
+    error: "تعذّر الرد الآن. فريقنا على بُعد لمسة عبر واتساب.",
+    disclaimer: "مساعد ذكاء اصطناعي · قد لا تكون الإجابات دقيقة دائماً",
   },
   notFound: {
     title: "الصفحة غير موجودة",

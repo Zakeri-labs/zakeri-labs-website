@@ -13,7 +13,7 @@ import {
   Steps,
   TextLink,
 } from "@/components/site/blocks";
-import { ContactForm } from "@/components/site/ContactForm";
+import { LeadWizard } from "@/components/site/LeadWizard";
 import { LocalizedLink } from "@/components/site/LocalizedLink";
 import { COMMON } from "@/lib/content/common";
 import { CONTACT } from "@/lib/content/contact";
@@ -52,7 +52,7 @@ export function ContactPage() {
             <Reveal className="card-surface p-6 sm:p-9">
               <h2 className="text-2xl font-bold">{k.form.title}</h2>
               <div className="mt-6">
-                <ContactForm extended />
+                <LeadWizard />
               </div>
             </Reveal>
 
@@ -99,8 +99,8 @@ export function ContactPage() {
                   </li>
                 </ul>
               </div>
-              <div className="rounded-[1.25rem] bg-[#e9fbf0] p-6 sm:p-8">
-                <MessageCircle className="h-7 w-7 text-[#1da851]" />
+              <div className="rounded-[1.25rem] border border-[#25d366]/25 bg-[#25d366]/10 p-6 sm:p-8">
+                <MessageCircle className="h-7 w-7 text-[#25d366]" />
                 <p className="mt-4 leading-relaxed text-foreground/80">{k.direct.whatsappText}</p>
                 <a
                   href={whatsappUrl(lang)}

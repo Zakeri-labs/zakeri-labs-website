@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import { MotionConfig } from "framer-motion";
 
 import { Toaster } from "@/components/ui/sonner";
 import { LanguageProvider, type Lang } from "@/lib/i18n";
@@ -21,8 +20,8 @@ export function Providers({ children, initialLang }: { children: ReactNode; init
 
   return (
     <LanguageProvider initialLang={initialLang}>
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
-      <Toaster position="top-center" />
+      {children}
+      <Toaster position="top-center" theme="dark" />
     </LanguageProvider>
   );
 }

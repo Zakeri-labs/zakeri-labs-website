@@ -17,7 +17,7 @@ import {
   TextLink,
   Visual,
 } from "@/components/site/blocks";
-import { ContactForm } from "@/components/site/ContactForm";
+import { LeadWizard } from "@/components/site/LeadWizard";
 import { COMMON } from "@/lib/content/common";
 import { HOW } from "@/lib/content/how";
 import { useCopy } from "@/lib/i18n";
@@ -273,7 +273,7 @@ export function HowWeWorkPage() {
           <div id="contact-form" className="rounded-[1.5rem] bg-surface p-6 text-foreground sm:p-8">
             <h3 className="text-xl font-bold">{h.final.formTitle}</h3>
             <div className="mt-5">
-              <ContactForm extended submitLabel={h.final.submit} />
+              <LeadWizard />
             </div>
           </div>
         }

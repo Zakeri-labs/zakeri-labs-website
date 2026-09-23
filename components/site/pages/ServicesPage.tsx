@@ -60,10 +60,10 @@ export function ServicesPage() {
         }
         visual={
           <Visual
-            src={IMG.glance}
+            src={IMG.hero}
             alt={s.hero.imageAlt}
             priority
-            className="mx-auto aspect-[518/749] max-h-[560px] max-w-sm"
+            className="mx-auto max-h-[560px] max-w-sm"
           />
         }
       />
@@ -105,13 +105,7 @@ export function ServicesPage() {
       <Section id="automation">
         <Split
           reverse
-          visual={
-            <Visual
-              src={IMG.automation}
-              alt={s.automation.imageAlt}
-              className="aspect-[1071/518]"
-            />
-          }
+          visual={<Visual src={IMG.automation} alt={s.automation.imageAlt} className="" />}
         >
           <SectionHeading
             eyebrow={s.automation.eyebrow}
@@ -154,7 +148,7 @@ export function ServicesPage() {
         {/* Featured automation use case: WhatsApp */}
         <div id="whatsapp" className="mt-20 scroll-mt-24">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[2rem] border border-primary/15 bg-gradient-to-br from-secondary via-surface to-[#e8fbf9] p-6 sm:p-10 lg:p-14">
+            <div className="relative overflow-hidden rounded-[2rem] border border-primary/15 bg-gradient-to-br from-primary/15 via-white/[0.02] to-cyan/10 p-6 sm:p-10 lg:p-14">
               <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
                 <div>
                   <p className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-white rtl:tracking-normal">
@@ -170,11 +164,7 @@ export function ServicesPage() {
                     ))}
                   </Prose>
                 </div>
-                <Visual
-                  src={IMG.whatsapp}
-                  alt={s.whatsapp.imageAlt}
-                  className="aspect-[1014/676]"
-                />
+                <Visual src={IMG.whatsapp} alt={s.whatsapp.imageAlt} className="" />
               </div>
               <Flow
                 className="mt-10"
@@ -200,13 +190,7 @@ export function ServicesPage() {
       {/* ---------- AI video ---------- */}
       <Section id="ai-video" tone="tint">
         <Split
-          visual={
-            <Visual
-              src={IMG.aiVideo}
-              alt={s.video.imageAlt}
-              className="aspect-[870/941] max-h-[620px]"
-            />
-          }
+          visual={<Visual src={IMG.aiVideo} alt={s.video.imageAlt} className="max-h-[620px]" />}
         >
           <SectionHeading eyebrow={s.video.eyebrow} title={s.video.title} intro={s.video.intro} />
           <p className="mt-5 leading-relaxed text-muted-foreground">{s.video.main}</p>
@@ -235,12 +219,7 @@ export function ServicesPage() {
 
       {/* ---------- Content ---------- */}
       <Section id="content">
-        <Split
-          reverse
-          visual={
-            <Visual src={IMG.content} alt={s.content.imageAlt} className="aspect-[1050/806]" />
-          }
-        >
+        <Split reverse visual={<Visual src={IMG.content} alt={s.content.imageAlt} className="" />}>
           <SectionHeading
             eyebrow={s.content.eyebrow}
             title={s.content.title}
@@ -276,7 +255,7 @@ export function ServicesPage() {
 
       {/* ---------- Web ---------- */}
       <Section id="web" tone="tint">
-        <Split visual={<Visual src={IMG.web} alt={s.web.imageAlt} className="aspect-[899/777]" />}>
+        <Split visual={<Visual src={IMG.web} alt={s.web.imageAlt} className="" />}>
           <SectionHeading eyebrow={s.web.eyebrow} title={s.web.title} intro={s.web.intro} />
           <p className="mt-5 leading-relaxed text-muted-foreground">{s.web.main}</p>
           <Advantage text={s.web.advantage} className="mt-8" />

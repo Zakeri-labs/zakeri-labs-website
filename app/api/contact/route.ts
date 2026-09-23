@@ -1,21 +1,21 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { COMMON, INTERESTS, TIMELINES } from "@/lib/content/common";
+import { CHALLENGES, COMMON, INTERESTS, SIZES } from "@/lib/content/common";
 import { SITE } from "@/lib/site";
 
 const FROM = "IDRAK Website <website@omanai.tech>";
 
-const Enquiry = z.object({
+const Lead = z.object({
+  size: z.enum(SIZES),
+  challenges: z.array(z.enum(CHALLENGES)).min(1).max(CHALLENGES.length),
+  interest: z.enum(INTERESTS).default("not-sure"),
+  note: z.string().trim().max(2000).optional().default(""),
   name: z.string().trim().min(1).max(120),
-  company: z.string().trim().min(1).max(160),
-  email: z.string().trim().email().max(200),
-  phone: z.string().trim().max(40).optional().default(""),
-  country: z.string().trim().max(80).optional().default(""),
-  interest: z.enum(INTERESTS),
-  message: z.string().trim().min(1).max(5000),
-  timeline: z
-    .union([z.enum(TIMELINES), z.literal("")])
+  phone: z.string().trim().min(6).max(40),
+  company: z.string().trim().max(160).optional().default(""),
+  email: z
+    .union([z.string().trim().email().max(200), z.literal("")])
     .optional()
     .default(""),
   lang: z.enum(["en", "ar"]).default("en"),
@@ -27,7 +27,7 @@ const escape = (s: string) =>
   s.replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`).replace(/\n/g, "<br>");
 
 export async function POST(request: Request) {
-  const parsed = Enquiry.safeParse(await request.json().catch(() => null));
+  const parsed = Lead.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
@@ -41,22 +41,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 500 });
   }
 
-  const labels = COMMON.en.form;
+  const f = COMMON.en.form;
+  const size = f.size.options[e.size].join(" · ");
+  const challenges = e.challenges.map((c) => f.challenge.options[c]).join(", ");
+  const waLink = `https://wa.me/${e.phone.replace(/[^\d]/g, "")}`;
   const rows: [string, string][] = [
     ["Name", e.name],
-    ["Company", e.company],
-    ["Email", e.email],
-    ["WhatsApp / Phone", e.phone || "—"],
-    ["Country", e.country || "—"],
-    ["Interested in", labels.interests[e.interest]],
-    ["Timeline", e.timeline ? labels.timelines[e.timeline] : "—"],
+    ["WhatsApp / Phone", e.phone],
+    ["Company", e.company || "—"],
+    ["Email", e.email || "—"],
+    ["Business size", size],
+    ["Wants to", challenges],
+    ["Area of interest", f.interests[e.interest]],
     ["Site language", e.lang === "ar" ? "Arabic" : "English"],
     ["Sent from", `${SITE.url}${e.page}`],
   ];
 
   const html = `
     <div style="font-family:Arial,sans-serif;color:#0e1633;max-width:640px">
-      <h2 style="margin:0 0 16px">New enquiry from the website</h2>
+      <h2 style="margin:0 0 16px">New lead from the website</h2>
+      <p><a href="${waLink}" style="display:inline-block;background:#25d366;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:bold">Reply on WhatsApp</a></p>
       <table style="border-collapse:collapse;width:100%">
         ${rows
           .map(
@@ -65,11 +69,13 @@ export async function POST(request: Request) {
           )
           .join("")}
       </table>
-      <h3 style="margin:24px 0 8px">What they would like to improve</h3>
-      <div style="padding:12px 16px;border-left:4px solid #4b3be0;background:#f6f5fb;line-height:1.6">${escape(e.message)}</div>
-      <p style="margin-top:24px;font-size:12px;color:#565d78">Reply to this email to answer ${escape(e.name)} directly.</p>
+      ${
+        e.note
+          ? `<h3 style="margin:24px 0 8px">In their words</h3><div style="padding:12px 16px;border-left:4px solid #4b3be0;background:#f6f5fb;line-height:1.6">${escape(e.note)}</div>`
+          : ""
+      }
     </div>`;
-  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nWhat they would like to improve:\n${e.message}`;
+  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}${e.note ? `\n\nIn their words:\n${e.note}` : ""}\n\nReply on WhatsApp: ${waLink}`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -77,8 +83,8 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       from: FROM,
       to: [SITE.email],
-      reply_to: e.email,
-      subject: `New enquiry: ${labels.interests[e.interest]} — ${e.name} (${e.company})`,
+      ...(e.email ? { reply_to: e.email } : {}),
+      subject: `New lead: ${e.name}${e.company ? ` (${e.company})` : ""} — ${challenges}`,
       html,
       text,
     }),
