@@ -89,7 +89,7 @@ function Hero() {
         .timeline({ delay: 0.5 })
         .from(".hero-fade", { y: 30, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.1 })
         .from(
-          ribbon.current,
+          ".hero-ribbon-intro",
           { scale: 0.6, opacity: 0, rotate: -25, duration: 1.6, ease: "expo.out" },
           0,
         )
@@ -99,21 +99,34 @@ function Hero() {
           0.6,
         );
 
-      // Scroll away: the ribbon drifts up and shrinks, the copy lifts.
-      gsap.to(ribbon.current, {
-        yPercent: -30,
-        scale: 0.7,
-        rotate: 18,
-        opacity: 0.2,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".hero-copy", {
-        yPercent: -18,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "20% top", end: "bottom top", scrub: true },
-      });
+      // Scroll away: the ribbon drifts up and shrinks, the copy lifts. Each
+      // scroll tween owns its own wrapper and explicit start values, so it
+      // never records the intro's hidden "from" state and scrolling back to
+      // the top always restores the hero.
+      gsap.fromTo(
+        ribbon.current,
+        { yPercent: 0, scale: 1, rotate: 0, opacity: 1 },
+        {
+          yPercent: -30,
+          scale: 0.7,
+          rotate: 18,
+          opacity: 0.2,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: 0.6 },
+        },
+      );
+      gsap.fromTo(
+        ".hero-copy",
+        { yPercent: 0, opacity: 1 },
+        {
+          yPercent: -18,
+          opacity: 0,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: { trigger: root.current, start: "25% top", end: "bottom top", scrub: 0.6 },
+        },
+      );
 
       // Chips bob on their own clocks.
       gsap.utils.toArray<HTMLElement>(".hero-chip").forEach((el, i) =>
@@ -207,15 +220,17 @@ function Hero() {
           ref={ribbon}
           className="relative mx-auto aspect-square w-full max-w-[560px] [perspective:1000px]"
         >
-          <div className="hero-ribbon-inner relative h-full w-full [transform-style:preserve-3d]">
-            <Image
-              src={IMG.hero}
-              alt={h.imageAlt}
-              priority
-              placeholder="blur"
-              sizes="(min-width: 1024px) 45vw, 90vw"
-              className="float-mask h-full w-full animate-[float_8s_ease-in-out_infinite] object-contain motion-reduce:animate-none"
-            />
+          <div className="hero-ribbon-intro relative h-full w-full">
+            <div className="hero-ribbon-inner relative h-full w-full [transform-style:preserve-3d]">
+              <Image
+                src={IMG.hero}
+                alt={h.imageAlt}
+                priority
+                placeholder="blur"
+                sizes="(min-width: 1024px) 45vw, 90vw"
+                className="float-mask h-full w-full animate-[float_8s_ease-in-out_infinite] object-contain motion-reduce:animate-none"
+              />
+            </div>
           </div>
           {h.chips.map((chip, i) => {
             const Icon = chipIcons[i];
