@@ -119,7 +119,12 @@ export function Footer() {
               {SITE.legalName} · CR {SITE.crNumber} · {SITE.legalCity}
             </span>
           </p>
-          <p className="font-medium text-foreground/70">{c.footer.tagline}</p>
+          <p className="flex items-center gap-4 font-medium text-foreground/70">
+            <Link href="/privacy" className="transition hover:text-primary">
+              {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
+            </Link>
+            {c.footer.tagline}
+          </p>
         </div>
       </div>
     </footer>

@@ -17,7 +17,8 @@ export type PublicPage =
   | "selected-work"
   | "about"
   | "how-we-work"
-  | "contact";
+  | "contact"
+  | "privacy";
 
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   home: "/",
@@ -27,6 +28,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   about: "/about",
   "how-we-work": "/how-we-work",
   contact: "/contact",
+  privacy: "/privacy",
 };
 
 type SeoEntry = { title: string; description: string; ogTitle?: string; ogDescription?: string };
@@ -120,6 +122,18 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
       title: "تواصل مع إدراك للحلول الذكية | عُمان",
       description:
         "تواصل مع إدراك للحلول الذكية في عُمان لمناقشة أتمتة الأعمال، وإنتاج الفيديو بالذكاء الاصطناعي، والمحتوى، وتصميم المواقع، وSEO وGEO، ومنتجات إدراك.",
+    },
+  },
+  privacy: {
+    en: {
+      title: "Privacy Policy | IDRAK AI Solutions",
+      description:
+        "How IDRAK AI Solutions SPC collects, uses and protects personal information from its website, AI assistant and WhatsApp communication.",
+    },
+    ar: {
+      title: "سياسة الخصوصية | إدراك للحلول الذكية",
+      description:
+        "كيف تجمع إدراك للحلول الذكية المعلومات الشخصية وتستخدمها وتحميها عبر موقعها والمساعد الذكي وواتساب.",
     },
   },
 };
