@@ -5,6 +5,8 @@ const moved: [string, string][] = [
   ["/pricing", "/how-we-work"],
   ["/case-study", "/selected-work"],
   ["/insights", "/selected-work"],
+  ["/policy", "/privacy"],
+  ["/privacy-policy", "/privacy"],
 ];
 
 const nextConfig: NextConfig = {

@@ -1,11 +1,15 @@
 "use client";
 
 import { PageHero, Section } from "@/components/site/blocks";
+import { DELETION } from "@/lib/content/deletion";
 import { PRIVACY } from "@/lib/content/privacy";
+import { TERMS } from "@/lib/content/terms";
 import { useCopy } from "@/lib/i18n";
 
-export function PrivacyPage() {
-  const p = useCopy(PRIVACY);
+type Legal = typeof PRIVACY;
+
+function LegalPage({ content }: { content: Legal }) {
+  const p = useCopy(content);
   return (
     <>
       <PageHero eyebrow={p.eyebrow} title={p.title} intro={p.intro} support={p.updated} />
@@ -26,3 +30,7 @@ export function PrivacyPage() {
     </>
   );
 }
+
+export const PrivacyPage = () => <LegalPage content={PRIVACY} />;
+export const TermsPage = () => <LegalPage content={TERMS} />;
+export const DeletionPage = () => <LegalPage content={DELETION} />;

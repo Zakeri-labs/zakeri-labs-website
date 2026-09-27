@@ -18,7 +18,9 @@ export type PublicPage =
   | "about"
   | "how-we-work"
   | "contact"
-  | "privacy";
+  | "privacy"
+  | "terms"
+  | "deletion";
 
 export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   home: "/",
@@ -29,6 +31,8 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   "how-we-work": "/how-we-work",
   contact: "/contact",
   privacy: "/privacy",
+  terms: "/terms",
+  deletion: "/deletion",
 };
 
 type SeoEntry = { title: string; description: string; ogTitle?: string; ogDescription?: string };
@@ -134,6 +138,30 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
       title: "سياسة الخصوصية | إدراك للحلول الذكية",
       description:
         "كيف تجمع إدراك للحلول الذكية المعلومات الشخصية وتستخدمها وتحميها عبر موقعها والمساعد الذكي وواتساب.",
+    },
+  },
+  terms: {
+    en: {
+      title: "Terms of Service | IDRAK AI Solutions",
+      description:
+        "The terms that govern use of the IDRAK AI Solutions website, AI assistant and WhatsApp services.",
+    },
+    ar: {
+      title: "شروط الخدمة | إدراك للحلول الذكية",
+      description:
+        "الشروط التي تحكم استخدام موقع إدراك للحلول الذكية والمساعد الذكي وخدمات واتساب.",
+    },
+  },
+  deletion: {
+    en: {
+      title: "Data Deletion Instructions | IDRAK AI Solutions",
+      description:
+        "How to ask IDRAK AI Solutions to delete your personal data, including data received through Facebook, Instagram or WhatsApp.",
+    },
+    ar: {
+      title: "تعليمات حذف البيانات | إدراك للحلول الذكية",
+      description:
+        "كيف تطلب من إدراك للحلول الذكية حذف بياناتك الشخصية، بما فيها البيانات الواردة عبر فيسبوك أو إنستغرام أو واتساب.",
     },
   },
 };

@@ -123,6 +123,9 @@ export function Footer() {
             <Link href="/privacy" className="transition hover:text-primary">
               {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
             </Link>
+            <Link href="/terms" className="transition hover:text-primary">
+              {lang === "ar" ? "شروط الخدمة" : "Terms"}
+            </Link>
             {c.footer.tagline}
           </p>
         </div>
