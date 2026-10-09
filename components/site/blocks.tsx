@@ -395,7 +395,10 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
           <AccordionTrigger className="py-5 text-start text-base font-semibold hover:no-underline">
             {item.q}
           </AccordionTrigger>
-          <AccordionContent className="pe-8 text-[15px] leading-relaxed text-muted-foreground">
+          <AccordionContent
+            forceMount
+            className="pe-8 text-[15px] leading-relaxed text-muted-foreground in-data-[state=closed]:hidden"
+          >
             {item.a}
           </AccordionContent>
         </AccordionItem>

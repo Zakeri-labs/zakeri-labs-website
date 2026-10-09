@@ -1,7 +1,6 @@
 import type { StaticImageData } from "next/image";
 
 import type { Lang } from "@/lib/locales";
-import case17 from "@/assets/work/case-17.webp";
 import case2 from "@/assets/work/case-2.webp";
 import case3 from "@/assets/work/case-3.webp";
 import case4 from "@/assets/work/case-4.webp";
@@ -35,12 +34,6 @@ export type Project = {
 
 /** Every delivered project, in display order. All are web design work. */
 export const PROJECTS: Project[] = [
-  {
-    image: case17,
-    url: "https://rahil-mostafaee.zakeri.dev/",
-    industry: "legal",
-    name: "Rahil Mostafaee",
-  },
   {
     image: case2,
     url: "https://anfal-saleh.zakeri.dev/",
@@ -155,7 +148,7 @@ export const PROJECTS: Project[] = [
 export const FEATURED_NAMES = [
   "Anfal Saleh",
   "Dr. Arefeh Lotfi",
-  "Rahil Mostafaee",
+  "Farhad Lotfi",
   "Tabasom",
   "Sadaf Rezai",
   "Dr. Katayoon Homayoon",

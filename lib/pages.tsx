@@ -1,16 +1,19 @@
 import { Fragment, type ComponentType } from "react";
 import { notFound } from "next/navigation";
 
+import { COMMON } from "@/lib/content/common";
 import { isLocalizedLang, type Lang } from "@/lib/locales";
 import {
   createPageMetadata,
   FAQS,
+  getBreadcrumbJsonLd,
   getAboutJsonLd,
   getFaqJsonLd,
   getProductsJsonLd,
   getProjectsJsonLd,
   getServicesJsonLd,
   jsonLdScript,
+  PUBLIC_PAGE_PATHS,
   type PublicPage,
 } from "@/lib/seo";
 
@@ -27,9 +30,24 @@ const JSON_LD: Partial<Record<PublicPage, (lang: Lang) => object[]>> = {
   contact: (l) => [getFaqJsonLd(FAQS.contact(l))],
 };
 
+/** Short page name for breadcrumbs: the part of the SEO title before " | ". */
+const SEO_TITLE = (page: PublicPage, lang: Lang) =>
+  (createPageMetadata(page, lang).title as { absolute: string }).absolute.split(" | ")[0];
+
 function render(page: PublicPage, Component: ComponentType, lang: Lang) {
+  const crumbs =
+    page === "home"
+      ? null
+      : getBreadcrumbJsonLd(
+          [
+            { name: COMMON[lang].nav["/"], path: "/" },
+            { name: SEO_TITLE(page, lang), path: PUBLIC_PAGE_PATHS[page] },
+          ],
+          lang,
+        );
   return (
     <>
+      {crumbs && jsonLdScript(crumbs)}
       {JSON_LD[page]?.(lang).map((data, i) => (
         <Fragment key={i}>{jsonLdScript(data)}</Fragment>
       ))}

@@ -183,7 +183,7 @@ function Hero() {
             <Sparkles className="h-3.5 w-3.5" /> {h.eyebrow}
           </p>
           <h1 className="hero-title mt-7 text-[2.55rem] font-extrabold leading-[0.98] tracking-[-0.04em] sm:text-7xl xl:text-[5.6rem]">
-            <span className="hero-title-a block">{h.titleA}</span>
+            <span className="hero-title-a block">{h.titleA}</span>{" "}
             {/* Clipped gradient text can't be split per character, so it rises as one line. */}
             <span className="block overflow-hidden pb-3">
               <span className="hero-title-b gradient-text block">{h.titleB}</span>
@@ -531,6 +531,21 @@ function Solutions() {
               </div>
             </div>
           </div>
+          {/* Inactive tabs stay in the server HTML so crawlers see every solution. */}
+          {s.tabs.map(
+            (t, i) =>
+              i !== active && (
+                <div key={t.key} role="tabpanel" hidden>
+                  <h3>{t.title}</h3>
+                  <p>{t.text}</p>
+                  <ul>
+                    {t.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                </div>
+              ),
+          )}
         </div>
       </Container>
     </section>

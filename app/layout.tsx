@@ -13,7 +13,7 @@ import { Header } from "@/components/site/Header";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { RevealController } from "@/components/site/motion";
 import { getDirection, isLang } from "@/lib/locales";
-import { getOrganizationJsonLd, jsonLdScript } from "@/lib/seo";
+import { getOrganizationJsonLd, getWebSiteJsonLd, jsonLdScript } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { Providers } from "./providers";
 
@@ -77,6 +77,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           </div>
         </Providers>
         {jsonLdScript(getOrganizationJsonLd(lang))}
+        {jsonLdScript(getWebSiteJsonLd(lang))}
         {GA_ID && (
           <>
             <Script

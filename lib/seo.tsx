@@ -182,15 +182,46 @@ const SHARE_IMAGE = {
 };
 
 export function createPageMetadata(page: PublicPage, lang: Lang): Metadata {
-  const path = PUBLIC_PAGE_PATHS[page];
-  const canonical = absoluteUrl(localizePathname(path, lang));
   const e = SEO_COPY[page][lang];
-  const ogTitle = e.ogTitle ?? e.title;
-  const ogDescription = e.ogDescription ?? e.description;
+  return buildMetadata({
+    path: PUBLIC_PAGE_PATHS[page],
+    lang,
+    title: e.title,
+    description: e.description,
+    ogTitle: e.ogTitle,
+    ogDescription: e.ogDescription,
+  });
+}
+
+/** Title, description, canonical, hreflang, robots and OG/Twitter for any path. */
+export function buildMetadata({
+  path,
+  lang,
+  title,
+  description,
+  ogTitle = title,
+  ogDescription = description,
+  image,
+  type = "website",
+  noindex = false,
+}: {
+  path: string;
+  lang: Lang;
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  image?: { url: string; width: number; height: number; alt: string };
+  type?: "website" | "article";
+  noindex?: boolean;
+}): Metadata {
+  const canonical = absoluteUrl(localizePathname(path, lang));
+  const images = [image ?? SHARE_IMAGE];
 
   return {
-    title: { absolute: e.title },
-    description: e.description,
+    title: { absolute: title },
+    description,
+    robots: noindex ? { index: false, follow: true } : undefined,
     alternates: {
       canonical,
       languages: {
@@ -200,20 +231,40 @@ export function createPageMetadata(page: PublicPage, lang: Lang): Metadata {
     },
     openGraph: {
       siteName: SITE.name,
-      type: "website",
+      type,
       title: ogTitle,
       description: ogDescription,
       url: canonical,
       locale: OG_LOCALES[lang],
       alternateLocale: LANGUAGES.filter((l) => l !== lang).map((l) => OG_LOCALES[l]),
-      images: [SHARE_IMAGE],
+      images,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: ogTitle,
-      description: ogDescription,
-      images: [SHARE_IMAGE],
-    },
+    twitter: { card: "summary_large_image", title: ogTitle, description: ogDescription, images },
+  };
+}
+
+export function getBreadcrumbJsonLd(items: { name: string; path: string }[], lang: Lang) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: absoluteUrl(localizePathname(item.path, lang)),
+    })),
+  };
+}
+
+export function getWebSiteJsonLd(lang: Lang) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
+    url: SITE.url,
+    name: SITE.name,
+    inLanguage: lang,
+    publisher: { "@id": `${SITE.url}/#organization` },
   };
 }
 
@@ -235,13 +286,14 @@ const provider = { "@id": ORG_ID };
 export function getOrganizationJsonLd(lang: Lang) {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "@id": ORG_ID,
     name: SITE.name,
     alternateName: ["IDRAK", "إدراك للحلول الذكية"],
     legalName: SITE.legalName,
     url: SITE.url,
     logo: absoluteUrl("/icon.png"),
+    image: absoluteUrl("/opengraph-image.jpg"),
     email: SITE.email,
     telephone: `+${SITE.phoneRaw}`,
     description: COMMON[lang].footer.description,

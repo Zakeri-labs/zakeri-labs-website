@@ -5,6 +5,7 @@ import { Mail, MessageCircle, Phone } from "lucide-react";
 import { Cta } from "./blocks";
 import { LocalizedLink as Link } from "./LocalizedLink";
 import { Logo } from "./Logo";
+import { publishedArticles } from "@/lib/articles";
 import { COMMON, NAV_PATHS } from "@/lib/content/common";
 import { useCopy, useI18n } from "@/lib/i18n";
 import { SITE, whatsappUrl } from "@/lib/site";
@@ -37,7 +38,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 lg:px-8 lg:pb-12">
+      <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 lg:px-8 lg:pb-28">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div className="max-w-sm">
             <Logo className="h-11 w-auto" />
@@ -119,15 +120,22 @@ export function Footer() {
               {SITE.legalName} · CR {SITE.crNumber} · {SITE.legalCity}
             </span>
           </p>
-          <p className="flex items-center gap-4 font-medium text-foreground/70">
-            <Link href="/privacy" className="transition hover:text-primary">
-              {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
-            </Link>
-            <Link href="/terms" className="transition hover:text-primary">
-              {lang === "ar" ? "شروط الخدمة" : "Terms"}
-            </Link>
-            {c.footer.tagline}
-          </p>
+          <div className="flex flex-col gap-2 sm:items-end">
+            <p className="flex flex-wrap items-center gap-x-4 gap-y-2 font-medium text-foreground/70">
+              <Link href="/privacy" className="whitespace-nowrap transition hover:text-primary">
+                {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
+              </Link>
+              <Link href="/terms" className="whitespace-nowrap transition hover:text-primary">
+                {lang === "ar" ? "شروط الخدمة" : "Terms"}
+              </Link>
+              {publishedArticles().length > 0 && (
+                <Link href="/articles" className="whitespace-nowrap transition hover:text-primary">
+                  {lang === "ar" ? "المقالات" : "Articles"}
+                </Link>
+              )}
+            </p>
+            <p>{c.footer.tagline}</p>
+          </div>
         </div>
       </div>
     </footer>

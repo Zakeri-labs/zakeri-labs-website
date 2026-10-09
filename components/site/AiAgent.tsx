@@ -7,7 +7,6 @@ import { ArrowUp, MessageCircle, X } from "lucide-react";
 import { gsap, prefersReducedMotion } from "./motion";
 import { COMMON } from "@/lib/content/common";
 import { useCopy, useI18n } from "@/lib/i18n";
-import { IMG } from "@/lib/images";
 import { whatsappUrl } from "@/lib/site";
 import { track } from "@/lib/track";
 import { cn } from "@/lib/utils";
@@ -153,13 +152,13 @@ export function AiAgent() {
             className="group relative flex items-center gap-2 rounded-full border border-white/15 bg-card/90 p-1.5 font-semibold sm:pe-5 shadow-[var(--shadow-lift)] backdrop-blur transition hover:-translate-y-0.5"
           >
             <span className="absolute -inset-1 -z-10 animate-pulse rounded-full bg-brand opacity-30 blur-md" />
-            <span className="relative h-10 w-10 overflow-hidden rounded-full">
+            <span className="relative grid h-10 w-10 place-items-center rounded-full bg-[#0a0f26]">
               <Image
-                src={IMG.agent}
+                src="/brand/idrak-mark.svg"
                 alt=""
-                fill
-                sizes="40px"
-                className="scale-[1.6] object-cover"
+                width={24}
+                height={24}
+                className="h-6 w-6"
               />
             </span>
             <span className="hidden text-sm sm:inline">{a.open}</span>
@@ -186,13 +185,13 @@ export function AiAgent() {
         >
           <div className="relative flex items-center gap-3 border-b border-white/10 px-5 py-4">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_120%_at_0%_0%,rgb(123_107_255/0.25),transparent)]" />
-            <span className="relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-primary/40">
+            <span className="relative grid h-11 w-11 place-items-center rounded-full bg-[#0a0f26] ring-2 ring-primary/40">
               <Image
-                src={IMG.agent}
+                src="/brand/idrak-mark.svg"
                 alt=""
-                fill
-                sizes="44px"
-                className="scale-[1.6] object-cover"
+                width={24}
+                height={24}
+                className="h-6 w-6"
               />
             </span>
             <div className="relative">

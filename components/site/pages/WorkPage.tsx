@@ -130,8 +130,11 @@ export function WorkPage() {
           </div>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((p) => (
-            <ProjectCard key={p.url} project={p} />
+          {/* Every project is in the HTML; "show more" only reveals them. */}
+          {matches.map((p, i) => (
+            <div key={p.url} hidden={i >= shown}>
+              <ProjectCard project={p} />
+            </div>
           ))}
         </div>
         <div className="mt-10 flex flex-col items-center gap-3">
