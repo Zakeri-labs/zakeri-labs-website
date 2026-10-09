@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      // omanai.tech is the canonical host; every other host the deployment answers on folds into it.
+      ...["www.omanai.tech", "zakeri.dev", "www.zakeri.dev"].map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: "https://omanai.tech/:path*",
+        permanent: true,
+      })),
       ...moved.flatMap(([from, to]) => [
         { source: from, destination: to, statusCode: 301 as const },
         { source: `/ar${from}`, destination: `/ar${to}`, statusCode: 301 as const },

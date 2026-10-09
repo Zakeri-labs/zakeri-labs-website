@@ -13,7 +13,7 @@ export const SITE = {
   crNumber: "1662469",
   legalCity: "Muscat, Oman",
   founder: "Mohammadreza Zakeri",
-  url: "https://www.zakeri.dev",
+  url: "https://omanai.tech",
   phone: "+968 7171 3260",
   phoneRaw: "96871713260",
   email: "zakeri@omanai.tech",
