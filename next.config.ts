@@ -13,13 +13,14 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
-      // omanai.tech is the canonical host; every other host the deployment answers on folds into it.
-      ...["www.omanai.tech", "zakeri.dev", "www.zakeri.dev"].map((host) => ({
+      // omanai.tech is the SEO host. zakeri.dev keeps serving the site (Zakeri's call), but every
+      // page's canonical points at omanai.tech so Google indexes only that domain.
+      {
         source: "/:path*",
-        has: [{ type: "host" as const, value: host }],
+        has: [{ type: "host" as const, value: "www.omanai.tech" }],
         destination: "https://omanai.tech/:path*",
         permanent: true,
-      })),
+      },
       ...moved.flatMap(([from, to]) => [
         { source: from, destination: to, statusCode: 301 as const },
         { source: `/ar${from}`, destination: `/ar${to}`, statusCode: 301 as const },
