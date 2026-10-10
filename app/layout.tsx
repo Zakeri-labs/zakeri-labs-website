@@ -55,8 +55,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   // The content panel brings its own UI; skip the site chrome around it.
   if (requestHeaders.get("x-zakeri-path")?.startsWith("/keystatic")) {
     return (
-      <html lang="en">
-        <body style={{ background: "#fff", color: "#111" }}>{children}</body>
+      <html lang="en" style={{ background: "Canvas", colorScheme: "light dark" }}>
+        <body style={{ background: "Canvas", color: "CanvasText" }}>{children}</body>
       </html>
     );
   }
