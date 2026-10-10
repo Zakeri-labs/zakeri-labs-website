@@ -56,7 +56,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   if (requestHeaders.get("x-zakeri-path")?.startsWith("/keystatic")) {
     return (
       <html lang="en">
-        <body>{children}</body>
+        <body style={{ background: "#fff", color: "#111" }}>{children}</body>
       </html>
     );
   }
