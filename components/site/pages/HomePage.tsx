@@ -90,7 +90,8 @@ function Hero() {
         .from(".hero-fade", { y: 30, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.1 })
         .from(
           ".hero-ribbon-intro",
-          { scale: 0.6, opacity: 0, rotate: -25, duration: 1.6, ease: "expo.out" },
+          // No opacity fade: the ribbon is the LCP image, so it must paint at once.
+          { scale: 0.6, rotate: -25, duration: 1.6, ease: "expo.out" },
           0,
         )
         .from(
@@ -226,6 +227,7 @@ function Hero() {
                 src={IMG.hero}
                 alt={h.imageAlt}
                 priority
+                fetchPriority="high"
                 placeholder="blur"
                 sizes="(min-width: 1024px) 45vw, 90vw"
                 className="float-mask h-full w-full animate-[float_8s_ease-in-out_infinite] object-contain motion-reduce:animate-none"

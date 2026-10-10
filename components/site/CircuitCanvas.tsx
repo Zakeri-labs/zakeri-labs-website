@@ -154,9 +154,13 @@ export function CircuitCanvas() {
     };
 
     build();
-    const reduced = prefersReducedMotion();
-    if (reduced) draw();
-    else raf = requestAnimationFrame(tick);
+    // Phones get a still frame: the per-frame glow drawing is the main source of
+    // main-thread time on mid-range Android. Desktop animates once the page is idle.
+    const reduced = prefersReducedMotion() || window.matchMedia("(max-width: 767px)").matches;
+    draw();
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500));
+    const cancelIdle = window.cancelIdleCallback ?? window.clearTimeout;
+    const idleId = reduced ? 0 : idle(() => (raf = requestAnimationFrame(tick)));
 
     const onResize = () => {
       // Mobile URL bars resize the viewport while scrolling; don't reshuffle for that.
@@ -176,6 +180,7 @@ export function CircuitCanvas() {
     window.addEventListener("pointermove", onMove, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
+      cancelIdle(idleId);
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("pointermove", onMove);
