@@ -5,12 +5,11 @@ import { Mail, MessageCircle, Phone } from "lucide-react";
 import { Cta } from "./blocks";
 import { LocalizedLink as Link } from "./LocalizedLink";
 import { Logo } from "./Logo";
-import { publishedArticles } from "@/lib/articles";
 import { COMMON, NAV_PATHS } from "@/lib/content/common";
 import { useCopy, useI18n } from "@/lib/i18n";
 import { SITE, whatsappUrl } from "@/lib/site";
 
-export function Footer() {
+export function Footer({ hasArticles = false }: { hasArticles?: boolean }) {
   const c = useCopy(COMMON);
   const { lang } = useI18n();
   const columns = [
@@ -128,7 +127,7 @@ export function Footer() {
               <Link href="/terms" className="whitespace-nowrap transition hover:text-primary">
                 {lang === "ar" ? "شروط الخدمة" : "Terms"}
               </Link>
-              {publishedArticles().length > 0 && (
+              {hasArticles && (
                 <Link href="/articles" className="whitespace-nowrap transition hover:text-primary">
                   {lang === "ar" ? "المقالات" : "Articles"}
                 </Link>

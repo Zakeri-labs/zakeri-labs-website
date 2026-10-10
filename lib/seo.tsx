@@ -181,15 +181,24 @@ const SHARE_IMAGE = {
   type: "image/jpeg",
 };
 
-export function createPageMetadata(page: PublicPage, lang: Lang): Metadata {
+export type SeoOverride = { title?: string; description?: string; noindex?: boolean };
+
+export function createPageMetadata(
+  page: PublicPage,
+  lang: Lang,
+  override: SeoOverride = {},
+): Metadata {
   const e = SEO_COPY[page][lang];
+  const title = override.title || e.title;
+  const description = override.description || e.description;
   return buildMetadata({
     path: PUBLIC_PAGE_PATHS[page],
     lang,
-    title: e.title,
-    description: e.description,
-    ogTitle: e.ogTitle,
-    ogDescription: e.ogDescription,
+    title,
+    description,
+    ogTitle: override.title || e.ogTitle,
+    ogDescription: override.description || e.ogDescription,
+    noindex: override.noindex,
   });
 }
 
@@ -204,6 +213,7 @@ export function buildMetadata({
   image,
   type = "website",
   noindex = false,
+  canonical: canonicalOverride,
 }: {
   path: string;
   lang: Lang;
@@ -214,8 +224,9 @@ export function buildMetadata({
   image?: { url: string; width: number; height: number; alt: string };
   type?: "website" | "article";
   noindex?: boolean;
+  canonical?: string;
 }): Metadata {
-  const canonical = absoluteUrl(localizePathname(path, lang));
+  const canonical = canonicalOverride || absoluteUrl(localizePathname(path, lang));
   const images = [image ?? SHARE_IMAGE];
 
   return {
@@ -224,10 +235,15 @@ export function buildMetadata({
     robots: noindex ? { index: false, follow: true } : undefined,
     alternates: {
       canonical,
-      languages: {
-        ...Object.fromEntries(LANGUAGES.map((l) => [l, absoluteUrl(localizePathname(path, l))])),
-        "x-default": absoluteUrl(path),
-      },
+      // A canonical pointing elsewhere makes this page a duplicate, so it has no hreflang set.
+      languages: canonicalOverride
+        ? undefined
+        : {
+            ...Object.fromEntries(
+              LANGUAGES.map((l) => [l, absoluteUrl(localizePathname(path, l))]),
+            ),
+            "x-default": absoluteUrl(path),
+          },
     },
     openGraph: {
       siteName: SITE.name,

@@ -1,0 +1,34 @@
+{
+  "slug": "Where to Start With AI in Your Omani Business: A 30-Day Plan",
+  "status": "draft",
+  "date": "2026-10-10",
+  "image": "/images/articles/ai-automation-first-30-days/image.webp",
+  "canonical": null,
+  "noindex": false,
+  "related": [
+    {
+      "href": "/how-we-work",
+      "en": "How we work",
+      "ar": "كيف نعمل"
+    },
+    {
+      "href": "/contact",
+      "en": "Talk to IDRAK",
+      "ar": "تواصل مع إدراك"
+    }
+  ],
+  "en": {
+    "title": "Where to Start With AI in Your Omani Business: A 30-Day Plan",
+    "description": "Outline: a practical first month with AI for business owners in Oman, from finding the most expensive manual task to measuring the result.",
+    "seoTitle": "",
+    "imageAlt": "Business workflow automated with AI",
+    "body": "## Week 1: find the costly manual work\n\nList the tasks your team repeats every day and estimate the hours each one takes.\n\n## Week 2: pick one process\n\nChoose the task with the clearest cost and the lowest risk, such as replying to enquiries or preparing quotes.\n\n## Week 3: build and test\n\nAutomate that one process with real data and keep a person approving the output.\n\n## Week 4: measure and decide\n\nCompare hours saved and errors avoided, then decide whether to scale or adjust.\n\n## Common mistakes\n\nStarting with tools instead of problems, automating everything at once, and skipping measurement.\n"
+  },
+  "ar": {
+    "title": "من أين تبدأ بالذكاء الاصطناعي في شركتك العُمانية: خطة 30 يوماً",
+    "description": "مخطط: شهر أول عملي مع الذكاء الاصطناعي لأصحاب الأعمال في عُمان، من تحديد أكثر المهام اليدوية تكلفة إلى قياس النتيجة.",
+    "seoTitle": "",
+    "imageAlt": "سير عمل مؤتمت بالذكاء الاصطناعي",
+    "body": "## الأسبوع 1: حدّد العمل اليدوي المكلف\n\nاكتب المهام التي يكررها فريقك يومياً وقدّر الساعات التي تستهلكها كل مهمة.\n\n## الأسبوع 2: اختر عملية واحدة\n\nاختر المهمة ذات التكلفة الأوضح والمخاطرة الأقل، مثل الرد على الاستفسارات أو إعداد عروض الأسعار.\n\n## الأسبوع 3: ابنِ واختبر\n\nأتمت تلك العملية ببيانات حقيقية مع إبقاء شخص يعتمد النتيجة.\n\n## الأسبوع 4: قِس وقرّر\n\nقارن الساعات الموفَّرة والأخطاء المتجنَّبة، ثم قرّر التوسع أو التعديل.\n\n## أخطاء شائعة\n\nالبدء بالأدوات بدل المشكلات، وأتمتة كل شيء دفعة واحدة، وإهمال القياس.\n"
+  }
+}

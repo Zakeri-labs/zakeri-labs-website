@@ -1,0 +1,34 @@
+{
+  "slug": "How Omani Businesses Can Answer Every WhatsApp Message With AI",
+  "status": "draft",
+  "date": "2026-10-10",
+  "image": "/images/articles/whatsapp-ai-assistant-oman/image.webp",
+  "canonical": null,
+  "noindex": false,
+  "related": [
+    {
+      "href": "/services",
+      "en": "AI automation services",
+      "ar": "خدمات الأتمتة الذكية"
+    },
+    {
+      "href": "/products",
+      "en": "IDRAK WhatsApp CRM",
+      "ar": "منصة إدراك لواتساب"
+    }
+  ],
+  "en": {
+    "title": "How Omani Businesses Can Answer Every WhatsApp Message With AI",
+    "description": "Outline: why WhatsApp is the main sales channel in Oman, what an AI assistant can and cannot do, and how to launch one without losing the human touch.",
+    "seoTitle": "",
+    "imageAlt": "AI assistant answering customers on WhatsApp",
+    "body": "## Why WhatsApp decides sales in Oman\n\nCustomers in Oman expect a reply on WhatsApp within minutes, including evenings and weekends.\n\nSlow or missed replies are lost sales that never show up in any report.\n\n## What an AI assistant actually does\n\nAnswers common questions in Arabic and English from your own price list and FAQs.\n\nQualifies the lead and hands the conversation to a salesperson at the right moment.\n\n## What it should not do\n\nPromise prices or deals it was not given, or replace your team on complex cases.\n\n## A simple way to start\n\nCollect your top 30 customer questions, connect the official WhatsApp Business API, and review the first two weeks of conversations.\n\n## Measuring the result\n\nResponse time, number of qualified leads, and sales closed from WhatsApp.\n"
+  },
+  "ar": {
+    "title": "كيف ترد الشركات العُمانية على كل رسالة واتساب بالذكاء الاصطناعي",
+    "description": "مخطط: لماذا واتساب هو قناة البيع الأولى في عُمان، وما الذي يستطيعه المساعد الذكي وما لا يستطيعه، وكيف تطلقه دون أن تفقد اللمسة البشرية.",
+    "seoTitle": "",
+    "imageAlt": "مساعد ذكي يرد على العملاء عبر واتساب",
+    "body": "## لماذا يحسم واتساب المبيعات في عُمان\n\nيتوقع العملاء في عُمان رداً على واتساب خلال دقائق، حتى في المساء وعطلة نهاية الأسبوع.\n\nالردود المتأخرة أو الضائعة مبيعات مفقودة لا تظهر في أي تقرير.\n\n## ما الذي يفعله المساعد الذكي فعلاً\n\nيجيب عن الأسئلة المتكررة بالعربية والإنجليزية من قائمة أسعارك وأسئلتك الشائعة.\n\nيؤهّل العميل المحتمل ويحوّل المحادثة إلى موظف المبيعات في الوقت المناسب.\n\n## ما الذي لا يجب أن يفعله\n\nأن يَعِد بأسعار أو عروض لم تُعطَ له، أو أن يحل محل فريقك في الحالات المعقدة.\n\n## طريقة بسيطة للبدء\n\nاجمع أهم 30 سؤالاً من عملائك، واربط واجهة واتساب للأعمال الرسمية، وراجع محادثات أول أسبوعين.\n\n## قياس النتيجة\n\nزمن الرد، وعدد العملاء المؤهَّلين، والمبيعات المغلقة من واتساب.\n"
+  }
+}

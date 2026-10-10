@@ -7,6 +7,7 @@ import { IBM_Plex_Sans_Arabic, Inter, Plus_Jakarta_Sans } from "next/font/google
 import "./globals.css";
 
 import { Footer } from "@/components/site/Footer";
+import { getPublishedArticles } from "@/lib/articles";
 import { AiAgent } from "@/components/site/AiAgent";
 import { CircuitCanvas } from "@/components/site/CircuitCanvas";
 import { Header } from "@/components/site/Header";
@@ -51,6 +52,15 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const requestedLang = requestHeaders.get("x-zakeri-locale") ?? "en";
   const lang = isLang(requestedLang) ? requestedLang : "en";
 
+  // The content panel brings its own UI; skip the site chrome around it.
+  if (requestHeaders.get("x-zakeri-path")?.startsWith("/keystatic")) {
+    return (
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    );
+  }
+
   return (
     <html
       lang={lang}
@@ -71,7 +81,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <div className="flex min-h-screen flex-col">
             <Header />
             <main className="flex-1 pb-16 lg:pb-0">{children}</main>
-            <Footer />
+            <Footer hasArticles={(await getPublishedArticles()).length > 0} />
             <AiAgent />
             <MobileBottomNav />
           </div>

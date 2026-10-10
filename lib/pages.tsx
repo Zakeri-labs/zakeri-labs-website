@@ -1,6 +1,7 @@
 import { Fragment, type ComponentType } from "react";
 import { notFound } from "next/navigation";
 
+import { getSeoOverrides } from "@/lib/articles";
 import { COMMON } from "@/lib/content/common";
 import { isLocalizedLang, type Lang } from "@/lib/locales";
 import {
@@ -34,6 +35,18 @@ const JSON_LD: Partial<Record<PublicPage, (lang: Lang) => object[]>> = {
 const SEO_TITLE = (page: PublicPage, lang: Lang) =>
   (createPageMetadata(page, lang).title as { absolute: string }).absolute.split(" | ")[0];
 
+/** Default copy from lib/seo.tsx, with any override saved in the Keystatic "Page SEO" panel. */
+async function pageMetadata(page: PublicPage, lang: Lang) {
+  const o = (await getSeoOverrides())?.[
+    page as keyof NonNullable<Awaited<ReturnType<typeof getSeoOverrides>>>
+  ];
+  return createPageMetadata(page, lang, {
+    title: o?.[lang].title,
+    description: o?.[lang].description,
+    noindex: o?.noindex,
+  });
+}
+
 function render(page: PublicPage, Component: ComponentType, lang: Lang) {
   const crumbs =
     page === "home"
@@ -59,7 +72,7 @@ function render(page: PublicPage, Component: ComponentType, lang: Lang) {
 /** English route at the root: `/services`. */
 export function enPage(page: PublicPage, Component: ComponentType) {
   return {
-    metadata: createPageMetadata(page, "en"),
+    generateMetadata: () => pageMetadata(page, "en"),
     Page: () => render(page, Component, "en"),
   };
 }
@@ -72,7 +85,7 @@ export function localizedPage(page: PublicPage, Component: ComponentType) {
     generateMetadata: async ({ params }: Params) => {
       const { lang } = await params;
       if (!isLocalizedLang(lang)) notFound();
-      return createPageMetadata(page, lang);
+      return pageMetadata(page, lang);
     },
     Page: async ({ params }: Params) => {
       const { lang } = await params;

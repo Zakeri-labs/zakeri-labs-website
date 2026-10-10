@@ -5,6 +5,7 @@ import { getLangFromPathname } from "@/lib/locales";
 export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-zakeri-locale", getLangFromPathname(request.nextUrl.pathname));
+  requestHeaders.set("x-zakeri-path", request.nextUrl.pathname);
 
   return NextResponse.next({
     request: {

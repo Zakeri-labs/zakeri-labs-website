@@ -1,4 +1,13 @@
+import { readFileSync } from "node:fs";
+
 import type { NextConfig } from "next";
+
+// Redirects added in the Keystatic panel (content/redirects.json); applied on the next deploy.
+const panelRedirects = (
+  JSON.parse(readFileSync("content/redirects.json", "utf8")) as {
+    items: { from: string; to: string; permanent: boolean }[];
+  }
+).items.filter((r) => /^\/[\w\-/.]*$/.test(r.from) && /^(\/|https?:\/\/)\S*$/.test(r.to));
 
 // 301s for the old URLs. Farsi was retired; its pages fold into English.
 const moved: [string, string][] = [
@@ -11,6 +20,9 @@ const moved: [string, string][] = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: import.meta.dirname,
+  // The content panel's JSON is read at request time.
+  outputFileTracingIncludes: { "/**": ["./content/**/*"] },
   async redirects() {
     return [
       // omanai.tech is the SEO host. zakeri.dev keeps serving the site (Zakeri's call), but every
@@ -21,6 +33,7 @@ const nextConfig: NextConfig = {
         destination: "https://omanai.tech/:path*",
         permanent: true,
       },
+      ...panelRedirects.map((r) => ({ source: r.from, destination: r.to, permanent: r.permanent })),
       ...moved.flatMap(([from, to]) => [
         { source: from, destination: to, statusCode: 301 as const },
         { source: `/ar${from}`, destination: `/ar${to}`, statusCode: 301 as const },

@@ -3,7 +3,10 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 import { Container, Cta, PageHero, Section } from "@/components/site/blocks";
-import { type Article, publishedArticles } from "@/lib/articles";
+import Markdoc from "@markdoc/markdoc";
+import React from "react";
+
+import { type Article, renderBody } from "@/lib/articles";
 import { localizePathname, type Lang } from "@/lib/locales";
 import { absoluteUrl, getBreadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { SITE } from "@/lib/site";
@@ -49,9 +52,8 @@ const dateFmt = (d: string, lang: Lang) =>
     timeZone: "UTC",
   });
 
-export function ArticlesList({ lang }: { lang: Lang }) {
+export function ArticlesList({ lang, articles: list }: { lang: Lang; articles: Article[] }) {
   const t = ARTICLES_COPY[lang];
-  const list = publishedArticles();
   return (
     <>
       {jsonLdScript(
@@ -79,7 +81,9 @@ export function ArticlesList({ lang }: { lang: Lang }) {
                 <Link href={localizePathname(`/articles/${a.slug}`, lang)} className="block">
                   <Image
                     src={a.image}
-                    alt={a.imageAlt[lang]}
+                    alt={a[lang].imageAlt}
+                    width={1024}
+                    height={1024}
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="aspect-[16/10] w-full object-cover"
                   />
@@ -121,7 +125,7 @@ export function ArticleView({ article, lang }: { article: Article; lang: Lang })
         "@type": "Article",
         headline: c.title,
         description: c.description,
-        image: absoluteUrl(article.image.src),
+        image: absoluteUrl(article.image),
         datePublished: article.date,
         dateModified: article.date,
         inLanguage: lang,
@@ -161,22 +165,16 @@ export function ArticleView({ article, lang }: { article: Article; lang: Lang })
           <p className="mt-5 text-lg leading-relaxed text-foreground/80">{c.description}</p>
           <Image
             src={article.image}
-            alt={article.imageAlt[lang]}
+            alt={article[lang].imageAlt}
+            width={1024}
+            height={1024}
             priority
             sizes="(min-width: 768px) 768px, 100vw"
             className="mt-10 aspect-[16/9] w-full rounded-3xl object-cover"
           />
-          <div className="mt-12 space-y-10">
-            {c.sections.map((s) => (
-              <section key={s.h}>
-                <h2 className="text-2xl font-bold">{s.h}</h2>
-                <div className="mt-3 space-y-4 text-[17px] leading-8 text-foreground/75">
-                  {s.p.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
-                </div>
-              </section>
-            ))}
+          {/* Body from the Keystatic editor: headings, paragraphs, lists, links, images. */}
+          <div className="mt-12 text-[17px] leading-8 text-foreground/75 [&_a]:font-semibold [&_a]:text-cyan [&_a]:underline [&_h2]:mb-3 [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-foreground [&_img]:my-6 [&_img]:rounded-2xl [&_li]:ms-6 [&_ol]:list-decimal [&_ol]:space-y-2 [&_p]:mb-4 [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:space-y-2">
+            {Markdoc.renderers.react(renderBody(c.body), React)}
           </div>
           <aside className="mt-14 border-t border-border pt-8">
             <h2 className="text-lg font-bold">{t.related}</h2>

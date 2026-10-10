@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 
-import { publishedArticles } from "@/lib/articles";
+import { getPublishedArticles } from "@/lib/articles";
 import { LANGUAGES, localizePathname } from "@/lib/locales";
 import { absoluteUrl, PUBLIC_PAGE_PATHS } from "@/lib/seo";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const articles = publishedArticles();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const articles = (await getPublishedArticles()).filter((a) => !a.noindex && !a.canonical);
   const pages = [...Object.values(PUBLIC_PAGE_PATHS)];
   if (articles.length) pages.push("/articles");
 
