@@ -112,7 +112,8 @@ export function CircuitCanvas() {
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      ctx.drawImage(stat, 0, 0, w, h);
+      // A 0x0 window (hidden tab/iframe) makes drawImage throw and crash the page.
+      if (stat.width && stat.height) ctx.drawImage(stat, 0, 0, w, h);
 
       // Cursor spotlight lifts the traces underneath it.
       if (mouse.x > -999) {
