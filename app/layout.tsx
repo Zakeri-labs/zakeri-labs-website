@@ -12,6 +12,7 @@ import { AiAgent } from "@/components/site/AiAgent";
 import { CircuitCanvas } from "@/components/site/CircuitCanvas";
 import { Header } from "@/components/site/Header";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
+import { PageViewBeacon } from "@/components/site/PageViewBeacon";
 import { RevealController } from "@/components/site/motion";
 import { getDirection, isLang } from "@/lib/locales";
 import { getOrganizationJsonLd, getWebSiteJsonLd, jsonLdScript } from "@/lib/seo";
@@ -84,6 +85,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <Footer hasArticles={(await getPublishedArticles()).length > 0} />
             <AiAgent />
             <MobileBottomNav />
+            <PageViewBeacon />
           </div>
         </Providers>
         {jsonLdScript(getOrganizationJsonLd(lang))}

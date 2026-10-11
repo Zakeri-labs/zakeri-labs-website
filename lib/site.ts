@@ -14,8 +14,8 @@ export const SITE = {
   legalCity: "Muscat, Oman",
   founder: "Mohammadreza Zakeri",
   url: "https://omanai.tech",
-  phone: "+968 7171 3260",
-  phoneRaw: "96871713260",
+  phone: "+968 7171 3238",
+  phoneRaw: "96871713238",
   email: "zakeri@omanai.tech",
 };
 

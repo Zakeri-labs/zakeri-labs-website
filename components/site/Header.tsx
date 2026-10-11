@@ -15,6 +15,8 @@ import { stripLangFromPathname } from "@/lib/locales";
 import { whatsappUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+const JOBS_URL = "https://job.omanai.tech";
+
 export function Header() {
   const c = useCopy(COMMON);
   const { lang } = useI18n();
@@ -42,25 +44,33 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" aria-label="IDRAK AI Solutions" className="shrink-0">
-          <Logo className="h-9 w-auto sm:h-10" />
-        </Link>
+        <div className="flex min-w-0 items-center gap-6">
+          <Link href="/" aria-label="IDRAK AI Solutions" className="shrink-0">
+            <Logo className="h-9 w-auto sm:h-10" />
+          </Link>
 
-        <nav aria-label={c.navigation} className="hidden items-center gap-1 xl:flex">
-          {NAV_PATHS.map((path) => (
-            <Link
-              key={path}
-              href={path}
-              aria-current={isActive(path) ? "page" : undefined}
-              className={cn(
-                "rounded-full px-3 py-2 text-sm font-medium transition hover:text-primary",
-                isActive(path) ? "bg-secondary text-primary" : "text-foreground/75",
-              )}
+          <nav aria-label={c.navigation} className="hidden items-center gap-1 xl:flex">
+            {NAV_PATHS.map((path) => (
+              <Link
+                key={path}
+                href={path}
+                aria-current={isActive(path) ? "page" : undefined}
+                className={cn(
+                  "rounded-full px-3 py-2 text-sm font-medium transition hover:text-primary",
+                  isActive(path) ? "bg-secondary text-primary" : "text-foreground/75",
+                )}
+              >
+                {c.nav[path]}
+              </Link>
+            ))}
+            <a
+              href={JOBS_URL}
+              className="rounded-full px-3 py-2 text-sm font-medium text-foreground/75 transition hover:text-primary"
             >
-              {c.nav[path]}
-            </Link>
-          ))}
-        </nav>
+              {c.jobs}
+            </a>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher className="hidden sm:inline-flex" />
@@ -101,6 +111,12 @@ export function Header() {
                       {c.nav[path]}
                     </Link>
                   ))}
+                  <a
+                    href={JOBS_URL}
+                    className="rounded-xl px-4 py-3 text-base font-medium text-foreground/80 transition hover:bg-secondary"
+                  >
+                    {c.jobs}
+                  </a>
                 </nav>
                 <div
                   className="mt-auto flex flex-col gap-3 border-t border-border pt-6"
