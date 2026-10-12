@@ -23,6 +23,16 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: import.meta.dirname,
   // The content panel's JSON is read at request time.
   outputFileTracingIncludes: { "/**": ["./content/**/*"] },
+  // Sajjad (SEO): keep zakeri.dev out of the index. robots.txt stays open so Google can see this header.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "(.*\\.)?zakeri\\.dev" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
   async redirects() {
     return [
       // omanai.tech is the SEO host. zakeri.dev keeps serving the site (Zakeri's call), but every
