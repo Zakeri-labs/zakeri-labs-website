@@ -15,6 +15,7 @@ export type PublicPage =
   | "services"
   | "products"
   | "selected-work"
+  | "videos"
   | "about"
   | "how-we-work"
   | "contact"
@@ -27,6 +28,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   services: "/services",
   products: "/products",
   "selected-work": "/selected-work",
+  videos: "/videos",
   about: "/about",
   "how-we-work": "/how-we-work",
   contact: "/contact",
@@ -114,6 +116,18 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
       title: "كيف نعمل | إدراك للحلول الذكية عُمان",
       description:
         "تعرّف على كيف تتعامل إدراك للحلول الذكية مع تحديات الأعمال، وتحدّد نطاق المشاريع، وتعمل عبر التجارب الأولية والمشاريع المخصّصة والشراكات المستمرة والنماذج حسب الاستخدام.",
+    },
+  },
+  videos: {
+    en: {
+      title: "Videos | IDRAK AI Solutions Oman",
+      description:
+        "Watch IDRAK AI Solutions promo films, solution walkthroughs and project demos: AI automation, AI video and digital solutions built in Oman.",
+    },
+    ar: {
+      title: "الفيديوهات | إدراك للحلول الذكية",
+      description:
+        "شاهد أفلام إدراك للحلول الذكية الترويجية وشروحات الحلول وعروض المشاريع: أتمتة الأعمال والفيديو بالذكاء الاصطناعي والحلول الرقمية من عُمان.",
     },
   },
   contact: {
