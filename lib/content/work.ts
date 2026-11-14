@@ -2,17 +2,26 @@ import type { IndustryGroup } from "@/lib/projects";
 
 const en = {
   hero: {
-    eyebrow: "Selected work",
-    title: "Selected Digital Work.",
+    eyebrow: "Our work",
+    title: "Case Studies, Websites and Demos.",
     intro:
-      "A selection of digital projects delivered for businesses and professionals across real estate, healthcare and other sectors.",
+      "Custom software, automation and WhatsApp AI we have built and run, alongside the websites and digital projects delivered for businesses across real estate, healthcare and other sectors.",
     support:
       "The work shown here primarily reflects our web design and digital delivery experience. IDRAK’s current capabilities now extend across business automation, AI video, content and digital growth solutions.",
-    primary: "Explore Selected Projects",
+    primary: "Read the Case Studies",
     secondary: "Explore IDRAK Services",
   },
+  cases: {
+    eyebrow: "Case studies",
+    title: "Systems We Built and Run.",
+    intro:
+      "Each case shows the problem, the old process, what we built and what changed — the proof behind our custom software and automation work.",
+    tag: "Case study",
+    read: "Read the case study",
+    videos: "Watch videos & demos",
+  },
   intro: {
-    eyebrow: "Our work",
+    eyebrow: "Website portfolio",
     title: "Digital Work Built Around Real Business Needs.",
     paragraphs: [
       "Good digital work starts with understanding what the business needs people to see, understand or do.",
@@ -51,22 +60,22 @@ const en = {
       {
         title: "Custom Business Automation",
         text: "Custom software and automation built around real business workflows.",
-        href: "/services#automation",
+        href: "/services/custom-software-development",
       },
       {
         title: "AI Video Production",
         text: "Visual storytelling for products, projects and experiences that are costly or difficult to film.",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         title: "Content & Social Media Management",
         text: "Strategy, production and publishing built around audience and commercial goals.",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
         title: "Web Design, SEO & GEO",
         text: "Digital experiences designed for visibility, discovery and customer acquisition.",
-        href: "/services#web",
+        href: "/services/web-design",
       },
     ],
   },
@@ -86,17 +95,26 @@ export type WorkCopy = typeof en;
 
 const ar: WorkCopy = {
   hero: {
-    eyebrow: "أعمال مختارة",
-    title: "أعمال رقمية مختارة.",
+    eyebrow: "أعمالنا",
+    title: "دراسات حالة ومواقع وعروض.",
     intro:
-      "مجموعة مختارة من المشاريع الرقمية المنفّذة لشركات ومهنيين في قطاعات العقارات والرعاية الصحية وغيرها.",
+      "برمجيات مخصّصة وأتمتة ومساعدات واتساب ذكية بنيناها ونشغّلها، إلى جانب المواقع والمشاريع الرقمية المنفّذة لشركات في العقارات والرعاية الصحية وقطاعات أخرى.",
     support:
       "تعكس الأعمال المعروضة هنا أساساً خبرتنا في تصميم المواقع والتنفيذ الرقمي. أما قدرات إدراك اليوم فتمتد إلى أتمتة الأعمال وفيديو الذكاء الاصطناعي والمحتوى وحلول النمو الرقمي.",
-    primary: "استكشف المشاريع المختارة",
+    primary: "اقرأ دراسات الحالة",
     secondary: "استكشف خدمات إدراك",
   },
+  cases: {
+    eyebrow: "دراسات حالة",
+    title: "أنظمة بنيناها ونشغّلها.",
+    intro:
+      "كل دراسة تعرض المشكلة، وطريقة العمل السابقة، وما بنيناه، وما الذي تغيّر؛ وهي الدليل على عملنا في البرمجيات المخصّصة والأتمتة.",
+    tag: "دراسة حالة",
+    read: "اقرأ دراسة الحالة",
+    videos: "شاهد الفيديوهات والعروض",
+  },
   intro: {
-    eyebrow: "أعمالنا",
+    eyebrow: "معرض المواقع",
     title: "أعمال رقمية مبنية حول احتياجات العمل الحقيقية.",
     paragraphs: [
       "يبدأ العمل الرقمي الجيد بفهم ما يحتاج العمل من الناس أن يروه أو يفهموه أو يفعلوه.",
@@ -135,22 +153,22 @@ const ar: WorkCopy = {
       {
         title: "أتمتة الأعمال المخصّصة",
         text: "برمجيات وأتمتة مخصّصة مبنية حول سير العمل الحقيقي.",
-        href: "/services#automation",
+        href: "/services/custom-software-development",
       },
       {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
         text: "سرد بصري للمنتجات والمشاريع والتجارب التي يصعب أو يكلف تصويرها.",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
         text: "استراتيجية وإنتاج ونشر مبني حول الجمهور والأهداف التجارية.",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
         title: "تصميم المواقع وSEO وGEO",
         text: "تجارب رقمية مصمّمة للظهور والاكتشاف واستقطاب العملاء.",
-        href: "/services#web",
+        href: "/services/web-design",
       },
     ],
   },

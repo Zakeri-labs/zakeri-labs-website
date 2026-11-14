@@ -12,8 +12,10 @@ const panelRedirects = (
 // 301s for the old URLs. Farsi was retired; its pages fold into English.
 const moved: [string, string][] = [
   ["/pricing", "/how-we-work"],
-  ["/case-study", "/selected-work"],
-  ["/insights", "/selected-work"],
+  ["/case-study", "/work"],
+  ["/insights", "/articles"],
+  // Sajjad's architecture (Nov 2026): Selected Work became Work.
+  ["/selected-work", "/work"],
   ["/policy", "/privacy"],
   ["/privacy-policy", "/privacy"],
 ];

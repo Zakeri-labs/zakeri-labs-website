@@ -11,7 +11,7 @@ const en = {
   },
   overview: {
     eyebrow: "What we do",
-    title: "Four Ways We Help Businesses Create More Value.",
+    title: "Seven Services. One Goal: Real Business Value.",
     intro:
       "Different business challenges require different solutions. Our services cover operations, customer acquisition, brand communication and digital visibility.",
     cards: [
@@ -19,25 +19,25 @@ const en = {
         title: "Custom Business Automation",
         text: "Build software and automated workflows around the way your business actually works.",
         cta: "Explore Automation",
-        href: "#automation",
+        href: "/services/custom-software-development",
       },
       {
         title: "AI Video Production",
         text: "Turn ideas, products and future experiences into compelling visual stories.",
         cta: "Explore AI Video",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         title: "Content & Social Media Management",
         text: "Build a consistent brand presence around your audience, product and commercial goals.",
         cta: "Explore Content",
-        href: "#content",
+        href: "/services/content-social-media",
       },
       {
         title: "Web Design, SEO & GEO",
         text: "Create a stronger path from online discovery to enquiry, call or order.",
         cta: "Explore Web Solutions",
-        href: "#web",
+        href: "/services/web-design",
       },
     ],
   },
@@ -224,29 +224,39 @@ const en = {
     serviceLabel: "Recommended service",
     rows: [
       {
+        need: "Off-the-shelf software does not fit how your company works",
+        service: "Custom Software Development",
+        href: "/services/custom-software-development",
+      },
+      {
         need: "Too much repetitive work or disconnected processes",
-        service: "Custom Business Automation",
-        href: "#automation",
+        service: "AI & Business Automation",
+        href: "/services/ai-business-automation",
       },
       {
         need: "Leads or customers are not being followed up consistently",
         service: "WhatsApp & CRM Automation",
-        href: "#whatsapp",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         need: "Your product or project is difficult to visualise or present",
         service: "AI Video Production",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         need: "Your brand needs stronger visibility and communication",
         service: "Content & Social Media Management",
-        href: "#content",
+        href: "/services/content-social-media",
       },
       {
         need: "Your website is not generating enough discovery or enquiries",
-        service: "Web Design, SEO & GEO",
-        href: "#web",
+        service: "Web Design",
+        href: "/services/web-design",
+      },
+      {
+        need: "Customers cannot find you on Google or in AI answers",
+        service: "SEO & GEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "You do not need to know the technical solution before contacting us. Start with the business challenge.",
@@ -308,7 +318,7 @@ const ar: ServicesCopy = {
   },
   overview: {
     eyebrow: "ماذا نقدّم",
-    title: "أربع طرق نساعد بها الشركات على صنع قيمة أكبر.",
+    title: "سبع خدمات، وهدف واحد: قيمة حقيقية لعملك.",
     intro:
       "التحديات المختلفة تحتاج إلى حلول مختلفة. تغطي خدماتنا العمليات، واستقطاب العملاء، والتواصل مع العلامة، والظهور الرقمي.",
     cards: [
@@ -316,25 +326,25 @@ const ar: ServicesCopy = {
         title: "أتمتة الأعمال المخصّصة",
         text: "برمجيات وسير عمل مؤتمت مبني حول الطريقة التي يعمل بها عملك فعلاً.",
         cta: "استكشف الأتمتة",
-        href: "#automation",
+        href: "/services/custom-software-development",
       },
       {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
         text: "حوّل الأفكار والمنتجات والتجارب المستقبلية إلى قصص بصرية مقنعة.",
         cta: "استكشف الفيديو",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
         text: "ابنِ حضوراً متسقاً لعلامتك حول جمهورك ومنتجك وأهدافك التجارية.",
         cta: "استكشف المحتوى",
-        href: "#content",
+        href: "/services/content-social-media",
       },
       {
         title: "تصميم المواقع وSEO وGEO",
         text: "اصنع مساراً أقوى من الاكتشاف عبر الإنترنت إلى الاستفسار أو الاتصال أو الطلب.",
         cta: "استكشف حلول الويب",
-        href: "#web",
+        href: "/services/web-design",
       },
     ],
   },
@@ -500,29 +510,39 @@ const ar: ServicesCopy = {
     serviceLabel: "الخدمة المقترحة",
     rows: [
       {
+        need: "البرامج الجاهزة لا تناسب طريقة عمل شركتك",
+        service: "تطوير البرمجيات المخصّصة",
+        href: "/services/custom-software-development",
+      },
+      {
         need: "عمل متكرر كثير أو عمليات غير مترابطة",
-        service: "أتمتة الأعمال المخصّصة",
-        href: "#automation",
+        service: "أتمتة الأعمال بالذكاء الاصطناعي",
+        href: "/services/ai-business-automation",
       },
       {
         need: "العملاء المحتملون أو الحاليون لا تتم متابعتهم بانتظام",
         service: "أتمتة واتساب وCRM",
-        href: "#whatsapp",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         need: "يصعب تصوّر منتجك أو مشروعك أو عرضه",
         service: "إنتاج الفيديو بالذكاء الاصطناعي",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         need: "علامتك تحتاج إلى ظهور وتواصل أقوى",
         service: "إدارة المحتوى ووسائل التواصل الاجتماعي",
-        href: "#content",
+        href: "/services/content-social-media",
       },
       {
         need: "موقعك لا يحقق اكتشافاً أو استفسارات كافية",
-        service: "تصميم المواقع وSEO وGEO",
-        href: "#web",
+        service: "تصميم المواقع",
+        href: "/services/web-design",
+      },
+      {
+        need: "العملاء لا يجدونك في جوجل أو في إجابات الذكاء الاصطناعي",
+        service: "SEO وGEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "لست بحاجة إلى معرفة الحل التقني قبل التواصل معنا. ابدأ من تحدي عملك.",

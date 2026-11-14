@@ -37,14 +37,14 @@ const en = {
   },
   solutions: {
     eyebrow: "Our solutions",
-    title: "One team. Five ways to create value.",
+    title: "One team. Seven services. Real business value.",
     intro:
       "We start with the business need, then choose the right mix of AI, automation, content and digital tools.",
     more: "Explore all solutions",
     tabs: [
       {
         key: "automation",
-        label: "Business Automation",
+        label: "Custom Software",
         title: "Software built around the way you work.",
         text: "Custom systems around your real workflows, teams and processes — built faster with AI, without forcing your company into unnecessary complexity.",
         points: [
@@ -52,8 +52,8 @@ const en = {
           "Connected information and custom processes",
           "For medium and large companies",
         ],
-        cta: "Discuss an Automation Project",
-        href: "/contact?interest=automation",
+        cta: "Explore Custom Software",
+        href: "/services/custom-software-development",
         image: "automation",
       },
       {
@@ -67,7 +67,7 @@ const en = {
           "Consistent follow-up, fewer lost leads",
         ],
         cta: "Explore WhatsApp Automation",
-        href: "/services#whatsapp",
+        href: "/services/whatsapp-ai-automation",
         image: "whatsapp",
       },
       {
@@ -80,8 +80,8 @@ const en = {
           "Luxury, healthcare, hotels & interiors",
           "Less reliance on actors, locations and sets",
         ],
-        cta: "Discuss an AI Video",
-        href: "/contact?interest=ai-video",
+        cta: "Explore AI Video",
+        href: "/services/ai-video-production",
         image: "aiVideo",
       },
       {
@@ -95,7 +95,7 @@ const en = {
           "Strategy still leads, AI accelerates",
         ],
         cta: "Explore Content Services",
-        href: "/services#content",
+        href: "/services/content-social-media",
         image: "content",
       },
       {
@@ -108,8 +108,8 @@ const en = {
           "SEO for search engines",
           "GEO for ChatGPT-style answers",
         ],
-        cta: "Discuss Your Website",
-        href: "/contact?interest=web",
+        cta: "Explore Web Design",
+        href: "/services/web-design",
         image: "web",
       },
     ],
@@ -126,7 +126,7 @@ const en = {
         title: "Construction Supervision Reporting",
         subtitle: "A ready-to-deploy product for Oman",
         points: ["System deployment", "Initial staff training", "Pay per report produced"],
-        href: "/products#construction-reporting",
+        href: "/products/construction-supervision-reporting",
         image: "construction",
       },
       {
@@ -138,7 +138,7 @@ const en = {
           "Every interaction recorded in the CRM",
           "Feedback, reviews and missed-visit follow-up",
         ],
-        href: "/products#clinic-crm",
+        href: "/products/clinic-crm-whatsapp-assistant",
         image: "clinic",
       },
     ],
@@ -234,14 +234,14 @@ const ar: HomeCopy = {
   },
   solutions: {
     eyebrow: "حلولنا",
-    title: "فريق واحد. خمس طرق لصنع القيمة.",
+    title: "فريق واحد. سبع خدمات. قيمة حقيقية لعملك.",
     intro:
       "نبدأ من حاجة العمل، ثم نختار المزيج المناسب من الذكاء الاصطناعي والأتمتة والمحتوى والأدوات الرقمية.",
     more: "استكشف جميع الحلول",
     tabs: [
       {
         key: "automation",
-        label: "أتمتة الأعمال",
+        label: "البرمجيات المخصّصة",
         title: "برمجيات مبنية حول طريقة عملك.",
         text: "أنظمة مخصّصة حول سير عملك وفرقك وعملياتك الفعلية — تُبنى أسرع بالذكاء الاصطناعي، دون تعقيد لا داعي له.",
         points: [
@@ -249,8 +249,8 @@ const ar: HomeCopy = {
           "معلومات مترابطة وعمليات مخصّصة",
           "للشركات المتوسطة والكبيرة",
         ],
-        cta: "ناقش مشروع أتمتة",
-        href: "/contact?interest=automation",
+        cta: "استكشف البرمجيات المخصّصة",
+        href: "/services/custom-software-development",
         image: "automation",
       },
       {
@@ -264,7 +264,7 @@ const ar: HomeCopy = {
           "متابعة منتظمة وفرص ضائعة أقل",
         ],
         cta: "استكشف أتمتة واتساب",
-        href: "/services#whatsapp",
+        href: "/services/whatsapp-ai-automation",
         image: "whatsapp",
       },
       {
@@ -277,8 +277,8 @@ const ar: HomeCopy = {
           "الفخامة والرعاية الصحية والفنادق والديكور",
           "اعتماد أقل على الممثلين ومواقع التصوير",
         ],
-        cta: "ناقش فيديو بالذكاء الاصطناعي",
-        href: "/contact?interest=ai-video",
+        cta: "استكشف فيديو الذكاء الاصطناعي",
+        href: "/services/ai-video-production",
         image: "aiVideo",
       },
       {
@@ -292,7 +292,7 @@ const ar: HomeCopy = {
           "الاستراتيجية تقود والذكاء الاصطناعي يسرّع",
         ],
         cta: "استكشف خدمات المحتوى",
-        href: "/services#content",
+        href: "/services/content-social-media",
         image: "content",
       },
       {
@@ -305,8 +305,8 @@ const ar: HomeCopy = {
           "SEO لمحركات البحث",
           "GEO لإجابات مساعدات الذكاء الاصطناعي",
         ],
-        cta: "ناقش موقعك الإلكتروني",
-        href: "/contact?interest=web",
+        cta: "استكشف تصميم المواقع",
+        href: "/services/web-design",
         image: "web",
       },
     ],
@@ -322,7 +322,7 @@ const ar: HomeCopy = {
         title: "نظام تقارير الإشراف على البناء",
         subtitle: "منتج جاهز للتشغيل في عُمان",
         points: ["تشغيل النظام", "تدريب أوّلي للفريق", "الدفع مقابل كل تقرير"],
-        href: "/products#construction-reporting",
+        href: "/products/construction-supervision-reporting",
         image: "construction",
       },
       {
@@ -334,7 +334,7 @@ const ar: HomeCopy = {
           "كل تفاعل مسجّل في CRM",
           "تقييمات ومراجعات ومتابعة المواعيد الفائتة",
         ],
-        href: "/products#clinic-crm",
+        href: "/products/clinic-crm-whatsapp-assistant",
         image: "clinic",
       },
     ],

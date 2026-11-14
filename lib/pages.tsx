@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { getSeoOverrides } from "@/lib/articles";
 import { COMMON } from "@/lib/content/common";
+import { navMenus, type NavMenus } from "@/lib/content/detail";
 import { isLocalizedLang, type Lang } from "@/lib/locales";
 import {
   createPageMetadata,
@@ -10,6 +11,7 @@ import {
   getBreadcrumbJsonLd,
   getAboutJsonLd,
   getFaqJsonLd,
+  getIndustriesJsonLd,
   getProductsJsonLd,
   getProjectsJsonLd,
   getServicesJsonLd,
@@ -18,6 +20,9 @@ import {
   type PublicPage,
 } from "@/lib/seo";
 
+/** Page components may ignore `lang` (client pages read it from context). */
+type PageComponent = ComponentType<{ lang: Lang; menus: NavMenus }>;
+
 /**
  * Structured data per page. Components are passed in by each route file (not
  * imported here) so a route only bundles its own page.
@@ -25,7 +30,8 @@ import {
 const JSON_LD: Partial<Record<PublicPage, (lang: Lang) => object[]>> = {
   services: (l) => [getServicesJsonLd(l), getFaqJsonLd(FAQS.services(l))],
   products: (l) => [getProductsJsonLd(l), getFaqJsonLd(FAQS.products(l))],
-  "selected-work": (l) => [getProjectsJsonLd(l)],
+  industries: (l) => [getIndustriesJsonLd(l)],
+  work: (l) => [getProjectsJsonLd(l)],
   about: (l) => [getAboutJsonLd(l)],
   "how-we-work": (l) => [getFaqJsonLd(FAQS["how-we-work"](l))],
   contact: (l) => [getFaqJsonLd(FAQS.contact(l))],
@@ -47,7 +53,7 @@ async function pageMetadata(page: PublicPage, lang: Lang) {
   });
 }
 
-function render(page: PublicPage, Component: ComponentType, lang: Lang) {
+function render(page: PublicPage, Component: PageComponent, lang: Lang) {
   const crumbs =
     page === "home"
       ? null
@@ -64,13 +70,13 @@ function render(page: PublicPage, Component: ComponentType, lang: Lang) {
       {JSON_LD[page]?.(lang).map((data, i) => (
         <Fragment key={i}>{jsonLdScript(data)}</Fragment>
       ))}
-      <Component />
+      <Component lang={lang} menus={navMenus(lang)} />
     </>
   );
 }
 
 /** English route at the root: `/services`. */
-export function enPage(page: PublicPage, Component: ComponentType) {
+export function enPage(page: PublicPage, Component: PageComponent) {
   return {
     generateMetadata: () => pageMetadata(page, "en"),
     Page: () => render(page, Component, "en"),
@@ -80,7 +86,7 @@ export function enPage(page: PublicPage, Component: ComponentType) {
 type Params = { params: Promise<{ lang: string }> };
 
 /** Localized route under `/[lang]`: `/ar/services`. */
-export function localizedPage(page: PublicPage, Component: ComponentType) {
+export function localizedPage(page: PublicPage, Component: PageComponent) {
   return {
     generateMetadata: async ({ params }: Params) => {
       const { lang } = await params;

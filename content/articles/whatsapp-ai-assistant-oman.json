@@ -7,14 +7,14 @@
   "noindex": false,
   "related": [
     {
-      "href": "/services",
-      "en": "AI automation services",
-      "ar": "خدمات الأتمتة الذكية"
+      "href": "/services/whatsapp-ai-automation",
+      "en": "AI agents & WhatsApp automation",
+      "ar": "وكلاء الذكاء الاصطناعي وأتمتة واتساب"
     },
     {
-      "href": "/products",
-      "en": "IDRAK WhatsApp CRM",
-      "ar": "منصة إدراك لواتساب"
+      "href": "/products/clinic-crm-whatsapp-assistant",
+      "en": "Clinic CRM & WhatsApp assistant",
+      "ar": "نظام CRM ومساعد واتساب للعيادات"
     }
   ],
   "en": {

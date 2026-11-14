@@ -569,8 +569,8 @@ export function ProductsBanner({
           </div>
           <div className="flex flex-col gap-3">
             {[
-              { name: c.products.construction, href: "/products#construction-reporting" },
-              { name: c.products.clinic, href: "/products#clinic-crm" },
+              { name: c.products.construction, href: "/products/construction-supervision-reporting" },
+              { name: c.products.clinic, href: "/products/clinic-crm-whatsapp-assistant" },
             ].map((p) => (
               <LocalizedLink
                 key={p.href}

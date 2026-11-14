@@ -161,9 +161,12 @@ export function ProductsPage() {
         </ol>
         <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-center">
           <Advantage text={p.construction.advantage} className="lg:flex-1" />
-          <Cta href="/contact?interest=construction-reporting" className="shrink-0">
-            {p.construction.cta}
-          </Cta>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <Cta href="/products/construction-supervision-reporting">{c.menu2.learnMore}</Cta>
+            <Cta href="/contact?interest=construction-reporting" variant="outline" icon="none">
+              {p.construction.cta}
+            </Cta>
+          </div>
         </div>
       </Section>
 
@@ -192,9 +195,12 @@ export function ProductsPage() {
         </div>
         <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-center">
           <Advantage text={p.clinic.advantage} className="lg:flex-1" />
-          <Cta href="/contact?interest=clinic-crm" className="shrink-0">
-            {p.clinic.cta}
-          </Cta>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <Cta href="/products/clinic-crm-whatsapp-assistant">{c.menu2.learnMore}</Cta>
+            <Cta href="/contact?interest=clinic-crm" variant="outline" icon="none">
+              {p.clinic.cta}
+            </Cta>
+          </div>
         </div>
       </Section>
 

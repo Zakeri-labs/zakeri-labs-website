@@ -4,6 +4,7 @@ import { ABOUT } from "@/lib/content/about";
 import { COMMON } from "@/lib/content/common";
 import { CONTACT } from "@/lib/content/contact";
 import { HOW } from "@/lib/content/how";
+import { DETAIL_PAGES } from "@/lib/content/detail";
 import { PRODUCTS } from "@/lib/content/products";
 import { SERVICES } from "@/lib/content/services";
 import { LANGUAGES, localizePathname, type Lang } from "@/lib/locales";
@@ -14,7 +15,8 @@ export type PublicPage =
   | "home"
   | "services"
   | "products"
-  | "selected-work"
+  | "industries"
+  | "work"
   | "videos"
   | "about"
   | "how-we-work"
@@ -27,7 +29,8 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   home: "/",
   services: "/services",
   products: "/products",
-  "selected-work": "/selected-work",
+  industries: "/industries",
+  work: "/work",
   videos: "/videos",
   about: "/about",
   "how-we-work": "/how-we-work",
@@ -60,14 +63,14 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
   },
   services: {
     en: {
-      title: "AI Services in Oman | Automation, AI Video, Content & Web | IDRAK",
+      title: "Software & AI Services in Oman | Custom Software, Automation | IDRAK",
       description:
-        "Explore IDRAK AI Solutions services in Oman, including custom business automation, AI video production, content and social media management, web design, SEO and GEO.",
+        "IDRAK services in Oman: custom software development, AI business automation, WhatsApp AI agents, AI video production, content, web design and SEO & GEO.",
     },
     ar: {
-      title: "خدمات الذكاء الاصطناعي في عُمان | الأتمتة والفيديو والمحتوى والويب | إدراك",
+      title: "خدمات البرمجيات والذكاء الاصطناعي في عُمان | تطوير وأتمتة | إدراك",
       description:
-        "استكشف خدمات إدراك للحلول الذكية في عُمان: أتمتة الأعمال المخصّصة، وإنتاج الفيديو بالذكاء الاصطناعي، وإدارة المحتوى ووسائل التواصل، وتصميم المواقع وSEO وGEO.",
+        "خدمات إدراك في عُمان: تطوير برمجيات مخصّصة، وأتمتة الأعمال بالذكاء الاصطناعي، ووكلاء واتساب الذكية، وإنتاج الفيديو، والمحتوى، وتصميم المواقع، وSEO وGEO.",
     },
   },
   products: {
@@ -82,16 +85,28 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
         "منتجات إدراك الجاهزة في عُمان: نظام تقارير الإشراف على البناء بالدفع لكل تقرير، ونظام CRM للعيادات مع مساعد واتساب للحجز والتذكير والمتابعة.",
     },
   },
-  "selected-work": {
+  industries: {
     en: {
-      title: "Selected Work | Digital Projects by IDRAK AI Solutions",
+      title: "Industry Solutions in Oman | Software & AI by Sector | IDRAK",
       description:
-        "Explore selected digital work by IDRAK AI Solutions across real estate, healthcare and professional services, including websites and digital experiences.",
+        "Custom software, WhatsApp AI, automation and AI video for real estate, healthcare, construction, distribution, facility management and logistics in Oman.",
     },
     ar: {
-      title: "أعمال مختارة | مشاريع رقمية من إدراك للحلول الذكية",
+      title: "حلول القطاعات في عُمان | برمجيات وذكاء اصطناعي لكل قطاع | إدراك",
       description:
-        "استكشف أعمالاً رقمية مختارة من إدراك للحلول الذكية في العقارات والرعاية الصحية والخدمات المهنية، تشمل مواقع وتجارب رقمية.",
+        "برمجيات مخصّصة وأتمتة وواتساب ذكي وفيديو بالذكاء الاصطناعي للعقارات والرعاية الصحية والمقاولات والتوزيع وإدارة المرافق والخدمات اللوجستية في عُمان.",
+    },
+  },
+  work: {
+    en: {
+      title: "Our Work | Case Studies, Websites & Demos | IDRAK Oman",
+      description:
+        "Case studies of custom software, automation and WhatsApp AI built by IDRAK in Oman, plus our website portfolio and video demos across real estate and healthcare.",
+    },
+    ar: {
+      title: "أعمالنا | دراسات حالة ومواقع وعروض | إدراك عُمان",
+      description:
+        "دراسات حالة لبرمجيات مخصّصة وأتمتة وواتساب ذكي نفّذتها إدراك في عُمان، إلى جانب معرض المواقع وعروض الفيديو في العقارات والرعاية الصحية وغيرها.",
     },
   },
   about: {
@@ -339,26 +354,21 @@ export function getOrganizationJsonLd(lang: Lang) {
   };
 }
 
-function serviceList(
-  name: string,
-  url: string,
-  items: { name: string; description: string; anchor: string }[],
-  lang: Lang,
-) {
+function serviceList(name: string, url: string, kind: "services" | "products" | "industries", lang: Lang) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name,
     url,
     inLanguage: lang,
-    itemListElement: items.map((item, i) => ({
+    itemListElement: DETAIL_PAGES[kind].map((e, i) => ({
       "@type": "ListItem",
       position: i + 1,
       item: {
-        "@type": "Service",
-        name: item.name,
-        description: item.description,
-        url: `${url}#${item.anchor}`,
+        "@type": kind === "products" ? "SoftwareApplication" : "Service",
+        name: e[lang].name,
+        description: e[lang].summary,
+        url: absoluteUrl(localizePathname(`/${kind}/${e.slug}`, lang)),
         provider,
         areaServed: { "@type": "Country", name: "Oman" },
       },
@@ -367,35 +377,15 @@ function serviceList(
 }
 
 export function getServicesJsonLd(lang: Lang) {
-  const s = SERVICES[lang];
-  const anchors = ["automation", "ai-video", "content", "web"];
-  return serviceList(
-    s.overview.title,
-    absoluteUrl(localizePathname("/services", lang)),
-    s.overview.cards.map((card, i) => ({
-      name: card.title,
-      description: card.text,
-      anchor: anchors[i],
-    })),
-    lang,
-  );
+  return serviceList(SEO_COPY.services[lang].title, absoluteUrl(localizePathname("/services", lang)), "services", lang);
 }
 
 export function getProductsJsonLd(lang: Lang) {
-  const p = PRODUCTS[lang];
-  return serviceList(
-    p.hero.title,
-    absoluteUrl(localizePathname("/products", lang)),
-    [
-      {
-        name: p.construction.title,
-        description: p.construction.lead,
-        anchor: "construction-reporting",
-      },
-      { name: p.clinic.title, description: p.clinic.subtitle, anchor: "clinic-crm" },
-    ],
-    lang,
-  );
+  return serviceList(SEO_COPY.products[lang].title, absoluteUrl(localizePathname("/products", lang)), "products", lang);
+}
+
+export function getIndustriesJsonLd(lang: Lang) {
+  return serviceList(SEO_COPY.industries[lang].title, absoluteUrl(localizePathname("/industries", lang)), "industries", lang);
 }
 
 export function getFaqJsonLd(items: { q: string; a: string }[]) {
@@ -421,8 +411,8 @@ export function getProjectsJsonLd(lang: Lang) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: SEO_COPY["selected-work"][lang].title,
-    url: absoluteUrl(localizePathname("/selected-work", lang)),
+    name: SEO_COPY.work[lang].title,
+    url: absoluteUrl(localizePathname("/work", lang)),
     itemListElement: PROJECTS.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,

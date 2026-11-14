@@ -1,6 +1,6 @@
 import { WorkPage } from "@/components/site/pages/WorkPage";
-import { enPage } from "@/lib/pages";
+import { localizedPage } from "@/lib/pages";
 
-const page = enPage("selected-work", WorkPage);
+const page = localizedPage("work", WorkPage);
 export const generateMetadata = page.generateMetadata;
 export default page.Page;

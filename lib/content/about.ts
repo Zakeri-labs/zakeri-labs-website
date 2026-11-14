@@ -64,22 +64,22 @@ const en = {
       {
         title: "Custom Business Automation",
         text: "Custom software and automation built around real workflows and business processes.",
-        href: "/services#automation",
+        href: "/services/custom-software-development",
       },
       {
         title: "AI Video Production",
         text: "Visual storytelling that makes products, projects and future experiences easier to see and understand.",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         title: "Content & Social Media Management",
         text: "Strategy and content built around the audience, brand and commercial goal.",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
         title: "Web Design, SEO & GEO",
         text: "Digital experiences designed for discovery, visibility and customer acquisition.",
-        href: "/services#web",
+        href: "/services/web-design",
       },
     ],
     products: "IDRAK also develops ready-made products for specific industry needs.",
@@ -205,22 +205,22 @@ const ar: AboutCopy = {
       {
         title: "أتمتة الأعمال المخصّصة",
         text: "برمجيات وأتمتة مخصّصة مبنية حول سير العمل والعمليات الحقيقية.",
-        href: "/services#automation",
+        href: "/services/custom-software-development",
       },
       {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
         text: "سرد بصري يجعل المنتجات والمشاريع والتجارب المستقبلية أسهل رؤيةً وفهماً.",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
         text: "استراتيجية ومحتوى مبنيان حول الجمهور والعلامة والهدف التجاري.",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
         title: "تصميم المواقع وSEO وGEO",
         text: "تجارب رقمية مصمّمة للاكتشاف والظهور واستقطاب العملاء.",
-        href: "/services#web",
+        href: "/services/web-design",
       },
     ],
     products: "تطوّر إدراك أيضاً منتجات جاهزة لاحتياجات قطاعات محددة.",
