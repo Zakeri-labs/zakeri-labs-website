@@ -23,7 +23,7 @@ import case22 from "@/assets/work/case-22.webp";
 import case11 from "@/assets/work/case-11.webp";
 
 export type Industry = "real-estate" | "healthcare" | "legal" | "beauty" | "agency";
-/** Filter groups on /selected-work — kept to the sectors we actually have. */
+/** Filter groups on /work — kept to the sectors we actually have. */
 export type IndustryGroup = "real-estate" | "healthcare" | "professional" | "other";
 
 export type Project = {
@@ -148,7 +148,7 @@ export const PROJECTS: Project[] = [
 ];
 
 /**
- * Shown first on /selected-work and (all six) on the homepage. Chosen for
+ * Shown first on /work and (all six) on the homepage. Chosen for
  * sector variety so the portfolio does not read as "a real-estate web shop".
  * Edit this list to change the selection.
  */

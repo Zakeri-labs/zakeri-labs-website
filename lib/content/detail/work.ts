@@ -58,7 +58,7 @@ export const CASE_PAGES: DetailEntry[] = [
           },
           {
             title: "Audio that works on local networks",
-            text: "Call audio runs through our own server over the standard web port, because some mobile networks in Oman block the usual browser voice traffic. The server also keeps the transcript, so it cannot be edited by the candidate.",
+            text: "Call audio runs through our own server over the standard web port, because some networks restrict direct browser voice connections. The server also keeps the transcript, so it cannot be edited by the candidate.",
           },
           {
             title: "Scoring against the manager's questions",
@@ -104,7 +104,7 @@ export const CASE_PAGES: DetailEntry[] = [
           },
           {
             title: "Fixes from the field",
-            text: "When calls dropped on local mobile networks, we moved the audio to our own server and re-tested.",
+            text: "Because some networks restrict direct browser voice connections, we routed the audio through our own server and re-tested.",
           },
         ],
       },
@@ -158,7 +158,7 @@ export const CASE_PAGES: DetailEntry[] = [
       seo: {
         title: "دراسة حالة: منصة توظيف بمقابلات صوتية بالذكاء الاصطناعي",
         description:
-          "كيف بنت إدراك منصة توظيف إلكترونية لفريق مبيعاتها: طلب عبر الجوال، ومكالمة تمثيل أدوار صوتية مباشرة مع الذكاء الاصطناعي، وتقرير مُقيَّم لكل مرشح.",
+          "كيف بنت إدراك منصة توظيف إلكترونية لفريق مبيعاتها: طلب عبر الجوال، ومكالمة تمثيل أدوار صوتية مباشرة مع الذكاء الاصطناعي، وتقرير بالدرجات لكل مرشح.",
       },
       name: "منصة توظيف بمقابلات صوتية بالذكاء الاصطناعي",
       summary:
@@ -177,7 +177,7 @@ export const CASE_PAGES: DetailEntry[] = [
           "قبل المنصة كان المتقدمون يرسلون سيرهم الذاتية، فيفرزها مدير التوظيف يدوياً، ثم يتصل بهم واحداً تلو الآخر ليرى كيف يديرون الحديث.",
         points: [
           "السيرة الذاتية لا تبيّن كيف يتعامل الشخص مع اعتراض العميل في مكالمة باردة.",
-          "كل مكالمة في الجولة الأولى كانت تستهلك وقت المدير، حتى مع مرشحين غير جاهزين بوضوح.",
+          "كل مكالمة في الجولة الأولى كانت تستهلك وقت المدير، حتى مع مرشحين يتّضح أنهم غير جاهزين.",
           "لم يكن هناك معيار موحّد، فلا يُقيَّم مرشحان على الأسئلة نفسها.",
           "النتائج متفرقة بين المحادثات والملاحظات، ولا سجلّ حين يتقدّم الشخص نفسه مرة أخرى.",
         ],
@@ -194,15 +194,15 @@ export const CASE_PAGES: DetailEntry[] = [
           },
           {
             title: "مكالمة تمثيل أدوار حيّة",
-            text: "مكالمة لخمس دقائق مع صاحب عمل افتراضي. كل محاولة بسيناريو مختلف (تأجير سيارات، مطعم، عيادة أسنان، أثاث، صالون تجميل، مقاولات)، وفي بعضها من يردّ ليس صاحب القرار.",
+            text: "مكالمة مدتها خمس دقائق مع صاحب عمل افتراضي. كل محاولة بسيناريو مختلف (تأجير سيارات، مطعم، عيادة أسنان، أثاث، صالون تجميل، مقاولات)، وفي بعضها من يردّ ليس صاحب القرار.",
           },
           {
             title: "صوت يعمل على الشبكات المحلية",
-            text: "يمرّ صوت المكالمة عبر خادمنا على منفذ الويب المعتاد، لأن بعض شبكات الجوال في عُمان تحجب حركة الصوت المعتادة في المتصفح. ويحفظ الخادم نص المكالمة فلا يستطيع المرشح تعديله.",
+            text: "يمرّ صوت المكالمة عبر خادمنا على منفذ الويب المعتاد، لأن بعض الشبكات تقيّد اتصالات الصوت المباشرة من المتصفح. ويحفظ الخادم نص المكالمة فلا يستطيع المرشح تعديله.",
           },
           {
             title: "تقييم وفق أسئلة المدير",
-            text: "عشرة أسئلة كتبها مدير التوظيف، لكلٍّ منها درجة من ١ إلى ٥ مع اقتباس قصير من المكالمة. وللمقابلة وزن مضاعف إلى جانب درجتي السيرة الذاتية والملف الشخصي.",
+            text: "عشرة أسئلة كتبها مدير التوظيف، لكلٍّ منها درجة من 1 إلى 5 مع اقتباس قصير من المكالمة. وللمقابلة وزن مضاعف إلى جانب درجتي السيرة الذاتية والملف الشخصي.",
           },
           {
             title: "تقرير إداري وسجلّ لكل مرشح",
@@ -244,7 +244,7 @@ export const CASE_PAGES: DetailEntry[] = [
           },
           {
             title: "إصلاحات من الميدان",
-            text: "حين انقطعت المكالمات على شبكات الجوال المحلية نقلنا الصوت إلى خادمنا وأعدنا الاختبار.",
+            text: "لأن بعض الشبكات تقيّد اتصالات الصوت المباشرة من المتصفح، مرّرنا الصوت عبر خادمنا وأعدنا الاختبار.",
           },
         ],
       },
@@ -276,7 +276,7 @@ export const CASE_PAGES: DetailEntry[] = [
           a: "نعم. الأسئلة محفوظة لكل وظيفة، ويمكن كتابة السيناريوهات وشخصية العميل الافتراضي لأي دور تُظهر فيه المحادثة المهارة، مثل خدمة العملاء أو المبيعات.",
         },
         {
-          q: "هل يستطيع المرشح حفظ الاختبار بتكراره؟",
+          q: "هل يستطيع المرشح حفظ أسئلة الاختبار إذا أعاده؟",
           a: "للمرشح الخارجي محاولة واحدة، وكل محاولة بسيناريو مختلف. يُسمح بإعادة الاتصال عند انقطاع الخط، ويُعلَّم في التقرير أي إنهاء مبكر مثير للشك.",
         },
         {
@@ -302,7 +302,7 @@ export const CASE_PAGES: DetailEntry[] = [
     interest: "automation",
     related: {
       services: ["custom-software-development", "ai-business-automation", "whatsapp-ai-automation"],
-      work: ["ai-hiring-platform-voice-interviews"],
+      work: ["ai-hiring-platform-voice-interviews", "whatsapp-ai-sales-assistant-carpet-retailer"],
     },
     en: {
       seo: {
@@ -465,7 +465,7 @@ export const CASE_PAGES: DetailEntry[] = [
         eyebrow: "التحدي وطريقة العمل السابقة",
         title: "العملاء والمكالمات والاجتماعات كانت موزّعة بين الجداول والمحادثات.",
         intro:
-          "كانت قوائم العملاء المحتملين في جداول بيانات، وكل مندوب يتابع مكالماته بطريقته، وتُتفق الاجتماعات في المحادثات ثم تُنقل إلى التقويم يدوياً.",
+          "كانت قوائم العملاء المحتملين في جداول بيانات، وكل مندوب يتابع مكالماته بطريقته، ويُتَّفق على مواعيد الاجتماعات في المحادثات ثم تُنقل إلى التقويم يدوياً.",
         points: [
           "لا مسؤول واضح عن كل عميل، فقد يُتصل بالشركة نفسها مرتين أو لا يُتصل بها أبداً.",
           "اجتماعات متداخلة أو محجوزة دون وقت للتنقّل بين العملاء.",
@@ -481,11 +481,11 @@ export const CASE_PAGES: DetailEntry[] = [
         items: [
           {
             title: "بنك العملاء المحتملين وتوزيعهم",
-            text: "استوردنا أكثر من ٥٠٠٠ شركة عُمانية في عشرة قطاعات. توزّع الإدارة العملاء من البنك، ولكل عميل مسؤول واحد.",
+            text: "استوردنا أكثر من 5000 شركة عُمانية في عشرة قطاعات. توزّع الإدارة العملاء من البنك، ولكل عميل مسؤول واحد.",
           },
           {
             title: "تقويم الاجتماعات",
-            text: "عرض أسبوعي يحدّد فيه المندوب الموعد بالسحب. تمنع قاعدة البيانات التداخل، وتحفظ وقت التنقّل حول الزيارات الميدانية، وتفرض مهلة إشعار مسبقة.",
+            text: "عرض أسبوعي يحدّد فيه المندوب الموعد بالسحب. تمنع قاعدة البيانات التداخل، وتحجز وقتاً للتنقّل حول الزيارات الميدانية، وتفرض مهلة إشعار مسبقة.",
           },
           {
             title: "روابط حجز للعملاء",
@@ -510,7 +510,7 @@ export const CASE_PAGES: DetailEntry[] = [
         items: [
           "React",
           "Supabase / PostgreSQL",
-          "أمان على مستوى الصفوف",
+          "أمان على مستوى الصف (RLS)",
           "WhatsApp Business API",
           "تكامل Google Meet",
           "عربي / إنجليزي",
@@ -524,7 +524,7 @@ export const CASE_PAGES: DetailEntry[] = [
         steps: [
           {
             title: "البدء من أساس جاهز",
-            text: "طوّعنا قاعدة كود CRM قائمة بدل البدء من الصفر، ثم كيّفناها للمبيعات بدل العيادات.",
+            text: "انطلقنا من قاعدة شيفرة CRM قائمة بدل البدء من الصفر، وكيّفناها للمبيعات بدل العيادات.",
           },
           {
             title: "تحميل العملاء الحقيقيين",
@@ -532,7 +532,7 @@ export const CASE_PAGES: DetailEntry[] = [
           },
           {
             title: "جولات تعديل أسبوعية",
-            text: "صدرت كل جولة ملاحظات من المدير كمجموعة تعديلات مرقّمة، مع تشغيل سكربتات قاعدة البيانات قبل الشاشات الجديدة.",
+            text: "تحوّلت كل جولة ملاحظات من المدير إلى حزمة تعديلات مرقّمة، مع تشغيل سكربتات قاعدة البيانات قبل الشاشات الجديدة.",
           },
           {
             title: "إحكام الأمان",
@@ -550,7 +550,7 @@ export const CASE_PAGES: DetailEntry[] = [
           },
           {
             title: "لا اجتماعات متداخلة بعد الآن",
-            text: "يرفض التقويم التداخل ويحفظ وقت التنقّل، فيصبح الجدول موثوقاً.",
+            text: "يرفض التقويم التداخل ويحجز وقتاً للتنقّل، فيصبح الجدول موثوقاً.",
           },
           {
             title: "لكل اجتماع منعقد خطوة تالية",
@@ -573,11 +573,11 @@ export const CASE_PAGES: DetailEntry[] = [
         },
         {
           q: "هل يخدم نظام واحد أكثر من شركة؟",
-          a: "نعم. يشغّل هذا النظام مساحتي عمل منفصلتين، لكلٍّ منهما علامتها ونطاقها ومستخدموها، ومفصولتين في قاعدة البيانات.",
+          a: "نعم. يشغّل هذا النظام مساحتي عمل منفصلتين، لكلٍّ منهما علامتها ونطاقها ومستخدموها، وهما مفصولتان في قاعدة البيانات.",
         },
         {
           q: "هل يتضمّن مساعداً بالذكاء الاصطناعي؟",
-          a: "أُضيف مساعد مبيعات بالذكاء الاصطناعي عبر واتساب كوحدة اختيارية، مُطفأ افتراضياً ولا يُفعَّل إلا حين يكون الفريق جاهزاً.",
+          a: "أُضيف مساعد مبيعات بالذكاء الاصطناعي عبر واتساب كوحدة اختيارية، معطَّل افتراضياً ولا يُفعَّل إلا حين يكون الفريق جاهزاً.",
         },
       ],
       cta: {
@@ -595,6 +595,7 @@ export const CASE_PAGES: DetailEntry[] = [
     related: {
       services: ["whatsapp-ai-automation", "custom-software-development", "ai-business-automation"],
       work: ["sales-crm-lead-distribution-whatsapp"],
+      industries: ["wholesale-distribution"],
     },
     en: {
       seo: {
@@ -616,9 +617,9 @@ export const CASE_PAGES: DetailEntry[] = [
         eyebrow: "Problem & existing process",
         title: "Hundreds of Messages a Day, Answered One by One.",
         intro:
-          "Before the project, staff answered every WhatsApp message by hand. We analysed more than 44,000 past messages from the shop's export to see what customers actually ask.",
+          "Before the project, staff answered every WhatsApp message by hand. We analysed the shop's past message history to see what customers actually ask.",
         points: [
-          "Around 1,000 messages a day across the shop's numbers, about 90% of them in Arabic.",
+          "A high daily volume of messages across the shop's numbers, mostly in Arabic.",
           "The most common message was simply “how much?”, sent right after a product photo.",
           "Most messages were images, because the shop sells from photo albums.",
           "Some conversations were never answered at all, which is where sales were lost.",
@@ -651,8 +652,8 @@ export const CASE_PAGES: DetailEntry[] = [
             text: "Clear rules send a chat to an operator, who is alerted on WhatsApp. In shadow mode the AI only drafts replies for staff to approve or edit.",
           },
           {
-            title: "Staff panel in three languages",
-            text: "Inbox, customers and leads, products, pricing by country, FAQs, sales playbook, blocklist and reports, in Arabic, English and Persian, built for phones.",
+            title: "Staff panel in two languages",
+            text: "Inbox, customers and leads, products, pricing by country, FAQs, sales playbook, blocklist and reports, in Arabic and English, built for phones.",
           },
         ],
       },
@@ -700,8 +701,8 @@ export const CASE_PAGES: DetailEntry[] = [
             text: "All chats land in one inbox with the customer's profile, so none are lost between phones.",
           },
           {
-            title: "Prices stay correct",
-            text: "Because numbers come from the system, the assistant cannot quote a wrong price or an unapproved discount.",
+            title: "Prices come from the system",
+            text: "Prices and discounts always come from the shop's system, not from the AI, so the assistant does not make up a price or offer an unapproved discount.",
           },
           {
             title: "The team stays in control",
@@ -756,9 +757,9 @@ export const CASE_PAGES: DetailEntry[] = [
         eyebrow: "التحدي وطريقة العمل السابقة",
         title: "مئات الرسائل يومياً، والردّ عليها واحدة تلو الأخرى.",
         intro:
-          "قبل المشروع كان الموظفون يردّون على كل رسالة واتساب يدوياً. حلّلنا أكثر من ٤٤ ألف رسالة سابقة من سجلّ المتجر لنعرف ما يسأل عنه العملاء فعلاً.",
+          "قبل المشروع كان الموظفون يردّون على كل رسالة واتساب يدوياً. حلّلنا سجلّ الرسائل السابقة للمتجر لنعرف ما يسأل عنه العملاء فعلاً.",
         points: [
-          "نحو ١٠٠٠ رسالة يومياً على أرقام المتجر، قرابة ٩٠٪ منها بالعربية.",
+          "عدد كبير من الرسائل يومياً على أرقام المتجر، معظمها بالعربية.",
           "أكثر رسالة تكراراً كانت «بكم؟» بعد صورة منتج مباشرة.",
           "معظم الرسائل صور، لأن المتجر يبيع من ألبومات الصور.",
           "بعض المحادثات لم يُردّ عليها أبداً، وهناك كانت المبيعات تضيع.",
@@ -787,12 +788,12 @@ export const CASE_PAGES: DetailEntry[] = [
             text: "تُحوَّل رسائل العملاء الصوتية إلى نص ليردّ عليها المساعد كأنها رسائل مكتوبة.",
           },
           {
-            title: "التحويل للموظف ووضع الظل",
-            text: "قواعد واضحة تحوّل المحادثة إلى موظف يصله تنبيه على واتساب. وفي وضع الظل يكتب الذكاء الاصطناعي مسودة الردّ فقط ليوافق عليها الموظف أو يعدّلها.",
+            title: "التحويل للموظف ووضع المسودة",
+            text: "قواعد واضحة تحوّل المحادثة إلى موظف يصله تنبيه على واتساب. وفي وضع المسودة يكتب الذكاء الاصطناعي مسودة الردّ فقط ليوافق عليها الموظف أو يعدّلها.",
           },
           {
-            title: "لوحة موظفين بثلاث لغات",
-            text: "صندوق الرسائل، والعملاء والعملاء المحتملون، والمنتجات، والأسعار حسب الدولة، والأسئلة الشائعة، وسيناريوهات البيع، وقائمة الحظر، والتقارير، بالعربية والإنجليزية والفارسية، ومصمَّمة للجوال.",
+            title: "لوحة موظفين بلغتين",
+            text: "صندوق الرسائل، والعملاء والعملاء المحتملون، والمنتجات، والأسعار حسب الدولة، والأسئلة الشائعة، وسيناريوهات البيع، وقائمة الحظر، والتقارير، بالعربية والإنجليزية، ومصمَّمة للجوال.",
           },
         ],
       },
@@ -826,8 +827,8 @@ export const CASE_PAGES: DetailEntry[] = [
             text: "واتساب وقاعدة البيانات والذكاء الاصطناعي تعمل على حسابات يملكها العميل لا نحن.",
           },
           {
-            title: "رقم تجريبي، ثم وضع الظل، ثم التشغيل",
-            text: "تحدّث المساعد أولاً مع رقم تجريبي فقط بينما ذهب العملاء الحقيقيون إلى الموظفين، ليُختبر بأمان.",
+            title: "رقم تجريبي، ثم وضع المسودة، ثم الإطلاق",
+            text: "تحدّث المساعد أولاً مع رقم تجريبي فقط بينما تولّى الموظفون محادثات العملاء الحقيقيين، ليُختبر بأمان.",
           },
         ],
       },
@@ -840,8 +841,8 @@ export const CASE_PAGES: DetailEntry[] = [
             text: "كل المحادثات في صندوق واحد مع ملف العميل، فلا يضيع شيء بين الهواتف.",
           },
           {
-            title: "أسعار صحيحة دائماً",
-            text: "لأن الأرقام تأتي من النظام، لا يستطيع المساعد ذكر سعر خاطئ أو خصم غير معتمد.",
+            title: "الأسعار من النظام دائماً",
+            text: "الأسعار والخصومات تأتي دائماً من نظام المتجر لا من الذكاء الاصطناعي، فلا يخترع المساعد سعراً أو خصماً غير معتمد.",
           },
           {
             title: "الفريق يبقى صاحب القرار",
@@ -872,7 +873,7 @@ export const CASE_PAGES: DetailEntry[] = [
         },
       ],
       cta: {
-        title: "هل واتساب متجرك أكثر انشغالاً مما يستطيع فريقك؟",
+        title: "هل رسائل واتساب في متجرك أكثر مما يستطيع فريقك الردّ عليه؟",
         text: "صِف لنا كيف تبيعون عبر واتساب اليوم، ونُريك ما يمكن أن يرفعه المساعد عن كاهل فريقك.",
         button: "ناقش مشروعك",
       },

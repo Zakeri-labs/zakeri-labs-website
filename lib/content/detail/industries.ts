@@ -52,7 +52,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "What we build for real estate",
-        title: "Every Use Case, Tied to a Service.",
+        title: "What We Build, and the Service Behind It.",
         items: [
           {
             title: "Lead capture",
@@ -154,15 +154,15 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
     },
     ar: {
       seo: {
-        title: "برنامج إدارة العقارات ونظام CRM عقاري في عُمان | إدراك",
+        title: "نظام CRM عقاري وبرمجيات للمطورين والوسطاء في عُمان | إدراك",
         description:
           "برمجيات للمطورين والوسطاء العقاريين في عُمان: التقاط العملاء، المتابعة عبر واتساب، CRM عقاري، لوحات للوسطاء، وفيديو بالذكاء الاصطناعي للبيع على الخارطة.",
       },
-      name: "العقارات وإدارة الأملاك",
+      name: "العقارات والتطوير العقاري",
       summary:
         "التقاط العملاء والمتابعة عبر واتساب ونظام CRM عقاري ولوحات للوسطاء وفيديو بالذكاء الاصطناعي.",
       hero: {
-        eyebrow: "القطاعات · العقارات",
+        eyebrow: "القطاعات · العقارات والتطوير العقاري",
         title: "برمجيات وCRM وفيديو بالذكاء الاصطناعي للمطورين والوسطاء العقاريين في عُمان.",
         intro:
           "يسأل المشترون والمستأجرون عبر واتساب، ويقارنون المشاريع عبر الإنترنت، وينتظرون رداً سريعاً. تبني إدراك الأنظمة التي تلتقط كل عميل محتمل وتتابعه وتعرض المشروع بوضوح، من أول استفسار حتى توقيع الصفقة.",
@@ -181,11 +181,11 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "ماذا نبني لقطاع العقارات",
-        title: "كل حالة استخدام مرتبطة بخدمة.",
+        title: "ما نبنيه، والخدمة التي تتولّاه.",
         items: [
           {
             title: "التقاط العملاء المحتملين",
-            text: "تتدفق النماذج وصفحات الهبوط وعملاء المنصات إلى مكان واحد مع المصدر والمشروع. (تصميم المواقع · أتمتة الأعمال)",
+            text: "تتدفق النماذج وصفحات الهبوط وعملاء المنصات إلى مكان واحد مع المصدر والمشروع. (تصميم المواقع · أتمتة الأعمال بالذكاء الاصطناعي)",
           },
           {
             title: "المتابعة عبر واتساب",
@@ -302,7 +302,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
     },
     en: {
       seo: {
-        title: "Clinic Management Software & Healthcare AI in Oman | IDRAK",
+        title: "Healthcare Software & AI for Clinics in Oman | IDRAK",
         description:
           "Clinic CRM, WhatsApp booking assistant, patient follow-up and custom healthcare software for dental, aesthetic and private clinics in Oman. Talk to IDRAK today.",
       },
@@ -311,7 +311,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         "Clinic CRM and WhatsApp assistant, patient follow-up, custom clinic systems and content for private healthcare.",
       hero: {
         eyebrow: "Industries · Healthcare & clinics",
-        title: "Clinic Management Software and WhatsApp Automation for Clinics in Oman.",
+        title: "Healthcare Software, AI and WhatsApp Automation for Clinics in Oman.",
         intro:
           "Patients ask on WhatsApp, book on the phone and leave reviews online. IDRAK connects those steps into one organised journey, with a ready-made Clinic CRM & WhatsApp Assistant and custom systems for clinic groups.",
         support: "For dental, aesthetic, dermatology and private healthcare groups.",
@@ -329,7 +329,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "What we build for healthcare",
-        title: "Every Use Case, Tied to a Service or Product.",
+        title: "What We Build, and the Service Behind It.",
         items: [
           {
             title: "Clinic CRM & WhatsApp Assistant",
@@ -423,7 +423,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
     },
     ar: {
       seo: {
-        title: "نظام إدارة العيادات وحلول الرعاية الصحية في عُمان | إدراك",
+        title: "حلول برمجية وذكاء اصطناعي للعيادات والمراكز الطبية في عُمان | إدراك",
         description:
           "نظام CRM للعيادات ومساعد واتساب للحجز ومتابعة المراجعين وبرمجيات مخصّصة لعيادات الأسنان والتجميل والعيادات الخاصة في عُمان. تواصل مع إدراك اليوم.",
       },
@@ -432,9 +432,9 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         "نظام CRM ومساعد واتساب للعيادات، ومتابعة المراجعين، وأنظمة مخصّصة، ومحتوى للرعاية الصحية الخاصة.",
       hero: {
         eyebrow: "القطاعات · الرعاية الصحية والعيادات",
-        title: "نظام إدارة العيادات وأتمتة واتساب للعيادات في عُمان.",
+        title: "حلول برمجية وذكاء اصطناعي وأتمتة واتساب للعيادات والمراكز الطبية في عُمان.",
         intro:
-          "يسأل المراجعون عبر واتساب، ويحجزون بالهاتف، ويكتبون تقييماتهم عبر الإنترنت. تربط إدراك هذه الخطوات في رحلة واحدة منظّمة، عبر منتج جاهز لنظام CRM ومساعد واتساب، وأنظمة مخصّصة لمجموعات العيادات.",
+          "يسأل المراجعون عبر واتساب، ويحجزون بالهاتف، ويكتبون تقييماتهم على Google. تربط إدراك هذه الخطوات في رحلة واحدة منظّمة، عبر منتج جاهز لنظام CRM ومساعد واتساب، وأنظمة مخصّصة لمجموعات العيادات.",
         support: "لعيادات الأسنان والتجميل والجلدية ومجموعات الرعاية الصحية الخاصة.",
       },
       problem: {
@@ -450,19 +450,19 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "ماذا نبني لقطاع الرعاية الصحية",
-        title: "كل حالة استخدام مرتبطة بخدمة أو منتج.",
+        title: "ما نبنيه، والخدمة التي تتولّاه.",
         items: [
           {
             title: "نظام CRM ومساعد واتساب للعيادات",
-            text: "منتجنا الجاهز: الرد والحجز والتذكير والحضور والمتابعة والتقييم في مسار واحد. (منتج)",
+            text: "منتجنا الجاهز: الرد والحجز والتذكير والحضور والمتابعة وآراء المراجعين في مسار واحد. (منتج)",
           },
           {
             title: "الحجز والتذكير عبر واتساب",
             text: "ينتقل المراجع من السؤال إلى طلب الحجز ويستلم التذكير في المحادثة نفسها. (وكلاء الذكاء الاصطناعي وأتمتة واتساب)",
           },
           {
-            title: "متابعة المراجعين والتقييمات",
-            text: "متابعة الاستفسارات والمواعيد الفائتة، وجمع التقييمات، وإرسال روابط المراجعات للراضين. (وكلاء الذكاء الاصطناعي وأتمتة واتساب)",
+            title: "متابعة المراجعين وتقييمات Google",
+            text: "متابعة الاستفسارات والمواعيد الفائتة، وجمع آراء المراجعين، وإرسال روابط تقييمات Google للمراجعين الراضين. (وكلاء الذكاء الاصطناعي وأتمتة واتساب)",
           },
           {
             title: "أنظمة مخصّصة للعيادات",
@@ -482,7 +482,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
           },
           {
             title: "فيديو ومحتوى للرعاية الصحية",
-            text: "اعرض الخدمات والعلاجات وبيئة العيادة عبر الفيديو بالذكاء الاصطناعي ومحتوى التواصل الاجتماعي. (إنتاج الفيديو · المحتوى ووسائل التواصل)",
+            text: "اعرض الخدمات والعلاجات وبيئة العيادة عبر الفيديو بالذكاء الاصطناعي ومحتوى التواصل الاجتماعي. (إنتاج الفيديو بالذكاء الاصطناعي · المحتوى ووسائل التواصل الاجتماعي)",
           },
         ],
       },
@@ -510,15 +510,15 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
             text: "تبقى الحجوزات وتفاعلات المراجعين معاً في نظام واحد.",
           },
           {
-            title: "تقييمات أكثر",
-            text: "يُطلب التقييم والمراجعة بعد كل زيارة، لا فقط حين يتذكّر أحد.",
+            title: "تقييمات Google أكثر",
+            text: "تُطلب آراء المراجعين وتقييمات Google بعد كل زيارة، لا فقط حين يتذكّر أحد.",
           },
         ],
       },
       faq: [
         {
           q: "هل يوجد منتج جاهز للعيادات؟",
-          a: "نعم. يغطي نظام CRM ومساعد واتساب للعيادات الأسئلة والحجز والتذكير والحضور والمتابعة والتقييم. ويمكن لمجموعات العيادات ذات الاحتياجات الأوسع إضافة برمجيات مخصّصة حوله.",
+          a: "نعم. يغطي نظام CRM ومساعد واتساب للعيادات الأسئلة والحجز والتذكير والحضور والمتابعة وآراء المراجعين. ويمكن لمجموعات العيادات ذات الاحتياجات الأوسع إضافة برمجيات مخصّصة حوله.",
         },
         {
           q: "هل يحل المساعد محل فريق الاستقبال؟",
@@ -527,7 +527,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         { q: "هل يعمل بالعربية؟", a: "نعم. تُهيّأ المحادثات بالعربية والإنجليزية." },
         {
           q: "لمن تعود ملكية بيانات المراجعين؟",
-          a: "لعيادتك. ونتفق كتابياً على صلاحيات الوصول والاستضافة والتصدير ضمن التشغيل.",
+          a: "لعيادتك. ونتفق كتابياً على صلاحيات الوصول والاستضافة والتصدير ضمن تجهيز النظام.",
         },
       ],
       cta: {
@@ -556,7 +556,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
     },
     en: {
       seo: {
-        title: "Construction Software & Reporting for Oman Firms | IDRAK",
+        title: "Construction & Contracting Software in Oman | IDRAK",
         description:
           "Construction supervision reporting, custom project software, site dashboards and workflow automation for contractors and consultants in Oman. Talk to IDRAK.",
       },
@@ -583,7 +583,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "What we build for construction",
-        title: "Every Use Case, Tied to a Service or Product.",
+        title: "What We Build, and the Service Behind It.",
         items: [
           {
             title: "Construction Supervision Reporting",
@@ -708,11 +708,11 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "ماذا نبني لقطاع البناء",
-        title: "كل حالة استخدام مرتبطة بخدمة أو منتج.",
+        title: "ما نبنيه، والخدمة التي تتولّاه.",
         items: [
           {
-            title: "نظام تقارير الإشراف على البناء",
-            text: "منتجنا الجاهز لشركات الإشراف، مع التشغيل والتدريب والدفع مقابل كل تقرير. (منتج)",
+            title: "تقارير الإشراف على البناء",
+            text: "منتجنا الجاهز لشركات الإشراف، مع تجهيز النظام والتدريب والدفع مقابل كل تقرير. (منتج)",
           },
           {
             title: "أنظمة إدارة المشاريع",
@@ -780,7 +780,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       faq: [
         {
           q: "هل لديكم منتج جاهز لقطاع البناء؟",
-          a: "نعم. نظام تقارير الإشراف على البناء جاهز للتشغيل لشركات الإشراف في عُمان، مع التشغيل وتدريب الفريق والدفع مقابل كل تقرير.",
+          a: "نعم. «تقارير الإشراف على البناء» منتج جاهز لشركات الإشراف في عُمان، مع تجهيز النظام وتدريب الفريق والدفع مقابل كل تقرير.",
         },
         {
           q: "هل تبنون أنظمة للمقاولين، لا للاستشاريين فقط؟",
@@ -815,7 +815,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         "web-design",
       ],
       industries: ["logistics-transport"],
-      work: [],
+      work: ["whatsapp-ai-sales-assistant-carpet-retailer"],
     },
     en: {
       seo: {
@@ -846,7 +846,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "What we build for distribution",
-        title: "Every Use Case, Tied to a Service.",
+        title: "What We Build, and the Service Behind It.",
         items: [
           {
             title: "Inventory and warehouse system",
@@ -940,7 +940,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
     },
     ar: {
       seo: {
-        title: "برنامج إدارة المستودعات والتوزيع في سلطنة عُمان | إدراك",
+        title: "برنامج إدارة التوزيع والجملة وCRM للمبيعات في عُمان | إدراك",
         description:
           "برمجيات مخصّصة لشركات الجملة والتوزيع في عُمان: إدارة المخزون والطلبات، CRM لفريق المبيعات، الطلب عبر واتساب، لوحات المتابعة وأتمتة سير العمل.",
       },
@@ -967,7 +967,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "ماذا نبني لقطاع التوزيع",
-        title: "كل حالة استخدام مرتبطة بخدمة.",
+        title: "ما نبنيه، والخدمة التي تتولّاه.",
         items: [
           {
             title: "نظام المخزون والمستودعات",
@@ -1050,7 +1050,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         },
         {
           q: "من أين نبدأ؟",
-          a: "عادةً من الخطوة التي تكلّف أكثر عمل يدوي اليوم، مثل إدخال الطلبات أو رؤية المخزون، ثم نتوسّع.",
+          a: "عادةً من الخطوة التي تستهلك أكبر قدر من العمل اليدوي اليوم، مثل إدخال الطلبات أو رؤية المخزون، ثم نتوسّع.",
         },
       ],
       cta: {
@@ -1071,9 +1071,11 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         "ai-business-automation",
         "whatsapp-ai-automation",
         "web-design",
+        "seo-geo",
       ],
       industries: ["real-estate", "construction"],
       work: [],
+      products: ["construction-supervision-reporting"],
     },
     en: {
       seo: {
@@ -1104,7 +1106,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "What we build for facility & property management",
-        title: "Every Use Case, Tied to a Service.",
+        title: "What We Build, and the Service Behind It.",
         items: [
           {
             title: "Work order and maintenance system",
@@ -1198,16 +1200,16 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
     },
     ar: {
       seo: {
-        title: "برنامج إدارة المرافق والعقارات والصيانة في عُمان | إدراك",
+        title: "برنامج إدارة المرافق والأملاك والصيانة في عُمان | إدراك",
         description:
-          "برمجيات مخصّصة لإدارة المرافق والعقارات في عُمان: أوامر العمل، الصيانة الدورية، خدمات التكييف، طلبات المستأجرين عبر واتساب، العقود ولوحات المتابعة.",
+          "برمجيات مخصّصة لإدارة المرافق والأملاك في عُمان: أوامر العمل، الصيانة الدورية، خدمات التكييف، طلبات المستأجرين عبر واتساب، العقود ولوحات المتابعة.",
       },
-      name: "إدارة المرافق والعقارات",
+      name: "إدارة المرافق والأملاك",
       summary:
         "أوامر العمل والصيانة وخدمات التكييف، وطلبات المستأجرين عبر واتساب، والعقود ولوحات المتابعة.",
       hero: {
-        eyebrow: "القطاعات · إدارة المرافق والعقارات",
-        title: "برمجيات إدارة المرافق والعقارات لفرق الخدمة في عُمان.",
+        eyebrow: "القطاعات · إدارة المرافق والأملاك",
+        title: "برمجيات إدارة المرافق والأملاك لفرق الخدمة في عُمان.",
         intro:
           "تصل الطلبات بالهاتف وواتساب، ويرسل الفنيون تقاريرهم برسائل صوتية، وتُجدَّد العقود في جداول Excel. تبني إدراك الأنظمة التي تحوّل كل طلب إلى مهمة متابَعة، من البلاغ حتى الإنجاز.",
         support: "لشركات إدارة المرافق والتكييف والصيانة ومديري العقارات.",
@@ -1224,8 +1226,8 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
         ],
       },
       offer: {
-        eyebrow: "ماذا نبني لإدارة المرافق والعقارات",
-        title: "كل حالة استخدام مرتبطة بخدمة.",
+        eyebrow: "ماذا نبني لإدارة المرافق والأملاك",
+        title: "ما نبنيه، والخدمة التي تتولّاه.",
         items: [
           {
             title: "نظام أوامر العمل والصيانة",
@@ -1359,7 +1361,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "What we build for logistics",
-        title: "Every Use Case, Tied to a Service.",
+        title: "What We Build, and the Service Behind It.",
         items: [
           {
             title: "Operations and dispatch system",
@@ -1480,7 +1482,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       },
       offer: {
         eyebrow: "ماذا نبني لقطاع اللوجستيات",
-        title: "كل حالة استخدام مرتبطة بخدمة.",
+        title: "ما نبنيه، والخدمة التي تتولّاه.",
         items: [
           {
             title: "نظام العمليات والتشغيل",
@@ -1500,7 +1502,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
           },
           {
             title: "لوحات متابعة العمليات",
-            text: "الرحلات والتأخيرات واستغلال الأسطول ونشاط العملاء في شاشة واحدة للإدارة. (تطوير البرمجيات المخصّصة)",
+            text: "الرحلات والتأخيرات ومعدل استخدام الأسطول ونشاط العملاء في شاشة واحدة للإدارة. (تطوير البرمجيات المخصّصة)",
           },
           {
             title: "أتمتة التقارير والأعمال الإدارية",
@@ -1539,11 +1541,11 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
             text: "يستلم العملاء التحديثات عبر واتساب بدلاً من الاتصال بالمكتب.",
           },
           {
-            title: "أوراق تتحوّل إلى رقمية",
+            title: "أوراق أقل، وسجلات رقمية",
             text: "تُسجَّل إثباتات التسليم وكشوف الرحلات والمصاريف من الطريق.",
           },
           {
-            title: "أسطول في موعده",
+            title: "صيانة الأسطول في موعدها",
             text: "تظهر الصيانة وتجديد الوثائق قبل أن تفوت.",
           },
         ],
@@ -1551,7 +1553,7 @@ export const INDUSTRY_PAGES: DetailEntry[] = [
       faq: [
         {
           q: "هل هذا منتج جاهز لتتبّع الأسطول؟",
-          a: "لا. نبني أنظمة العمليات والأسطول حول خدماتك وسير عملك. وإذا كنت تستخدم جهاز أو منصة تتبّع، يمكن ربطها حيث تسمح بالتكامل.",
+          a: "لا. نبني أنظمة العمليات والأسطول حول خدماتك وسير عملك. وإذا كنت تستخدم جهاز تتبّع أو منصة تتبّع، يمكن ربطها حيث تسمح بالتكامل.",
         },
         {
           q: "هل يستلم العملاء تحديثات الشحنات عبر واتساب؟",

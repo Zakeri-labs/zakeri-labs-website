@@ -12,9 +12,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (articles.length) pages.push("/articles");
 
   const alternates = (path: string) => ({
-    languages: Object.fromEntries(
-      LANGUAGES.map((l) => [l, absoluteUrl(localizePathname(path, l))]),
-    ),
+    languages: {
+      ...Object.fromEntries(LANGUAGES.map((l) => [l, absoluteUrl(localizePathname(path, l))])),
+      "x-default": absoluteUrl(path),
+    },
   });
 
   return LANGUAGES.flatMap((lang) => [

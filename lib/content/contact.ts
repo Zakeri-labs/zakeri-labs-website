@@ -53,12 +53,17 @@ const en = {
     rows: [
       {
         problem: "Too much repetitive work",
-        area: "Custom Business Automation",
+        area: "AI & Business Automation",
+        href: "/services/ai-business-automation",
+      },
+      {
+        problem: "Off-the-shelf software does not fit how you work",
+        area: "Custom Software Development",
         href: "/services/custom-software-development",
       },
       {
         problem: "Leads are not followed up consistently",
-        area: "WhatsApp / CRM Automation",
+        area: "AI Agents & WhatsApp Automation",
         href: "/services/whatsapp-ai-automation",
       },
       {
@@ -73,8 +78,13 @@ const en = {
       },
       {
         problem: "Your website is not creating visibility or enquiries",
-        area: "Web Design, SEO & GEO",
+        area: "Web Design",
         href: "/services/web-design",
+      },
+      {
+        problem: "Customers cannot find you on Google or in AI answers",
+        area: "SEO & GEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "You do not need to choose the right service yourself. Tell us the problem and we can help identify the right starting point.",
@@ -151,7 +161,7 @@ const ar: ContactCopy = {
       },
       {
         title: "نحدّد الخطوة التالية",
-        text: "قد تكون موجز مشروع، أو مرحلة استكشاف، أو تجربة أولية مركّزة، أو تشغيلاً أوّلياً، أو نقطة بداية مناسبة أخرى.",
+        text: "قد تكون موجز مشروع، أو مرحلة استكشاف، أو تجربة أولية مركّزة، أو إطلاقاً أوّلياً، أو نقطة بداية مناسبة أخرى.",
       },
     ],
     linkText: "تودّ فهم كيف تُنظَّم المشاريع قبل التواصل معنا؟",
@@ -164,12 +174,17 @@ const ar: ContactCopy = {
     rows: [
       {
         problem: "عمل متكرر كثير",
-        area: "أتمتة الأعمال المخصّصة",
+        area: "أتمتة الأعمال بالذكاء الاصطناعي",
+        href: "/services/ai-business-automation",
+      },
+      {
+        problem: "البرامج الجاهزة لا تناسب طريقة عملك",
+        area: "تطوير البرمجيات المخصّصة",
         href: "/services/custom-software-development",
       },
       {
         problem: "العملاء المحتملون لا تتم متابعتهم بانتظام",
-        area: "أتمتة واتساب / CRM",
+        area: "أتمتة واتساب بالذكاء الاصطناعي",
         href: "/services/whatsapp-ai-automation",
       },
       {
@@ -179,13 +194,18 @@ const ar: ContactCopy = {
       },
       {
         problem: "علامتك تحتاج إلى تواصل أقوى",
-        area: "المحتوى ووسائل التواصل",
+        area: "المحتوى ووسائل التواصل الاجتماعي",
         href: "/services/content-social-media",
       },
       {
         problem: "موقعك لا يحقق ظهوراً أو استفسارات",
-        area: "تصميم المواقع وSEO وGEO",
+        area: "تصميم المواقع",
         href: "/services/web-design",
+      },
+      {
+        problem: "العملاء لا يجدونك في Google أو في إجابات الذكاء الاصطناعي",
+        area: "SEO وGEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "لست بحاجة إلى اختيار الخدمة المناسبة بنفسك. أخبرنا بالمشكلة وسنساعدك على تحديد نقطة البداية الصحيحة.",
@@ -208,7 +228,7 @@ const ar: ContactCopy = {
       },
       {
         q: "هل تبدأ جميع المشاريع بمرحلة استكشاف أو تجربة أولية؟",
-        a: "لا. تعتمد نقطة البداية على نوع العمل. بعض المشاريع تبدأ بموجز واضح، وبعضها يستفيد من الاستكشاف أو التجربة الأولية أو التشغيل الأوّلي.",
+        a: "لا. تعتمد نقطة البداية على نوع العمل. بعض المشاريع تبدأ بموجز واضح، وبعضها يستفيد من الاستكشاف أو التجربة الأولية أو الإطلاق الأوّلي.",
       },
       {
         q: "هل يمكنني التواصل مع إدراك بشأن أكثر من خدمة؟",

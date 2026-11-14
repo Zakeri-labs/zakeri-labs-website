@@ -50,7 +50,7 @@ const en = {
     title: "The Technology Changes. The Starting Point Does Not.",
     paragraphs: [
       "Our work has evolved beyond website delivery, but the principle remains the same: start with the business need and use technology where it creates practical value.",
-      "Today, IDRAK applies that approach across custom business automation, AI video production, content and social media, and web design, SEO and GEO.",
+      "Today, IDRAK applies that approach across custom software development, AI and business automation, AI agents and WhatsApp automation, AI video production, content and social media, web design, and SEO and GEO.",
     ],
   },
   today: {
@@ -58,9 +58,14 @@ const en = {
     title: "More Than Web Design.",
     cards: [
       {
-        title: "Custom Business Automation",
-        text: "Custom software and automation built around real business workflows.",
+        title: "Custom Software Development",
+        text: "Custom business software, CRM, dashboards and portals built around real workflows.",
         href: "/services/custom-software-development",
+      },
+      {
+        title: "AI & Business Automation",
+        text: "Approvals, documents, data entry and reports automated across your systems, with AI where it helps.",
+        href: "/services/ai-business-automation",
       },
       {
         title: "AI Video Production",
@@ -68,14 +73,19 @@ const en = {
         href: "/services/ai-video-production",
       },
       {
-        title: "Content & Social Media Management",
+        title: "Content & Social Media",
         text: "Strategy, production and publishing built around audience and commercial goals.",
         href: "/services/content-social-media",
       },
       {
-        title: "Web Design, SEO & GEO",
-        text: "Digital experiences designed for visibility, discovery and customer acquisition.",
+        title: "Web Design",
+        text: "Fast, bilingual websites and landing pages designed to turn visits into enquiries.",
         href: "/services/web-design",
+      },
+      {
+        title: "SEO & GEO",
+        text: "Visibility on Google, in local search and in AI-generated answers.",
+        href: "/services/seo-geo",
       },
     ],
   },
@@ -143,7 +153,7 @@ const ar: WorkCopy = {
     title: "التقنية تتغيّر. ونقطة البداية لا تتغيّر.",
     paragraphs: [
       "تطوّر عملنا إلى ما هو أبعد من تنفيذ المواقع، لكن المبدأ بقي كما هو: ابدأ من حاجة العمل، واستخدم التقنية حيث تصنع قيمة عملية.",
-      "واليوم تطبّق إدراك هذا النهج في أتمتة الأعمال المخصّصة، وإنتاج الفيديو بالذكاء الاصطناعي، والمحتوى ووسائل التواصل، وتصميم المواقع وSEO وGEO.",
+      "واليوم تطبّق إدراك هذا النهج في تطوير البرمجيات المخصّصة، وأتمتة الأعمال بالذكاء الاصطناعي، ووكلاء الذكاء الاصطناعي وأتمتة واتساب، وإنتاج الفيديو بالذكاء الاصطناعي، والمحتوى ووسائل التواصل الاجتماعي، وتصميم المواقع، وSEO وGEO.",
     ],
   },
   today: {
@@ -151,24 +161,34 @@ const ar: WorkCopy = {
     title: "أكثر من تصميم مواقع.",
     cards: [
       {
-        title: "أتمتة الأعمال المخصّصة",
-        text: "برمجيات وأتمتة مخصّصة مبنية حول سير العمل الحقيقي.",
+        title: "تطوير البرمجيات المخصّصة",
+        text: "برمجيات أعمال وأنظمة CRM ولوحات متابعة وبوابات مبنية حول سير العمل الحقيقي.",
         href: "/services/custom-software-development",
       },
       {
+        title: "أتمتة الأعمال بالذكاء الاصطناعي",
+        text: "أتمتة الموافقات والمستندات وإدخال البيانات والتقارير بين أنظمتك، مع الذكاء الاصطناعي حيث يفيد.",
+        href: "/services/ai-business-automation",
+      },
+      {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
-        text: "سرد بصري للمنتجات والمشاريع والتجارب التي يصعب أو يكلف تصويرها.",
+        text: "سرد بصري للمنتجات والمشاريع والتجارب التي يصعب تصويرها أو يكون تصويرها مكلفاً.",
         href: "/services/ai-video-production",
       },
       {
-        title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
+        title: "المحتوى ووسائل التواصل الاجتماعي",
         text: "استراتيجية وإنتاج ونشر مبني حول الجمهور والأهداف التجارية.",
         href: "/services/content-social-media",
       },
       {
-        title: "تصميم المواقع وSEO وGEO",
-        text: "تجارب رقمية مصمّمة للظهور والاكتشاف واستقطاب العملاء.",
+        title: "تصميم المواقع",
+        text: "مواقع وصفحات هبوط سريعة بلغتين، مصمّمة لتحويل الزيارات إلى استفسارات.",
         href: "/services/web-design",
+      },
+      {
+        title: "SEO وGEO",
+        text: "الظهور في Google والبحث المحلي وفي إجابات الذكاء الاصطناعي.",
+        href: "/services/seo-geo",
       },
     ],
   },

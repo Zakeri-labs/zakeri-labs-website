@@ -66,7 +66,13 @@ function SubItem({ link, onClick }: { link: SubLink; onClick?: () => void }) {
   );
 }
 
-export function Header({ menus }: { menus: Record<Lang, NavMenus> }) {
+export function Header({
+  menus,
+  hasArticles = false,
+}: {
+  menus: Record<Lang, NavMenus>;
+  hasArticles?: boolean;
+}) {
   const c = useCopy(COMMON);
   const { lang } = useI18n();
   const sub = useSubmenus(menus);
@@ -80,7 +86,16 @@ export function Header({ menus }: { menus: Record<Lang, NavMenus> }) {
   }, []);
 
   const current = stripLangFromPathname(usePathname() || "/");
-  const isActive = (href: string) => (href === "/" ? current === "/" : current.startsWith(href));
+  const isActive = (href: string) =>
+    href === "/"
+      ? current === "/"
+      : current.startsWith(href) ||
+        (href === "/about" && current.startsWith("/how-we-work")) ||
+        (href === "/work" && current.startsWith("/videos"));
+  // Insights stays hidden until an article is published (an empty /articles is noindex).
+  const navPaths = NAV_PATHS.filter((p) => p !== "/articles" || hasArticles);
+  // Close a hover/focus dropdown after a pick or on Escape.
+  const closeMenu = () => (document.activeElement as HTMLElement | null)?.blur();
   // On the contact page the header CTA jumps straight to the form.
   const ctaHref = current === "/contact" ? "#contact-form" : "/contact";
 
@@ -100,41 +115,46 @@ export function Header({ menus }: { menus: Record<Lang, NavMenus> }) {
           </Link>
 
           <nav aria-label={c.navigation} className="hidden items-center gap-0.5 xl:flex">
-            {NAV_PATHS.filter((p) => p !== "/").map((path) => {
-              const children = sub[path];
-              return (
-                <div key={path} className="group relative">
-                  <Link
-                    href={path}
-                    aria-current={isActive(path) ? "page" : undefined}
-                    aria-haspopup={children ? "true" : undefined}
-                    className={cn(
-                      "inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition hover:text-primary",
-                      isActive(path) ? "bg-secondary text-primary" : "text-foreground/75",
-                    )}
+            {navPaths
+              .filter((p) => p !== "/")
+              .map((path) => {
+                const children = sub[path];
+                return (
+                  <div
+                    key={path}
+                    className="group relative"
+                    onKeyDown={(e) => e.key === "Escape" && closeMenu()}
                   >
-                    {c.nav[path]}
+                    <Link
+                      href={path}
+                      aria-current={isActive(path) ? "page" : undefined}
+                      className={cn(
+                        "inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition hover:text-primary",
+                        isActive(path) ? "bg-secondary text-primary" : "text-foreground/75",
+                      )}
+                    >
+                      {c.nav[path]}
+                      {children && (
+                        <ChevronDown className="h-3.5 w-3.5 opacity-60 transition group-hover:rotate-180 group-focus-within:rotate-180" />
+                      )}
+                    </Link>
                     {children && (
-                      <ChevronDown className="h-3.5 w-3.5 opacity-60 transition group-hover:rotate-180 group-focus-within:rotate-180" />
-                    )}
-                  </Link>
-                  {children && (
-                    <div className="invisible absolute start-0 top-full z-50 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                      <div
-                        className={cn(
-                          "grid gap-0.5 rounded-2xl border border-border bg-background/95 p-2 shadow-[var(--shadow-lift)] backdrop-blur-xl",
-                          children.length > 5 ? "w-[34rem] grid-cols-2" : "w-72",
-                        )}
-                      >
-                        {children.map((l) => (
-                          <SubItem key={l.href + l.label} link={l} />
-                        ))}
+                      <div className="invisible absolute start-0 top-full z-50 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                        <div
+                          className={cn(
+                            "grid gap-0.5 rounded-2xl border border-border bg-background/95 p-2 shadow-[var(--shadow-lift)] backdrop-blur-xl",
+                            children.length > 5 ? "w-[34rem] grid-cols-2" : "w-72",
+                          )}
+                        >
+                          {children.map((l) => (
+                            <SubItem key={l.href + l.label} link={l} onClick={closeMenu} />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                    )}
+                  </div>
+                );
+              })}
           </nav>
         </div>
 
@@ -164,7 +184,7 @@ export function Header({ menus }: { menus: Record<Lang, NavMenus> }) {
               <div className="flex h-full flex-col gap-6 overflow-y-auto p-6">
                 <Logo className="h-9 w-auto self-start" />
                 <nav aria-label={c.navigation} className="flex flex-col gap-1">
-                  {NAV_PATHS.map((path) => {
+                  {navPaths.map((path) => {
                     const children = sub[path];
                     const item = cn(
                       "rounded-xl px-4 py-3 text-base font-medium transition hover:bg-secondary",
@@ -175,7 +195,7 @@ export function Header({ menus }: { menus: Record<Lang, NavMenus> }) {
                         <summary
                           className={cn(
                             item,
-                            "flex cursor-pointer list-none items-center justify-between",
+                            "flex cursor-pointer list-none items-center justify-between [&::-webkit-details-marker]:hidden",
                           )}
                         >
                           {c.nav[path]}

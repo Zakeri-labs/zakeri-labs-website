@@ -62,9 +62,14 @@ const en = {
     title: "One Business Focus. Different Ways to Create Value.",
     items: [
       {
-        title: "Custom Business Automation",
-        text: "Custom software and automation built around real workflows and business processes.",
+        title: "Custom Software Development",
+        text: "Custom business software, CRM, dashboards and portals built around real workflows.",
         href: "/services/custom-software-development",
+      },
+      {
+        title: "AI & Business Automation",
+        text: "Approvals, documents, data entry and reports automated across your systems, with AI where it helps.",
+        href: "/services/ai-business-automation",
       },
       {
         title: "AI Video Production",
@@ -72,14 +77,19 @@ const en = {
         href: "/services/ai-video-production",
       },
       {
-        title: "Content & Social Media Management",
+        title: "Content & Social Media",
         text: "Strategy and content built around the audience, brand and commercial goal.",
         href: "/services/content-social-media",
       },
       {
-        title: "Web Design, SEO & GEO",
-        text: "Digital experiences designed for discovery, visibility and customer acquisition.",
+        title: "Web Design",
+        text: "Fast, bilingual websites and landing pages designed to turn visits into enquiries.",
         href: "/services/web-design",
+      },
+      {
+        title: "SEO & GEO",
+        text: "Visibility on Google, in local search and in AI-generated answers.",
+        href: "/services/seo-geo",
       },
     ],
     products: "IDRAK also develops ready-made products for specific industry needs.",
@@ -203,9 +213,14 @@ const ar: AboutCopy = {
     title: "تركيز واحد على العمل. وطرق مختلفة لصنع القيمة.",
     items: [
       {
-        title: "أتمتة الأعمال المخصّصة",
-        text: "برمجيات وأتمتة مخصّصة مبنية حول سير العمل والعمليات الحقيقية.",
+        title: "تطوير البرمجيات المخصّصة",
+        text: "برمجيات أعمال وأنظمة CRM ولوحات متابعة وبوابات مبنية حول سير العمل الحقيقي.",
         href: "/services/custom-software-development",
+      },
+      {
+        title: "أتمتة الأعمال بالذكاء الاصطناعي",
+        text: "أتمتة الموافقات والمستندات وإدخال البيانات والتقارير بين أنظمتك، مع الذكاء الاصطناعي حيث يفيد.",
+        href: "/services/ai-business-automation",
       },
       {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
@@ -213,14 +228,19 @@ const ar: AboutCopy = {
         href: "/services/ai-video-production",
       },
       {
-        title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
+        title: "المحتوى ووسائل التواصل الاجتماعي",
         text: "استراتيجية ومحتوى مبنيان حول الجمهور والعلامة والهدف التجاري.",
         href: "/services/content-social-media",
       },
       {
-        title: "تصميم المواقع وSEO وGEO",
-        text: "تجارب رقمية مصمّمة للاكتشاف والظهور واستقطاب العملاء.",
+        title: "تصميم المواقع",
+        text: "مواقع وصفحات هبوط سريعة بلغتين، مصمّمة لتحويل الزيارات إلى استفسارات.",
         href: "/services/web-design",
+      },
+      {
+        title: "SEO وGEO",
+        text: "الظهور في Google والبحث المحلي وفي إجابات الذكاء الاصطناعي.",
+        href: "/services/seo-geo",
       },
     ],
     products: "تطوّر إدراك أيضاً منتجات جاهزة لاحتياجات قطاعات محددة.",
@@ -263,7 +283,7 @@ const ar: AboutCopy = {
     steps: [
       { title: "فهم التحدي", text: "نبدأ من مشكلة العمل." },
       { title: "اختيار نقطة البداية المناسبة", text: "نحدّد ما يمكن أن يصنع القيمة الأكثر عملية." },
-      { title: "البناء والتشغيل", text: "نحوّل الحل إلى شيء يمكن استخدامه في العمل الحقيقي." },
+      { title: "البناء والإطلاق", text: "نحوّل الحل إلى شيء يمكن استخدامه في العمل الحقيقي." },
       { title: "توسيع ما ينجح", text: "نحسّن ونوسّع حيث تثبت القيمة." },
     ],
   },

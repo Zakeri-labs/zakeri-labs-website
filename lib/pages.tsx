@@ -21,7 +21,7 @@ import {
 } from "@/lib/seo";
 
 /** Page components may ignore `lang` (client pages read it from context). */
-type PageComponent = ComponentType<{ lang: Lang; menus: NavMenus }>;
+export type PageComponent = ComponentType<{ lang: Lang; menus: NavMenus }>;
 
 /**
  * Structured data per page. Components are passed in by each route file (not

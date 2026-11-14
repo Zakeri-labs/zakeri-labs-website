@@ -30,8 +30,8 @@ const LABELS = {
       products: "Ready-made products",
       work: "Case studies",
     },
+    faqEyebrow: "FAQ",
     faq: "Frequently asked questions",
-    learn: "Learn more",
   },
   ar: {
     home: "الرئيسية",
@@ -41,8 +41,8 @@ const LABELS = {
       products: "منتجات جاهزة",
       work: "دراسات حالة",
     },
+    faqEyebrow: "أسئلة شائعة",
     faq: "الأسئلة الشائعة",
-    learn: "اعرف المزيد",
   },
 } as const;
 
@@ -197,7 +197,7 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
 
       {/* ---------- FAQ ---------- */}
       <Section>
-        <SectionHeading eyebrow="FAQ" title={t.faq} />
+        <SectionHeading eyebrow={t.faqEyebrow} title={t.faq} />
         <div className="mt-10 max-w-4xl">
           <Faq items={d.faq} />
         </div>
@@ -235,5 +235,3 @@ export function DetailCards({ kind, lang, cta }: { kind: DetailKind; lang: Lang;
     </div>
   );
 }
-
-export const DETAIL_LABELS = LABELS;

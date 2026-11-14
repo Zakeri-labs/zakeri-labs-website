@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 import { findArticle } from "@/lib/articles";
 import { stripLangFromPathname } from "@/lib/locales";
+import { DETAIL_PATHS } from "@/lib/content/detail";
 import { PUBLIC_PAGE_PATHS } from "@/lib/seo";
 
 // First-party page views → CRM Supabase table site_pageviews (service role only, RLS on).
@@ -16,7 +17,7 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.omanai.tech",
   "https://zakeri.dev",
 ]);
-const PAGES = new Set<string>([...Object.values(PUBLIC_PAGE_PATHS), "/articles"]);
+const PAGES = new Set<string>([...Object.values(PUBLIC_PAGE_PATHS), ...DETAIL_PATHS, "/articles"]);
 const DAILY_CAP = 60;
 
 function allowedOrigin(req: Request): boolean {

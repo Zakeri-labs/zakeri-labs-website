@@ -65,6 +65,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
   // Only names and links reach the client, not the full page copy.
   const menus = { en: navMenus("en"), ar: navMenus("ar") };
+  const hasArticles = (await getPublishedArticles()).length > 0;
 
   return (
     <html
@@ -84,9 +85,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Providers initialLang={lang}>
           <RevealController />
           <div className="flex min-h-screen flex-col">
-            <Header menus={menus} />
+            <Header menus={menus} hasArticles={hasArticles} />
             <main className="flex-1 pb-16 lg:pb-0">{children}</main>
-            <Footer hasArticles={(await getPublishedArticles()).length > 0} menus={menus} />
+            <Footer hasArticles={hasArticles} menus={menus} />
             <AiAgent />
             <MobileBottomNav />
             <PageViewBeacon />

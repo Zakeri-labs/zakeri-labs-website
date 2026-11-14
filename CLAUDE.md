@@ -35,7 +35,7 @@ This is a **Next.js 15 App Router** site (React 19, TypeScript). It was migrated
 
 ### i18n
 
-Two languages: `en` (default, no prefix) and `ar` (RTL, `/ar/...`). Farsi was retired; `/fa/*` 301s to English in `next.config.ts`, alongside `/pricing → /how-we-work` and `/case-study → /selected-work`. In components: `const c = useCopy(HOME)` returns the current language's copy; `useI18n()` gives `lang`, `dir`, `setLang`.
+Two languages: `en` (default, no prefix) and `ar` (RTL, `/ar/...`). Farsi was retired; `/fa/*` 301s to English in `next.config.ts`, alongside `/pricing → /how-we-work` `/case-study`, `/selected-work → /work` and `/insights → /work`. Money pages (`/services|products|industries|work/<slug>`) come from `lib/content/detail/*` through one template (`components/site/pages/DetailPage.tsx`, routes via `lib/detail-routes.tsx`), following Sajjad's SEO architecture (Nov 2026). In components: `const c = useCopy(HOME)` returns the current language's copy; `useI18n()` gives `lang`, `dir`, `setLang`.
 
 ### Styling & motion
 

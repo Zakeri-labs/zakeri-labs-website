@@ -10,6 +10,7 @@ import {
   type DetailEntry,
   type DetailKind,
 } from "@/lib/content/detail";
+import { IMG } from "@/lib/images";
 import { isLocalizedLang, localizePathname, type Lang } from "@/lib/locales";
 import {
   absoluteUrl,
@@ -22,6 +23,8 @@ import { SITE } from "@/lib/site";
 
 const ORG = { "@id": `${SITE.url}/#organization` };
 const OMAN = { "@type": "Country", name: "Oman" };
+/** First publish of the case studies (Sajjad architecture, Nov 2026). */
+const CASES_PUBLISHED = "2026-11-14";
 
 /** Service / SoftwareApplication / Article schema per page kind. */
 function mainJsonLd(e: DetailEntry, lang: Lang) {
@@ -48,6 +51,8 @@ function mainJsonLd(e: DetailEntry, lang: Lang) {
       ...base,
       "@type": "Article",
       headline: d.hero.title,
+      image: absoluteUrl(IMG[e.image].src),
+      datePublished: CASES_PUBLISHED,
       author: ORG,
       publisher: ORG,
       about: d.name,
@@ -75,6 +80,13 @@ function metadata(kind: DetailKind, slug: string, lang: Lang) {
     title: e[lang].seo.title,
     description: e[lang].seo.description,
     type: kind === "work" ? "article" : "website",
+    // Each page shares its own visual in WhatsApp / social previews.
+    image: {
+      url: IMG[e.image].src,
+      width: IMG[e.image].width,
+      height: IMG[e.image].height,
+      alt: e[lang].name,
+    },
   });
 }
 
