@@ -46,6 +46,16 @@ const LEGACY: Record<string, string> = {
   "#web": "/services/web-design",
 };
 
+const ICONS: Record<string, typeof Sparkles> = {
+  "custom-software-development": Layers,
+  "ai-business-automation": Workflow,
+  "whatsapp-ai-automation": MessageCircle,
+  "ai-video-production": Clapperboard,
+  "content-social-media": Megaphone,
+  "web-design": Globe,
+  "seo-geo": Search,
+};
+
 function LegacyHashRedirect() {
   const router = useRouter();
   const { lang } = useI18n();
@@ -94,9 +104,7 @@ export function ServicesPage({ menus }: { menus: NavMenus }) {
         />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {menus.services.map((card, i) => {
-            const Icon =
-              [Layers, Workflow, MessageCircle, Clapperboard, Megaphone, Globe, Search][i] ??
-              Sparkles;
+            const Icon = ICONS[card.href.split("/").pop() ?? ""] ?? Sparkles;
             return (
               <Reveal key={card.href} delay={i * 0.05}>
                 <LocalizedLink

@@ -378,7 +378,7 @@ export const SERVICE_PAGES: DetailEntry[] = [
     kind: "services",
     slug: "ai-business-automation",
     image: "approach",
-    interest: "automation",
+    interest: "ai-automation",
     related: {
       services: ["custom-software-development", "whatsapp-ai-automation"],
       industries: [
@@ -1990,7 +1990,7 @@ export const SERVICE_PAGES: DetailEntry[] = [
     kind: "services",
     slug: "seo-geo",
     image: "agent",
-    interest: "web",
+    interest: "seo",
     related: {
       services: ["web-design", "content-social-media"],
       industries: ["real-estate", "healthcare", "facility-property-management"],

@@ -51,7 +51,9 @@ function SubItem({ link, onClick }: { link: SubLink; onClick?: () => void }) {
     <>
       <span className="block text-sm font-semibold text-foreground">{link.label}</span>
       {link.hint && (
-        <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{link.hint}</span>
+        <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-muted-foreground">
+          {link.hint}
+        </span>
       )}
     </>
   );
@@ -142,12 +144,22 @@ export function Header({
                       <div className="invisible absolute start-0 top-full z-50 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                         <div
                           className={cn(
-                            "grid gap-0.5 rounded-2xl border border-border bg-background/95 p-2 shadow-[var(--shadow-lift)] backdrop-blur-xl",
-                            children.length > 5 ? "w-[34rem] grid-cols-2" : "w-72",
+                            // Opaque: a nested backdrop-blur does not blur in Chromium, so text behind showed through.
+                            "grid gap-0.5 rounded-2xl border border-border bg-[#0b1022] p-2 shadow-[var(--shadow-lift)] ring-1 ring-white/5",
+                            children.length > 5 ? "w-[40rem] grid-cols-2" : "w-72",
                           )}
                         >
-                          {children.map((l) => (
-                            <SubItem key={l.href + l.label} link={l} onClick={closeMenu} />
+                          {children.map((l, i) => (
+                            <div
+                              key={l.href + l.label}
+                              className={cn(
+                                children.length > 5 &&
+                                  i === children.length - 1 &&
+                                  "col-span-2 mt-1 border-t border-border pt-1",
+                              )}
+                            >
+                              <SubItem link={l} onClick={closeMenu} />
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -224,7 +236,7 @@ export function Header({
                 >
                   <Cta href="/contact">{c.cta.discuss}</Cta>
                   <Cta href={whatsappUrl(lang)} variant="outline" icon="whatsapp">
-                    {c.cta.whatsapp}
+                    {c.cta.whatsappShort}
                   </Cta>
                   <LanguageSwitcher className="self-center" />
                 </div>

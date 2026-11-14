@@ -540,7 +540,9 @@ function Solutions() {
             (t, i) =>
               i !== active && (
                 <div key={t.key} role="tabpanel" hidden>
-                  <h3>{t.title}</h3>
+                  <h3>
+                    <LocalizedLink href={t.href}>{t.title}</LocalizedLink>
+                  </h3>
                   <p>{t.text}</p>
                   <ul>
                     {t.points.map((p) => (

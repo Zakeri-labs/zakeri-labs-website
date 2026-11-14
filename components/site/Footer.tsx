@@ -49,7 +49,7 @@ export function Footer({
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 lg:px-8 lg:pb-28">
-        <div className="grid gap-12 xl:grid-cols-[1fr_3fr]">
+        <div className="grid gap-12 xl:grid-cols-[0.8fr_3.2fr]">
           <div className="max-w-sm">
             <Logo className="h-11 w-auto" />
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
@@ -70,7 +70,7 @@ export function Footer({
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {columns.map((col) => (
               <div key={col.title}>
                 <h2 className="text-sm font-bold text-foreground">{col.title}</h2>

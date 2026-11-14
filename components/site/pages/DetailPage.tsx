@@ -10,7 +10,6 @@ import {
   Reveal,
   Section,
   SectionHeading,
-  Split,
   Steps,
   Visual,
 } from "@/components/site/blocks";
@@ -61,13 +60,24 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
   const hub = HUB_PATH[entry.kind];
   const contactHref = entry.interest ? `/contact?interest=${entry.interest}` : "/contact";
 
+  // Max 4 per group: a pick, not a copy of the menu.
   const related = (["services", "industries", "products", "work"] as const)
-    .map((kind) => ({ kind, links: detailLinks(kind, lang, entry.related[kind]) }))
+    .map((kind) => ({
+      kind,
+      links: detailLinks(kind, lang, entry.related[kind]?.slice(0, 4) ?? []),
+    }))
     .filter((g) => g.links.length > 0);
+  // Background alternates over the sections actually rendered (industries have no process).
+  let n = 0;
+  const tone = () => (n++ % 2 === 0 ? "tint" : "plain") as "tint" | "plain";
+  const pad = "py-14 lg:py-20";
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+      <nav
+        aria-label="Breadcrumb"
+        className="relative z-10 mx-auto -mb-6 max-w-7xl px-4 pt-6 sm:px-6 lg:px-8"
+      >
         <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
           <li>
             <LocalizedLink href="/" className="hover:text-primary">
@@ -91,7 +101,7 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
         eyebrow={d.hero.eyebrow}
         title={d.hero.title}
         intro={d.hero.intro}
-        support={d.hero.support}
+        support={d.hero.support && <span className="hidden sm:block">{d.hero.support}</span>}
         actions={
           <div className="flex flex-col gap-3 sm:flex-row">
             <Cta href={contactHref}>{d.cta.button}</Cta>
@@ -101,12 +111,17 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
           </div>
         }
         visual={
-          <Visual src={IMG[entry.image]} alt={d.name} priority className="mx-auto max-w-md" />
+          <Visual
+            src={IMG[entry.image]}
+            alt={d.name}
+            priority
+            className="mx-auto hidden max-w-md lg:block"
+          />
         }
       />
 
       {/* ---------- Problem ---------- */}
-      <Section tone="tint">
+      <Section tone={tone()} className={pad}>
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <SectionHeading
             eyebrow={d.problem.eyebrow}
@@ -120,7 +135,7 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
       </Section>
 
       {/* ---------- Offer ---------- */}
-      <Section>
+      <Section tone={tone()} className={pad}>
         <SectionHeading eyebrow={d.offer.eyebrow} title={d.offer.title} intro={d.offer.intro} />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {d.offer.items.map((item) => (
@@ -140,43 +155,41 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
 
       {/* ---------- Process ---------- */}
       {d.process && (
-        <Section tone="tint">
+        <Section tone={tone()} className={pad}>
           <SectionHeading eyebrow={d.process.eyebrow} title={d.process.title} />
           <Steps items={d.process.steps} className="mt-12" />
         </Section>
       )}
 
       {/* ---------- Outcomes ---------- */}
-      <Section>
-        <Split
-          reverse
-          visual={<Visual src={IMG[entry.image]} alt="" sizes="(min-width: 1024px) 40vw, 90vw" />}
-        >
-          <SectionHeading eyebrow={d.outcomes.eyebrow} title={d.outcomes.title} />
-          <ul className="mt-8 space-y-5">
-            {d.outcomes.items.map((item) => (
-              <li key={item.title} className="border-s-2 border-primary/40 ps-4">
-                <h3 className="font-bold">{item.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
-              </li>
-            ))}
-          </ul>
-        </Split>
+      <Section tone={tone()} className={pad}>
+        <SectionHeading eyebrow={d.outcomes.eyebrow} title={d.outcomes.title} />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {d.outcomes.items.map((item, i) => (
+            <Reveal key={item.title} className="card-surface h-full p-6">
+              <span className="text-sm font-bold text-primary">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-2 font-bold leading-snug">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+            </Reveal>
+          ))}
+        </div>
       </Section>
 
       {/* ---------- Related (internal linking) ---------- */}
       {related.length > 0 && (
-        <Section tone="tint" className="py-16 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2">
+        <Section tone={tone()} className={pad}>
+          <div className="space-y-10">
             {related.map((g) => (
               <div key={g.kind}>
                 <h2 className="text-xl font-bold">{t.related[g.kind]}</h2>
-                <ul className="mt-5 grid gap-3">
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                   {g.links.map((l) => (
                     <li key={l.href}>
                       <LocalizedLink
                         href={l.href}
-                        className="group card-surface flex items-start justify-between gap-4 p-4 transition hover:border-primary/40"
+                        className="group card-surface flex h-full items-start justify-between gap-4 p-4 transition hover:border-primary/40"
                       >
                         <span>
                           <span className="block font-semibold">{l.name}</span>
@@ -196,7 +209,7 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
       )}
 
       {/* ---------- FAQ ---------- */}
-      <Section>
+      <Section tone={tone()} className={pad}>
         <SectionHeading eyebrow={t.faqEyebrow} title={t.faq} />
         <div className="mt-10 max-w-4xl">
           <Faq items={d.faq} />
