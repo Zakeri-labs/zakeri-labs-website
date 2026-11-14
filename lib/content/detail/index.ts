@@ -26,7 +26,12 @@ export const DETAIL_PATHS = (Object.keys(DETAIL_PAGES) as DetailKind[]).flatMap(
 );
 
 /** Light link list (name, summary, href) for menus, hubs and footers — keeps the full copy out of client bundles. */
-export type DetailLink = { href: string; name: string; summary: string; image: DetailEntry["image"] };
+export type DetailLink = {
+  href: string;
+  name: string;
+  summary: string;
+  image: DetailEntry["image"];
+};
 
 export function detailLinks(kind: DetailKind, lang: Lang, slugs?: string[]): DetailLink[] {
   const list = slugs

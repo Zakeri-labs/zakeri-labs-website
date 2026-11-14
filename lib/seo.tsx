@@ -354,7 +354,12 @@ export function getOrganizationJsonLd(lang: Lang) {
   };
 }
 
-function serviceList(name: string, url: string, kind: "services" | "products" | "industries", lang: Lang) {
+function serviceList(
+  name: string,
+  url: string,
+  kind: "services" | "products" | "industries",
+  lang: Lang,
+) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -377,15 +382,30 @@ function serviceList(name: string, url: string, kind: "services" | "products" | 
 }
 
 export function getServicesJsonLd(lang: Lang) {
-  return serviceList(SEO_COPY.services[lang].title, absoluteUrl(localizePathname("/services", lang)), "services", lang);
+  return serviceList(
+    SEO_COPY.services[lang].title,
+    absoluteUrl(localizePathname("/services", lang)),
+    "services",
+    lang,
+  );
 }
 
 export function getProductsJsonLd(lang: Lang) {
-  return serviceList(SEO_COPY.products[lang].title, absoluteUrl(localizePathname("/products", lang)), "products", lang);
+  return serviceList(
+    SEO_COPY.products[lang].title,
+    absoluteUrl(localizePathname("/products", lang)),
+    "products",
+    lang,
+  );
 }
 
 export function getIndustriesJsonLd(lang: Lang) {
-  return serviceList(SEO_COPY.industries[lang].title, absoluteUrl(localizePathname("/industries", lang)), "industries", lang);
+  return serviceList(
+    SEO_COPY.industries[lang].title,
+    absoluteUrl(localizePathname("/industries", lang)),
+    "industries",
+    lang,
+  );
 }
 
 export function getFaqJsonLd(items: { q: string; a: string }[]) {

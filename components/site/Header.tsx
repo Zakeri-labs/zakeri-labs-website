@@ -173,14 +173,21 @@ export function Header({ menus }: { menus: Record<Lang, NavMenus> }) {
                     return children ? (
                       <details key={path} className="group/m">
                         <summary
-                          className={cn(item, "flex cursor-pointer list-none items-center justify-between")}
+                          className={cn(
+                            item,
+                            "flex cursor-pointer list-none items-center justify-between",
+                          )}
                         >
                           {c.nav[path]}
                           <ChevronDown className="h-4 w-4 opacity-60 transition group-open/m:rotate-180" />
                         </summary>
                         <div className="ms-3 mt-1 border-s border-border ps-2">
                           {children.map((l) => (
-                            <SubItem key={l.href + l.label} link={{ ...l, hint: undefined }} onClick={() => setOpen(false)} />
+                            <SubItem
+                              key={l.href + l.label}
+                              link={{ ...l, hint: undefined }}
+                              onClick={() => setOpen(false)}
+                            />
                           ))}
                         </div>
                       </details>

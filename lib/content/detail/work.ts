@@ -161,7 +161,8 @@ export const CASE_PAGES: DetailEntry[] = [
           "كيف بنت إدراك منصة توظيف إلكترونية لفريق مبيعاتها: طلب عبر الجوال، ومكالمة تمثيل أدوار صوتية مباشرة مع الذكاء الاصطناعي، وتقرير مُقيَّم لكل مرشح.",
       },
       name: "منصة توظيف بمقابلات صوتية بالذكاء الاصطناعي",
-      summary: "توظيف موظفي التسويق الهاتفي لفريق إدراك: طلب عبر الجوال، ومكالمة حيّة مع الذكاء الاصطناعي، وتقرير بالدرجات.",
+      summary:
+        "توظيف موظفي التسويق الهاتفي لفريق إدراك: طلب عبر الجوال، ومكالمة حيّة مع الذكاء الاصطناعي، وتقرير بالدرجات.",
       hero: {
         eyebrow: "دراسة حالة · برمجيات مخصّصة + ذكاء اصطناعي",
         title: "منصة توظيف يُجري فيها كل مرشح مكالمة حيّة مع عميل افتراضي بالذكاء الاصطناعي.",
@@ -451,7 +452,8 @@ export const CASE_PAGES: DetailEntry[] = [
           "كيف بنت إدراك نظام CRM لفريق الاتصال في مسقط: بنك للعملاء المحتملين وتوزيعهم، وتقويم اجتماعات بروابط حجز، وتكامل مع واتساب، وتقارير أداء واضحة.",
       },
       name: "نظام CRM للمبيعات بتوزيع العملاء وواتساب",
-      summary: "النظام الذي يعمل عليه فريق مبيعات إدراك يومياً: توزيع العملاء، وتقويم الاجتماعات، وواتساب، والتقارير.",
+      summary:
+        "النظام الذي يعمل عليه فريق مبيعات إدراك يومياً: توزيع العملاء، وتقويم الاجتماعات، وواتساب، والتقارير.",
       hero: {
         eyebrow: "دراسة حالة · برمجيات مخصّصة + واتساب",
         title: "نظام CRM للمبيعات مبنيّ على طريقة عمل فريق الاتصال الفعلية.",
@@ -605,7 +607,8 @@ export const CASE_PAGES: DetailEntry[] = [
         "A Muscat carpet trader's WhatsApp: AI answers from the shop's own data, staff take over in one panel.",
       hero: {
         eyebrow: "Case Study · WhatsApp AI",
-        title: "A WhatsApp Sales Assistant That Answers in Gulf Arabic and Knows When to Hand Over.",
+        title:
+          "A WhatsApp Sales Assistant That Answers in Gulf Arabic and Knows When to Hand Over.",
         intro:
           "A carpet trading company in Muscat sells mostly on WhatsApp. We built an AI assistant that answers the repetitive questions from the shop's own data, and a panel where staff see every chat and take over when a person is needed.",
       },
@@ -741,7 +744,8 @@ export const CASE_PAGES: DetailEntry[] = [
           "كيف بنت إدراك مساعد مبيعات بالذكاء الاصطناعي على واتساب ولوحة للموظفين لتاجر سجاد في مسقط: ردود عربية من بيانات المتجر، وفهم الرسائل الصوتية، وتحويل للموظف.",
       },
       name: "مساعد مبيعات واتساب بالذكاء الاصطناعي لتاجر سجاد",
-      summary: "واتساب تاجر سجاد في مسقط: الذكاء الاصطناعي يجيب من بيانات المتجر، والموظفون يتولّون المحادثة من لوحة واحدة.",
+      summary:
+        "واتساب تاجر سجاد في مسقط: الذكاء الاصطناعي يجيب من بيانات المتجر، والموظفون يتولّون المحادثة من لوحة واحدة.",
       hero: {
         eyebrow: "دراسة حالة · ذكاء اصطناعي على واتساب",
         title: "مساعد مبيعات على واتساب يردّ باللهجة الخليجية ويعرف متى يحوّل المحادثة.",

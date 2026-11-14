@@ -93,7 +93,9 @@ export function WorkPage({ menus }: { menus: NavMenus }) {
                   {w.cases.tag}
                 </span>
                 <h3 className="mt-3 text-lg font-bold leading-snug">{cs.name}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{cs.summary}</p>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {cs.summary}
+                </p>
                 <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                   {w.cases.read} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
                 </span>

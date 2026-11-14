@@ -162,7 +162,11 @@ const ar: ContactCopy = {
     problemLabel: "إذا كان تحدّيك…",
     areaLabel: "فالمجال المناسب غالباً…",
     rows: [
-      { problem: "عمل متكرر كثير", area: "أتمتة الأعمال المخصّصة", href: "/services/custom-software-development" },
+      {
+        problem: "عمل متكرر كثير",
+        area: "أتمتة الأعمال المخصّصة",
+        href: "/services/custom-software-development",
+      },
       {
         problem: "العملاء المحتملون لا تتم متابعتهم بانتظام",
         area: "أتمتة واتساب / CRM",

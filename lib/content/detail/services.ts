@@ -23,7 +23,11 @@ export const SERVICE_PAGES: DetailEntry[] = [
         "real-estate",
       ],
       products: ["construction-supervision-reporting", "clinic-crm-whatsapp-assistant"],
-      work: ["sales-crm-lead-distribution-whatsapp", "ai-hiring-platform-voice-interviews", "whatsapp-ai-sales-assistant-carpet-retailer"],
+      work: [
+        "sales-crm-lead-distribution-whatsapp",
+        "ai-hiring-platform-voice-interviews",
+        "whatsapp-ai-sales-assistant-carpet-retailer",
+      ],
     },
     en: {
       seo: {
@@ -203,7 +207,8 @@ export const SERVICE_PAGES: DetailEntry[] = [
           "شركة برمجة في مسقط لتطوير برمجيات مخصصة للشركات في عُمان: أنظمة CRM ولوحات متابعة وبوابات وأدوات داخلية وأنظمة تشغيل مبنية حول طريقة عملك الفعلية.",
       },
       name: "تطوير البرمجيات المخصصة",
-      summary: "برمجيات أعمال وأنظمة CRM ولوحات متابعة وبوابات مبنية حول الطريقة التي تعمل بها شركتك فعلاً.",
+      summary:
+        "برمجيات أعمال وأنظمة CRM ولوحات متابعة وبوابات مبنية حول الطريقة التي تعمل بها شركتك فعلاً.",
       hero: {
         eyebrow: "تطوير البرمجيات المخصصة · عُمان",
         title: "تطوير برمجيات مخصصة للشركات في عُمان.",
@@ -228,7 +233,8 @@ export const SERVICE_PAGES: DetailEntry[] = [
       offer: {
         eyebrow: "ماذا نبني",
         title: "حلول برمجية مبنية حول طريقة عمل شركتك.",
-        intro: "نحدّد نطاق كل نظام انطلاقاً من إجراءات عملك، لا من قائمة ميزات جاهزة. من المشاريع المعتادة:",
+        intro:
+          "نحدّد نطاق كل نظام انطلاقاً من إجراءات عملك، لا من قائمة ميزات جاهزة. من المشاريع المعتادة:",
         items: [
           {
             title: "برمجيات أعمال مخصصة",
@@ -542,13 +548,15 @@ export const SERVICE_PAGES: DetailEntry[] = [
           "أتمتة العمليات الإدارية والتشغيلية في عُمان: الموافقات ومعالجة المستندات ونقل البيانات وربط الأنظمة بالذكاء الاصطناعي لتقليل العمل اليدوي في مسقط.",
       },
       name: "الأتمتة والذكاء الاصطناعي للأعمال",
-      summary: "أتمتة الموافقات والأعمال الإدارية والمستندات ونقل البيانات بين أنظمتك، مع الذكاء الاصطناعي حيث يفيد.",
+      summary:
+        "أتمتة الموافقات والأعمال الإدارية والمستندات ونقل البيانات بين أنظمتك، مع الذكاء الاصطناعي حيث يفيد.",
       hero: {
         eyebrow: "أتمتة الأعمال بالذكاء الاصطناعي · عُمان",
         title: "أتمتة العمليات وسير العمل بالذكاء الاصطناعي في عُمان.",
         intro:
           "نؤتمت العمل الداخلي المتكرر الذي يبطئ عملياتك: الموافقات، والأعمال الإدارية، ومعالجة المستندات، ونقل البيانات بين الأنظمة. ونضيف الذكاء الاصطناعي حيث يوفّر الوقت فعلاً، مثل قراءة المستندات أو إعداد المخرجات الروتينية.",
-        support: "الهدف واضح: وقت أقل في النسخ والملاحقة والتدقيق، ووقت أكثر للعمل الذي يحتاج إلى الناس.",
+        support:
+          "الهدف واضح: وقت أقل في النسخ والملاحقة والتدقيق، ووقت أكثر للعمل الذي يحتاج إلى الناس.",
       },
       problem: {
         eyebrow: "أين يضيع الوقت",
@@ -865,7 +873,8 @@ export const SERVICE_PAGES: DetailEntry[] = [
           "شات بوت واتساب بالذكاء الاصطناعي في عُمان يرد بالعربية والإنجليزية، ويؤهّل العملاء المحتملين، ويحدّث نظام CRM، ويحيل المحادثة إلى فريق المبيعات عند الحاجة.",
       },
       name: "وكلاء الذكاء الاصطناعي وأتمتة واتساب",
-      summary: "مساعد ذكي على واتساب يرد بالعربية والإنجليزية، ويؤهّل العملاء، ويحدّث CRM، ويتابع تلقائياً.",
+      summary:
+        "مساعد ذكي على واتساب يرد بالعربية والإنجليزية، ويؤهّل العملاء، ويحدّث CRM، ويتابع تلقائياً.",
       hero: {
         eyebrow: "وكلاء الذكاء الاصطناعي وأتمتة واتساب · عُمان",
         title: "شات بوت واتساب بالذكاء الاصطناعي لأتمتة المبيعات في عُمان.",
@@ -1186,13 +1195,15 @@ export const SERVICE_PAGES: DetailEntry[] = [
           "إنتاج فيديو بالذكاء الاصطناعي في عُمان لمشاريع البيع على الخارطة والفنادق والتصميم الداخلي والرعاية الصحية والعلامات الفاخرة، بجودة سينمائية ودون تصوير كامل.",
       },
       name: "إنتاج الفيديو بالذكاء الاصطناعي",
-      summary: "فيديوهات سينمائية بالذكاء الاصطناعي تعرض منتجك أو مشروعك أو مساحتك قبل أن يصبح التصوير التقليدي ممكناً.",
+      summary:
+        "فيديوهات سينمائية بالذكاء الاصطناعي تعرض منتجك أو مشروعك أو مساحتك قبل أن يصبح التصوير التقليدي ممكناً.",
       hero: {
         eyebrow: "إنتاج الفيديو بالذكاء الاصطناعي · عُمان",
         title: "إنتاج فيديو بالذكاء الاصطناعي للعقارات والضيافة والعلامات التجارية في عُمان.",
         intro:
           "ننتج فيديوهات ترويجية بالذكاء الاصطناعي للشركات في عُمان التي تحتاج إلى عرض منتج أو مساحة أو تجربة: مشاريع البيع على الخارطة، والفنادق، والتصميم الداخلي، والعيادات، والمنتجات الفاخرة والصناعية، وحملات وسائل التواصل.",
-        support: "سرد إعلاني ومشاهد سينمائية، مع اعتماد أقل على الممثلين ومواقع التصوير والمعدات والديكورات.",
+        support:
+          "سرد إعلاني ومشاهد سينمائية، مع اعتماد أقل على الممثلين ومواقع التصوير والمعدات والديكورات.",
       },
       problem: {
         eyebrow: "لماذا يصعب العرض",
@@ -1354,7 +1365,8 @@ export const SERVICE_PAGES: DetailEntry[] = [
         title: "Social Media Management and Content Creation in Oman.",
         intro:
           "We plan, produce and manage content for businesses in Oman: a clear content strategy, Arabic and English posts, reels and campaign content, produced with AI assistance and guided by your commercial goals.",
-        support: "Visual creativity within a consistent plan, so attention turns into interest and enquiries.",
+        support:
+          "Visual creativity within a consistent plan, so attention turns into interest and enquiries.",
       },
       problem: {
         eyebrow: "The usual gaps",
@@ -1660,7 +1672,8 @@ export const SERVICE_PAGES: DetailEntry[] = [
         title: "Website Design in Muscat for Companies That Need Enquiries.",
         intro:
           "We design and build corporate websites and landing pages for businesses in Oman: aligned with your brand, fast on mobile, in Arabic and English, and structured so visitors understand your offer and contact you.",
-        support: "A website should do more than look good. It should lead people to a call, an enquiry or an order.",
+        support:
+          "A website should do more than look good. It should lead people to a call, an enquiry or an order.",
       },
       problem: {
         eyebrow: "Common problems",
@@ -1799,13 +1812,15 @@ export const SERVICE_PAGES: DetailEntry[] = [
           "تصميم مواقع إلكترونية في مسقط وسلطنة عُمان: مواقع شركات وصفحات هبوط سريعة ومتجاوبة مع الجوال، بالعربية والإنجليزية، مصمّمة لتحويل الزيارات إلى استفسارات.",
       },
       name: "تصميم المواقع",
-      summary: "مواقع شركات وصفحات هبوط سريعة ومتجاوبة مع الجوال، مصمّمة لتحويل الزيارات إلى استفسارات.",
+      summary:
+        "مواقع شركات وصفحات هبوط سريعة ومتجاوبة مع الجوال، مصمّمة لتحويل الزيارات إلى استفسارات.",
       hero: {
         eyebrow: "تصميم المواقع · مسقط، عُمان",
         title: "تصميم مواقع إلكترونية في مسقط للشركات التي تريد استفسارات.",
         intro:
           "نصمّم ونطوّر مواقع الشركات وصفحات الهبوط للأعمال في عُمان: متوافقة مع علامتك، سريعة على الجوال، بالعربية والإنجليزية، ومبنية ليفهم الزائر عرضك ويتواصل معك.",
-        support: "الموقع يجب أن يفعل أكثر من أن يبدو جميلاً؛ عليه أن يقود الزائر إلى اتصال أو استفسار أو طلب.",
+        support:
+          "الموقع يجب أن يفعل أكثر من أن يبدو جميلاً؛ عليه أن يقود الزائر إلى اتصال أو استفسار أو طلب.",
       },
       problem: {
         eyebrow: "مشكلات شائعة",
@@ -1964,7 +1979,8 @@ export const SERVICE_PAGES: DetailEntry[] = [
         title: "SEO Services in Oman, Built for Google and AI Search.",
         intro:
           "We help businesses in Muscat and across Oman get found: technical, local, on-page and content SEO for Google, plus GEO and AEO so your business can appear in AI-generated answers from tools like ChatGPT, Gemini and Google AI Overviews.",
-        support: "Visibility is the goal, but enquiries are the point. We focus on the searches your buyers actually make.",
+        support:
+          "Visibility is the goal, but enquiries are the point. We focus on the searches your buyers actually make.",
       },
       problem: {
         eyebrow: "Why you are not found",
@@ -2108,13 +2124,15 @@ export const SERVICE_PAGES: DetailEntry[] = [
           "خدمات السيو وتحسين محركات البحث في عُمان: SEO تقني ومحلي وتحسين المحتوى، مع GEO وAEO ليظهر نشاطك في مسقط على Google والخرائط وإجابات الذكاء الاصطناعي.",
       },
       name: "SEO وGEO",
-      summary: "تحسين محركات البحث التقني والمحلي والمحتوى، مع GEO ليظهر نشاطك في Google وفي إجابات الذكاء الاصطناعي.",
+      summary:
+        "تحسين محركات البحث التقني والمحلي والمحتوى، مع GEO ليظهر نشاطك في Google وفي إجابات الذكاء الاصطناعي.",
       hero: {
         eyebrow: "SEO وGEO · عُمان",
         title: "خدمات السيو في عُمان لمحركات البحث والذكاء الاصطناعي.",
         intro:
           "نساعد الشركات في مسقط وسائر عُمان على الظهور: تحسين محركات البحث التقني والمحلي وتحسين الصفحات والمحتوى في Google، إضافة إلى GEO وAEO ليظهر نشاطك في الإجابات التي تولّدها أدوات مثل ChatGPT وGemini وملخصات Google بالذكاء الاصطناعي.",
-        support: "الظهور هو الوسيلة، والاستفسارات هي الهدف. نركّز على عمليات البحث التي يجريها عملاؤك فعلاً.",
+        support:
+          "الظهور هو الوسيلة، والاستفسارات هي الهدف. نركّز على عمليات البحث التي يجريها عملاؤك فعلاً.",
       },
       problem: {
         eyebrow: "لماذا لا يجدونك",

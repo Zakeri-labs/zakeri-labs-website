@@ -21,7 +21,8 @@ export function Footer({
   const c = useCopy(COMMON);
   const { lang } = useI18n();
   const m = menus[lang];
-  const toLinks = (list: NavMenus["services"]) => list.map((l) => ({ href: l.href, label: l.name }));
+  const toLinks = (list: NavMenus["services"]) =>
+    list.map((l) => ({ href: l.href, label: l.name }));
   const columns = [
     { title: c.footer.services, links: toLinks(m.services) },
     { title: c.nav["/industries"], links: toLinks(m.industries) },

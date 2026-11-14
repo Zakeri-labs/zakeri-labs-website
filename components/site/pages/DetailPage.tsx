@@ -108,7 +108,11 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
       {/* ---------- Problem ---------- */}
       <Section tone="tint">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-          <SectionHeading eyebrow={d.problem.eyebrow} title={d.problem.title} intro={d.problem.intro} />
+          <SectionHeading
+            eyebrow={d.problem.eyebrow}
+            title={d.problem.title}
+            intro={d.problem.intro}
+          />
           <Reveal>
             <CheckList items={d.problem.points} className="card-surface p-6 sm:p-8" />
           </Reveal>
@@ -199,7 +203,12 @@ export function DetailPage({ entry, lang }: { entry: DetailEntry; lang: Lang }) 
         </div>
       </Section>
 
-      <FinalCta eyebrow={c.cta.discussShort} title={d.cta.title} text={d.cta.text} primaryHref={contactHref} />
+      <FinalCta
+        eyebrow={c.cta.discussShort}
+        title={d.cta.title}
+        text={d.cta.text}
+        primaryHref={contactHref}
+      />
     </>
   );
 }
@@ -211,16 +220,16 @@ export function DetailCards({ kind, lang, cta }: { kind: DetailKind; lang: Lang;
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {links.map((l) => (
         <Reveal key={l.href} className="h-full">
-            <LocalizedLink
-              href={l.href}
-              className="group card-surface flex h-full flex-col p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-[var(--shadow-lift)]"
-            >
-              <h3 className="text-lg font-bold leading-snug">{l.name}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{l.summary}</p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                {cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-              </span>
-            </LocalizedLink>
+          <LocalizedLink
+            href={l.href}
+            className="group card-surface flex h-full flex-col p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-[var(--shadow-lift)]"
+          >
+            <h3 className="text-lg font-bold leading-snug">{l.name}</h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{l.summary}</p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+              {cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+            </span>
+          </LocalizedLink>
         </Reveal>
       ))}
     </div>

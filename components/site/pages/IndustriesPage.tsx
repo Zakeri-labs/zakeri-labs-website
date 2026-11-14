@@ -1,4 +1,11 @@
-import { CtaPair, FinalCta, PageHero, Section, SectionHeading, Visual } from "@/components/site/blocks";
+import {
+  CtaPair,
+  FinalCta,
+  PageHero,
+  Section,
+  SectionHeading,
+  Visual,
+} from "@/components/site/blocks";
 import { DetailCards } from "@/components/site/pages/DetailPage";
 import { IMG } from "@/lib/images";
 import type { Lang } from "@/lib/locales";
@@ -10,7 +17,8 @@ const COPY = {
     intro:
       "Every sector loses time and sales in its own places. We build the systems, WhatsApp flows, automation and content that fix those exact gaps — for the industries we know best.",
     listTitle: "Industries We Serve",
-    listIntro: "Choose your industry to see the specific problems we solve and the services behind each solution.",
+    listIntro:
+      "Choose your industry to see the specific problems we solve and the services behind each solution.",
     cta: "See solutions",
     finalTitle: "Your Industry Is Not Listed?",
     finalText:

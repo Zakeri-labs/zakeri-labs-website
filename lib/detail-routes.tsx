@@ -3,9 +3,21 @@ import { notFound } from "next/navigation";
 
 import { DetailPage } from "@/components/site/pages/DetailPage";
 import { COMMON } from "@/lib/content/common";
-import { DETAIL_PAGES, detailPath, getDetail, type DetailEntry, type DetailKind } from "@/lib/content/detail";
+import {
+  DETAIL_PAGES,
+  detailPath,
+  getDetail,
+  type DetailEntry,
+  type DetailKind,
+} from "@/lib/content/detail";
 import { isLocalizedLang, localizePathname, type Lang } from "@/lib/locales";
-import { absoluteUrl, buildMetadata, getBreadcrumbJsonLd, getFaqJsonLd, jsonLdScript } from "@/lib/seo";
+import {
+  absoluteUrl,
+  buildMetadata,
+  getBreadcrumbJsonLd,
+  getFaqJsonLd,
+  jsonLdScript,
+} from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 const ORG = { "@id": `${SITE.url}/#organization` };
@@ -15,7 +27,13 @@ const OMAN = { "@type": "Country", name: "Oman" };
 function mainJsonLd(e: DetailEntry, lang: Lang) {
   const d = e[lang];
   const url = absoluteUrl(localizePathname(detailPath(e.kind, e.slug), lang));
-  const base = { "@context": "https://schema.org", url, name: d.name, description: d.seo.description, inLanguage: lang };
+  const base = {
+    "@context": "https://schema.org",
+    url,
+    name: d.name,
+    description: d.seo.description,
+    inLanguage: lang,
+  };
   if (e.kind === "products")
     return {
       ...base,
@@ -26,7 +44,14 @@ function mainJsonLd(e: DetailEntry, lang: Lang) {
       areaServed: OMAN,
     };
   if (e.kind === "work")
-    return { ...base, "@type": "Article", headline: d.hero.title, author: ORG, publisher: ORG, about: d.name };
+    return {
+      ...base,
+      "@type": "Article",
+      headline: d.hero.title,
+      author: ORG,
+      publisher: ORG,
+      about: d.name,
+    };
   return {
     ...base,
     "@type": "Service",
