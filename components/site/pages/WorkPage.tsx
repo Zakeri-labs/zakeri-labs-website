@@ -13,7 +13,9 @@ import {
   Reveal,
   Section,
   SectionHeading,
+  TextLink,
 } from "@/components/site/blocks";
+import type { NavMenus } from "@/lib/content/detail";
 import { LocalizedLink } from "@/components/site/LocalizedLink";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { COMMON } from "@/lib/content/common";
@@ -26,7 +28,7 @@ const PAGE = 9;
 const FILTERS = ["all", "real-estate", "healthcare", "professional", "other"] as const;
 type Filter = (typeof FILTERS)[number];
 
-export function WorkPage() {
+export function WorkPage({ menus }: { menus: NavMenus }) {
   const w = useCopy(WORK);
   const c = useCopy(COMMON);
   const [filter, setFilter] = useState<Filter>("all");
@@ -47,7 +49,7 @@ export function WorkPage() {
         support={w.hero.support}
         actions={
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Cta href="#featured">{w.hero.primary}</Cta>
+            <Cta href="#case-studies">{w.hero.primary}</Cta>
             <Cta href="/services" variant="outline">
               {w.hero.secondary}
             </Cta>
@@ -77,8 +79,37 @@ export function WorkPage() {
         }
       />
 
+      {/* ---------- Case studies (Sajjad: proof for custom software & automation) ---------- */}
+      <Section id="case-studies">
+        <SectionHeading eyebrow={w.cases.eyebrow} title={w.cases.title} intro={w.cases.intro} />
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          {menus.work.map((cs) => (
+            <Reveal key={cs.href} className="h-full">
+              <LocalizedLink
+                href={cs.href}
+                className="group card-surface flex h-full flex-col p-6 transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-[var(--shadow-lift)]"
+              >
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary rtl:tracking-normal">
+                  {w.cases.tag}
+                </span>
+                <h3 className="mt-3 text-lg font-bold leading-snug">{cs.name}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {cs.summary}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                  {w.cases.read} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+                </span>
+              </LocalizedLink>
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-8">
+          <TextLink href="/videos">{w.cases.videos}</TextLink>
+        </div>
+      </Section>
+
       {/* ---------- Intro ---------- */}
-      <Section tone="tint" className="py-16 lg:py-20">
+      <Section id="portfolio" tone="tint" className="py-16 lg:py-20">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           <SectionHeading eyebrow={w.intro.eyebrow} title={w.intro.title} />
           <Reveal>
@@ -170,7 +201,7 @@ export function WorkPage() {
       {/* ---------- IDRAK today ---------- */}
       <Section tone="ink">
         <SectionHeading eyebrow={w.today.eyebrow} title={w.today.title} invert />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {w.today.cards.map((card) => (
             <LocalizedLink
               key={card.title}

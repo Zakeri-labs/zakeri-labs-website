@@ -53,28 +53,38 @@ const en = {
     rows: [
       {
         problem: "Too much repetitive work",
-        area: "Custom Business Automation",
-        href: "/services#automation",
+        area: "AI & Business Automation",
+        href: "/services/ai-business-automation",
+      },
+      {
+        problem: "Off-the-shelf software does not fit how you work",
+        area: "Custom Software Development",
+        href: "/services/custom-software-development",
       },
       {
         problem: "Leads are not followed up consistently",
-        area: "WhatsApp / CRM Automation",
-        href: "/services#whatsapp",
+        area: "AI Agents & WhatsApp Automation",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         problem: "A product or project is difficult to visualise",
         area: "AI Video Production",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         problem: "Your brand needs stronger communication",
         area: "Content & Social Media",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
         problem: "Your website is not creating visibility or enquiries",
-        area: "Web Design, SEO & GEO",
-        href: "/services#web",
+        area: "Web Design",
+        href: "/services/web-design",
+      },
+      {
+        problem: "Customers cannot find you on Google or in AI answers",
+        area: "SEO & GEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "You do not need to choose the right service yourself. Tell us the problem and we can help identify the right starting point.",
@@ -151,7 +161,7 @@ const ar: ContactCopy = {
       },
       {
         title: "نحدّد الخطوة التالية",
-        text: "قد تكون موجز مشروع، أو مرحلة استكشاف، أو تجربة أولية مركّزة، أو تشغيلاً أوّلياً، أو نقطة بداية مناسبة أخرى.",
+        text: "قد تكون موجز مشروع، أو مرحلة استكشاف، أو تجربة أولية مركّزة، أو إطلاقاً أوّلياً، أو نقطة بداية مناسبة أخرى.",
       },
     ],
     linkText: "تودّ فهم كيف تُنظَّم المشاريع قبل التواصل معنا؟",
@@ -162,26 +172,40 @@ const ar: ContactCopy = {
     problemLabel: "إذا كان تحدّيك…",
     areaLabel: "فالمجال المناسب غالباً…",
     rows: [
-      { problem: "عمل متكرر كثير", area: "أتمتة الأعمال المخصّصة", href: "/services#automation" },
+      {
+        problem: "عمل متكرر كثير",
+        area: "أتمتة الأعمال بالذكاء الاصطناعي",
+        href: "/services/ai-business-automation",
+      },
+      {
+        problem: "البرامج الجاهزة لا تناسب طريقة عملك",
+        area: "تطوير البرمجيات المخصّصة",
+        href: "/services/custom-software-development",
+      },
       {
         problem: "العملاء المحتملون لا تتم متابعتهم بانتظام",
-        area: "أتمتة واتساب / CRM",
-        href: "/services#whatsapp",
+        area: "أتمتة واتساب بالذكاء الاصطناعي",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         problem: "يصعب تصوّر منتج أو مشروع",
         area: "إنتاج الفيديو بالذكاء الاصطناعي",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         problem: "علامتك تحتاج إلى تواصل أقوى",
-        area: "المحتوى ووسائل التواصل",
-        href: "/services#content",
+        area: "المحتوى ووسائل التواصل الاجتماعي",
+        href: "/services/content-social-media",
       },
       {
         problem: "موقعك لا يحقق ظهوراً أو استفسارات",
-        area: "تصميم المواقع وSEO وGEO",
-        href: "/services#web",
+        area: "تصميم المواقع",
+        href: "/services/web-design",
+      },
+      {
+        problem: "العملاء لا يجدونك في Google أو في إجابات الذكاء الاصطناعي",
+        area: "SEO وGEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "لست بحاجة إلى اختيار الخدمة المناسبة بنفسك. أخبرنا بالمشكلة وسنساعدك على تحديد نقطة البداية الصحيحة.",
@@ -204,7 +228,7 @@ const ar: ContactCopy = {
       },
       {
         q: "هل تبدأ جميع المشاريع بمرحلة استكشاف أو تجربة أولية؟",
-        a: "لا. تعتمد نقطة البداية على نوع العمل. بعض المشاريع تبدأ بموجز واضح، وبعضها يستفيد من الاستكشاف أو التجربة الأولية أو التشغيل الأوّلي.",
+        a: "لا. تعتمد نقطة البداية على نوع العمل. بعض المشاريع تبدأ بموجز واضح، وبعضها يستفيد من الاستكشاف أو التجربة الأولية أو الإطلاق الأوّلي.",
       },
       {
         q: "هل يمكنني التواصل مع إدراك بشأن أكثر من خدمة؟",

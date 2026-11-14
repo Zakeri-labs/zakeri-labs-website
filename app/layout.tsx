@@ -11,6 +11,7 @@ import { getPublishedArticles } from "@/lib/articles";
 import { AiAgent } from "@/components/site/AiAgent";
 import { CircuitCanvas } from "@/components/site/CircuitCanvas";
 import { Header } from "@/components/site/Header";
+import { navMenus } from "@/lib/content/detail";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { PageViewBeacon } from "@/components/site/PageViewBeacon";
 import { RevealController } from "@/components/site/motion";
@@ -62,6 +63,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     );
   }
 
+  // Only names and links reach the client, not the full page copy.
+  const menus = { en: navMenus("en"), ar: navMenus("ar") };
+  const hasArticles = (await getPublishedArticles()).length > 0;
+
   return (
     <html
       lang={lang}
@@ -80,9 +85,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Providers initialLang={lang}>
           <RevealController />
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <Header menus={menus} hasArticles={hasArticles} />
             <main className="flex-1 pb-16 lg:pb-0">{children}</main>
-            <Footer hasArticles={(await getPublishedArticles()).length > 0} />
+            <Footer hasArticles={hasArticles} menus={menus} />
             <AiAgent />
             <MobileBottomNav />
             <PageViewBeacon />

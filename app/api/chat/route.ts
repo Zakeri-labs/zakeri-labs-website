@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { DETAIL_PAGES, type DetailKind } from "@/lib/content/detail";
 import { HOW } from "@/lib/content/how";
 import { PRODUCTS } from "@/lib/content/products";
 import { SERVICES } from "@/lib/content/services";
@@ -17,6 +18,13 @@ const Body = z.object({
 });
 
 // The agent only knows what the website says — built from the same copy modules.
+const detail = (kind: DetailKind) =>
+  DETAIL_PAGES[kind]
+    .map(
+      (e) =>
+        `- ${e.en.name} (/${kind}/${e.slug}): ${e.en.summary} Includes: ${e.en.offer.items.map((x) => x.title).join(", ")}.`,
+    )
+    .join("\n");
 const s = SERVICES.en;
 const p = PRODUCTS.en;
 const h = HOW.en;
@@ -25,12 +33,14 @@ COMPANY: ${SITE.name} (legal: ${SITE.legalName}, CR ${SITE.crNumber}), based in 
 Positioning: AI that creates business value — more sales, lower costs, better performance. We start with the business challenge, not the technology.
 Contact: WhatsApp/phone ${SITE.phone}, email ${SITE.email}, or the contact form on /contact.
 
-SERVICES:
-1. ${s.automation.title} — ${s.automation.intro} ${s.automation.paragraphs.join(" ")} Applications: ${s.automation.applications.join(", ")}.
-   Featured: ${s.whatsapp.title} — ${s.whatsapp.paragraphs.join(" ")} Flow: ${s.whatsapp.flow.join(" → ")}. ${s.whatsapp.support}
-2. ${s.video.title} — ${s.video.intro} ${s.video.main} Suitable for: ${s.video.suitable.map((x) => x.title).join(", ")}. ${s.video.benefit}
-3. ${s.content.title} — ${s.content.intro} ${s.content.paragraphs.join(" ")} ${s.content.aiNote}
-4. ${s.web.title} — ${s.web.intro} ${s.web.columns.map((c) => `${c.title}: ${c.text}`).join(" ")}
+SERVICES (each has its own page):
+${detail("services")}
+
+INDUSTRIES WE SERVE:
+${detail("industries")}
+
+CASE STUDIES (on /work):
+${detail("work")}
 
 READY-MADE PRODUCTS:
 - ${p.construction.title} (${p.construction.subtitle}): ${p.construction.lead} ${p.construction.paragraphs.join(" ")} Model: ${p.construction.steps.map((x) => x.title).join(", ")}.

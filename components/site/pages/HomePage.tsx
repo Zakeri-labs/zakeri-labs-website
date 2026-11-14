@@ -28,6 +28,7 @@ import {
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { COMMON } from "@/lib/content/common";
 import { HOME } from "@/lib/content/home";
+import type { NavMenus } from "@/lib/content/detail";
 import { useCopy, useI18n } from "@/lib/i18n";
 import { IMG } from "@/lib/images";
 import { PROJECTS } from "@/lib/projects";
@@ -35,13 +36,14 @@ import { cn } from "@/lib/utils";
 
 type ImgKey = keyof typeof IMG;
 
-export function HomePage() {
+export function HomePage({ menus }: { menus: NavMenus }) {
   return (
     <>
       <Hero />
       <Ticker />
       <Statement />
       <Solutions />
+      <Industries links={menus.industries} />
       <Products />
       <Work />
       <AiDemo />
@@ -538,7 +540,9 @@ function Solutions() {
             (t, i) =>
               i !== active && (
                 <div key={t.key} role="tabpanel" hidden>
-                  <h3>{t.title}</h3>
+                  <h3>
+                    <LocalizedLink href={t.href}>{t.title}</LocalizedLink>
+                  </h3>
                   <p>{t.text}</p>
                   <ul>
                     {t.points.map((p) => (
@@ -548,6 +552,57 @@ function Solutions() {
                 </div>
               ),
           )}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ========================================================== Industries */
+
+const INDUSTRIES_COPY = {
+  en: {
+    eyebrow: "Solutions by industry",
+    title: "Built for the way your sector works.",
+    all: "All industries",
+  },
+  ar: {
+    eyebrow: "حلول حسب القطاع",
+    title: "مبنية حول طريقة عمل قطاعك.",
+    all: "جميع القطاعات",
+  },
+};
+
+function Industries({ links }: { links: NavMenus["industries"] }) {
+  const { lang } = useI18n();
+  const t = INDUSTRIES_COPY[lang];
+  return (
+    <section className="py-16 lg:py-24">
+      <Container>
+        <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <Eyebrow>{t.eyebrow}</Eyebrow>
+            <h2 className="mt-4 text-3xl font-bold leading-tight sm:text-4xl">{t.title}</h2>
+          </div>
+          <TextLink href="/industries">{t.all}</TextLink>
+        </Reveal>
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {links.map((l) => (
+            <Reveal key={l.href}>
+              <LocalizedLink
+                href={l.href}
+                className="group card-surface flex h-full items-start justify-between gap-4 p-5 transition hover:border-primary/40"
+              >
+                <span>
+                  <span className="block font-bold">{l.name}</span>
+                  <span className="mt-1 block text-sm leading-snug text-muted-foreground">
+                    {l.summary}
+                  </span>
+                </span>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-primary rtl:rotate-180" />
+              </LocalizedLink>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </section>
@@ -650,7 +705,7 @@ function Work() {
             <Eyebrow>{w.eyebrow}</Eyebrow>
             <h2 className="mt-4 text-4xl font-bold leading-[1.05] sm:text-5xl">{w.title}</h2>
           </div>
-          <Cta href="/selected-work" variant="outline" className="shrink-0 self-start md:self-end">
+          <Cta href="/work" variant="outline" className="shrink-0 self-start md:self-end">
             {w.cta}
           </Cta>
         </div>

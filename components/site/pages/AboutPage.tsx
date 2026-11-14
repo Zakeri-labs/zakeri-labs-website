@@ -130,7 +130,7 @@ export function AboutPage() {
       {/* ---------- What we focus on ---------- */}
       <Section tone="tint">
         <SectionHeading eyebrow={a.focus.eyebrow} title={a.focus.title} />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {a.focus.items.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.05}>
               <LocalizedLink

@@ -11,38 +11,56 @@ const en = {
   },
   overview: {
     eyebrow: "What we do",
-    title: "Four Ways We Help Businesses Create More Value.",
+    title: "Seven Services. One Goal: Real Business Value.",
     intro:
       "Different business challenges require different solutions. Our services cover operations, customer acquisition, brand communication and digital visibility.",
     cards: [
       {
-        title: "Custom Business Automation",
-        text: "Build software and automated workflows around the way your business actually works.",
+        title: "Custom Software Development",
+        text: "Business software, CRM, dashboards and portals built around the way your company actually works.",
+        cta: "Explore Custom Software",
+        href: "/services/custom-software-development",
+      },
+      {
+        title: "AI & Business Automation",
+        text: "Automate approvals, documents, data entry and reports across your systems, with AI where it helps.",
         cta: "Explore Automation",
-        href: "#automation",
+        href: "/services/ai-business-automation",
+      },
+      {
+        title: "AI Agents & WhatsApp Automation",
+        text: "An AI assistant on WhatsApp that answers, qualifies, updates your CRM and follows up.",
+        cta: "Explore WhatsApp Automation",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         title: "AI Video Production",
         text: "Turn ideas, products and future experiences into compelling visual stories.",
         cta: "Explore AI Video",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
-        title: "Content & Social Media Management",
+        title: "Content & Social Media",
         text: "Build a consistent brand presence around your audience, product and commercial goals.",
         cta: "Explore Content",
-        href: "#content",
+        href: "/services/content-social-media",
       },
       {
-        title: "Web Design, SEO & GEO",
-        text: "Create a stronger path from online discovery to enquiry, call or order.",
-        cta: "Explore Web Solutions",
-        href: "#web",
+        title: "Web Design",
+        text: "Fast, bilingual websites and landing pages built to turn visits into enquiries.",
+        cta: "Explore Web Design",
+        href: "/services/web-design",
+      },
+      {
+        title: "SEO & GEO",
+        text: "Get found on Google, in local search and in AI-generated answers.",
+        cta: "Explore SEO & GEO",
+        href: "/services/seo-geo",
       },
     ],
   },
   automation: {
-    eyebrow: "Custom business automation",
+    eyebrow: "Custom software development",
     title: "Software Built Around the Way You Work.",
     intro:
       "For medium and large companies that need systems built around their actual workflows, teams and business processes.",
@@ -75,7 +93,7 @@ const en = {
       "AI-assisted workflows",
     ],
     advantage: "A closer fit to your business, with custom software made more accessible.",
-    cta: "Discuss an Automation Project",
+    cta: "Discuss a Software Project",
     imageAlt: "Documents flowing through connected process blocks into a laptop dashboard",
   },
   whatsapp: {
@@ -224,29 +242,39 @@ const en = {
     serviceLabel: "Recommended service",
     rows: [
       {
+        need: "Off-the-shelf software does not fit how your company works",
+        service: "Custom Software Development",
+        href: "/services/custom-software-development",
+      },
+      {
         need: "Too much repetitive work or disconnected processes",
-        service: "Custom Business Automation",
-        href: "#automation",
+        service: "AI & Business Automation",
+        href: "/services/ai-business-automation",
       },
       {
         need: "Leads or customers are not being followed up consistently",
-        service: "WhatsApp & CRM Automation",
-        href: "#whatsapp",
+        service: "AI Agents & WhatsApp Automation",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         need: "Your product or project is difficult to visualise or present",
         service: "AI Video Production",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         need: "Your brand needs stronger visibility and communication",
-        service: "Content & Social Media Management",
-        href: "#content",
+        service: "Content & Social Media",
+        href: "/services/content-social-media",
       },
       {
         need: "Your website is not generating enough discovery or enquiries",
-        service: "Web Design, SEO & GEO",
-        href: "#web",
+        service: "Web Design",
+        href: "/services/web-design",
+      },
+      {
+        need: "Customers cannot find you on Google or in AI answers",
+        service: "SEO & GEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "You do not need to know the technical solution before contacting us. Start with the business challenge.",
@@ -308,38 +336,56 @@ const ar: ServicesCopy = {
   },
   overview: {
     eyebrow: "ماذا نقدّم",
-    title: "أربع طرق نساعد بها الشركات على صنع قيمة أكبر.",
+    title: "سبع خدمات، وهدف واحد: قيمة حقيقية لعملك.",
     intro:
       "التحديات المختلفة تحتاج إلى حلول مختلفة. تغطي خدماتنا العمليات، واستقطاب العملاء، والتواصل مع العلامة، والظهور الرقمي.",
     cards: [
       {
-        title: "أتمتة الأعمال المخصّصة",
-        text: "برمجيات وسير عمل مؤتمت مبني حول الطريقة التي يعمل بها عملك فعلاً.",
+        title: "تطوير البرمجيات المخصّصة",
+        text: "برمجيات أعمال وأنظمة CRM ولوحات متابعة وبوابات مبنية حول الطريقة التي تعمل بها شركتك فعلاً.",
+        cta: "استكشف البرمجيات المخصّصة",
+        href: "/services/custom-software-development",
+      },
+      {
+        title: "أتمتة الأعمال بالذكاء الاصطناعي",
+        text: "أتمتة الموافقات والمستندات وإدخال البيانات والتقارير بين أنظمتك، مع الذكاء الاصطناعي حيث يفيد.",
         cta: "استكشف الأتمتة",
-        href: "#automation",
+        href: "/services/ai-business-automation",
+      },
+      {
+        title: "وكلاء الذكاء الاصطناعي وأتمتة واتساب",
+        text: "مساعد ذكي على واتساب يرد ويؤهّل العملاء ويحدّث CRM ويتابع.",
+        cta: "استكشف أتمتة واتساب",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
         text: "حوّل الأفكار والمنتجات والتجارب المستقبلية إلى قصص بصرية مقنعة.",
         cta: "استكشف الفيديو",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
-        title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
+        title: "المحتوى ووسائل التواصل الاجتماعي",
         text: "ابنِ حضوراً متسقاً لعلامتك حول جمهورك ومنتجك وأهدافك التجارية.",
         cta: "استكشف المحتوى",
-        href: "#content",
+        href: "/services/content-social-media",
       },
       {
-        title: "تصميم المواقع وSEO وGEO",
-        text: "اصنع مساراً أقوى من الاكتشاف عبر الإنترنت إلى الاستفسار أو الاتصال أو الطلب.",
-        cta: "استكشف حلول الويب",
-        href: "#web",
+        title: "تصميم المواقع",
+        text: "مواقع وصفحات هبوط سريعة بلغتين، مصمّمة لتحويل الزيارات إلى استفسارات.",
+        cta: "استكشف تصميم المواقع",
+        href: "/services/web-design",
+      },
+      {
+        title: "SEO وGEO",
+        text: "الظهور في Google والبحث المحلي وفي إجابات الذكاء الاصطناعي.",
+        cta: "استكشف SEO وGEO",
+        href: "/services/seo-geo",
       },
     ],
   },
   automation: {
-    eyebrow: "أتمتة الأعمال المخصّصة",
+    eyebrow: "تطوير البرمجيات المخصّصة",
     title: "برمجيات مبنية حول طريقة عملك.",
     intro:
       "للشركات المتوسطة والكبيرة التي تحتاج إلى أنظمة مبنية حول سير عملها وفرقها وعملياتها الفعلية.",
@@ -372,7 +418,7 @@ const ar: ServicesCopy = {
       "سير عمل مدعوم بالذكاء الاصطناعي",
     ],
     advantage: "ملاءمة أقرب لعملك، مع برمجيات مخصّصة أصبحت في المتناول.",
-    cta: "ناقش مشروع أتمتة",
+    cta: "ناقش مشروع برمجيات",
     imageAlt: "مستندات تتدفق عبر مراحل عمل مترابطة إلى لوحة تحكم على حاسوب محمول",
   },
   whatsapp: {
@@ -413,7 +459,7 @@ const ar: ServicesCopy = {
     imageAlt: "تصميم داخلي لفيلا نصفه رسم معماري ونصفه مشهد سينمائي مكتمل",
   },
   content: {
-    eyebrow: "المحتوى ووسائل التواصل",
+    eyebrow: "المحتوى ووسائل التواصل الاجتماعي",
     title: "حوّل الانتباه إلى علاقة مستمرة مع علامتك.",
     intro:
       "الحضور المتسق يحتاج إلى أكثر من منشورات متفرقة؛ يحتاج إلى رابط واضح بين منتجك وجمهورك ورسالتك وهدفك التجاري.",
@@ -482,7 +528,7 @@ const ar: ServicesCopy = {
       },
       {
         tag: "البناء",
-        title: "البناء والتشغيل",
+        title: "البناء والإطلاق",
         text: "تطوير الحل أو إنتاجه أو تنفيذه حول الاستخدام الفعلي في العمل.",
       },
       {
@@ -491,7 +537,7 @@ const ar: ServicesCopy = {
         text: "قياس ما ينجح وتحسينه وتوسيعه حيث يمكن صنع قيمة أكبر.",
       },
     ],
-    note: "بحسب المشروع، يمكن أن يبدأ التعاون بتجربة أولية أو تشغيل أوّلي أو نموذج عملي آخر يناسب النطاق.",
+    note: "بحسب المشروع، يمكن أن يبدأ التعاون بتجربة أولية أو إطلاق أوّلي أو نموذج عملي آخر يناسب النطاق.",
   },
   which: {
     eyebrow: "لست متأكداً من أين تبدأ؟",
@@ -500,29 +546,39 @@ const ar: ServicesCopy = {
     serviceLabel: "الخدمة المقترحة",
     rows: [
       {
+        need: "البرامج الجاهزة لا تناسب طريقة عمل شركتك",
+        service: "تطوير البرمجيات المخصّصة",
+        href: "/services/custom-software-development",
+      },
+      {
         need: "عمل متكرر كثير أو عمليات غير مترابطة",
-        service: "أتمتة الأعمال المخصّصة",
-        href: "#automation",
+        service: "أتمتة الأعمال بالذكاء الاصطناعي",
+        href: "/services/ai-business-automation",
       },
       {
         need: "العملاء المحتملون أو الحاليون لا تتم متابعتهم بانتظام",
-        service: "أتمتة واتساب وCRM",
-        href: "#whatsapp",
+        service: "أتمتة واتساب بالذكاء الاصطناعي",
+        href: "/services/whatsapp-ai-automation",
       },
       {
         need: "يصعب تصوّر منتجك أو مشروعك أو عرضه",
         service: "إنتاج الفيديو بالذكاء الاصطناعي",
-        href: "#ai-video",
+        href: "/services/ai-video-production",
       },
       {
         need: "علامتك تحتاج إلى ظهور وتواصل أقوى",
-        service: "إدارة المحتوى ووسائل التواصل الاجتماعي",
-        href: "#content",
+        service: "المحتوى ووسائل التواصل الاجتماعي",
+        href: "/services/content-social-media",
       },
       {
         need: "موقعك لا يحقق اكتشافاً أو استفسارات كافية",
-        service: "تصميم المواقع وSEO وGEO",
-        href: "#web",
+        service: "تصميم المواقع",
+        href: "/services/web-design",
+      },
+      {
+        need: "العملاء لا يجدونك في Google أو في إجابات الذكاء الاصطناعي",
+        service: "SEO وGEO",
+        href: "/services/seo-geo",
       },
     ],
     note: "لست بحاجة إلى معرفة الحل التقني قبل التواصل معنا. ابدأ من تحدي عملك.",
@@ -546,7 +602,7 @@ const ar: ServicesCopy = {
       },
       {
         q: "هل يمكن استخدام فيديو الذكاء الاصطناعي قبل وجود المنتج أو المشروع فعلياً؟",
-        a: "نعم. من أقوى تطبيقاته تجسيد المنتجات والمساحات والتجارب التي يصعب أو يكلف أو لا يمكن بعد تصويرها بالطرق التقليدية.",
+        a: "نعم. من أقوى تطبيقاته تجسيد المنتجات والمساحات والتجارب التي يصعب تصويرها بالطرق التقليدية، أو يكون تصويرها مكلفاً أو غير ممكن بعد.",
       },
       {
         q: "هل تقدّمون استراتيجية المحتوى وإنتاجه معاً؟",
@@ -554,7 +610,7 @@ const ar: ServicesCopy = {
       },
       {
         q: "ما هو GEO؟",
-        a: "تحسين محركات الإجابة التوليدية (GEO) يركّز على هيكلة المحتوى وتحسينه ليُكتشف ويُفهم في الإجابات التي يولّدها الذكاء الاصطناعي وتجارب البحث المعتمدة عليه.",
+        a: "تحسين الظهور في محركات الذكاء الاصطناعي التوليدي (GEO) يركّز على هيكلة المحتوى وتحسينه ليُكتشف ويُفهم في الإجابات التي يولّدها الذكاء الاصطناعي وتجارب البحث المعتمدة عليه.",
       },
       {
         q: "هل تعملون مع الشركات في عُمان فقط؟",

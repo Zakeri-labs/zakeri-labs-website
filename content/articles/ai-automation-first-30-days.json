@@ -7,9 +7,19 @@
   "noindex": false,
   "related": [
     {
-      "href": "/how-we-work",
-      "en": "How we work",
-      "ar": "كيف نعمل"
+      "href": "/services/ai-business-automation",
+      "en": "AI & business automation",
+      "ar": "أتمتة الأعمال بالذكاء الاصطناعي"
+    },
+    {
+      "href": "/services/custom-software-development",
+      "en": "Custom software development",
+      "ar": "تطوير البرمجيات المخصّصة"
+    },
+    {
+      "href": "/industries/wholesale-distribution",
+      "en": "Wholesale & distribution",
+      "ar": "تجارة الجملة والتوزيع"
     },
     {
       "href": "/contact",

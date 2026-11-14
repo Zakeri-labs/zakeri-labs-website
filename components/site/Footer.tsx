@@ -5,40 +5,51 @@ import { Mail, MessageCircle, Phone } from "lucide-react";
 import { Cta } from "./blocks";
 import { LocalizedLink as Link } from "./LocalizedLink";
 import { Logo } from "./Logo";
-import { COMMON, NAV_PATHS } from "@/lib/content/common";
+import { COMMON } from "@/lib/content/common";
+import type { NavMenus } from "@/lib/content/detail";
+import type { Lang } from "@/lib/locales";
 import { useCopy, useI18n } from "@/lib/i18n";
 import { SITE, whatsappUrl } from "@/lib/site";
 
-export function Footer({ hasArticles = false }: { hasArticles?: boolean }) {
+export function Footer({
+  hasArticles = false,
+  menus,
+}: {
+  hasArticles?: boolean;
+  menus: Record<Lang, NavMenus>;
+}) {
   const c = useCopy(COMMON);
   const { lang } = useI18n();
+  const m = menus[lang];
+  const toLinks = (list: NavMenus["services"]) =>
+    list.map((l) => ({ href: l.href, label: l.name }));
   const columns = [
-    {
-      title: c.footer.services,
-      links: [
-        { href: "/services#automation", label: c.services.automation },
-        { href: "/services#ai-video", label: c.services.aiVideo },
-        { href: "/services#content", label: c.services.content },
-        { href: "/services#web", label: c.services.web },
-      ],
-    },
+    { title: c.footer.services, links: toLinks(m.services) },
+    { title: c.nav["/industries"], links: toLinks(m.industries) },
     {
       title: c.footer.products,
       links: [
-        { href: "/products#construction-reporting", label: c.products.construction },
-        { href: "/products#clinic-crm", label: c.products.clinic },
+        ...toLinks(m.products),
+        { href: "/work", label: c.nav["/work"] },
+        { href: "/videos", label: c.menu2.videos },
       ],
     },
     {
       title: c.footer.navigate,
-      links: NAV_PATHS.map((path) => ({ href: path, label: c.nav[path] })),
+      links: [
+        { href: "/about", label: c.menu2.aboutIdrak },
+        { href: "/how-we-work", label: c.menu2.howWeWork },
+        ...(hasArticles ? [{ href: "/articles", label: c.nav["/articles"] }] : []),
+        { href: "https://job.omanai.tech", label: c.menu2.careers },
+        { href: "/contact", label: c.nav["/contact"] },
+      ],
     },
   ];
 
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 lg:px-8 lg:pb-28">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+        <div className="grid gap-12 xl:grid-cols-[0.8fr_3.2fr]">
           <div className="max-w-sm">
             <Logo className="h-11 w-auto" />
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
@@ -59,7 +70,7 @@ export function Footer({ hasArticles = false }: { hasArticles?: boolean }) {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.8fr_1.3fr]">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {columns.map((col) => (
               <div key={col.title}>
                 <h2 className="text-sm font-bold text-foreground">{col.title}</h2>
@@ -127,11 +138,6 @@ export function Footer({ hasArticles = false }: { hasArticles?: boolean }) {
               <Link href="/terms" className="whitespace-nowrap transition hover:text-primary">
                 {lang === "ar" ? "شروط الخدمة" : "Terms"}
               </Link>
-              {hasArticles && (
-                <Link href="/articles" className="whitespace-nowrap transition hover:text-primary">
-                  {lang === "ar" ? "المقالات" : "Articles"}
-                </Link>
-              )}
             </p>
             <p>{c.footer.tagline}</p>
           </div>

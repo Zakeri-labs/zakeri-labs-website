@@ -2,17 +2,26 @@ import type { IndustryGroup } from "@/lib/projects";
 
 const en = {
   hero: {
-    eyebrow: "Selected work",
-    title: "Selected Digital Work.",
+    eyebrow: "Our work",
+    title: "Case Studies, Websites and Demos.",
     intro:
-      "A selection of digital projects delivered for businesses and professionals across real estate, healthcare and other sectors.",
+      "Custom software, automation and WhatsApp AI we have built and run, alongside the websites and digital projects delivered for businesses across real estate, healthcare and other sectors.",
     support:
       "The work shown here primarily reflects our web design and digital delivery experience. IDRAK’s current capabilities now extend across business automation, AI video, content and digital growth solutions.",
-    primary: "Explore Selected Projects",
+    primary: "Read the Case Studies",
     secondary: "Explore IDRAK Services",
   },
+  cases: {
+    eyebrow: "Case studies",
+    title: "Systems We Built and Run.",
+    intro:
+      "Each case shows the problem, the old process, what we built and what changed — the proof behind our custom software and automation work.",
+    tag: "Case study",
+    read: "Read the case study",
+    videos: "Watch videos & demos",
+  },
   intro: {
-    eyebrow: "Our work",
+    eyebrow: "Website portfolio",
     title: "Digital Work Built Around Real Business Needs.",
     paragraphs: [
       "Good digital work starts with understanding what the business needs people to see, understand or do.",
@@ -41,7 +50,7 @@ const en = {
     title: "The Technology Changes. The Starting Point Does Not.",
     paragraphs: [
       "Our work has evolved beyond website delivery, but the principle remains the same: start with the business need and use technology where it creates practical value.",
-      "Today, IDRAK applies that approach across custom business automation, AI video production, content and social media, and web design, SEO and GEO.",
+      "Today, IDRAK applies that approach across custom software development, AI and business automation, AI agents and WhatsApp automation, AI video production, content and social media, web design, and SEO and GEO.",
     ],
   },
   today: {
@@ -49,24 +58,34 @@ const en = {
     title: "More Than Web Design.",
     cards: [
       {
-        title: "Custom Business Automation",
-        text: "Custom software and automation built around real business workflows.",
-        href: "/services#automation",
+        title: "Custom Software Development",
+        text: "Custom business software, CRM, dashboards and portals built around real workflows.",
+        href: "/services/custom-software-development",
+      },
+      {
+        title: "AI & Business Automation",
+        text: "Approvals, documents, data entry and reports automated across your systems, with AI where it helps.",
+        href: "/services/ai-business-automation",
       },
       {
         title: "AI Video Production",
         text: "Visual storytelling for products, projects and experiences that are costly or difficult to film.",
-        href: "/services#ai-video",
+        href: "/services/ai-video-production",
       },
       {
-        title: "Content & Social Media Management",
+        title: "Content & Social Media",
         text: "Strategy, production and publishing built around audience and commercial goals.",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
-        title: "Web Design, SEO & GEO",
-        text: "Digital experiences designed for visibility, discovery and customer acquisition.",
-        href: "/services#web",
+        title: "Web Design",
+        text: "Fast, bilingual websites and landing pages designed to turn visits into enquiries.",
+        href: "/services/web-design",
+      },
+      {
+        title: "SEO & GEO",
+        text: "Visibility on Google, in local search and in AI-generated answers.",
+        href: "/services/seo-geo",
       },
     ],
   },
@@ -86,17 +105,26 @@ export type WorkCopy = typeof en;
 
 const ar: WorkCopy = {
   hero: {
-    eyebrow: "أعمال مختارة",
-    title: "أعمال رقمية مختارة.",
+    eyebrow: "أعمالنا",
+    title: "دراسات حالة ومواقع وعروض.",
     intro:
-      "مجموعة مختارة من المشاريع الرقمية المنفّذة لشركات ومهنيين في قطاعات العقارات والرعاية الصحية وغيرها.",
+      "برمجيات مخصّصة وأتمتة ومساعدات واتساب ذكية بنيناها ونشغّلها، إلى جانب المواقع والمشاريع الرقمية المنفّذة لشركات في العقارات والرعاية الصحية وقطاعات أخرى.",
     support:
       "تعكس الأعمال المعروضة هنا أساساً خبرتنا في تصميم المواقع والتنفيذ الرقمي. أما قدرات إدراك اليوم فتمتد إلى أتمتة الأعمال وفيديو الذكاء الاصطناعي والمحتوى وحلول النمو الرقمي.",
-    primary: "استكشف المشاريع المختارة",
+    primary: "اقرأ دراسات الحالة",
     secondary: "استكشف خدمات إدراك",
   },
+  cases: {
+    eyebrow: "دراسات حالة",
+    title: "أنظمة بنيناها ونشغّلها.",
+    intro:
+      "كل دراسة تعرض المشكلة، وطريقة العمل السابقة، وما بنيناه، وما الذي تغيّر؛ وهي الدليل على عملنا في البرمجيات المخصّصة والأتمتة.",
+    tag: "دراسة حالة",
+    read: "اقرأ دراسة الحالة",
+    videos: "شاهد الفيديوهات والعروض",
+  },
   intro: {
-    eyebrow: "أعمالنا",
+    eyebrow: "معرض المواقع",
     title: "أعمال رقمية مبنية حول احتياجات العمل الحقيقية.",
     paragraphs: [
       "يبدأ العمل الرقمي الجيد بفهم ما يحتاج العمل من الناس أن يروه أو يفهموه أو يفعلوه.",
@@ -125,7 +153,7 @@ const ar: WorkCopy = {
     title: "التقنية تتغيّر. ونقطة البداية لا تتغيّر.",
     paragraphs: [
       "تطوّر عملنا إلى ما هو أبعد من تنفيذ المواقع، لكن المبدأ بقي كما هو: ابدأ من حاجة العمل، واستخدم التقنية حيث تصنع قيمة عملية.",
-      "واليوم تطبّق إدراك هذا النهج في أتمتة الأعمال المخصّصة، وإنتاج الفيديو بالذكاء الاصطناعي، والمحتوى ووسائل التواصل، وتصميم المواقع وSEO وGEO.",
+      "واليوم تطبّق إدراك هذا النهج في تطوير البرمجيات المخصّصة، وأتمتة الأعمال بالذكاء الاصطناعي، ووكلاء الذكاء الاصطناعي وأتمتة واتساب، وإنتاج الفيديو بالذكاء الاصطناعي، والمحتوى ووسائل التواصل الاجتماعي، وتصميم المواقع، وSEO وGEO.",
     ],
   },
   today: {
@@ -133,24 +161,34 @@ const ar: WorkCopy = {
     title: "أكثر من تصميم مواقع.",
     cards: [
       {
-        title: "أتمتة الأعمال المخصّصة",
-        text: "برمجيات وأتمتة مخصّصة مبنية حول سير العمل الحقيقي.",
-        href: "/services#automation",
+        title: "تطوير البرمجيات المخصّصة",
+        text: "برمجيات أعمال وأنظمة CRM ولوحات متابعة وبوابات مبنية حول سير العمل الحقيقي.",
+        href: "/services/custom-software-development",
+      },
+      {
+        title: "أتمتة الأعمال بالذكاء الاصطناعي",
+        text: "أتمتة الموافقات والمستندات وإدخال البيانات والتقارير بين أنظمتك، مع الذكاء الاصطناعي حيث يفيد.",
+        href: "/services/ai-business-automation",
       },
       {
         title: "إنتاج الفيديو بالذكاء الاصطناعي",
-        text: "سرد بصري للمنتجات والمشاريع والتجارب التي يصعب أو يكلف تصويرها.",
-        href: "/services#ai-video",
+        text: "سرد بصري للمنتجات والمشاريع والتجارب التي يصعب تصويرها أو يكون تصويرها مكلفاً.",
+        href: "/services/ai-video-production",
       },
       {
-        title: "إدارة المحتوى ووسائل التواصل الاجتماعي",
+        title: "المحتوى ووسائل التواصل الاجتماعي",
         text: "استراتيجية وإنتاج ونشر مبني حول الجمهور والأهداف التجارية.",
-        href: "/services#content",
+        href: "/services/content-social-media",
       },
       {
-        title: "تصميم المواقع وSEO وGEO",
-        text: "تجارب رقمية مصمّمة للظهور والاكتشاف واستقطاب العملاء.",
-        href: "/services#web",
+        title: "تصميم المواقع",
+        text: "مواقع وصفحات هبوط سريعة بلغتين، مصمّمة لتحويل الزيارات إلى استفسارات.",
+        href: "/services/web-design",
+      },
+      {
+        title: "SEO وGEO",
+        text: "الظهور في Google والبحث المحلي وفي إجابات الذكاء الاصطناعي.",
+        href: "/services/seo-geo",
       },
     ],
   },

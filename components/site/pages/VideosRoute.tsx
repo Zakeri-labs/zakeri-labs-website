@@ -1,6 +1,5 @@
-import type { ComponentType } from "react";
-
 import { VideosPage } from "@/components/site/pages/VideosPage";
+import type { PageComponent } from "@/lib/pages";
 import { jsonLdScript } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { getPublishedVideos } from "@/lib/videos";
@@ -32,4 +31,4 @@ async function VideosData() {
 }
 
 // ponytail: the route helpers type pages as sync components; Next renders async server components fine.
-export const VideosRoute = VideosData as unknown as ComponentType;
+export const VideosRoute = VideosData as unknown as PageComponent;

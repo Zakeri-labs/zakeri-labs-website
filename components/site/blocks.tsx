@@ -531,7 +531,7 @@ export function PageHero({
           <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-[3.5rem]">
             {title}
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-foreground/80">{intro}</p>
+          <p className="mt-6 text-base leading-relaxed text-foreground/80 sm:text-lg">{intro}</p>
           {support && (
             <div className="mt-4 text-base leading-relaxed text-muted-foreground">{support}</div>
           )}
@@ -569,8 +569,11 @@ export function ProductsBanner({
           </div>
           <div className="flex flex-col gap-3">
             {[
-              { name: c.products.construction, href: "/products#construction-reporting" },
-              { name: c.products.clinic, href: "/products#clinic-crm" },
+              {
+                name: c.products.construction,
+                href: "/products/construction-supervision-reporting",
+              },
+              { name: c.products.clinic, href: "/products/clinic-crm-whatsapp-assistant" },
             ].map((p) => (
               <LocalizedLink
                 key={p.href}

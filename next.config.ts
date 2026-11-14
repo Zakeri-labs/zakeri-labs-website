@@ -12,8 +12,10 @@ const panelRedirects = (
 // 301s for the old URLs. Farsi was retired; its pages fold into English.
 const moved: [string, string][] = [
   ["/pricing", "/how-we-work"],
-  ["/case-study", "/selected-work"],
-  ["/insights", "/selected-work"],
+  ["/case-study", "/work"],
+  ["/insights", "/articles"],
+  // Sajjad's architecture (Nov 2026): Selected Work became Work.
+  ["/selected-work", "/work"],
   ["/policy", "/privacy"],
   ["/privacy-policy", "/privacy"],
 ];
@@ -49,6 +51,17 @@ const nextConfig: NextConfig = {
         { source: `/ar${from}`, destination: `/ar${to}`, statusCode: 301 as const },
         { source: `/fa${from}`, destination: to, statusCode: 301 as const },
       ]),
+      // Careers live on the hiring site.
+      {
+        source: "/:p(careers|jobs)",
+        destination: "https://job.omanai.tech",
+        statusCode: 301 as const,
+      },
+      {
+        source: "/ar/:p(careers|jobs)",
+        destination: "https://job.omanai.tech",
+        statusCode: 301 as const,
+      },
       { source: "/fa", destination: "/", statusCode: 301 as const },
       { source: "/fa/:path*", destination: "/:path*", statusCode: 301 as const },
     ];
