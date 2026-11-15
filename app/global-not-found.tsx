@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import Link from "next/link";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,18 +24,18 @@ export default function GlobalNotFound() {
               The page you’re looking for doesn’t exist or has been moved.
             </p>
             <div className="mt-8 flex justify-center gap-3">
-              <a
+              <Link
                 href="/"
                 className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground"
               >
                 Go home
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/ar"
                 className="rounded-full border border-input bg-surface px-6 py-3 font-semibold"
               >
                 الرئيسية
-              </a>
+              </Link>
             </div>
           </div>
         </div>
