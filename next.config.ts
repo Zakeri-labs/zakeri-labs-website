@@ -22,6 +22,8 @@ const moved: [string, string][] = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Two root layouts (English and /ar) keep every page static; unmatched URLs use app/global-not-found.tsx.
+  experimental: { globalNotFound: true },
   outputFileTracingRoot: import.meta.dirname,
   // The content panel's JSON is read at request time.
   outputFileTracingIncludes: { "/**": ["./content/**/*"] },

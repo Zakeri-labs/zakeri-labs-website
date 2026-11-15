@@ -45,17 +45,17 @@ type SeoEntry = { title: string; description: string; ogTitle?: string; ogDescri
 const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
   home: {
     en: {
-      title: "IDRAK AI Solutions Oman | AI Automation, Video & Digital Solutions",
+      title: "IDRAK Oman | Custom Software, AI Automation & WhatsApp AI",
       description:
-        "IDRAK AI Solutions helps businesses in Oman use AI to increase sales, reduce manual work and improve performance through automation, AI video, WhatsApp CRM, content and digital solutions.",
+        "IDRAK builds custom software, AI automation and WhatsApp AI for businesses in Oman: more sales, less manual work and better performance. Based in Muscat.",
       ogTitle: "IDRAK AI Solutions | AI That Creates Business Value",
       ogDescription:
         "Practical AI solutions for sales, automation, customer experience, content and business growth.",
     },
     ar: {
-      title: "إدراك للحلول الذكية عُمان | أتمتة وفيديو وحلول رقمية بالذكاء الاصطناعي",
+      title: "إدراك عُمان | برمجيات مخصّصة وأتمتة وواتساب بالذكاء الاصطناعي",
       description:
-        "تساعد إدراك للحلول الذكية الشركات في عُمان على توظيف الذكاء الاصطناعي لزيادة المبيعات وتقليل العمل اليدوي وتحسين الأداء عبر الأتمتة وفيديو الذكاء الاصطناعي وCRM واتساب والمحتوى والحلول الرقمية.",
+        "تبني إدراك برمجيات مخصّصة وأتمتة بالذكاء الاصطناعي ومساعدات واتساب للشركات في عُمان: مبيعات أكثر، وعمل يدوي أقل، وأداء أفضل. مقرّنا مسقط.",
       ogTitle: "إدراك للحلول الذكية | ذكاء اصطناعي يصنع قيمة للأعمال",
       ogDescription:
         "حلول ذكاء اصطناعي عملية للمبيعات والأتمتة وتجربة العملاء والمحتوى ونمو الأعمال.",
@@ -63,7 +63,7 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
   },
   services: {
     en: {
-      title: "Software & AI Services in Oman | Custom Software, Automation | IDRAK",
+      title: "Software & AI Services in Oman: Automation, Video, Web | IDRAK",
       description:
         "IDRAK services in Oman: custom software development, AI business automation, WhatsApp AI agents, AI video production, content, web design and SEO & GEO.",
     },
@@ -75,12 +75,12 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
   },
   products: {
     en: {
-      title: "IDRAK Products | Construction Supervision Reporting & Clinic CRM in Oman",
+      title: "IDRAK Products: Construction Reporting & Clinic CRM | Oman",
       description:
-        "Ready-made IDRAK products for Oman: a construction supervision reporting system with pay-per-report pricing, and a clinic CRM with a WhatsApp assistant for booking, reminders and follow-up.",
+        "Ready-made IDRAK software for Oman: construction supervision reporting priced per report, and a clinic CRM with a WhatsApp assistant for bookings and follow-up.",
     },
     ar: {
-      title: "منتجات إدراك | نظام تقارير الإشراف على البناء وCRM العيادات في عُمان",
+      title: "منتجات إدراك: تقارير الإشراف على البناء وCRM العيادات | عُمان",
       description:
         "منتجات إدراك الجاهزة في عُمان: نظام تقارير الإشراف على البناء بالدفع لكل تقرير، ونظام CRM للعيادات مع مساعد واتساب للحجز والتذكير والمتابعة.",
     },
@@ -113,7 +113,7 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
     en: {
       title: "About IDRAK AI Solutions | AI for Real Business Growth in Oman",
       description:
-        "Learn about IDRAK AI Solutions and founder Mohammadreza Zakeri, an Oman-based company focused on practical AI, automation, digital solutions and measurable business value.",
+        "Meet IDRAK AI Solutions and founder Mohammadreza Zakeri: a Muscat company building practical AI, automation and custom software with measurable business value.",
     },
     ar: {
       title: "عن إدراك للحلول الذكية | ذكاء اصطناعي لنمو حقيقي في عُمان",
@@ -125,12 +125,12 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
     en: {
       title: "How We Work | IDRAK AI Solutions Oman",
       description:
-        "Learn how IDRAK AI Solutions approaches business challenges, defines project scope and works through pilots, custom projects, ongoing partnerships and usage-based models.",
+        "How IDRAK works: we start from the business challenge, define scope, then deliver through pilots, defined projects, ongoing partnerships or usage-based pricing.",
     },
     ar: {
       title: "كيف نعمل | إدراك للحلول الذكية عُمان",
       description:
-        "تعرّف على كيف تتعامل إدراك للحلول الذكية مع تحديات الأعمال، وتحدّد نطاق المشاريع، وتعمل عبر التجارب الأولية والمشاريع المخصّصة والشراكات المستمرة والنماذج حسب الاستخدام.",
+        "كيف تعمل إدراك: نبدأ من تحدي العمل ونحدّد النطاق، ثم ننفّذ عبر تجربة أولية أو مشروع محدّد أو شراكة مستمرة أو تسعير حسب الاستخدام.",
     },
   },
   videos: {
@@ -166,19 +166,19 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
     ar: {
       title: "سياسة الخصوصية | إدراك للحلول الذكية",
       description:
-        "كيف تجمع إدراك للحلول الذكية المعلومات الشخصية وتستخدمها وتحميها عبر موقعها والمساعد الذكي وواتساب.",
+        "كيف تجمع إدراك للحلول الذكية المعلومات الشخصية وتستخدمها وتحميها عبر موقعها ومساعدها الذكي ومحادثات واتساب، وما حقوقك في الوصول إليها وحذفها.",
     },
   },
   terms: {
     en: {
       title: "Terms of Service | IDRAK AI Solutions",
       description:
-        "The terms that govern use of the IDRAK AI Solutions website, AI assistant and WhatsApp services.",
+        "The terms that govern use of the IDRAK AI Solutions website, its AI assistant and WhatsApp services, including acceptable use, liability and governing law in Oman.",
     },
     ar: {
       title: "شروط الخدمة | إدراك للحلول الذكية",
       description:
-        "الشروط التي تحكم استخدام موقع إدراك للحلول الذكية والمساعد الذكي وخدمات واتساب.",
+        "الشروط التي تحكم استخدام موقع إدراك للحلول الذكية ومساعدها الذكي وخدمات واتساب، بما في ذلك الاستخدام المقبول والمسؤولية والقانون العُماني المطبّق.",
     },
   },
   deletion: {
@@ -343,8 +343,45 @@ export function getOrganizationJsonLd(lang: Lang) {
     telephone: `+${SITE.phoneRaw}`,
     description: COMMON[lang].footer.description,
     foundingLocation: "Muscat, Oman",
-    address: { "@type": "PostalAddress", addressLocality: "Muscat", addressCountry: "OM" },
-    areaServed: { "@type": "Country", name: "Oman" },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Muscat",
+      addressRegion: "Muscat Governorate",
+      addressCountry: "OM",
+    },
+    // Local SEO: the cities we sell to, then Oman and the wider GCC.
+    areaServed: [
+      ...["Muscat", "Seeb", "Sohar", "Salalah", "Nizwa", "Sur", "Duqm"].map((name) => ({
+        "@type": "City",
+        name,
+        containedInPlace: { "@type": "Country", name: "Oman" },
+      })),
+      { "@type": "Country", name: "Oman" },
+      { "@type": "Place", name: "GCC" },
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      telephone: `+${SITE.phoneRaw}`,
+      email: SITE.email,
+      areaServed: "OM",
+      availableLanguage: ["English", "Arabic"],
+    },
+    knowsLanguage: ["en", "ar"],
+    knowsAbout: DETAIL_PAGES.services.map((e) => e.en.name),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: lang === "ar" ? "خدمات ومنتجات إدراك" : "IDRAK services and products",
+      itemListElement: [...DETAIL_PAGES.services, ...DETAIL_PAGES.products].map((e) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": e.kind === "products" ? "SoftwareApplication" : "Service",
+          name: e[lang].name,
+          url: absoluteUrl(localizePathname(`/${e.kind}/${e.slug}`, lang)),
+        },
+      })),
+    },
+    ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
     founder: { "@type": "Person", name: SITE.founder, jobTitle: "Founder & CEO" },
     identifier: {
       "@type": "PropertyValue",

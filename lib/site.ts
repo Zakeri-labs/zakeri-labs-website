@@ -17,6 +17,12 @@ export const SITE = {
   phone: "+968 7171 3238",
   phoneRaw: "96871713238",
   email: "zakeri@omanai.tech",
+  /**
+   * Official profiles (Google Business Profile, LinkedIn, Instagram, YouTube…). They feed
+   * Organization `sameAs`, which ties the brand's profiles together for Google and AI search.
+   * Add each URL here as soon as the profile exists.
+   */
+  sameAs: [] as string[],
 };
 
 const WHATSAPP_GREETING: Record<Lang, string> = {

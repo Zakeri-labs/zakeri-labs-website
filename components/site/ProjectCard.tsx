@@ -25,7 +25,11 @@ export function ProjectCard({ project, large }: { project: Project; large?: bool
       >
         <Image
           src={project.image}
-          alt=""
+          alt={
+            lang === "ar"
+              ? `موقع ${project.name} من تصميم إدراك`
+              : `${project.name} website designed by IDRAK`
+          }
           placeholder="blur"
           sizes={
             large

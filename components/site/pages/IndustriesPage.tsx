@@ -47,7 +47,7 @@ export function IndustriesPage({ lang }: { lang: Lang }) {
         title={t.title}
         intro={t.intro}
         actions={<CtaPair />}
-        visual={<Visual src={IMG.oman} alt="" priority className="mx-auto max-w-md" />}
+        visual={<Visual src={IMG.oman} alt={t.title} priority className="mx-auto max-w-md" />}
       />
       <Section tone="tint">
         <SectionHeading title={t.listTitle} intro={t.listIntro} />

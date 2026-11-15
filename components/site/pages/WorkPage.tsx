@@ -67,7 +67,7 @@ export function WorkPage({ menus }: { menus: NavMenus }) {
               >
                 <Image
                   src={p.image}
-                  alt=""
+                  alt={p.name}
                   placeholder="blur"
                   sizes="25vw"
                   priority={i < 2}
