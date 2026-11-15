@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { ArticlesList, ArticleView, ARTICLES_COPY } from "@/components/site/pages/ArticlePages";
-import { findArticle, getPublishedArticles } from "@/lib/articles";
+import { findArticle, getArticles, getPublishedArticles } from "@/lib/articles";
 import { isLocalizedLang, type Lang } from "@/lib/locales";
 import { buildMetadata } from "@/lib/seo";
 
@@ -33,6 +33,8 @@ export const listRoute = {
 
 /** /articles/[slug] and /ar/articles/[slug]. Drafts render but are noindex. */
 export const articleRoute = {
+  // Prerender every article; drafts still render on demand for preview (noindex).
+  generateStaticParams: async () => (await getArticles()).map((a) => ({ slug: a.slug })),
   generateMetadata: async (p: LangParams) => {
     const { lang, slug } = await resolve(p);
     const a = await findArticle(slug!);
