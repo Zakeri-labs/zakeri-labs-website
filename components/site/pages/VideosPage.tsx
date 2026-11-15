@@ -48,7 +48,7 @@ function VideoCard({ v }: { v: PublicVideo }) {
             {v.poster && (
               <img
                 src={v.poster}
-                alt=""
+                alt={title}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
               />

@@ -1,10 +1,8 @@
-import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { headers } from "next/headers";
 import Script from "next/script";
 import { IBM_Plex_Sans_Arabic, Inter, Plus_Jakarta_Sans } from "next/font/google";
 
-import "./globals.css";
+import "@/app/globals.css";
 
 import { Footer } from "@/components/site/Footer";
 import { getPublishedArticles } from "@/lib/articles";
@@ -15,10 +13,9 @@ import { navMenus } from "@/lib/content/detail";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { PageViewBeacon } from "@/components/site/PageViewBeacon";
 import { RevealController } from "@/components/site/motion";
-import { getDirection, isLang } from "@/lib/locales";
+import { getDirection, type Lang } from "@/lib/locales";
 import { getOrganizationJsonLd, getWebSiteJsonLd, jsonLdScript } from "@/lib/seo";
-import { SITE } from "@/lib/site";
-import { Providers } from "./providers";
+import { Providers } from "@/app/providers";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -36,33 +33,11 @@ const arabic = IBM_Plex_Sans_Arabic({
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: { default: SITE.name, template: `%s | ${SITE.name}` },
-  authors: [{ name: SITE.name }],
-  applicationName: SITE.name,
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#070b1a",
-};
-
-export default async function RootLayout({ children }: { children: ReactNode }) {
-  const requestHeaders = await headers();
-  const requestedLang = requestHeaders.get("x-zakeri-locale") ?? "en";
-  const lang = isLang(requestedLang) ? requestedLang : "en";
-
-  // The content panel brings its own UI; skip the site chrome around it.
-  if (requestHeaders.get("x-zakeri-path")?.startsWith("/keystatic")) {
-    return (
-      <html lang="en" style={{ background: "Canvas", colorScheme: "light dark" }}>
-        <body style={{ background: "Canvas", color: "CanvasText" }}>{children}</body>
-      </html>
-    );
-  }
-
+/**
+ * The site's <html> for one language. Each root layout passes its own `lang`, so no request
+ * headers are read and every page can be prerendered and served from the CDN cache.
+ */
+export async function SiteShell({ lang, children }: { lang: Lang; children: ReactNode }) {
   // Only names and links reach the client, not the full page copy.
   const menus = { en: navMenus("en"), ar: navMenus("ar") };
   const hasArticles = (await getPublishedArticles()).length > 0;

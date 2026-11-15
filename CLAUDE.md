@@ -52,3 +52,9 @@ Tailwind CSS v4, dark theme defined in `app/globals.css` (page navy `#070b1a` ma
 ### Path alias
 
 Use `@/` to import from the project root (e.g. `@/lib/site`, `@/components/ui/button`).
+
+## Routing and static rendering (Nov 2026)
+
+- English pages live in `app/(site)/`, Arabic in `app/[lang]/`. Both are root layouts that render `components/site/SiteShell.tsx`. Keystatic is in `app/(bare)/`. Unmatched URLs render `app/global-not-found.tsx` (`experimental.globalNotFound`).
+- A new page needs a route file in both `(site)` and `[lang]`.
+- Never call `headers()` or `cookies()` in a layout or in SiteShell: it makes every page dynamic again (no CDN cache, ~1 s TTFB).
