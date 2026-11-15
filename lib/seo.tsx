@@ -349,13 +349,9 @@ export function getOrganizationJsonLd(lang: Lang) {
       addressRegion: "Muscat Governorate",
       addressCountry: "OM",
     },
-    // Local SEO: the cities we sell to, then Oman and the wider GCC.
+    // Local SEO: based in Muscat, serving Oman and the GCC.
     areaServed: [
-      ...["Muscat", "Seeb", "Sohar", "Salalah", "Nizwa", "Sur", "Duqm"].map((name) => ({
-        "@type": "City",
-        name,
-        containedInPlace: { "@type": "Country", name: "Oman" },
-      })),
+      { "@type": "City", name: "Muscat", containedInPlace: { "@type": "Country", name: "Oman" } },
       { "@type": "Country", name: "Oman" },
       { "@type": "Place", name: "GCC" },
     ],
@@ -375,7 +371,7 @@ export function getOrganizationJsonLd(lang: Lang) {
       itemListElement: [...DETAIL_PAGES.services, ...DETAIL_PAGES.products].map((e) => ({
         "@type": "Offer",
         itemOffered: {
-          "@type": e.kind === "products" ? "SoftwareApplication" : "Service",
+          "@type": "Service",
           name: e[lang].name,
           url: absoluteUrl(localizePathname(`/${e.kind}/${e.slug}`, lang)),
         },

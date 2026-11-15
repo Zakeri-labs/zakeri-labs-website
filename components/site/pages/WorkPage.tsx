@@ -20,7 +20,7 @@ import { LocalizedLink } from "@/components/site/LocalizedLink";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { COMMON } from "@/lib/content/common";
 import { WORK } from "@/lib/content/work";
-import { useCopy } from "@/lib/i18n";
+import { useCopy, useI18n } from "@/lib/i18n";
 import { FEATURED, GROUP_OF, MORE, type IndustryGroup } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +30,7 @@ type Filter = (typeof FILTERS)[number];
 
 export function WorkPage({ menus }: { menus: NavMenus }) {
   const w = useCopy(WORK);
+  const { lang } = useI18n();
   const c = useCopy(COMMON);
   const [filter, setFilter] = useState<Filter>("all");
   const [shown, setShown] = useState(PAGE);
@@ -67,7 +68,7 @@ export function WorkPage({ menus }: { menus: NavMenus }) {
               >
                 <Image
                   src={p.image}
-                  alt={p.name}
+                  alt={lang === "ar" ? `موقع ${p.name}` : `${p.name} website`}
                   placeholder="blur"
                   sizes="25vw"
                   priority={i < 2}

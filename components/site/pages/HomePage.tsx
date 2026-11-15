@@ -511,7 +511,7 @@ function Solutions() {
               <Image
                 key={tab.key}
                 src={IMG[tab.image as ImgKey]}
-                alt={tab.title}
+                alt=""
                 placeholder="blur"
                 sizes="(min-width: 1024px) 30vw, 80vw"
                 className="float-mask h-full w-full animate-[float_7s_ease-in-out_infinite] object-contain motion-reduce:animate-none"
@@ -657,7 +657,7 @@ function Products() {
                 <div className="pointer-events-none absolute inset-[18%] -z-10 rounded-full bg-cyan/20 blur-3xl transition group-hover:bg-cyan/35" />
                 <Image
                   src={IMG[item.image as ImgKey]}
-                  alt={item.title}
+                  alt=""
                   placeholder="blur"
                   sizes="(min-width: 1024px) 40vw, 90vw"
                   className="float-mask h-full w-full object-contain transition duration-700 group-hover:scale-105"
