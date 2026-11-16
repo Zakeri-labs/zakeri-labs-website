@@ -12,7 +12,7 @@ import { PRODUCTS } from "@/lib/content/products";
 import { SERVICES } from "@/lib/content/services";
 import { TERMS } from "@/lib/content/terms";
 import { WORK } from "@/lib/content/work";
-import { IMG } from "@/lib/images";
+import { DEFAULT_IMG, IMG } from "@/lib/images";
 import { createPageMetadata, PUBLIC_PAGE_PATHS, type PublicPage } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -92,5 +92,16 @@ export function GET() {
       };
     }),
   );
-  return Response.json({ generated: new Date().toISOString(), pages: [...hubs, ...details] });
+  // the key visuals as built into the code, so the panel can show each one and offer to replace it
+  const images = Object.entries(DEFAULT_IMG).map(([key, v]) => ({
+    key,
+    src: v.src,
+    width: v.width,
+    height: v.height,
+  }));
+  return Response.json({
+    generated: new Date().toISOString(),
+    pages: [...hubs, ...details],
+    images,
+  });
 }
