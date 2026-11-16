@@ -3,12 +3,15 @@
 import { useEffect, type ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
+import { captureAttribution } from "@/lib/attribution";
 import { LanguageProvider, type Lang } from "@/lib/i18n";
 import { contactEventFor, track } from "@/lib/track";
 
 export function Providers({ children, initialLang }: { children: ReactNode; initialLang: Lang }) {
+  // First-visit source for the contact form (lib/attribution.ts).
   // One delegated listener tracks every WhatsApp / email / phone link on the site.
   useEffect(() => {
+    captureAttribution();
     const onClick = (e: MouseEvent) => {
       const link = (e.target as Element | null)?.closest?.("a[href]");
       const event = link && contactEventFor(link.getAttribute("href") ?? "");

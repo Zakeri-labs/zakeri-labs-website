@@ -34,7 +34,7 @@ export async function GET() {
       `- [About IDRAK](${SITE.url}/about)`,
       `- [How we work](${SITE.url}/how-we-work)`,
       `- [Work and portfolio](${SITE.url}/work)`,
-      `- [Videos](${SITE.url}/videos)`,
+      `- [Video portfolio: reels, product films and pitch videos](${SITE.url}/portfolio)`,
     ].join("\n"),
   ]
     .filter(Boolean)

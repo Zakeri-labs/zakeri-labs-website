@@ -23,7 +23,8 @@ This is a **Next.js 15 App Router** site (React 19, TypeScript). It was migrated
 ### Directory layout
 
 - `app/` — routes. English lives at the root (`/services`), Arabic under `app/[lang]` (`/ar/services`). Each `page.tsx` is three lines that hand its page component to `lib/pages.tsx` (metadata + JSON-LD).
-- `app/api/contact/route.ts` — lead endpoint for the `LeadWizard` (size → challenges → focus → contact); validates with zod and emails `SITE.email` through Resend (`RESEND_API_KEY`, sender `website@omanai.tech`).
+- `app/api/contact/route.ts` — lead endpoint for the `LeadWizard` (size → challenges → focus → contact); validates with zod, creates the lead in the Idrak CRM (`lib/crm-lead.ts`, source `Website`, with the visitor's landing page / referrer / utm / gclid from `lib/attribution.ts`) and emails `SITE.email` through Resend (`RESEND_API_KEY`, sender `website@omanai.tech`). On `/contact` the wizard runs without the WhatsApp handoff (`plain` prop).
+- `/portfolio` — the video portfolio (`components/site/pages/PortfolioPage.tsx`, data in `lib/videos.ts`: table `site_videos`, files on Cloudflare R2 at media.zakeri.dev; admin at `/admin/videos`). See README.
 - `app/api/chat/route.ts` — the on-site AI assistant (`components/site/AiAgent.tsx`). Streams from Vercel AI Gateway (`AI_GATEWAY_API_KEY`, model `google/gemini-2.5-flash`); its knowledge is built from `lib/content`, so it only knows what the site says.
 - `components/site/pages/` — one client component per page (Home, Services, Products, Work, About, HowWeWork, Contact).
 - `components/site/blocks.tsx` — shared building blocks (Section, SectionHeading, Cta, Advantage, Flow, Steps, Faq, Visual, Split, FinalCta, PageHero, ProductsBanner). Build new sections from these.
@@ -43,7 +44,7 @@ Tailwind CSS v4, dark theme defined in `app/globals.css` (page navy `#070b1a` ma
 
 ### Analytics
 
-`lib/track.ts` sends conversion events (`contact_form_started`, `contact_form_submitted` with `interest_type`, `whatsapp|email|phone_contact_clicked`) to gtag/dataLayer. GA4 loads only when `NEXT_PUBLIC_GA_ID` is set.
+`lib/track.ts` sends conversion events (`contact_form_started`, `contact_form_submitted` with `interest_type`, `whatsapp|email|phone_contact_clicked`) to gtag/dataLayer. GA4 loads only when `NEXT_PUBLIC_GA_ID` is set, Google Tag Manager only when `NEXT_PUBLIC_GTM_ID` is set. Also pushed: `generate_lead` and `portfolio_video_play`.
 
 ### Site config
 

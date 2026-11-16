@@ -1,8 +1,8 @@
-import { VideosRoute } from "@/components/site/pages/VideosRoute";
+import { PortfolioRoute } from "@/components/site/pages/PortfolioRoute";
 import { enPage } from "@/lib/pages";
 
 export const revalidate = 60;
 
-const page = enPage("videos", VideosRoute);
+const page = enPage("portfolio", PortfolioRoute);
 export const generateMetadata = page.generateMetadata;
 export default page.Page;

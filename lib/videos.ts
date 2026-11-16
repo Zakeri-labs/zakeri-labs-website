@@ -1,15 +1,19 @@
 import "server-only";
 
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 
 import type { Lang } from "@/lib/locales";
+import { presignUrl } from "@/lib/sigv4";
 
 /**
- * Site videos: table site_videos + public bucket site-videos in the CRM Supabase
- * (service role only, same access pattern as /api/pv). Schema: supabase/migrations.
+ * Site videos: table site_videos in the CRM Supabase (service role only, same access pattern as
+ * /api/pv; schema: supabase/migrations). Files live in the public Cloudflare R2 bucket idrak-media,
+ * served at media.zakeri.dev, and a row stores their full https URL. Rows from before 16 Nov 2026
+ * may still hold a path inside the old Supabase bucket site-videos; both forms are read.
  */
 export const BUCKET = "site-videos";
+export const MEDIA_URL = "https://media.zakeri.dev";
 export const CATEGORIES = ["promo", "solution", "project_demo"] as const;
 export type Category = (typeof CATEGORIES)[number];
 
@@ -54,10 +58,11 @@ export type VideoRow = {
   created_at: string;
 };
 
+/** A file URL on media.zakeri.dev, or a legacy path inside the Supabase bucket. */
 const path = z
   .string()
-  .max(200)
-  .regex(/^[a-z0-9][a-z0-9._/-]*$/, "bad path")
+  .max(300)
+  .regex(/^(https:\/\/media\.zakeri\.dev\/)?[a-z0-9][a-z0-9._/-]*$/, "bad path")
   .refine((p) => !p.includes(".."), "bad path");
 const opt = (max: number) =>
   z
@@ -142,46 +147,64 @@ export async function deleteVideo(id: string): Promise<boolean> {
   if (!res?.ok) return false;
   const [row] = (await res.json()) as VideoRow[];
   const { url, key } = env();
-  const files = [row?.storage_path, row?.poster_path].filter(Boolean);
-  if (url && key && files.length) {
-    // Best effort: a leftover file is harmless, a failed delete must not undo the row removal.
+  const all = [row?.storage_path, row?.poster_path, row?.external_url].filter(
+    (f): f is string => !!f,
+  );
+  // Best effort: a leftover file is harmless, a failed delete must not undo the row removal.
+  await Promise.all(
+    all
+      .filter((f) => f.startsWith(`${MEDIA_URL}/`))
+      .map((f) => {
+        const signed = r2Presign("DELETE", f.slice(MEDIA_URL.length + 1));
+        return signed && fetch(signed, { method: "DELETE" }).catch(() => {});
+      }),
+  );
+  const legacy = all.filter((f) => !f.startsWith("https://"));
+  if (url && key && legacy.length) {
     await fetch(`${url}/storage/v1/object/${BUCKET}`, {
       method: "DELETE",
       headers: { ...headers(key), "Content-Type": "application/json" },
-      body: JSON.stringify({ prefixes: files }),
+      body: JSON.stringify({ prefixes: legacy }),
     }).catch(() => {});
   }
   return !!row;
 }
 
-/** Signed one-time upload URL: the browser/automation PUTs the file straight to Supabase. */
-export async function signUpload(contentType: string, filename: string) {
-  const { url, key } = env();
-  if (!url || !key) return null;
+const CACHE_CONTROL = "public, max-age=31536000, immutable";
+
+/** Presigned R2 request for one object key; null when the R2 env vars are missing. */
+function r2Presign(method: "PUT" | "DELETE", objectKey: string, contentType?: string) {
+  const { R2_ENDPOINT, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET } = process.env;
+  if (!R2_ENDPOINT || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY) return null;
+  return presignUrl({
+    method,
+    url: `${R2_ENDPOINT.replace(/\/$/, "")}/${R2_BUCKET || "idrak-media"}/${objectKey}`,
+    accessKeyId: R2_ACCESS_KEY_ID,
+    secretAccessKey: R2_SECRET_ACCESS_KEY,
+    region: "auto",
+    expires: 900,
+    // signed: the upload must carry exactly this type
+    headers: contentType ? { "content-type": contentType } : undefined,
+  });
+}
+
+/**
+ * Presigned upload: the browser/automation PUTs the file body straight to R2 with the returned
+ * headers, then saves `path` (the public URL) on the row. The pixel size goes into the file name
+ * (video-1080x1920.mp4) so the pages know the shape of a video without a schema change.
+ */
+export function signUpload(contentType: string, width?: number, height?: number) {
   const kind = UPLOAD_TYPES[contentType];
   if (!kind) return null;
-  const ext = EXT[contentType];
-  const base =
-    filename
-      .replace(/\.[^.]*$/, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 40) || kind;
-  const objectPath = `${kind}s/${Date.now().toString(36)}-${base}.${ext}`;
-  const res = await fetch(`${url}/storage/v1/object/upload/sign/${BUCKET}/${objectPath}`, {
-    method: "POST",
-    headers: { ...headers(key), "Content-Type": "application/json" },
-    body: "{}",
-  }).catch(() => null);
-  if (!res?.ok) return null;
-  const { url: signed } = (await res.json()) as { url: string };
+  const size = width && height ? `-${width}x${height}` : "";
+  const objectKey = `videos/${randomUUID()}/${kind}${size}.${EXT[contentType]}`;
+  const upload_url = r2Presign("PUT", objectKey, contentType);
+  if (!upload_url) return null;
   return {
     kind,
-    path: objectPath,
-    upload_url: `${url}/storage/v1${signed}`,
-    // The storage gateway wants an apikey header; the public (anon) key is fine here.
-    apikey: process.env.SUPABASE_ANON_KEY ?? null,
+    path: `${MEDIA_URL}/${objectKey}`,
+    upload_url,
+    headers: { "Content-Type": contentType, "Cache-Control": CACHE_CONTROL },
   };
 }
 
@@ -196,6 +219,9 @@ export type PublicVideo = {
   src: string | null;
   youtubeId: string | null;
   poster: string | null;
+  /** Pixel size read from the file name; null when unknown (YouTube, old uploads). */
+  width: number | null;
+  height: number | null;
   date: string;
 };
 
@@ -217,12 +243,18 @@ export function youtubeId(u: string | null): string | null {
 }
 
 const storageUrl = (p: string | null) =>
-  p && process.env.SUPABASE_URL
-    ? `${process.env.SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${p}`
-    : null;
+  p?.startsWith("https://")
+    ? p
+    : p && process.env.SUPABASE_URL
+      ? `${process.env.SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${p}`
+      : null;
 
 export function toPublic(r: VideoRow): PublicVideo {
   const yt = youtubeId(r.external_url);
+  const src = storageUrl(r.storage_path) ?? (yt ? null : r.external_url);
+  const poster =
+    storageUrl(r.poster_path) ?? (yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : null);
+  const size = /-(\d{2,5})x(\d{2,5})\.\w+$/.exec(src ?? poster ?? "");
   return {
     id: r.id,
     title: { en: r.title_en, ar: r.title_ar || r.title_en },
@@ -232,9 +264,11 @@ export function toPublic(r: VideoRow): PublicVideo {
     },
     category: r.category,
     solutionSlug: r.solution_slug,
-    src: storageUrl(r.storage_path) ?? (yt ? null : r.external_url),
+    src,
     youtubeId: storageUrl(r.storage_path) ? null : yt,
-    poster: storageUrl(r.poster_path) ?? (yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : null),
+    poster,
+    width: size ? Number(size[1]) : null,
+    height: size ? Number(size[2]) : null,
     date: r.created_at,
   };
 }

@@ -105,7 +105,7 @@ export function WorkPage({ menus }: { menus: NavMenus }) {
           ))}
         </div>
         <div className="mt-8">
-          <TextLink href="/videos">{w.cases.videos}</TextLink>
+          <TextLink href="/portfolio">{w.cases.videos}</TextLink>
         </div>
       </Section>
 

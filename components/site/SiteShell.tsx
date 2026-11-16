@@ -32,6 +32,10 @@ const arabic = IBM_Plex_Sans_Arabic({
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+/** Google Tag Manager container (GTM-XXXXXXX). Unset: nothing is loaded. */
+const GTM_ID = /^GTM-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GTM_ID ?? "")
+  ? process.env.NEXT_PUBLIC_GTM_ID
+  : undefined;
 
 /**
  * The site's <html> for one language. Each root layout passes its own `lang`, so no request
@@ -56,6 +60,16 @@ export async function SiteShell({ lang, children }: { lang: Lang; children: Reac
         />
       </head>
       <body>
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         <CircuitCanvas />
         <Providers initialLang={lang}>
           <RevealController />
@@ -70,6 +84,11 @@ export async function SiteShell({ lang, children }: { lang: Lang; children: Reac
         </Providers>
         {jsonLdScript(getOrganizationJsonLd(lang))}
         {jsonLdScript(getWebSiteJsonLd(lang))}
+        {GTM_ID && (
+          <Script id="gtm" strategy="afterInteractive">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
+          </Script>
+        )}
         {GA_ID && (
           <>
             <Script

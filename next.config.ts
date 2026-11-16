@@ -17,6 +17,8 @@ const moved: [string, string][] = [
   // Sajjad's architecture (Nov 2026): Selected Work became Work.
   ["/selected-work", "/work"],
   ["/policy", "/privacy"],
+  // The videos page became the video portfolio (Zakeri, 16 Nov 2026).
+  ["/videos", "/portfolio"],
   ["/privacy-policy", "/privacy"],
 ];
 
@@ -25,6 +27,18 @@ const nextConfig: NextConfig = {
   // Two root layouts (English and /ar) keep every page static; unmatched URLs use app/global-not-found.tsx.
   experimental: { globalNotFound: true },
   outputFileTracingRoot: import.meta.dirname,
+  // Video covers: Cloudflare R2 (media.zakeri.dev), YouTube thumbnails, and covers still in the old Supabase bucket.
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "media.zakeri.dev" },
+      { protocol: "https", hostname: "i.ytimg.com" },
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/public/site-videos/**",
+      },
+    ],
+  },
   // The content panel's JSON is read at request time.
   outputFileTracingIncludes: { "/**": ["./content/**/*"] },
   // Sajjad (SEO): keep zakeri.dev out of the index. robots.txt stays open so Google can see this header.

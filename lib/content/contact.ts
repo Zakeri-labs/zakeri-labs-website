@@ -13,15 +13,18 @@ const en = {
     title: "Start with the business challenge. Not the technology.",
     text: "We’ll help determine whether the right next step is automation, AI video, content, web and digital work, an IDRAK product or another practical solution.",
   },
-  form: { title: "Send us a message" },
+  form: {
+    title: "Send us a message",
+    hint: "We will call or message you on this number.",
+    phone: "Phone number",
+    successText:
+      "We have received your answers and will contact you shortly to discuss the most practical next step.",
+  },
   direct: {
     eyebrow: "Direct contact",
     title: "Prefer to Talk Directly?",
     phone: "Phone",
     email: "Email",
-    whatsappText:
-      "Prefer WhatsApp? Send us a short message about your business and what you would like to improve.",
-    whatsappCta: "Contact Us on WhatsApp",
     location: "Muscat, Oman",
   },
   next: {
@@ -104,8 +107,8 @@ const en = {
         a: "A brief description of your business, the challenge or opportunity, and what you would like to achieve is enough to start.",
       },
       {
-        q: "Can I contact you directly on WhatsApp?",
-        a: "Yes. You can send a short description of what you need and continue the conversation there.",
+        q: "How soon will I hear back?",
+        a: "We read every message and reply by phone or email, usually within one working day.",
       },
       {
         q: "Do all projects start with a discovery or pilot?",
@@ -135,14 +138,17 @@ const ar: ContactCopy = {
     title: "ابدأ من تحدي العمل، لا من التقنية.",
     text: "سنساعدك على تحديد ما إذا كانت الخطوة التالية المناسبة هي الأتمتة أو فيديو الذكاء الاصطناعي أو المحتوى أو أعمال الويب والرقمية أو أحد منتجات إدراك أو حلاً عملياً آخر.",
   },
-  form: { title: "أرسل لنا رسالة" },
+  form: {
+    title: "أرسل لنا رسالة",
+    hint: "سنتصل بك أو نراسلك على هذا الرقم.",
+    phone: "رقم الهاتف",
+    successText: "وصلتنا إجاباتك، وسنتواصل معك قريباً لمناقشة الخطوة التالية الأكثر عملية.",
+  },
   direct: {
     eyebrow: "تواصل مباشر",
     title: "تفضّل الحديث مباشرة؟",
     phone: "الهاتف",
     email: "البريد الإلكتروني",
-    whatsappText: "تفضّل واتساب؟ أرسل لنا رسالة قصيرة عن عملك وما تودّ تحسينه.",
-    whatsappCta: "تواصل معنا عبر واتساب",
     location: "مسقط، عُمان",
   },
   next: {
@@ -225,8 +231,8 @@ const ar: ContactCopy = {
         a: "يكفي وصف موجز لعملك، والتحدي أو الفرصة، وما تودّ تحقيقه للبدء.",
       },
       {
-        q: "هل يمكنني التواصل معكم مباشرة عبر واتساب؟",
-        a: "نعم. يمكنك إرسال وصف قصير لما تحتاجه ومتابعة المحادثة هناك.",
+        q: "متى سأتلقى الرد؟",
+        a: "نقرأ كل رسالة ونردّ بالهاتف أو البريد الإلكتروني، عادةً خلال يوم عمل واحد.",
       },
       {
         q: "هل تبدأ جميع المشاريع بمرحلة استكشاف أو تجربة أولية؟",

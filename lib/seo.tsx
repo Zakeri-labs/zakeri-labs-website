@@ -17,7 +17,7 @@ export type PublicPage =
   | "products"
   | "industries"
   | "work"
-  | "videos"
+  | "portfolio"
   | "about"
   | "how-we-work"
   | "contact"
@@ -31,7 +31,7 @@ export const PUBLIC_PAGE_PATHS: Record<PublicPage, string> = {
   products: "/products",
   industries: "/industries",
   work: "/work",
-  videos: "/videos",
+  portfolio: "/portfolio",
   about: "/about",
   "how-we-work": "/how-we-work",
   contact: "/contact",
@@ -133,16 +133,16 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
         "كيف تعمل إدراك: نبدأ من تحدي العمل ونحدّد النطاق، ثم ننفّذ عبر تجربة أولية أو مشروع محدّد أو شراكة مستمرة أو تسعير حسب الاستخدام.",
     },
   },
-  videos: {
+  portfolio: {
     en: {
-      title: "Videos | IDRAK AI Solutions Oman",
+      title: "Video Portfolio: Reels, Product Films & Pitch Videos | IDRAK Oman",
       description:
-        "Watch IDRAK AI Solutions promo films, solution walkthroughs and project demos: AI automation, AI video and digital solutions built in Oman.",
+        "Watch reels, product tours and pitch films produced by IDRAK in Oman, and see what our video and content production service includes, from script to final cut.",
     },
     ar: {
-      title: "الفيديوهات | إدراك للحلول الذكية",
+      title: "معرض الفيديو: ريلز وأفلام منتجات وعروض | إدراك عُمان",
       description:
-        "شاهد أفلام إدراك للحلول الذكية الترويجية وشروحات الحلول وعروض المشاريع: أتمتة الأعمال والفيديو بالذكاء الاصطناعي والحلول الرقمية من عُمان.",
+        "شاهد الريلز وجولات المنتجات وأفلام العروض التي أنتجتها إدراك في عُمان، وتعرّف على ما تشمله خدمة إنتاج الفيديو والمحتوى لدينا من النص إلى النسخة النهائية.",
     },
   },
   contact: {
@@ -219,6 +219,9 @@ export type SeoOverride = {
   ogImage?: string;
 };
 
+/** Pages with their own default share image (1200×630, in /public/og). */
+const PAGE_IMAGE: Partial<Record<PublicPage, string>> = { portfolio: "/og/portfolio.jpg" };
+
 /** A share image picked in the admin panel, in the shape buildMetadata wants. */
 export const shareImage = (url: string | undefined, alt: string) =>
   url
@@ -242,7 +245,7 @@ export function createPageMetadata(
     ogDescription: override.description || e.ogDescription,
     noindex: override.noindex,
     canonical: override.canonical,
-    image: shareImage(override.ogImage, title),
+    image: shareImage(override.ogImage ?? PAGE_IMAGE[page], title),
   });
 }
 

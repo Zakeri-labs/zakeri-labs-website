@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 import {
   Container,
@@ -17,13 +17,12 @@ import { LeadWizard } from "@/components/site/LeadWizard";
 import { LocalizedLink } from "@/components/site/LocalizedLink";
 import { COMMON } from "@/lib/content/common";
 import { CONTACT } from "@/lib/content/contact";
-import { useCopy, useI18n } from "@/lib/i18n";
-import { SITE, whatsappUrl } from "@/lib/site";
+import { useCopy } from "@/lib/i18n";
+import { SITE } from "@/lib/site";
 
 export function ContactPage() {
   const k = useCopy(CONTACT);
   const c = useCopy(COMMON);
-  const { lang } = useI18n();
 
   return (
     <>
@@ -52,7 +51,7 @@ export function ContactPage() {
             <Reveal className="card-surface p-6 sm:p-9">
               <h2 className="text-2xl font-bold">{k.form.title}</h2>
               <div className="mt-6">
-                <LeadWizard />
+                <LeadWizard plain={k.form} />
               </div>
             </Reveal>
 
@@ -98,18 +97,6 @@ export function ContactPage() {
                     <span className="font-semibold">{k.direct.location}</span>
                   </li>
                 </ul>
-              </div>
-              <div className="rounded-[1.25rem] border border-[#25d366]/25 bg-[#25d366]/10 p-6 sm:p-8">
-                <MessageCircle className="h-7 w-7 text-[#25d366]" />
-                <p className="mt-4 leading-relaxed text-foreground/80">{k.direct.whatsappText}</p>
-                <a
-                  href={whatsappUrl(lang)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-6 font-semibold text-white transition hover:bg-[#1fb857]"
-                >
-                  <MessageCircle className="h-4 w-4" /> {k.direct.whatsappCta}
-                </a>
               </div>
             </Reveal>
           </div>

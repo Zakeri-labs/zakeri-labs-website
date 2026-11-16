@@ -6,11 +6,11 @@ import { DETAIL_PAGES, detailPath } from "@/lib/content/detail";
 import { HOME } from "@/lib/content/home";
 import { HOW } from "@/lib/content/how";
 import { DEFAULT_COPY, flatten } from "@/lib/content/overrides";
+import { PORTFOLIO } from "@/lib/content/portfolio";
 import { PRIVACY } from "@/lib/content/privacy";
 import { PRODUCTS } from "@/lib/content/products";
 import { SERVICES } from "@/lib/content/services";
 import { TERMS } from "@/lib/content/terms";
-import { VIDEOS } from "@/lib/content/videos";
 import { WORK } from "@/lib/content/work";
 import { IMG } from "@/lib/images";
 import { createPageMetadata, PUBLIC_PAGE_PATHS, type PublicPage } from "@/lib/seo";
@@ -25,11 +25,11 @@ void [
   DELETION,
   HOME,
   HOW,
+  PORTFOLIO,
   PRIVACY,
   PRODUCTS,
   SERVICES,
   TERMS,
-  VIDEOS,
   WORK,
 ];
 
@@ -39,7 +39,7 @@ const NAMES: Record<string, string> = {
   products: "Products (hub)",
   industries: "Industries (hub)",
   work: "Work (hub)",
-  videos: "Videos",
+  portfolio: "Video portfolio",
   about: "About",
   "how-we-work": "How we work",
   contact: "Contact",
