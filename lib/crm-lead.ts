@@ -81,19 +81,26 @@ export async function saveWebsiteLead(
       ...lead.summary,
       ...tracking.map(([k, v]) => `${k}: ${v}`),
     ].join("\n");
-    await rest(`Lead?${where}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        notes: [row?.notes, block].filter(Boolean).join("\n\n").slice(0, 20000),
-        tags: [...new Set([...(row?.tags ?? []), SOURCE])],
-        last_updated: new Date().toISOString(),
-        ...(status === "inserted" ? { size: SIZE[lead.size] } : {}),
-        ...(lead.company && !row?.company ? { company: lead.company } : {}),
-      }),
-    });
-    // on its own: another lead may already own this email (unique per workspace), which must not undo the rest
-    if (lead.email && !row?.email)
-      await rest(`Lead?${where}`, { method: "PATCH", body: JSON.stringify({ email: lead.email }) });
+    // A number that is already a lead belongs to its rep: an anonymous form must not change it (the CRM's own
+    // public form never does). The enquiry still reaches us by email and, once the table exists, in site_leads.
+    if (status === "inserted") {
+      const patched = await rest(`Lead?${where}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          notes: block.slice(0, 20000),
+          tags: [...new Set([...(row?.tags ?? []), SOURCE])],
+          size: SIZE[lead.size],
+          ...(lead.company ? { company: lead.company } : {}),
+        }),
+      });
+      if (!patched.ok) console.error("website lead: notes not saved", patched.status);
+      // on its own: another lead may already own this email (unique per workspace), which must not undo the rest
+      if (lead.email)
+        await rest(`Lead?${where}`, {
+          method: "PATCH",
+          body: JSON.stringify({ email: lead.email }),
+        });
+    }
     // structured copy for reports (lead → contract by phone); ignored until the table exists
     await rest("site_leads", {
       method: "POST",

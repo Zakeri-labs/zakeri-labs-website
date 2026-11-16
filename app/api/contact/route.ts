@@ -8,7 +8,13 @@ import { SITE } from "@/lib/site";
 
 const FROM = "IDRAK Website <website@omanai.tech>";
 
-const short = z.string().trim().max(500).optional().default("");
+// one line each: a line break here would let a visitor write fake lines into the lead's notes
+const short = z
+  .string()
+  .max(500)
+  .transform((v) => v.replace(/[\u0000-\u001f\u007f]+/g, " ").trim())
+  .optional()
+  .default("");
 /** First-visit source from the idrak_attr cookie (lib/attribution.ts). Unknown keys are dropped. */
 const Attribution = z
   .object({
@@ -30,7 +36,8 @@ const Lead = z.object({
     .trim()
     .max(40)
     .regex(/^[+\d][\d\s().-]*$/)
-    .refine((p) => p.replace(/\D/g, "").length >= 8),
+    // 8 to 15 digits (E.164) and not all zeros: a longer number loses digits as a JavaScript number
+    .refine((p) => /^(?!0+$)\d{8,15}$/.test(p.replace(/\D/g, ""))),
   company: z.string().trim().max(160).optional().default(""),
   email: z
     .union([z.string().trim().email().max(200), z.literal("")])

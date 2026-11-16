@@ -153,7 +153,8 @@ export async function deleteVideo(id: string): Promise<boolean> {
   // Best effort: a leftover file is harmless, a failed delete must not undo the row removal.
   await Promise.all(
     all
-      .filter((f) => f.startsWith(`${MEDIA_URL}/`))
+      // only files this site put there: the bucket may hold other things
+      .filter((f) => f.startsWith(`${MEDIA_URL}/videos/`))
       .map((f) => {
         const signed = r2Presign("DELETE", f.slice(MEDIA_URL.length + 1));
         return signed && fetch(signed, { method: "DELETE" }).catch(() => {});

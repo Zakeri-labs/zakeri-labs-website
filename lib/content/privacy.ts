@@ -61,6 +61,7 @@ const en = {
       h: "Cookies",
       p: [
         "This website uses only the cookies needed for it to work and, where enabled, Google Analytics cookies. You can block or delete cookies in your browser settings.",
+        "One first-party cookie (idrak_attr, kept for 90 days) remembers how you first reached the site: the first page you opened, the referring website and any campaign tags in the link. It is not shared with third parties. If you send us an enquiry, this information is saved with your enquiry in our customer system so we know which channel it came from.",
       ],
     },
     {
@@ -140,6 +141,7 @@ const ar: typeof en = {
       h: "ملفات تعريف الارتباط",
       p: [
         "يستخدم هذا الموقع فقط الملفات اللازمة لعمله، وعند التفعيل ملفات Google Analytics. يمكنك حظرها أو حذفها من إعدادات المتصفح.",
+        "يحفظ ملف واحد تابع للموقع نفسه (idrak_attr، لمدة 90 يوماً) كيف وصلت إلى الموقع أول مرة: أول صفحة فتحتها، والموقع الذي أحالك، وأي وسوم حملة في الرابط. لا نشاركه مع أي طرف ثالث. وإذا أرسلت لنا استفساراً، تُحفظ هذه المعلومات مع استفسارك في نظام العملاء لدينا لنعرف من أي قناة جاء.",
       ],
     },
     {
