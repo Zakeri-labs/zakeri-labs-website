@@ -12,7 +12,7 @@ const FROM = "IDRAK Website <website@omanai.tech>";
 const short = z
   .string()
   .max(500)
-  .transform((v) => v.replace(/[\u0000-\u001f\u007f]+/g, " ").trim())
+  .transform((v) => v.replace(/\p{Cc}+/gu, " ").trim())
   .optional()
   .default("");
 /** First-visit source from the idrak_attr cookie (lib/attribution.ts). Unknown keys are dropped. */
