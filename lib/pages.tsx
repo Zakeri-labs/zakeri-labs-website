@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { getSeoOverrides } from "@/lib/articles";
 import { COMMON } from "@/lib/content/common";
+import { pageMeta } from "@/lib/content/overrides";
 import { navMenus, type NavMenus } from "@/lib/content/detail";
 import { isLocalizedLang, type Lang } from "@/lib/locales";
 import {
@@ -46,10 +47,14 @@ async function pageMetadata(page: PublicPage, lang: Lang) {
   const o = (await getSeoOverrides())?.[
     page as keyof NonNullable<Awaited<ReturnType<typeof getSeoOverrides>>>
   ];
+  // the admin panel's edit wins over the older Keystatic "Page SEO" entry
+  const m = pageMeta(page);
   return createPageMetadata(page, lang, {
-    title: o?.[lang].title,
-    description: o?.[lang].description,
-    noindex: o?.noindex,
+    title: m.title(lang) || o?.[lang].title,
+    description: m.description(lang) || o?.[lang].description,
+    noindex: m.noindex ?? o?.noindex,
+    canonical: m.canonical,
+    ogImage: m.ogImage,
   });
 }
 

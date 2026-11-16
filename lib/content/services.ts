@@ -1,3 +1,5 @@
+import { withOverrides } from "@/lib/content/overrides";
+
 const en = {
   hero: {
     eyebrow: "IDRAK Services",
@@ -625,4 +627,4 @@ const ar: ServicesCopy = {
   },
 };
 
-export const SERVICES = { en, ar };
+export const SERVICES = withOverrides("services", { en, ar });

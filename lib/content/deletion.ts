@@ -1,6 +1,7 @@
 import { SITE } from "@/lib/site";
 
 import type { PRIVACY } from "./privacy";
+import { withOverrides } from "@/lib/content/overrides";
 
 type Legal = (typeof PRIVACY)["en"];
 
@@ -76,4 +77,4 @@ const ar: Legal = {
   ],
 };
 
-export const DELETION = { en, ar };
+export const DELETION = withOverrides("deletion", { en, ar });

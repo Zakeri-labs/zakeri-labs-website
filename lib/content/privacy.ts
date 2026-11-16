@@ -1,4 +1,5 @@
 import { SITE } from "@/lib/site";
+import { withOverrides } from "@/lib/content/overrides";
 
 type Block = { h: string; p: string[] };
 
@@ -158,4 +159,4 @@ const ar: typeof en = {
   ],
 };
 
-export const PRIVACY = { en, ar };
+export const PRIVACY = withOverrides("privacy", { en, ar });

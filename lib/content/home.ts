@@ -1,3 +1,5 @@
+import { withOverrides } from "@/lib/content/overrides";
+
 const en = {
   hero: {
     eyebrow: "IDRAK AI Solutions · Oman",
@@ -446,4 +448,4 @@ const ar: HomeCopy = {
   },
 };
 
-export const HOME = { en, ar };
+export const HOME = withOverrides("home", { en, ar });

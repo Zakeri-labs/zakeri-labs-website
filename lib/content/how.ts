@@ -1,3 +1,5 @@
+import { withOverrides } from "@/lib/content/overrides";
+
 const en = {
   hero: {
     eyebrow: "How we work",
@@ -520,4 +522,4 @@ const ar: HowCopy = {
   },
 };
 
-export const HOW = { en, ar };
+export const HOW = withOverrides("how-we-work", { en, ar });

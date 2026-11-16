@@ -1,6 +1,7 @@
 import { SITE } from "@/lib/site";
 
 import type { PRIVACY } from "./privacy";
+import { withOverrides } from "@/lib/content/overrides";
 
 type Legal = (typeof PRIVACY)["en"];
 
@@ -130,4 +131,4 @@ const ar: Legal = {
   ],
 };
 
-export const TERMS = { en, ar };
+export const TERMS = withOverrides("terms", { en, ar });
