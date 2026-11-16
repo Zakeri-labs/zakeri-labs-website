@@ -15,9 +15,17 @@ export type PageOverride = {
   noindex?: boolean;
   canonical?: string;
   ogImage?: string;
+  /** Lists whose length the panel changed: "faq" → 7. Rows are removed from the end or added as blank copies of the last row. */
+  rows?: Record<string, number>;
 };
 
-const ALL = data as Record<string, PageOverride>;
+const ALL = data as unknown as Record<string, PageOverride>;
+
+/** Replacements for the key visuals in lib/images.ts, by image key (reserved entry "_images"). */
+export const IMAGE_OVERRIDES = ((data as Record<string, unknown>)._images ?? {}) as Record<
+  string,
+  { src: string; width: number; height: number }
+>;
 
 /** Every page's copy as written in the code, before overrides: what the panel shows as «پیش‌فرض». */
 export const DEFAULT_COPY: Record<string, Record<Lang, unknown>> = {};
@@ -43,16 +51,41 @@ function set(root: unknown, path: string, value: string) {
     at = (at as Record<string, unknown>)[k];
   }
   const last = keys[keys.length - 1];
-  // only an existing string is replaced: the page's structure stays the code's
+  // only an existing string is replaced: the page's structure stays the code's (plus rows the panel added)
   if (isBag(at) && typeof (at as Record<string, unknown>)[last] === "string")
     (at as Record<string, unknown>)[last] = value;
+}
+
+/** A copy of a list item with every string emptied: the shape of a row the panel adds. */
+const blank = <T>(v: T): T =>
+  typeof v === "string"
+    ? ("" as T)
+    : Array.isArray(v)
+      ? (v.map(blank) as T)
+      : isBag(v)
+        ? (Object.fromEntries(Object.entries(v).map(([k, x]) => [k, blank(x)])) as T)
+        : v;
+
+/** Makes the array at `path` exactly `n` long; anything that is not a non-empty array is left alone. */
+function resize(root: unknown, path: string, n: number) {
+  let at = root;
+  for (const k of path.split(".")) {
+    if (!isBag(at) || !Object.hasOwn(at, k)) return;
+    at = (at as Record<string, unknown>)[k];
+  }
+  if (!Array.isArray(at) || !at.length || n < 1 || n > 40) return;
+  const last = at[at.length - 1];
+  while (at.length < n) at.push(blank(clone(last)));
+  at.length = n;
 }
 
 export function withOverrides<T extends Record<Lang, unknown>>(id: string, copy: T): T {
   DEFAULT_COPY[id] = copy;
   const o = ALL[id];
-  if (!o?.en && !o?.ar) return copy;
+  if (!o?.en && !o?.ar && !o?.rows) return copy;
   const out = clone(copy);
+  for (const lang of ["en", "ar"] as const)
+    for (const [path, n] of Object.entries(o.rows ?? {})) resize(out[lang], path, n);
   for (const lang of ["en", "ar"] as const)
     for (const [path, value] of Object.entries(o[lang] ?? {}))
       if (!path.startsWith("seo.") || isBag((out[lang] as Record<string, unknown>)?.seo))

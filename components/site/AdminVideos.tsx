@@ -43,34 +43,64 @@ const api = (url: string, method: string, body?: unknown) =>
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
-/** Signed upload straight to Supabase Storage (videos are too big for a Vercel function). */
-async function upload(file: File, onProgress: (pct: number) => void): Promise<string> {
-  const res = await api("/api/videos/upload-url", "POST", {
-    filename: file.name,
-    content_type: file.type,
-  });
+/** Pixel size of a video or image file, plus (for a video) a frame to use as the cover. */
+async function inspect(file: File): Promise<{ width?: number; height?: number; frame?: Blob }> {
+  try {
+    if (file.type.startsWith("image/")) {
+      const img = await createImageBitmap(file);
+      return { width: img.width, height: img.height };
+    }
+    const video = document.createElement("video");
+    video.muted = true;
+    video.preload = "auto";
+    video.src = URL.createObjectURL(file);
+    const once = (name: string) =>
+      new Promise<void>((resolve, reject) => {
+        video.addEventListener(name, () => resolve(), { once: true });
+        video.addEventListener("error", () => reject(new Error("unreadable")), { once: true });
+        setTimeout(() => reject(new Error("timeout")), 15000);
+      });
+    await once("loadedmetadata");
+    const { videoWidth: width, videoHeight: height } = video;
+    // a frame a quarter of the way in is rarely the black first frame
+    video.currentTime = Math.min(video.duration * 0.25, 20);
+    await once("seeked");
+    const canvas = document.createElement("canvas");
+    const scale = Math.min(1, 1280 / Math.max(width, height));
+    canvas.width = Math.round(width * scale);
+    canvas.height = Math.round(height * scale);
+    canvas.getContext("2d")?.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const frame = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", 0.82));
+    URL.revokeObjectURL(video.src);
+    return { width, height, frame: frame ?? undefined };
+  } catch {
+    return {}; // the browser cannot decode it (e.g. some .mov): upload it without a size
+  }
+}
+
+/** Presigned upload straight to Cloudflare R2 (videos are too big for a Vercel function). */
+async function upload(
+  file: Blob,
+  size: { width?: number; height?: number },
+  onProgress: (pct: number) => void,
+): Promise<string> {
+  const res = await api("/api/videos/upload-url", "POST", { content_type: file.type, ...size });
   if (!res.ok) throw new Error(`Upload not allowed for ${file.type || "this file type"}`);
-  const { path, upload_url, apikey } = (await res.json()) as {
+  const { path, upload_url, headers } = (await res.json()) as {
     path: string;
     upload_url: string;
-    apikey: string | null;
+    headers: Record<string, string>;
   };
   await new Promise<void>((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", upload_url);
-    if (apikey) {
-      xhr.setRequestHeader("apikey", apikey);
-      xhr.setRequestHeader("Authorization", `Bearer ${apikey}`);
-    }
+    for (const [k, v] of Object.entries(headers)) xhr.setRequestHeader(k, v);
     xhr.upload.onprogress = (e) =>
       e.lengthComputable && onProgress(Math.round((e.loaded / e.total) * 100));
     xhr.onload = () =>
       xhr.status < 300 ? resolve() : reject(new Error(`Upload failed (${xhr.status})`));
     xhr.onerror = () => reject(new Error("Upload failed (network)"));
-    const fd = new FormData();
-    fd.append("cacheControl", "3600");
-    fd.append("", file);
-    xhr.send(fd);
+    xhr.send(file);
   });
   return path;
 }
@@ -137,8 +167,16 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
         external_url: form.external_url.trim() || null,
         solution_slug: form.solution_slug.trim() || null,
       };
-      if (file) body.storage_path = await upload(file, setProgress);
-      if (poster) body.poster_path = await upload(poster, () => {});
+      if (file) {
+        const info = await inspect(file);
+        body.storage_path = await upload(file, info, setProgress);
+        // an uploaded file replaces a pasted link
+        body.external_url = null;
+        // no cover picked: use a frame of the video, in the video's own shape
+        if (!poster && info.frame && !editing?.poster_path)
+          body.poster_path = await upload(info.frame, info, () => {});
+      }
+      if (poster) body.poster_path = await upload(poster, await inspect(poster), () => {});
       const r = editing
         ? await api(`/api/videos/${editing.id}`, "PATCH", body)
         : await api("/api/videos", "POST", body);
@@ -254,20 +292,27 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
               className="mt-1"
             />
           </label>
-          <label className="text-sm font-medium">
-            Category
-            <select
-              className={field}
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value as Form["category"] })}
+          <div className="text-sm font-medium">
+            <span id="video-category">Category</span>
+            <div
+              role="group"
+              aria-labelledby="video-category"
+              className="mt-1 flex flex-wrap gap-2"
             >
-              {Object.entries(CATEGORY_LABELS).map(([k, l]) => (
-                <option key={k} value={k}>
-                  {l}
-                </option>
+              {(Object.keys(CATEGORY_LABELS) as Form["category"][]).map((k) => (
+                <Button
+                  key={k}
+                  type="button"
+                  size="sm"
+                  variant={form.category === k ? "default" : "outline"}
+                  aria-pressed={form.category === k}
+                  onClick={() => setForm({ ...form, category: k })}
+                >
+                  {CATEGORY_LABELS[k]}
+                </Button>
               ))}
-            </select>
-          </label>
+            </div>
+          </div>
           <label className="text-sm font-medium">
             Linked solution (slug, optional)
             <Input
@@ -298,7 +343,7 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
             />
           </label>
           <label className="text-sm font-medium">
-            Poster image (jpg, png, webp)
+            Cover image (jpg, png, webp) - empty: a frame of the video is used
             <input
               type="file"
               accept="image/jpeg,image/png,image/webp"
@@ -322,7 +367,7 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
             checked={form.published}
             onChange={(e) => setForm({ ...form, published: e.target.checked })}
           />
-          Published (visible on /videos)
+          Published (visible on /portfolio)
         </label>
         {busy && file && (
           <div
@@ -369,7 +414,9 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
                   <p className="text-xs text-muted-foreground">
                     {CATEGORY_LABELS[v.category]}
                     {v.solution_slug && ` / ${v.solution_slug}`} /{" "}
-                    {v.storage_path ? "uploaded file" : "link"}
+                    {v.storage_path || v.external_url?.startsWith("https://media.zakeri.dev/")
+                      ? "uploaded file"
+                      : "link"}
                   </p>
                 </div>
                 <label className="flex items-center gap-1 text-xs">

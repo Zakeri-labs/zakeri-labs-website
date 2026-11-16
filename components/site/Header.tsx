@@ -35,7 +35,7 @@ function useSubmenus(menus: Record<Lang, NavMenus>): Partial<Record<NavPath, Sub
     "/work": [
       { href: "/work#case-studies", label: c.menu2.caseStudies },
       { href: "/work#portfolio", label: c.menu2.portfolio },
-      { href: "/videos", label: c.menu2.videos },
+      { href: "/portfolio", label: c.menu2.videos },
     ],
     "/about": [
       { href: "/about", label: c.menu2.aboutIdrak },
@@ -93,7 +93,7 @@ export function Header({
       ? current === "/"
       : current.startsWith(href) ||
         (href === "/about" && current.startsWith("/how-we-work")) ||
-        (href === "/work" && current.startsWith("/videos"));
+        (href === "/work" && current.startsWith("/portfolio"));
   // Insights stays hidden until an article is published (an empty /articles is noindex).
   const navPaths = NAV_PATHS.filter((p) => p !== "/articles" || hasArticles);
   // Close a hover/focus dropdown after a pick or on Escape.

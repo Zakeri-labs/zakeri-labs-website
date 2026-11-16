@@ -28,6 +28,7 @@ import {
   type Interest,
   type Size,
 } from "@/lib/content/common";
+import { readAttribution } from "@/lib/attribution";
 import { useCopy, useI18n } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/track";
@@ -58,7 +59,14 @@ const field =
  * contact), then an email to the team and a one-tap WhatsApp handoff.
  * `?interest=ai-video` (etc.) preselects the focus step.
  */
-export function LeadWizard({ className }: { className?: string }) {
+export function LeadWizard({
+  className,
+  plain,
+}: {
+  className?: string;
+  /** Contact page (Sajjad, 16 Nov 2026): no WhatsApp handoff, with this wording instead. */
+  plain?: { hint: string; phone: string; successText: string };
+}) {
   const f = useCopy(COMMON).form;
   const { lang } = useI18n();
   const [step, setStep] = useState(0);
@@ -114,9 +122,17 @@ export function LeadWizard({ className }: { className?: string }) {
           note,
           lang,
           page: window.location.pathname,
+          page_url: window.location.href,
+          attribution: readAttribution(),
         }),
       });
       if (!res.ok) throw new Error(String(res.status));
+      // GA4's recommended lead event; Google Tag Manager listens for it on the dataLayer
+      track("generate_lead", {
+        lead_source: "website_form",
+        page_path: window.location.pathname,
+        interest_type: (interest ?? "not-sure").replace(/-/g, "_"),
+      });
       track("contact_form_submitted", {
         interest_type: (interest ?? "not-sure").replace(/-/g, "_"),
         business_size: size ?? "",
@@ -147,15 +163,19 @@ export function LeadWizard({ className }: { className?: string }) {
             <Check className="h-7 w-7" strokeWidth={3} />
           </span>
           <h3 className="text-3xl font-bold">{f.successTitle}</h3>
-          <p className="max-w-md leading-relaxed text-muted-foreground">{f.successText}</p>
-          <a
-            href={waHref}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25d366] px-6 font-semibold text-white transition hover:-translate-y-0.5"
-          >
-            <MessageCircle className="h-5 w-5" /> {f.successWhatsapp}
-          </a>
+          <p className="max-w-md leading-relaxed text-muted-foreground">
+            {plain?.successText ?? f.successText}
+          </p>
+          {!plain && (
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#25d366] px-6 font-semibold text-white transition hover:-translate-y-0.5"
+            >
+              <MessageCircle className="h-5 w-5" /> {f.successWhatsapp}
+            </a>
+          )}
           <button
             type="button"
             onClick={() => {
@@ -329,7 +349,7 @@ export function LeadWizard({ className }: { className?: string }) {
         {step === 3 && (
           <form onSubmit={submit}>
             <h3 className="text-2xl font-bold sm:text-3xl">{f.contact.q}</h3>
-            <p className="mt-2 text-muted-foreground">{f.contact.hint}</p>
+            <p className="mt-2 text-muted-foreground">{plain?.hint ?? f.contact.hint}</p>
             {/* Honeypot: hidden from people, filled by bots. */}
             <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
               <input name="website" tabIndex={-1} autoComplete="off" />
@@ -349,13 +369,13 @@ export function LeadWizard({ className }: { className?: string }) {
               </label>
               <label className="block">
                 <span className="text-sm font-semibold">
-                  {f.contact.phone} <span className="text-cyan">*</span>
+                  {plain?.phone ?? f.contact.phone} <span className="text-cyan">*</span>
                 </span>
                 <input
                   name="phone"
                   type="tel"
                   required
-                  minLength={6}
+                  minLength={8}
                   maxLength={40}
                   dir="ltr"
                   autoComplete="tel"
@@ -399,15 +419,19 @@ export function LeadWizard({ className }: { className?: string }) {
                 <p className="font-semibold text-destructive">{f.errorTitle}</p>
                 <p className="mt-1 text-muted-foreground">
                   {f.errorText}{" "}
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-semibold text-cyan hover:underline"
-                  >
-                    WhatsApp
-                  </a>{" "}
-                  ·{" "}
+                  {!plain && (
+                    <>
+                      <a
+                        href={waHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-semibold text-cyan hover:underline"
+                      >
+                        WhatsApp
+                      </a>{" "}
+                      ·{" "}
+                    </>
+                  )}
                   <a
                     href={`mailto:${SITE.email}`}
                     className="font-semibold text-cyan hover:underline"

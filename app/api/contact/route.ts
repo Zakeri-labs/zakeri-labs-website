@@ -1,10 +1,29 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { CAMPAIGN_KEYS } from "@/lib/attribution";
 import { CHALLENGES, COMMON, INTERESTS, SIZES } from "@/lib/content/common";
+import { saveWebsiteLead } from "@/lib/crm-lead";
 import { SITE } from "@/lib/site";
 
 const FROM = "IDRAK Website <website@omanai.tech>";
+
+// one line each: a line break here would let a visitor write fake lines into the lead's notes
+const short = z
+  .string()
+  .max(500)
+  .transform((v) => v.replace(/\p{Cc}+/gu, " ").trim())
+  .optional()
+  .default("");
+/** First-visit source from the idrak_attr cookie (lib/attribution.ts). Unknown keys are dropped. */
+const Attribution = z
+  .object({
+    landing_page: short,
+    referrer: short,
+    first_seen: short,
+    ...Object.fromEntries(CAMPAIGN_KEYS.map((k) => [k, short])),
+  })
+  .default({});
 
 const Lead = z.object({
   size: z.enum(SIZES),
@@ -12,7 +31,13 @@ const Lead = z.object({
   interest: z.enum(INTERESTS).default("not-sure"),
   note: z.string().trim().max(2000).optional().default(""),
   name: z.string().trim().min(1).max(120),
-  phone: z.string().trim().min(6).max(40),
+  phone: z
+    .string()
+    .trim()
+    .max(40)
+    .regex(/^[+\d][\d\s().-]*$/)
+    // 8 to 15 digits (E.164) and not all zeros: a longer number loses digits as a JavaScript number
+    .refine((p) => /^(?!0+$)\d{8,15}$/.test(p.replace(/\D/g, ""))),
   company: z.string().trim().max(160).optional().default(""),
   email: z
     .union([z.string().trim().email().max(200), z.literal("")])
@@ -20,13 +45,31 @@ const Lead = z.object({
     .default(""),
   lang: z.enum(["en", "ar"]).default("en"),
   page: z.string().max(200).optional().default(""),
+  page_url: short,
+  attribution: Attribution,
   website: z.string().optional().default(""), // honeypot
 });
 
 const escape = (s: string) =>
   s.replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`).replace(/\n/g, "<br>");
 
+// ponytail: per-instance memory, so a burst spread over several serverless instances gets through;
+// move to a Vercel Firewall rule or a shared store if the form is abused.
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const hits = new Map<string, number[]>();
+function limited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear();
+  return recent.length > MAX_PER_WINDOW;
+}
+
 export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
+  if (limited(ip)) return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
   const parsed = Lead.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
@@ -35,15 +78,40 @@ export async function POST(request: Request) {
   // Bots fill the hidden field; pretend success so they move on.
   if (e.website) return NextResponse.json({ ok: true });
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error("contact: RESEND_API_KEY is not set");
-    return NextResponse.json({ ok: false, error: "not_configured" }, { status: 500 });
-  }
-
   const f = COMMON.en.form;
   const size = f.size.options[e.size].join(" · ");
   const challenges = e.challenges.map((c) => f.challenge.options[c]).join(", ");
+  const tracking: Record<string, string> = {
+    page_url: e.page_url || `${SITE.url}${e.page}`,
+    ...e.attribution,
+  };
+
+  // 1. the CRM lead (source Website). A CRM problem must not lose the enquiry: the email still goes out.
+  const crm = await saveWebsiteLead({
+    name: e.name,
+    phone: e.phone,
+    email: e.email,
+    company: e.company,
+    size: e.size,
+    lang: e.lang,
+    summary: [
+      `Wants to: ${challenges}`,
+      `Area of interest: ${f.interests[e.interest]}`,
+      `Business size: ${size}`,
+      ...(e.note ? [`Message: ${e.note}`] : []),
+    ],
+    tracking,
+  });
+  if (!crm.ok) console.error("contact: CRM lead not saved:", crm.error);
+
+  // 2. the email to the team
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("contact: RESEND_API_KEY is not set");
+    return crm.ok
+      ? NextResponse.json({ ok: true })
+      : NextResponse.json({ ok: false, error: "not_configured" }, { status: 500 });
+  }
   const waLink = `https://wa.me/${e.phone.replace(/[^\d]/g, "")}`;
   const rows: [string, string][] = [
     ["Name", e.name],
@@ -54,7 +122,10 @@ export async function POST(request: Request) {
     ["Wants to", challenges],
     ["Area of interest", f.interests[e.interest]],
     ["Site language", e.lang === "ar" ? "Arabic" : "English"],
-    ["Sent from", `${SITE.url}${e.page}`],
+    ["CRM", crm.ok ? `Lead ${crm.status} (source: Website)` : `NOT saved: ${crm.error}`],
+    ...Object.entries(tracking)
+      .filter(([, v]) => v)
+      .map(([k, v]): [string, string] => [k.replace(/_/g, " "), v]),
   ];
 
   const html = `
@@ -92,7 +163,8 @@ export async function POST(request: Request) {
 
   if (!res.ok) {
     console.error("contact: Resend rejected the email", res.status, await res.text());
-    return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
+    // the lead is in the CRM, so the visitor's enquiry was not lost
+    if (!crm.ok) return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
   }
   return NextResponse.json({ ok: true });
 }

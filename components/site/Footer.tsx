@@ -31,7 +31,7 @@ export function Footer({
       links: [
         ...toLinks(m.products),
         { href: "/work", label: c.nav["/work"] },
-        { href: "/videos", label: c.menu2.videos },
+        { href: "/portfolio", label: c.menu2.videos },
       ],
     },
     {
