@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   CheckCircle2,
@@ -37,29 +37,33 @@ function Cover({ v, onPlay }: { v: PublicVideo; onPlay: () => void }) {
       type="button"
       onClick={onPlay}
       aria-label={`${t.play}: ${title}`}
-      className={cn(
-        "group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-ink to-violet/30 text-start shadow-[var(--shadow-lift)] transition duration-300 hover:-translate-y-1 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        isVertical(v) ? "aspect-[9/16]" : "aspect-video",
-      )}
+      className="group block w-full rounded-2xl text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      {v.poster && (
-        <Image
-          src={v.poster}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.04]"
-        />
-      )}
-      <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-      <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/40 backdrop-blur transition group-hover:scale-110 group-hover:bg-brand">
-        <Play className="h-5 w-5 translate-x-0.5 rtl:-translate-x-0.5" fill="currentColor" />
+      <span
+        className={cn(
+          "relative block overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-ink to-violet/30 shadow-[var(--shadow-lift)] transition duration-300 group-hover:-translate-y-1 group-hover:border-primary/50",
+          isVertical(v) ? "aspect-[9/16]" : "aspect-video",
+        )}
+      >
+        {v.poster && (
+          <Image
+            src={v.poster}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            className="object-cover transition duration-500 group-hover:scale-[1.04]"
+          />
+        )}
+        <span className="absolute inset-0 bg-black/10 transition group-hover:bg-black/30" />
+        <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white ring-1 ring-white/50 backdrop-blur transition group-hover:scale-110 group-hover:bg-brand">
+          <Play className="h-5 w-5 translate-x-0.5 rtl:-translate-x-0.5" fill="currentColor" />
+        </span>
       </span>
-      <span className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
-        <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan rtl:tracking-normal">
+      <span className="mt-3 block px-1">
+        <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary rtl:tracking-normal">
           {t.filters[kindOf(v)]}
         </span>
-        <span className="mt-1 line-clamp-2 block text-sm font-bold leading-snug text-white sm:text-base">
+        <span className="mt-1 line-clamp-2 block text-sm font-bold leading-snug group-hover:text-primary sm:text-base">
           {title}
         </span>
       </span>
@@ -68,13 +72,26 @@ function Cover({ v, onPlay }: { v: PublicVideo; onPlay: () => void }) {
 }
 
 /** The player opens only on a click, so no video byte is loaded before that. */
-function Lightbox({ v, onClose }: { v: PublicVideo | null; onClose: () => void }) {
+function Lightbox({
+  v,
+  onClose,
+  opener,
+}: {
+  v: PublicVideo | null;
+  onClose: () => void;
+  /** The cover that opened the player: focus goes back to it on close. */
+  opener: React.RefObject<HTMLElement | null>;
+}) {
   const { lang } = useI18n();
   return (
-    // Radix Dialog: focus trap, Esc and click-outside close, focus returns to the cover
+    // Radix Dialog: focus trap, Esc and click-outside close
     <Dialog open={!!v} onOpenChange={(open) => !open && onClose()}>
       {v && (
         <DialogContent
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+            opener.current?.focus();
+          }}
           className={cn(
             "max-h-[94vh] gap-0 overflow-y-auto border-white/10 bg-ink p-0 text-white sm:rounded-2xl",
             isVertical(v) ? "w-[min(92vw,26rem)] max-w-none" : "w-[min(94vw,68rem)] max-w-none",
@@ -138,7 +155,9 @@ export function PortfolioPage({ videos }: { videos: PublicVideo[] }) {
     if (v) setOpen(v);
   }, [videos]);
 
+  const opener = useRef<HTMLElement | null>(null);
   const show = (v: PublicVideo | null) => {
+    if (v) opener.current = document.activeElement as HTMLElement | null;
     setOpen(v);
     window.history.replaceState(null, "", v ? `?v=${v.id}` : window.location.pathname);
     if (v)
@@ -181,7 +200,7 @@ export function PortfolioPage({ videos }: { videos: PublicVideo[] }) {
             {/* CSS columns: reels stay 9:16 and films 16:9 without gaps between rows */}
             <ul className="columns-2 gap-4 sm:columns-3 sm:gap-5 lg:columns-4">
               {shown.map((v) => (
-                <li key={v.id} className="mb-4 break-inside-avoid sm:mb-5">
+                <li key={v.id} className="mb-6 break-inside-avoid">
                   <Cover v={v} onPlay={() => show(v)} />
                 </li>
               ))}
@@ -219,7 +238,7 @@ export function PortfolioPage({ videos }: { videos: PublicVideo[] }) {
         text={t.final.text}
         primaryHref="/contact?interest=ai-video"
       />
-      <Lightbox v={open} onClose={() => show(null)} />
+      <Lightbox v={open} onClose={() => show(null)} opener={opener} />
     </>
   );
 }
