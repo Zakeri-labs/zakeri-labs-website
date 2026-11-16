@@ -1,3 +1,5 @@
+import { withOverrides } from "@/lib/content/overrides";
+
 /** Copy shared by every page: navigation, CTAs, footer and the contact form. */
 
 export const INTERESTS = [
@@ -345,4 +347,4 @@ const ar: CommonCopy = {
   },
 };
 
-export const COMMON = { en, ar };
+export const COMMON = withOverrides("common", { en, ar });

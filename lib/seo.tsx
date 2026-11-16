@@ -210,7 +210,20 @@ const SHARE_IMAGE = {
   type: "image/jpeg",
 };
 
-export type SeoOverride = { title?: string; description?: string; noindex?: boolean };
+export type SeoOverride = {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  canonical?: string;
+  /** Site path or absolute URL of a 1200×630 share image. */
+  ogImage?: string;
+};
+
+/** A share image picked in the admin panel, in the shape buildMetadata wants. */
+export const shareImage = (url: string | undefined, alt: string) =>
+  url
+    ? { url: url.startsWith("http") ? url : absoluteUrl(url), width: 1200, height: 630, alt }
+    : undefined;
 
 export function createPageMetadata(
   page: PublicPage,
@@ -228,6 +241,8 @@ export function createPageMetadata(
     ogTitle: override.title || e.ogTitle,
     ogDescription: override.description || e.ogDescription,
     noindex: override.noindex,
+    canonical: override.canonical,
+    image: shareImage(override.ogImage, title),
   });
 }
 

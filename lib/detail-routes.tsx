@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/content/overrides";
 import { Fragment } from "react";
 import { notFound } from "next/navigation";
 
@@ -15,6 +16,7 @@ import { isLocalizedLang, localizePathname, type Lang } from "@/lib/locales";
 import {
   absoluteUrl,
   buildMetadata,
+  shareImage,
   getBreadcrumbJsonLd,
   getFaqJsonLd,
   jsonLdScript,
@@ -74,14 +76,17 @@ function hubName(kind: DetailKind, lang: Lang) {
 function metadata(kind: DetailKind, slug: string, lang: Lang) {
   const e = getDetail(kind, slug);
   if (!e) notFound();
+  const m = pageMeta(`${kind}/${slug}`);
   return buildMetadata({
     path: detailPath(kind, slug),
     lang,
     title: e[lang].seo.title,
     description: e[lang].seo.description,
     type: kind === "work" ? "article" : "website",
-    // Each page shares its own visual in WhatsApp / social previews.
-    image: {
+    noindex: m.noindex,
+    canonical: m.canonical,
+    // Each page shares its own visual in WhatsApp / social previews, unless the panel picked another one.
+    image: shareImage(m.ogImage, e[lang].name) ?? {
       url: IMG[e.image].src,
       width: IMG[e.image].width,
       height: IMG[e.image].height,

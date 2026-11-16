@@ -1,4 +1,5 @@
 import type { IndustryGroup } from "@/lib/projects";
+import { withOverrides } from "@/lib/content/overrides";
 
 const en = {
   hero: {
@@ -204,4 +205,4 @@ const ar: WorkCopy = {
   },
 };
 
-export const WORK = { en, ar };
+export const WORK = withOverrides("work", { en, ar });

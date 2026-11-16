@@ -3,15 +3,20 @@ import { CASE_PAGES } from "./work";
 import { INDUSTRY_PAGES } from "./industries";
 import { PRODUCT_PAGES } from "./products";
 import { SERVICE_PAGES } from "./services";
+import { withOverrides } from "@/lib/content/overrides";
 import type { DetailEntry, DetailKind } from "./types";
 
 export type { DetailEntry, DetailKind } from "./types";
 
+/** Each money page with the edits saved in the admin panel (id "<kind>/<slug>"). */
+const edited = (list: DetailEntry[]) =>
+  list.map((e) => ({ ...e, ...withOverrides(`${e.kind}/${e.slug}`, { en: e.en, ar: e.ar }) }));
+
 export const DETAIL_PAGES: Record<DetailKind, DetailEntry[]> = {
-  services: SERVICE_PAGES,
-  products: PRODUCT_PAGES,
-  industries: INDUSTRY_PAGES,
-  work: CASE_PAGES,
+  services: edited(SERVICE_PAGES),
+  products: edited(PRODUCT_PAGES),
+  industries: edited(INDUSTRY_PAGES),
+  work: edited(CASE_PAGES),
 };
 
 export const detailPath = (kind: DetailKind, slug: string) => `/${kind}/${slug}`;

@@ -1,3 +1,5 @@
+import { withOverrides } from "@/lib/content/overrides";
+
 const en = {
   hero: {
     eyebrow: "About IDRAK",
@@ -294,4 +296,4 @@ const ar: AboutCopy = {
   },
 };
 
-export const ABOUT = { en, ar };
+export const ABOUT = withOverrides("about", { en, ar });

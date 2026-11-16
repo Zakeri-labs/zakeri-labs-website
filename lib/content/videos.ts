@@ -1,3 +1,5 @@
+import { withOverrides } from "@/lib/content/overrides";
+
 const en = {
   hero: {
     eyebrow: "Videos",
@@ -46,4 +48,4 @@ const ar: typeof en = {
   },
 };
 
-export const VIDEOS = { en, ar };
+export const VIDEOS = withOverrides("videos", { en, ar });
