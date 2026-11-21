@@ -261,6 +261,7 @@ export function buildMetadata({
   type = "website",
   noindex = false,
   canonical: canonicalOverride,
+  ogUrl,
 }: {
   path: string;
   lang: Lang;
@@ -272,6 +273,8 @@ export function buildMetadata({
   type?: "website" | "article";
   noindex?: boolean;
   canonical?: string;
+  /** Share URL when it must differ from the canonical (a portfolio sample keeps its own preview). */
+  ogUrl?: string;
 }): Metadata {
   const canonical = canonicalOverride || absoluteUrl(localizePathname(path, lang));
   const images = [image ?? SHARE_IMAGE];
@@ -297,7 +300,7 @@ export function buildMetadata({
       type,
       title: ogTitle,
       description: ogDescription,
-      url: canonical,
+      url: ogUrl ?? canonical,
       locale: OG_LOCALES[lang],
       alternateLocale: LANGUAGES.filter((l) => l !== lang).map((l) => OG_LOCALES[l]),
       images,

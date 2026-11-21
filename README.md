@@ -5,6 +5,14 @@ Next.js 15 site for IDRAK AI Solutions. See `CLAUDE.md` for the architecture.
 ## Video portfolio (admin + API)
 
 Public page: `/portfolio` (`/ar/portfolio`; `/videos` redirects to it). `/portfolio?v=<id>` opens one video.
+Gallery (Mr Zakeri, 20 Nov 2026): a profile-style grid with industry tabs. Every sample has a short code
+(`#C81`); `/portfolio/C81` (`/ar/portfolio/C81`) opens that sample and is the link sales and the WhatsApp AI
+send (share preview = the sample's cover; canonical stays `/portfolio`). `/portfolio?industry=beauty` opens a
+tab. `GET /api/portfolio` lists the published samples (code, industry, title, url) for the AI.
+Codes: `C<cn.omanai.tech number>` for client reels, `S<n>` for our own films. Industries: `lib/industries.ts`,
+labels in `lib/content/portfolio.ts`. Columns `code` and `industry` come from
+`supabase/migrations/20261121000000_site_videos_gallery.sql` (the page works without it, with no codes or tabs).
+A client reel is published only after the client agreed to be shown.
 Admin: `/admin/videos` (password login, noindex).
 Data: table `site_videos` in the CRM Supabase (migration: `supabase/migrations/20261022000000_site_videos.sql`).
 Files: public Cloudflare R2 bucket `idrak-media` on Mr Zakeri's Cloudflare account, served at `https://media.zakeri.dev`
@@ -34,7 +42,7 @@ All calls send `x-api-key: <VIDEOS_API_TOKEN>`. Errors: `401` bad token, `400` i
 "published":true,"sort_order":0}` -> `201 {video}`. Needs `title_en`, `category` and one of `storage_path`/`external_url`.
    Pages refresh within about 60 seconds.
 
-Also: `GET /api/videos` (all, incl. unpublished), `PATCH /api/videos/{id}` (any subset of the fields above),
+Also: `GET /api/videos` (all, incl. unpublished), `PATCH /api/videos/{id}` (any subset of the fields above, plus `code` and `industry`; a taken code answers 409),
 `DELETE /api/videos/{id}` (removes the row and its files).
 
 ## Contact form, CRM lead and tracking

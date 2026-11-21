@@ -14,7 +14,12 @@ export async function PATCH(req: Request, { params }: Ctx) {
   const r = await patchVideo(id, parsed.data);
   return "row" in r
     ? Response.json({ video: r.row })
-    : Response.json({ error: r.status === 404 ? "not_found" : "rejected" }, { status: r.status });
+    : Response.json(
+        {
+          error: r.status === 404 ? "not_found" : r.status === 409 ? "duplicate_code" : "rejected",
+        },
+        { status: r.status },
+      );
 }
 
 export async function DELETE(req: Request, { params }: Ctx) {

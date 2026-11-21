@@ -3,67 +3,94 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
+  CalendarCheck,
+  Check,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Clapperboard,
   Languages,
+  Link2,
+  MessageCircle,
   Mic,
   PenLine,
   Play,
   Smartphone,
 } from "lucide-react";
 
-import { FinalCta, PageHero, Reveal, Section, SectionHeading } from "@/components/site/blocks";
+import { Eyebrow, FinalCta, Reveal, Section, SectionHeading } from "@/components/site/blocks";
+import { LocalizedLink } from "@/components/site/LocalizedLink";
+import { gsap, prefersReducedMotion, useGSAP } from "@/components/site/motion";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { PORTFOLIO } from "@/lib/content/portfolio";
 import { useCopy, useI18n } from "@/lib/i18n";
+import { INDUSTRIES, isIndustry, normalizeCode, type Industry } from "@/lib/industries";
+import { localizePathname, type Lang } from "@/lib/locales";
+import { SITE } from "@/lib/site";
 import { track } from "@/lib/track";
 import type { PublicVideo } from "@/lib/videos";
 import { cn } from "@/lib/utils";
 
-const KINDS = ["reel", "promo", "solution", "project_demo"] as const;
-type Kind = (typeof KINDS)[number];
 const SERVICE_ICONS = [PenLine, Clapperboard, Mic, Smartphone, Languages, CheckCircle2];
 
 const isVertical = (v: PublicVideo) => !!v.width && !!v.height && v.height > v.width;
-/** One chip per video: a vertical video is a reel, a wide one goes by its category. */
-const kindOf = (v: PublicVideo): Kind => (isVertical(v) ? "reel" : v.category);
+/** Label of a tile: a vertical video is a reel, a wide one goes by its category. */
+const kindOf = (v: PublicVideo) => (isVertical(v) ? "reel" : v.category);
+/** A wide film takes two columns so its frame is not cut down to a portrait tile. */
+const isWide = (v: PublicVideo) => !!v.width && !!v.height && v.width > v.height;
 
-function Cover({ v, onPlay }: { v: PublicVideo; onPlay: () => void }) {
+/** Link to send for one sample: /portfolio/C81, or ?v=<id> for a video that has no code yet. */
+const samplePath = (v: PublicVideo, lang: Lang) =>
+  localizePathname("/portfolio", lang) + (v.code ? `/${v.code}` : `?v=${v.id}`);
+
+function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager: boolean }) {
   const t = useCopy(PORTFOLIO);
   const { lang } = useI18n();
   const title = v.title[lang];
+  const wide = isWide(v);
   return (
     <button
       type="button"
+      data-sample={v.id}
       onClick={onPlay}
-      aria-label={`${t.play}: ${title}`}
-      className="group block w-full rounded-2xl text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      aria-label={`${t.play}: ${title}${v.code ? ` (#${v.code})` : ""}`}
+      className={cn(
+        "group relative block w-full grow overflow-hidden rounded-md bg-gradient-to-br from-ink to-violet/30 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:rounded-xl",
+        wide ? "aspect-[3/2]" : "aspect-[3/4]",
+      )}
     >
-      <span
-        className={cn(
-          "relative block overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-ink to-violet/30 shadow-[var(--shadow-lift)] transition duration-300 group-hover:-translate-y-1 group-hover:border-primary/50",
-          isVertical(v) ? "aspect-[9/16]" : "aspect-video",
-        )}
-      >
-        {v.poster && (
-          <Image
-            src={v.poster}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-            className="object-cover transition duration-500 group-hover:scale-[1.04]"
-          />
-        )}
-        <span className="absolute inset-0 bg-black/10 transition group-hover:bg-black/30" />
-        <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white ring-1 ring-white/50 backdrop-blur transition group-hover:scale-110 group-hover:bg-brand">
-          <Play className="h-5 w-5 translate-x-0.5 rtl:-translate-x-0.5" fill="currentColor" />
+      {v.poster && (
+        <Image
+          src={v.poster}
+          alt=""
+          fill
+          priority={eager}
+          sizes={
+            wide
+              ? "(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 66vw"
+              : "(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 33vw"
+          }
+          className="object-cover transition duration-500 group-hover:scale-[1.05] motion-reduce:transition-none"
+        />
+      )}
+      <span className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/40 transition group-hover:via-black/25" />
+      {v.code && (
+        <span className="absolute start-1.5 top-1.5 rounded-full bg-black/55 px-2 py-0.5 text-[11px] font-bold tracking-wide text-white ring-1 ring-white/25 sm:start-2.5 sm:top-2.5 sm:text-xs">
+          <span dir="ltr">#{v.code}</span>
         </span>
+      )}
+      <span className="absolute end-1.5 top-1.5 rounded-full bg-black/55 p-1 text-white sm:end-2.5 sm:top-2.5">
+        {wide ? (
+          <Clapperboard className="h-3.5 w-3.5" />
+        ) : (
+          <Play className="h-3.5 w-3.5" fill="currentColor" />
+        )}
       </span>
-      <span className="mt-3 block px-1">
-        <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary rtl:tracking-normal">
-          {t.filters[kindOf(v)]}
-        </span>
-        <span className="mt-1 line-clamp-2 block text-sm font-bold leading-snug group-hover:text-primary sm:text-base">
+      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 pt-6 sm:p-3 sm:pt-8">
+        <span
+          dir="auto"
+          className="line-clamp-2 block text-start text-[11px] font-semibold leading-snug text-white sm:text-sm"
+        >
           {title}
         </span>
       </span>
@@ -75,14 +102,52 @@ function Cover({ v, onPlay }: { v: PublicVideo; onPlay: () => void }) {
 function Lightbox({
   v,
   onClose,
+  onStep,
   opener,
 }: {
   v: PublicVideo | null;
   onClose: () => void;
+  /** Moves to the previous (-1) or next (1) sample of the current tab; absent when there is one. */
+  onStep?: (dir: 1 | -1) => void;
   /** The cover that opened the player: focus goes back to it on close. */
   opener: React.RefObject<HTMLElement | null>;
 }) {
+  const t = useCopy(PORTFOLIO);
   const { lang } = useI18n();
+  const [copied, setCopied] = useState(false);
+  useEffect(() => setCopied(false), [v]);
+
+  const whatsapp = v
+    ? `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
+        v.code ? t.sample.whatsappText.replace("{code}", v.code) : t.sample.whatsappTextNoCode,
+      )}`
+    : "";
+  const copy = async () => {
+    if (!v) return;
+    try {
+      await navigator.clipboard.writeText(SITE.url + samplePath(v, lang));
+    } catch {
+      // clipboard blocked (old browser, in-app webview): the address bar already holds this link
+    }
+    setCopied(true);
+  };
+  const step = (dir: 1 | -1) => (
+    <button
+      type="button"
+      onClick={() => onStep?.(dir)}
+      aria-label={dir === 1 ? t.sample.next : t.sample.previous}
+      className={cn(
+        "absolute top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-black/50 text-white ring-1 ring-white/30 backdrop-blur transition hover:bg-black/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        dir === 1 ? "end-2" : "start-2",
+      )}
+    >
+      {dir === 1 ? (
+        <ChevronRight className="h-5 w-5 rtl:rotate-180" />
+      ) : (
+        <ChevronLeft className="h-5 w-5 rtl:rotate-180" />
+      )}
+    </button>
+  );
   return (
     // Radix Dialog: focus trap, Esc and click-outside close
     <Dialog open={!!v} onOpenChange={(open) => !open && onClose()}>
@@ -90,21 +155,36 @@ function Lightbox({
         <DialogContent
           onCloseAutoFocus={(e) => {
             e.preventDefault();
-            opener.current?.focus();
+            // opened from a direct link: there was no cover click, so go to that sample's cover
+            (
+              opener.current ?? document.querySelector<HTMLElement>(`[data-sample="${v.id}"]`)
+            )?.focus();
+          }}
+          onKeyDown={(e) => {
+            // arrows move between samples unless the video itself is using them to seek
+            if ((e.target as HTMLElement).tagName === "VIDEO" || !onStep) return;
+            const rtl = lang === "ar";
+            if (e.key === "ArrowRight") onStep(rtl ? -1 : 1);
+            if (e.key === "ArrowLeft") onStep(rtl ? 1 : -1);
           }}
           className={cn(
-            "max-h-[94vh] gap-0 overflow-y-auto border-white/10 bg-ink p-0 text-white sm:rounded-2xl",
-            isVertical(v) ? "w-[min(92vw,26rem)] max-w-none" : "w-[min(94vw,68rem)] max-w-none",
+            "max-h-[94dvh] gap-0 overflow-y-auto rounded-2xl border-white/10 bg-ink p-0 text-white",
+            // the close cross of ui/dialog, made a real 44px target that shows on any frame
+            "[&>button]:right-2 rtl:[&>button]:left-2 rtl:[&>button]:right-auto [&>button]:top-2 [&>button]:z-20 [&>button]:grid [&>button]:h-11 [&>button]:w-11 [&>button]:place-items-center [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:opacity-100 [&>button]:ring-1 [&>button]:ring-white/30",
+            isVertical(v)
+              ? "w-[min(92vw,26rem)] max-w-none"
+              : "w-[min(94vw,68rem,calc((94dvh-12rem)*16/9))] max-w-none",
           )}
         >
           <div
             className={cn(
               "relative w-full bg-black",
-              isVertical(v) ? "aspect-[9/16] max-h-[78vh]" : "aspect-video",
+              isVertical(v) ? "aspect-[9/16] max-h-[62dvh] sm:max-h-[68dvh]" : "aspect-video",
             )}
           >
             {v.youtubeId ? (
               <iframe
+                key={v.id}
                 src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?autoplay=1&rel=0`}
                 title={v.title[lang]}
                 allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
@@ -113,6 +193,7 @@ function Lightbox({
               />
             ) : (
               <video
+                key={v.id}
                 src={v.src ?? undefined}
                 poster={v.poster ?? undefined}
                 preload="none"
@@ -122,9 +203,26 @@ function Lightbox({
                 className="absolute inset-0 h-full w-full"
               />
             )}
+            {onStep && step(-1)}
+            {onStep && step(1)}
           </div>
-          <div className="p-4 pe-12 sm:p-5 sm:pe-12">
-            <DialogTitle className="text-base font-bold sm:text-lg">{v.title[lang]}</DialogTitle>
+          <div className="p-4 sm:p-5">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+              {v.code && (
+                <span dir="ltr" className="rounded-full bg-brand px-2.5 py-1 text-white">
+                  <span className="sr-only">{t.sample.code} </span>#{v.code}
+                </span>
+              )}
+              {v.industry && (
+                <span className="rounded-full border border-white/20 px-2.5 py-1 text-white/80">
+                  {t.industries[v.industry]}
+                </span>
+              )}
+              <span className="text-white/60">{t.filters[kindOf(v)]}</span>
+            </div>
+            <DialogTitle dir="auto" className="mt-3 text-start text-base font-bold sm:text-lg">
+              {v.title[lang]}
+            </DialogTitle>
             <DialogDescription
               dir="auto"
               className={cn(
@@ -134,6 +232,34 @@ function Lightbox({
             >
               {v.description[lang] || v.title[lang]}
             </DialogDescription>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`WhatsApp: ${t.sample.whatsapp}`}
+                onClick={() => track("whatsapp_contact_clicked", { sample: v.code ?? v.id })}
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#1fae5b] px-5 text-sm font-semibold text-white transition hover:bg-[#189a4f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <MessageCircle className="h-4 w-4 shrink-0" />
+                {t.sample.whatsapp}
+              </a>
+              <LocalizedLink
+                href={`/contact?interest=ai-video${v.code ? `&sample=${v.code}` : ""}`}
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <CalendarCheck className="h-4 w-4 shrink-0" />
+                {t.sample.meeting}
+              </LocalizedLink>
+              <button
+                type="button"
+                onClick={copy}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
+                <span aria-live="polite">{copied ? t.sample.copied : t.sample.copy}</span>
+              </button>
+            </div>
           </div>
         </DialogContent>
       )}
@@ -141,67 +267,146 @@ function Lightbox({
   );
 }
 
-export function PortfolioPage({ videos }: { videos: PublicVideo[] }) {
+export function PortfolioPage({
+  videos,
+  initial,
+}: {
+  videos: PublicVideo[];
+  /** Code of the sample to open at once: the /portfolio/<code> route. */
+  initial?: string;
+}) {
   const t = useCopy(PORTFOLIO);
-  const [filter, setFilter] = useState<Kind | "all">("all");
-  const [open, setOpen] = useState<PublicVideo | null>(null);
-  const present = KINDS.filter((k) => videos.some((v) => kindOf(v) === k));
-  const shown = filter === "all" ? videos : videos.filter((v) => kindOf(v) === filter);
+  const { lang } = useI18n();
+  const [filter, setFilter] = useState<Industry | "all">("all");
+  const [open, setOpen] = useState<PublicVideo | null>(
+    () => (initial && videos.find((v) => v.code === initial)) || null,
+  );
+  const present = INDUSTRIES.filter((k) => videos.some((v) => v.industry === k));
+  const shown = filter === "all" ? videos : videos.filter((v) => v.industry === filter);
 
-  // /portfolio?v=<id> opens that video: one link to send for one film.
+  // ?v=<id or code> opens that video (links sent before codes); ?industry=<slug> opens that tab.
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("v");
-    const v = id && videos.find((x) => x.id === id);
+    const q = new URLSearchParams(window.location.search);
+    const id = q.get("v");
+    const v = id && videos.find((x) => x.id === id || x.code === normalizeCode(id));
     if (v) setOpen(v);
+    const industry = q.get("industry");
+    if (isIndustry(industry) && videos.some((x) => x.industry === industry)) setFilter(industry);
   }, [videos]);
 
+  const listUrl = (f: Industry | "all") =>
+    localizePathname("/portfolio", lang) + (f === "all" ? "" : `?industry=${f}`);
+  const grid = useRef<HTMLUListElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const show = (v: PublicVideo | null) => {
-    if (v) opener.current = document.activeElement as HTMLElement | null;
+    if (v && !open) opener.current = document.activeElement as HTMLElement | null;
     setOpen(v);
-    window.history.replaceState(null, "", v ? `?v=${v.id}` : window.location.pathname);
+    window.history.replaceState(null, "", v ? samplePath(v, lang) : listUrl(filter));
     if (v)
       track("portfolio_video_play", {
         video_id: v.id,
         video_title: v.title.en,
         video_kind: kindOf(v),
+        video_code: v.code ?? "",
+        video_industry: v.industry ?? "",
       });
   };
+  const tabs = useRef<HTMLDivElement>(null);
+  const pick = (f: Industry | "all") => {
+    setFilter(f);
+    window.history.replaceState(null, "", listUrl(f));
+    // a short tab must not leave the visitor below the grid
+    const top = grid.current?.getBoundingClientRect().top ?? 0;
+    if (top < 0) window.scrollBy({ top: top - 150 });
+  };
+  // the picked tab stays in sight in the swipeable row (also for a ?industry= link)
+  useEffect(() => {
+    tabs.current
+      ?.querySelector('[aria-pressed="true"]')
+      ?.scrollIntoView({ inline: "center", block: "nearest" });
+  }, [filter]);
+  // The open sample may sit outside the current tab (a direct link): then there is nothing to step to.
+  const at = open ? shown.indexOf(open) : -1;
+  const step =
+    at >= 0 && shown.length > 1
+      ? (dir: 1 | -1) => show(shown[(at + dir + shown.length) % shown.length])
+      : undefined;
+
+  // Tiles of a newly picked tab come in together; the first paint is left alone (LCP).
+  const first = useRef(true);
+  useGSAP(
+    () => {
+      if (first.current) {
+        first.current = false;
+        return;
+      }
+      if (prefersReducedMotion() || !grid.current) return;
+      gsap.fromTo(
+        // only the first rows: a stagger over 300 tiles would leave the last ones blank for seconds
+        Array.from(grid.current.children).slice(0, 12),
+        { autoAlpha: 0, y: 18, scale: 0.96 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out", stagger: 0.035 },
+      );
+    },
+    { dependencies: [filter], scope: grid },
+  );
 
   return (
     <>
-      <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} />
+      {/* Short header, not the full PageHero: like a profile, the grid starts on the first screen */}
+      <Section className="pb-4 pt-8 lg:pb-6 lg:pt-12">
+        <Eyebrow>{t.hero.eyebrow}</Eyebrow>
+        <h1 className="mt-3 max-w-3xl text-2xl font-extrabold leading-tight sm:text-4xl">
+          {t.hero.title}
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground/75 sm:text-base">
+          {t.hero.intro}
+        </p>
+      </Section>
 
       <Section className="pt-0 lg:pt-0">
         {videos.length === 0 ? (
           <p className="text-center text-muted-foreground">{t.empty}</p>
         ) : (
           <>
-            {present.length > 1 && (
-              <div role="group" aria-label={t.filterLabel} className="mb-8 flex flex-wrap gap-2">
+            {present.length > 0 && (
+              // One swipeable row, like the tabs of a profile; it stays under the header while scrolling
+              <div
+                ref={tabs}
+                role="group"
+                aria-label={t.filterLabel}
+                className="sticky top-[72px] z-30 -mx-4 mb-4 flex gap-2 overflow-x-auto bg-background/85 px-4 py-3 backdrop-blur [scrollbar-width:none] sm:mx-0 sm:mb-6 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
+              >
                 {(["all", ...present] as const).map((f) => (
                   <button
                     key={f}
                     type="button"
                     aria-pressed={filter === f}
-                    onClick={() => setFilter(f)}
+                    onClick={() => pick(f)}
                     className={cn(
-                      "min-h-10 rounded-full border px-4 text-sm font-semibold transition",
+                      "min-h-11 shrink-0 whitespace-nowrap rounded-full border px-4 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       filter === f
                         ? "border-primary bg-primary/20 text-foreground"
                         : "border-border bg-white/[0.03] text-foreground/75 hover:border-primary/40",
                     )}
                   >
-                    {t.filters[f]}
+                    {f === "all" ? t.filters.all : t.industries[f]}
+                    <span className="ms-1.5 text-xs font-medium text-foreground/50">
+                      {f === "all" ? videos.length : videos.filter((v) => v.industry === f).length}
+                    </span>
                   </button>
                 ))}
               </div>
             )}
-            {/* CSS columns: reels stay 9:16 and films 16:9 without gaps between rows */}
-            <ul className="columns-2 gap-4 sm:columns-3 sm:gap-5 lg:columns-4">
-              {shown.map((v) => (
-                <li key={v.id} className="mb-6 break-inside-avoid">
-                  <Cover v={v} onPlay={() => show(v)} />
+            {/* Profile-style grid: portrait tiles, a wide film takes two columns, dense flow fills the gaps.
+                ponytail: every tile is rendered (covers lazy-load); add a plain "show more" (slice) when it passes ~100 samples. */}
+            <ul
+              ref={grid}
+              className="grid grid-flow-dense grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-3"
+            >
+              {shown.map((v, i) => (
+                <li key={v.id} className={cn("flex flex-col", isWide(v) && "col-span-2")}>
+                  <Tile v={v} onPlay={() => show(v)} eager={!initial && i < 6} />
                 </li>
               ))}
             </ul>
@@ -238,7 +443,7 @@ export function PortfolioPage({ videos }: { videos: PublicVideo[] }) {
         text={t.final.text}
         primaryHref="/contact?interest=ai-video"
       />
-      <Lightbox v={open} onClose={() => show(null)} opener={opener} />
+      <Lightbox v={open} onClose={() => show(null)} onStep={step} opener={opener} />
     </>
   );
 }

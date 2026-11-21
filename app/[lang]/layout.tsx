@@ -7,7 +7,8 @@ import { rootMetadata, rootViewport } from "@/lib/root-metadata";
 
 export const metadata = rootMetadata;
 export const viewport = rootViewport;
-export const dynamicParams = false;
+// No `dynamicParams = false` here: it would 404 /ar/portfolio/<code> (samples are not known at
+// build time). An unknown language still gets notFound() below.
 
 export function generateStaticParams() {
   return LOCALIZED_LANGUAGES.map((lang) => ({ lang }));

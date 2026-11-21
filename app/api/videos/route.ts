@@ -15,6 +15,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "invalid", issues: parsed.error.flatten() }, { status: 400 });
   }
   const video = await createVideo(parsed.data);
+  if (video === "duplicate") return Response.json({ error: "duplicate_code" }, { status: 409 });
   return video
     ? Response.json({ video }, { status: 201 })
     : Response.json({ error: "db" }, { status: 502 });

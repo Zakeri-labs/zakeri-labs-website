@@ -3,6 +3,7 @@ import "server-only";
 import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 
+import { INDUSTRIES, isIndustry, normalizeCode, type Industry } from "@/lib/industries";
 import type { Lang } from "@/lib/locales";
 import { presignUrl } from "@/lib/sigv4";
 
@@ -50,6 +51,9 @@ export type VideoRow = {
   description_ar: string | null;
   category: Category;
   solution_slug: string | null;
+  /** Short public code of a sample ("C81"). Missing until the gallery migration is applied. */
+  code?: string | null;
+  industry?: string | null;
   storage_path: string | null;
   external_url: string | null;
   poster_path: string | null;
@@ -83,6 +87,19 @@ export const videoInput = z.object({
     .regex(/^[a-z0-9-]{1,60}$/)
     .nullish()
     .transform((v) => v || null),
+  code: z
+    .string()
+    .nullish()
+    .transform((v, ctx) => {
+      if (!v?.trim()) return null;
+      const code = normalizeCode(v);
+      if (!code) ctx.addIssue({ code: "custom", message: "code looks like C81" });
+      return code;
+    }),
+  industry: z
+    .enum(INDUSTRIES)
+    .nullish()
+    .transform((v) => v || null),
   storage_path: path.nullish().transform((v) => v || null),
   external_url: z
     .string()
@@ -113,17 +130,27 @@ async function rest(pathAndQuery: string, init: RequestInit = {}) {
 export async function listVideos(all: boolean): Promise<VideoRow[]> {
   const res = await rest(
     `site_videos?select=*&order=sort_order.asc,created_at.desc${all ? "" : "&published=eq.true"}`,
-    all ? { cache: "no-store" } : { next: { revalidate: 60 } },
+    all ? { cache: "no-store" } : { next: { revalidate: 60 }, signal: AbortSignal.timeout(8000) },
   ).catch(() => null);
-  return res?.ok ? ((await res.json()) as VideoRow[]) : [];
+  if (res?.ok) return (await res.json()) as VideoRow[];
+  // Public pages: failing here keeps the last good ISR page, instead of caching an empty gallery
+  // (and a redirect for every sample link) during a Supabase blip.
+  if (!all && env().url) throw new Error("site_videos: read failed");
+  return [];
 }
 
 export async function createVideo(v: z.infer<typeof videoCreate>) {
   const res = await rest("site_videos", {
     method: "POST",
     headers: { Prefer: "return=representation" },
-    body: JSON.stringify(v),
+    // unset code/industry are left out, so adding a video works before the gallery migration runs
+    body: JSON.stringify({
+      ...v,
+      code: v.code ?? undefined,
+      industry: v.industry ?? undefined,
+    }),
   });
+  if (res?.status === 409) return "duplicate" as const;
   return res?.ok ? ((await res.json()) as VideoRow[])[0] : null;
 }
 
@@ -134,7 +161,8 @@ export async function patchVideo(id: string, v: z.infer<typeof videoPatch>) {
     body: JSON.stringify({ ...v, updated_at: new Date().toISOString() }),
   });
   if (!res) return { status: 502 as const };
-  if (!res.ok) return { status: res.status === 400 ? (400 as const) : (502 as const) };
+  if (!res.ok)
+    return { status: res.status === 400 || res.status === 409 ? res.status : (502 as const) };
   const row = ((await res.json()) as VideoRow[])[0];
   return row ? { status: 200 as const, row } : { status: 404 as const };
 }
@@ -217,6 +245,8 @@ export type PublicVideo = {
   description: Record<Lang, string>;
   category: Category;
   solutionSlug: string | null;
+  code: string | null;
+  industry: Industry | null;
   src: string | null;
   youtubeId: string | null;
   poster: string | null;
@@ -265,6 +295,8 @@ export function toPublic(r: VideoRow): PublicVideo {
     },
     category: r.category,
     solutionSlug: r.solution_slug,
+    code: normalizeCode(r.code),
+    industry: isIndustry(r.industry) ? r.industry : null,
     src,
     youtubeId: storageUrl(r.storage_path) ? null : yt,
     poster,
@@ -276,6 +308,13 @@ export function toPublic(r: VideoRow): PublicVideo {
 
 export async function getPublishedVideos(): Promise<PublicVideo[]> {
   return (await listVideos(false)).map(toPublic);
+}
+
+/** One published sample by its code ("c81", "#C81") or, for links sent before codes, its id. */
+export async function getPublishedVideo(codeOrId: string): Promise<PublicVideo | null> {
+  const code = normalizeCode(codeOrId);
+  const videos = await getPublishedVideos();
+  return videos.find((v) => (code ? v.code === code : v.id === codeOrId)) ?? null;
 }
 
 /* ---------- Auth: automation token header, or admin cookie from the login form ---------- */
