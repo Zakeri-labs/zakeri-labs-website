@@ -338,7 +338,7 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
               value={form.code}
               maxLength={6}
               pattern="#?[A-Za-z][0-9]{1,4}"
-              placeholder="e.g. C81 (C + the cn.omanai.tech number)"
+              placeholder="e.g. C25 (next free C number; S for our own films)"
               onChange={(e) => setForm({ ...form, code: e.target.value })}
               className="mt-1"
             />
