@@ -371,6 +371,13 @@ export function PortfolioPage({
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground/75 sm:text-base">
           {t.hero.intro}
         </p>
+        {videos.length > 0 && (
+          <p className="mt-2 text-sm font-medium text-foreground/70">
+            {t.stats
+              .replace("{samples}", String(videos.length))
+              .replace("{industries}", String(present.length))}
+          </p>
+        )}
       </Section>
 
       <Section className="pt-0 lg:pt-0">
@@ -447,15 +454,18 @@ export function PortfolioPage({
           title={t.service.title}
           intro={t.service.intro}
         />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {t.service.items.map((item, i) => {
             const Icon = SERVICE_ICONS[i % SERVICE_ICONS.length];
             return (
-              <Reveal key={item.title} className="card-surface h-full p-6">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-primary">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-4 text-lg font-bold">{item.title}</h3>
+              <Reveal key={item.title} className="card-surface h-full p-4 sm:p-6">
+                {/* phones: icon beside the title, so six cards are not four screens of scrolling */}
+                <div className="flex items-center gap-3 sm:block">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="text-lg font-bold sm:mt-4">{item.title}</h3>
+                </div>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
               </Reveal>
             );
