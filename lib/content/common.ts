@@ -170,7 +170,7 @@ const en = {
   },
   agent: {
     open: "Ask IDRAK AI",
-    teaser: "Hi 👋 Ask me how AI can grow your business.",
+    teaser: "Hi! Ask me how AI can grow your business.",
     title: "IDRAK AI",
     status: "Online · replies instantly",
     greeting:
@@ -323,7 +323,7 @@ const ar: CommonCopy = {
   },
   agent: {
     open: "اسأل مساعد إدراك",
-    teaser: "مرحباً 👋 اسألني كيف يمكن للذكاء الاصطناعي أن ينمّي عملك.",
+    teaser: "مرحباً! اسألني كيف يمكن للذكاء الاصطناعي أن ينمّي عملك.",
     title: "مساعد إدراك الذكي",
     status: "متصل · يرد فوراً",
     greeting:

@@ -96,6 +96,32 @@ export function AiAgent() {
     const t = setTimeout(() => setTeaser(true), 9000);
     return () => clearTimeout(t);
   }, []);
+  // Phones and tablets have no gutter to park the button in: it steps aside while the visitor scrolls
+  // down (reading) and comes back when they scroll up or reach the top.
+  const [away, setAway] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (Math.abs(y - last) < 8) return;
+      setAway(y > last && y > 120 && window.innerWidth < 1024);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // The nudge sits over the page, so it does not stay: it goes after a few seconds or on the first scroll.
+  useEffect(() => {
+    if (!teaser) return;
+    const hide = () => setTeaser(false);
+    const t = setTimeout(hide, 8000);
+    window.addEventListener("scroll", hide, { passive: true, once: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("scroll", hide);
+    };
+  }, [teaser]);
   useEffect(() => {
     if (!teaser) return;
     try {
@@ -128,7 +154,14 @@ export function AiAgent() {
   return (
     <>
       {/* ---------- Dock ---------- */}
-      <div className="fixed bottom-20 end-4 z-40 flex flex-col items-end gap-3 lg:bottom-6 lg:end-6">
+      {/* Kept out of the content column: 44px round buttons at the very edge (inside the page gutter from
+          1400px up); the label opens only on hover or keyboard focus, so nothing rests on cards or text. */}
+      <div
+        className={cn(
+          "fixed bottom-20 end-1 z-40 flex flex-col items-end gap-2 transition duration-300 lg:bottom-5 min-[1400px]:end-6",
+          away && !open && "pointer-events-none translate-x-16 opacity-0 rtl:-translate-x-16",
+        )}
+      >
         {teaser && !open && (
           <button
             type="button"
@@ -136,7 +169,7 @@ export function AiAgent() {
               setOpen(true);
               setTeaser(false);
             }}
-            className="animate-in fade-in slide-in-from-bottom-2 max-w-64 rounded-2xl rounded-ee-sm border border-white/10 bg-card/95 px-4 py-3 text-start text-sm leading-snug shadow-[var(--shadow-lift)] backdrop-blur"
+            className="animate-in fade-in slide-in-from-bottom-2 max-w-44 rounded-2xl rounded-ee-sm border border-white/10 bg-card/95 px-3 py-2 text-start text-xs leading-snug sm:max-w-64 sm:px-4 sm:py-3 sm:text-sm shadow-[var(--shadow-lift)] backdrop-blur"
           >
             {a.teaser}
           </button>
@@ -149,19 +182,22 @@ export function AiAgent() {
               setTeaser(false);
             }}
             aria-label={a.open}
-            className="group relative flex items-center gap-2 rounded-full border border-white/15 bg-card/90 p-1.5 font-semibold sm:pe-5 shadow-[var(--shadow-lift)] backdrop-blur transition hover:-translate-y-0.5"
+            title={a.open}
+            className="group relative flex items-center rounded-full border border-white/15 bg-card/90 p-0.5 font-semibold shadow-[var(--shadow-lift)] backdrop-blur transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="absolute -inset-1 -z-10 animate-pulse rounded-full bg-brand opacity-30 blur-md" />
-            <span className="relative grid h-10 w-10 place-items-center rounded-full bg-[#0a0f26]">
+            <span className="relative grid h-8 w-8 place-items-center rounded-full bg-[#0a0f26] lg:h-10 lg:w-10">
               <Image
                 src="/brand/idrak-mark.svg"
                 alt=""
                 width={24}
                 height={24}
-                className="h-6 w-6"
+                className="h-5 w-5 lg:h-6 lg:w-6"
               />
             </span>
-            <span className="hidden text-sm sm:inline">{a.open}</span>
+            <span className="hidden max-w-0 overflow-hidden whitespace-nowrap text-sm opacity-0 transition-all duration-200 group-hover:max-w-48 group-hover:pe-4 group-hover:ps-2 group-hover:opacity-100 group-focus-visible:max-w-48 group-focus-visible:pe-4 group-focus-visible:ps-2 group-focus-visible:opacity-100 lg:inline">
+              {a.open}
+            </span>
           </button>
         )}
         <a
@@ -169,7 +205,7 @@ export function AiAgent() {
           target="_blank"
           rel="noreferrer"
           aria-label={c.cta.whatsapp}
-          className="hidden h-12 w-12 place-items-center rounded-full bg-[#25d366] text-white shadow-[0_12px_32px_-8px_rgb(37_211_102/0.6)] transition hover:-translate-y-0.5 lg:grid"
+          className="hidden h-11 w-11 place-items-center rounded-full bg-[#25d366] text-white shadow-[0_12px_32px_-8px_rgb(37_211_102/0.6)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:grid"
         >
           <MessageCircle className="h-5 w-5" />
         </a>
