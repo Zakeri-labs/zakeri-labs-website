@@ -15,6 +15,7 @@ import {
   Mic,
   PenLine,
   Play,
+  Search,
   Smartphone,
 } from "lucide-react";
 
@@ -36,7 +37,7 @@ const SERVICE_ICONS = [PenLine, Clapperboard, Mic, Smartphone, Languages, CheckC
 const isVertical = (v: PublicVideo) => !!v.width && !!v.height && v.height > v.width;
 /** Label of a tile: a vertical video is a reel, a wide one goes by its category. */
 const kindOf = (v: PublicVideo) => (isVertical(v) ? "reel" : v.category);
-/** A wide film takes two columns so its frame is not cut down to a portrait tile. */
+/** A wide film is still a portrait card in the grid (cover crop); it plays in its own shape. */
 const isWide = (v: PublicVideo) => !!v.width && !!v.height && v.width > v.height;
 
 /** Link to send for one sample: /portfolio/C81, or ?v=<id> for a video that has no code yet. */
@@ -52,12 +53,10 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
     <button
       type="button"
       data-sample={v.id}
+      title={title}
       onClick={onPlay}
       aria-label={`${t.play}: ${title}${v.code ? ` (#${v.code})` : ""}`}
-      className={cn(
-        "group relative block w-full grow overflow-hidden rounded-md bg-gradient-to-br from-ink to-violet/30 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:rounded-xl",
-        wide ? "aspect-[3/2]" : "aspect-[3/4]",
-      )}
+      className="group relative block aspect-[9/16] w-full overflow-hidden rounded-md bg-gradient-to-br from-ink to-violet/30 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:rounded-xl"
     >
       {v.poster && (
         <Image
@@ -65,11 +64,7 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
           alt=""
           fill
           priority={eager}
-          sizes={
-            wide
-              ? "(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 66vw"
-              : "(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 33vw"
-          }
+          sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 33vw"
           className="object-cover transition duration-500 group-hover:scale-[1.05] motion-reduce:transition-none"
         />
       )}
@@ -87,10 +82,7 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
         )}
       </span>
       <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 pt-6 sm:p-3 sm:pt-8">
-        <span
-          dir="auto"
-          className="line-clamp-2 block text-start text-[11px] font-semibold leading-snug text-white sm:text-sm"
-        >
+        <span className="line-clamp-2 text-start text-[11px] font-semibold leading-snug text-white sm:text-sm">
           {title}
         </span>
       </span>
@@ -117,6 +109,11 @@ function Lightbox({
   const [copied, setCopied] = useState(false);
   useEffect(() => setCopied(false), [v]);
 
+  // "Teeb Al Arab Perfumes · Arabic Instagram reel": the business, then what was made for it
+  const [client, ...restOfTitle] = (v?.title[lang] ?? "").split(" · ");
+  const kind = restOfTitle.join(" · ");
+  const ratio = v?.width && v.height ? v.width / v.height : 16 / 9;
+
   const whatsapp = v
     ? `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
         v.code ? t.sample.whatsappText.replace("{code}", v.code) : t.sample.whatsappTextNoCode,
@@ -141,11 +138,7 @@ function Lightbox({
         dir === 1 ? "end-2" : "start-2",
       )}
     >
-      {dir === 1 ? (
-        <ChevronRight className="h-5 w-5 rtl:rotate-180" />
-      ) : (
-        <ChevronLeft className="h-5 w-5 rtl:rotate-180" />
-      )}
+      {dir === 1 ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
     </button>
   );
   return (
@@ -168,18 +161,18 @@ function Lightbox({
             if (e.key === "ArrowLeft") onStep(rtl ? 1 : -1);
           }}
           className={cn(
-            "max-h-[94dvh] gap-0 overflow-y-auto rounded-2xl border-white/10 bg-ink p-0 text-white",
+            // phone: video on top, details under it. md and up: side by side, like a post on desktop
+            "flex max-h-[94dvh] w-[min(94vw,26rem)] max-w-none flex-col gap-0 overflow-y-auto rounded-2xl border-white/10 bg-ink p-0 text-white md:w-fit md:max-w-[94vw] md:flex-row md:overflow-hidden",
             // the close cross of ui/dialog, made a real 44px target that shows on any frame
             "[&>button]:right-2 rtl:[&>button]:left-2 rtl:[&>button]:right-auto [&>button]:top-2 [&>button]:z-20 [&>button]:grid [&>button]:h-11 [&>button]:w-11 [&>button]:place-items-center [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:opacity-100 [&>button]:ring-1 [&>button]:ring-white/30",
-            isVertical(v)
-              ? "w-[min(92vw,26rem)] max-w-none"
-              : "w-[min(94vw,68rem,calc((94dvh-12rem)*16/9))] max-w-none",
           )}
         >
           <div
+            // the video's own shape; the width leaves room for the 22rem details column
+            style={{ "--r": ratio, aspectRatio: ratio } as React.CSSProperties}
             className={cn(
-              "relative w-full bg-black",
-              isVertical(v) ? "aspect-[9/16] max-h-[62dvh] sm:max-h-[68dvh]" : "aspect-video",
+              "relative w-full shrink-0 bg-black md:w-[min(calc(94vw-22rem),60rem,calc(86dvh*var(--r)))]",
+              isVertical(v) && "max-h-[62dvh] md:max-h-none",
             )}
           >
             {v.youtubeId ? (
@@ -206,11 +199,16 @@ function Lightbox({
             {onStep && step(-1)}
             {onStep && step(1)}
           </div>
-          <div className="p-4 sm:p-5">
-            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+          <div className="flex min-h-0 flex-col p-4 sm:p-5 md:w-[22rem] md:shrink-0 md:overflow-y-auto md:pt-14">
+            <DialogTitle className="text-start text-lg font-bold leading-snug">
+              {client}
+            </DialogTitle>
+            {kind && <p className="mt-1 text-start text-sm text-white/65">{kind}</p>}
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
               {v.code && (
-                <span dir="ltr" className="rounded-full bg-brand px-2.5 py-1 text-white">
-                  <span className="sr-only">{t.sample.code} </span>#{v.code}
+                <span className="rounded-full bg-brand px-2.5 py-1 text-white">
+                  <span className="sr-only">{t.sample.code} </span>
+                  <span dir="ltr">#{v.code}</span>
                 </span>
               )}
               {v.industry && (
@@ -220,26 +218,22 @@ function Lightbox({
               )}
               <span className="text-white/60">{t.filters[kindOf(v)]}</span>
             </div>
-            <DialogTitle dir="auto" className="mt-3 text-start text-base font-bold sm:text-lg">
-              {v.title[lang]}
-            </DialogTitle>
             <DialogDescription
-              dir="auto"
               className={cn(
-                "mt-1.5 text-sm leading-relaxed text-white/70",
+                "mt-4 text-start text-sm leading-relaxed text-white/75",
                 !v.description[lang] && "sr-only",
               )}
             >
               {v.description[lang] || v.title[lang]}
             </DialogDescription>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-5 flex flex-wrap gap-2 md:mt-auto md:pt-6">
               <a
                 href={whatsapp}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`WhatsApp: ${t.sample.whatsapp}`}
                 onClick={() => track("whatsapp_contact_clicked", { sample: v.code ?? v.id })}
-                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#1fae5b] px-5 text-sm font-semibold text-white transition hover:bg-[#189a4f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex min-h-11 basis-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#1fae5b] px-5 text-sm font-semibold text-white transition hover:bg-[#189a4f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <MessageCircle className="h-4 w-4 shrink-0" />
                 {t.sample.whatsapp}
@@ -254,7 +248,7 @@ function Lightbox({
               <button
                 type="button"
                 onClick={copy}
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/25 px-4 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
                 <span aria-live="polite">{copied ? t.sample.copied : t.sample.copy}</span>
@@ -282,7 +276,22 @@ export function PortfolioPage({
     () => (initial && videos.find((v) => v.code === initial)) || null,
   );
   const present = INDUSTRIES.filter((k) => videos.some((v) => v.industry === k));
-  const shown = filter === "all" ? videos : videos.filter((v) => v.industry === filter);
+  const [query, setQuery] = useState("");
+  const words = query.trim().toLowerCase().replace(/^#/, "").split(/\s+/).filter(Boolean);
+  const shown = videos.filter((v) => {
+    if (filter !== "all" && v.industry !== filter) return false;
+    if (!words.length) return true;
+    const hay = [
+      v.title.en,
+      v.title.ar,
+      v.description[lang],
+      v.code,
+      v.industry && t.industries[v.industry],
+    ]
+      .join(" ")
+      .toLowerCase();
+    return words.every((w) => hay.includes(w));
+  });
 
   // ?v=<id or code> opens that video (links sent before codes); ?industry=<slug> opens that tab.
   useEffect(() => {
@@ -369,13 +378,25 @@ export function PortfolioPage({
           <p className="text-center text-muted-foreground">{t.empty}</p>
         ) : (
           <>
+            <label className="relative mb-2 block sm:max-w-md">
+              <span className="sr-only">{t.search}</span>
+              <Search className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/50" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t.search}
+                enterKeyHint="search"
+                className="h-12 w-full rounded-full border border-border bg-white/[0.04] pe-4 ps-11 text-base text-foreground placeholder:text-foreground/45 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              />
+            </label>
             {present.length > 0 && (
               // One swipeable row, like the tabs of a profile; it stays under the header while scrolling
               <div
                 ref={tabs}
                 role="group"
                 aria-label={t.filterLabel}
-                className="sticky top-[72px] z-30 -mx-4 mb-4 flex gap-2 overflow-x-auto bg-background/85 px-4 py-3 backdrop-blur [scrollbar-width:none] sm:mx-0 sm:mb-6 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
+                className="sticky top-[72px] z-30 -mx-4 mb-4 flex gap-2 overflow-x-auto bg-background/85 px-4 py-3 backdrop-blur sm:static sm:bg-transparent sm:backdrop-blur-none [scrollbar-width:none] sm:mx-0 sm:mb-6 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
               >
                 {(["all", ...present] as const).map((f) => (
                   <button
@@ -398,18 +419,24 @@ export function PortfolioPage({
                 ))}
               </div>
             )}
-            {/* Profile-style grid: portrait tiles, a wide film takes two columns, dense flow fills the gaps.
+            {/* Profile-style grid: every sample is a 9:16 card, like a reels tab.
                 ponytail: every tile is rendered (covers lazy-load); add a plain "show more" (slice) when it passes ~100 samples. */}
             <ul
               ref={grid}
-              className="grid grid-flow-dense grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-3"
+              data-grid
+              className="grid grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-3"
             >
               {shown.map((v, i) => (
-                <li key={v.id} className={cn("flex flex-col", isWide(v) && "col-span-2")}>
+                <li key={v.id}>
                   <Tile v={v} onPlay={() => show(v)} eager={!initial && i < 6} />
                 </li>
               ))}
             </ul>
+            {shown.length === 0 && (
+              <p role="status" className="py-10 text-center text-muted-foreground">
+                {t.noResults}
+              </p>
+            )}
           </>
         )}
       </Section>
