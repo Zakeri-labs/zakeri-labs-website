@@ -62,8 +62,23 @@ export function RevealController() {
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
+    // When the page gets shorter or taller without new reveal targets (a filter, "show more", an
+    // accordion), everything below moves, and the scroll positions measured earlier are stale:
+    // sections under it would never fade in and show as an empty block. Measure again.
+    let height = document.body.offsetHeight;
+    let resized = 0;
+    const sizes = new ResizeObserver(() => {
+      if (Math.abs(document.body.offsetHeight - height) < 2) return;
+      height = document.body.offsetHeight;
+      cancelAnimationFrame(resized);
+      resized = requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
+    sizes.observe(document.body);
+
     return () => {
       observer.disconnect();
+      sizes.disconnect();
+      cancelAnimationFrame(resized);
       cancelAnimationFrame(queued);
       triggers.forEach((t) => t.kill());
     };
