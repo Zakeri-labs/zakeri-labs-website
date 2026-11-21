@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 import { getPublishedVideos } from "@/lib/videos";
 
 /** Server wrapper: loads published videos (ISR, see `revalidate` in the route files) and lists them as VideoObjects. */
-async function PortfolioData({ lang }: { lang: Lang }) {
+export async function PortfolioData({ lang, initial }: { lang: Lang; initial?: string }) {
   const videos = await getPublishedVideos();
   const listed = videos.filter((v) => v.poster && (v.src || v.youtubeId));
   const pageUrl = absoluteUrl(localizePathname("/portfolio", lang));
@@ -28,7 +28,8 @@ async function PortfolioData({ lang }: { lang: Lang }) {
               description: v.description[lang] || v.title[lang],
               thumbnailUrl: v.poster,
               uploadDate: v.date,
-              url: `${pageUrl}?v=${v.id}`,
+              url: v.code ? `${pageUrl}/${v.code}` : `${pageUrl}?v=${v.id}`,
+              ...(v.code ? { identifier: v.code } : {}),
               ...(v.youtubeId
                 ? { embedUrl: `https://www.youtube.com/embed/${v.youtubeId}` }
                 : { contentUrl: v.src }),
@@ -37,7 +38,7 @@ async function PortfolioData({ lang }: { lang: Lang }) {
             },
           })),
         })}
-      <PortfolioPage videos={videos} />
+      <PortfolioPage videos={videos} initial={initial} />
     </>
   );
 }

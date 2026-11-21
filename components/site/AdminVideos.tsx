@@ -5,7 +5,11 @@ import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { PORTFOLIO } from "@/lib/content/portfolio";
+import { INDUSTRIES, normalizeCode, type Industry } from "@/lib/industries";
 import type { VideoRow } from "@/lib/videos";
+
+const INDUSTRY_LABELS = PORTFOLIO.en.industries;
 
 const CATEGORY_LABELS = {
   promo: "Promo",
@@ -20,6 +24,8 @@ type Form = {
   description_ar: string;
   category: VideoRow["category"];
   solution_slug: string;
+  code: string;
+  industry: Industry | "";
   external_url: string;
   published: boolean;
   sort_order: number;
@@ -31,6 +37,8 @@ const EMPTY: Form = {
   description_ar: "",
   category: "promo",
   solution_slug: "",
+  code: "",
+  industry: "",
   external_url: "",
   published: false,
   sort_order: 0,
@@ -149,6 +157,8 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
             description_ar: v.description_ar ?? "",
             category: v.category,
             solution_slug: v.solution_slug ?? "",
+            code: v.code ?? "",
+            industry: (v.industry as Industry | null) ?? "",
             external_url: v.external_url ?? "",
             published: v.published,
             sort_order: v.sort_order,
@@ -162,11 +172,17 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
     setBusy(true);
     setMsg("");
     try {
+      const { code, industry, ...rest } = form;
       const body: Record<string, unknown> = {
-        ...form,
+        ...rest,
         external_url: form.external_url.trim() || null,
         solution_slug: form.solution_slug.trim() || null,
       };
+      // sent only when changed, so saving still works before the gallery migration adds the columns
+      if (code.trim() && !normalizeCode(code)) throw new Error("The code looks like C81.");
+      if ((normalizeCode(code) ?? null) !== (editing?.code ?? null))
+        body.code = normalizeCode(code);
+      if ((industry || null) !== (editing?.industry ?? null)) body.industry = industry || null;
       if (file) {
         const info = await inspect(file);
         body.storage_path = await upload(file, info, setProgress);
@@ -182,9 +198,11 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
         : await api("/api/videos", "POST", body);
       if (!r.ok)
         throw new Error(
-          r.status === 400
-            ? "Check the fields: a title and a video file or URL are required."
-            : "Save failed.",
+          r.status === 409
+            ? "Another video already has this code."
+            : r.status === 400
+              ? "Check the fields: a title and a video file or URL are required."
+              : "Save failed.",
         );
       edit(null);
       setProgress(0);
@@ -314,6 +332,38 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
             </div>
           </div>
           <label className="text-sm font-medium">
+            Sample code (shown as #C81, link: /portfolio/C81)
+            <Input
+              value={form.code}
+              maxLength={6}
+              pattern="#?[A-Za-z][0-9]{1,4}"
+              placeholder="e.g. C81 (C + the cn.omanai.tech number)"
+              onChange={(e) => setForm({ ...form, code: e.target.value })}
+              className="mt-1"
+            />
+          </label>
+          <div className="text-sm font-medium sm:col-span-2">
+            <span id="video-industry">Industry (tab on /portfolio)</span>
+            <div
+              role="group"
+              aria-labelledby="video-industry"
+              className="mt-1 flex flex-wrap gap-2"
+            >
+              {INDUSTRIES.map((k) => (
+                <Button
+                  key={k}
+                  type="button"
+                  size="sm"
+                  variant={form.industry === k ? "default" : "outline"}
+                  aria-pressed={form.industry === k}
+                  onClick={() => setForm({ ...form, industry: form.industry === k ? "" : k })}
+                >
+                  {INDUSTRY_LABELS[k]}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <label className="text-sm font-medium">
             Linked solution (slug, optional)
             <Input
               value={form.solution_slug}
@@ -367,7 +417,7 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
             checked={form.published}
             onChange={(e) => setForm({ ...form, published: e.target.checked })}
           />
-          Published (visible on /portfolio)
+          Published (visible on /portfolio). Tick it only when the client agreed to be shown.
         </label>
         {busy && file && (
           <div
@@ -410,8 +460,14 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
             {videos.map((v) => (
               <li key={v.id} className="card-surface flex flex-wrap items-center gap-3 p-4">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold">{v.title_en}</p>
+                  <p className="truncate font-semibold">
+                    {v.code && <span className="me-2 text-primary">#{v.code}</span>}
+                    {v.title_en}
+                  </p>
                   <p className="text-xs text-muted-foreground">
+                    {v.industry
+                      ? `${INDUSTRY_LABELS[v.industry as Industry] ?? v.industry} / `
+                      : "no industry / "}
                     {CATEGORY_LABELS[v.category]}
                     {v.solution_slug && ` / ${v.solution_slug}`} /{" "}
                     {v.storage_path || v.external_url?.startsWith("https://media.zakeri.dev/")
@@ -439,6 +495,20 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
                   />
                   Published
                 </label>
+                {v.code && v.published && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={async () => {
+                      await navigator.clipboard
+                        .writeText(`${window.location.origin}/portfolio/${v.code}`)
+                        .then(() => setMsg(`Link of #${v.code} copied.`))
+                        .catch(() => setMsg(`${window.location.origin}/portfolio/${v.code}`));
+                    }}
+                  >
+                    Copy link
+                  </Button>
+                )}
                 <Button
                   size="sm"
                   variant="outline"
