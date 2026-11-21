@@ -29,7 +29,7 @@ const en = {
       "Hi IDRAK, I saw sample #{code} in your portfolio and I'd like a video like it for my business.",
     whatsappTextNoCode:
       "Hi IDRAK, I saw your video portfolio and I'd like a video for my business.",
-    meeting: "Book a meeting",
+    meeting: "Request a meeting",
     copy: "Copy link",
     copied: "Link copied",
     previous: "Previous sample",
@@ -114,7 +114,7 @@ const ar: typeof en = {
     whatsappText:
       "مرحباً إدراك، شاهدت النموذج \u200E#{code} في معرض أعمالكم وأريد فيديو مثله لنشاطي.",
     whatsappTextNoCode: "مرحباً إدراك، شاهدت معرض الفيديو لديكم وأريد فيديو لنشاطي.",
-    meeting: "احجز اجتماعاً",
+    meeting: "اطلب اجتماعاً",
     copy: "نسخ الرابط",
     copied: "تم نسخ الرابط",
     previous: "النموذج السابق",
