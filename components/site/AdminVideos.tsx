@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PORTFOLIO } from "@/lib/content/portfolio";
 import { INDUSTRIES, normalizeCode, type Industry } from "@/lib/industries";
+import { SITE } from "@/lib/site";
 import type { VideoRow } from "@/lib/videos";
 
 const INDUSTRY_LABELS = PORTFOLIO.en.industries;
@@ -495,15 +496,17 @@ export function AdminVideos({ authed, initial }: { authed: boolean; initial: Vid
                   />
                   Published
                 </label>
-                {v.code && v.published && (
+                {v.code && (
                   <Button
                     size="sm"
                     variant="outline"
+                    disabled={!v.published}
+                    title={v.published ? undefined : "Publish first"}
                     onClick={async () => {
                       await navigator.clipboard
-                        .writeText(`${window.location.origin}/portfolio/${v.code}`)
+                        .writeText(`${SITE.url}/portfolio/${v.code}`)
                         .then(() => setMsg(`Link of #${v.code} copied.`))
-                        .catch(() => setMsg(`${window.location.origin}/portfolio/${v.code}`));
+                        .catch(() => setMsg(`${SITE.url}/portfolio/${v.code}`));
                     }}
                   >
                     Copy link

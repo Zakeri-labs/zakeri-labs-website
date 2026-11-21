@@ -15,6 +15,8 @@ with numbered as (
   select id, row_number() over (order by sort_order, created_at) as n
   from public.site_videos
   where code is null
+    -- first run only: a second run must not restart at S1 and hit the unique index
+    and not exists (select 1 from public.site_videos where code is not null)
 )
 update public.site_videos v
 set code = 'S' || numbered.n

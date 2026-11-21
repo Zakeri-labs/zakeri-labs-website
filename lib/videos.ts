@@ -130,9 +130,13 @@ async function rest(pathAndQuery: string, init: RequestInit = {}) {
 export async function listVideos(all: boolean): Promise<VideoRow[]> {
   const res = await rest(
     `site_videos?select=*&order=sort_order.asc,created_at.desc${all ? "" : "&published=eq.true"}`,
-    all ? { cache: "no-store" } : { next: { revalidate: 60 } },
+    all ? { cache: "no-store" } : { next: { revalidate: 60 }, signal: AbortSignal.timeout(8000) },
   ).catch(() => null);
-  return res?.ok ? ((await res.json()) as VideoRow[]) : [];
+  if (res?.ok) return (await res.json()) as VideoRow[];
+  // Public pages: failing here keeps the last good ISR page, instead of caching an empty gallery
+  // (and a redirect for every sample link) during a Supabase blip.
+  if (!all && env().url) throw new Error("site_videos: read failed");
+  return [];
 }
 
 export async function createVideo(v: z.infer<typeof videoCreate>) {

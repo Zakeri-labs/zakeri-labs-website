@@ -13,7 +13,9 @@ export async function PortfolioData({ lang, initial }: { lang: Lang; initial?: s
   const pageUrl = absoluteUrl(localizePathname("/portfolio", lang));
   return (
     <>
-      {listed.length > 0 &&
+      {/* a sample page is canonical to /portfolio: the list markup belongs there only */}
+      {!initial &&
+        listed.length > 0 &&
         jsonLdScript({
           "@context": "https://schema.org",
           "@type": "ItemList",

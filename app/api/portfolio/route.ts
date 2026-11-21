@@ -18,5 +18,6 @@ export async function GET() {
       url: absoluteUrl(`/portfolio/${v.code}`),
       url_ar: absoluteUrl(`/ar/portfolio/${v.code}`),
     }));
-  return Response.json({ samples });
+  // a data feed, not a page: keep it out of search results
+  return Response.json({ samples }, { headers: { "X-Robots-Tag": "noindex" } });
 }

@@ -30,6 +30,7 @@ import {
 } from "@/lib/content/common";
 import { readAttribution } from "@/lib/attribution";
 import { useCopy, useI18n } from "@/lib/i18n";
+import { normalizeCode } from "@/lib/industries";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/track";
 import { cn } from "@/lib/utils";
@@ -80,8 +81,12 @@ export function LeadWizard({
   const started = useRef(false);
 
   useEffect(() => {
-    const q = new URLSearchParams(window.location.search).get("interest");
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("interest");
     if (q && (INTERESTS as readonly string[]).includes(q)) setInterest(q as Interest);
+    // from a portfolio sample ("Book a meeting"): sales sees which sample the visitor liked
+    const sample = normalizeCode(params.get("sample"));
+    if (sample) setNote(`Portfolio sample #${sample}`);
   }, []);
 
   // Slide each step in from the direction of travel.
