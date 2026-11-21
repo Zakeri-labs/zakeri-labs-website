@@ -9,7 +9,7 @@ Gallery (Mr Zakeri, 20 Nov 2026): a profile-style grid with industry tabs. Every
 (`#C81`); `/portfolio/C81` (`/ar/portfolio/C81`) opens that sample and is the link sales and the WhatsApp AI
 send (share preview = the sample's cover; canonical stays `/portfolio`). `/portfolio?industry=beauty` opens a
 tab. `GET /api/portfolio` lists the published samples (code, industry, title, url) for the AI.
-Codes: `C<cn.omanai.tech number>` for client reels, `S<n>` for our own films. Industries: `lib/industries.ts`,
+Codes: `C<n>` for client reels (C1..C24 follow the order of the Telegram group "Idrak Reals"; the next one takes the next number), `S<n>` for our own films. Industries: `lib/industries.ts`,
 labels in `lib/content/portfolio.ts`. Columns `code` and `industry` come from
 `supabase/migrations/20261121000000_site_videos_gallery.sql` (the page works without it, with no codes or tabs).
 A client reel is published only after the client agreed to be shown.

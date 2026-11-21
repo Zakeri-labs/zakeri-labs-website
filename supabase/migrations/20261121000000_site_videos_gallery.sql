@@ -10,7 +10,7 @@ alter table public.site_videos
 create unique index if not exists site_videos_code_key on public.site_videos (code);
 
 -- Rows that exist today (site demo reels, product tours) get S1, S2, ... in their current order.
--- Client reels from the content panel take C<cn number>, e.g. CN-97 -> C97.
+-- Client reels take C1, C2, ... (added from /admin/videos or the API).
 with numbered as (
   select id, row_number() over (order by sort_order, created_at) as n
   from public.site_videos
