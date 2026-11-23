@@ -112,7 +112,7 @@ export function Header({
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-6">
-          <Link href="/" aria-label="IDRAK AI Solutions" className="shrink-0">
+          <Link href="/" aria-label="IDRAK AI Solutions" className="shrink-0 py-1">
             <Logo className="h-9 w-auto sm:h-10" />
           </Link>
 
@@ -182,7 +182,7 @@ export function Header({
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button
-                className="grid h-10 w-10 place-items-center rounded-full border border-border bg-surface xl:hidden"
+                className="grid h-11 w-11 place-items-center rounded-full border border-border bg-surface xl:hidden"
                 aria-label={c.menu}
               >
                 <Menu className="h-5 w-5" />

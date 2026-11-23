@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   CalendarCheck,
@@ -108,6 +108,15 @@ function Lightbox({
   const { lang } = useI18n();
   const [copied, setCopied] = useState(false);
   useEffect(() => setCopied(false), [v]);
+  // Phones block autoplay with sound (always on iOS, and a direct /portfolio/C16 link has no tap
+  // at all): then start muted, the visitor unmutes in the controls. Stable, so a re-render
+  // (e.g. "copy link") does not restart a video the visitor paused.
+  const autoplay = useCallback((el: HTMLVideoElement | null) => {
+    el?.play().catch(() => {
+      el.muted = true;
+      el.play().catch(() => {});
+    });
+  }, []);
 
   // "Teeb Al Arab Perfumes · Arabic Instagram reel": the business, then what was made for it
   const [client, ...restOfTitle] = (v?.title[lang] ?? "").split(" · ");
@@ -161,45 +170,46 @@ function Lightbox({
             if (e.key === "ArrowLeft") onStep(rtl ? 1 : -1);
           }}
           className={cn(
-            // phone: video on top, details under it. md and up: side by side, like a post on desktop
-            "flex max-h-[94dvh] w-[min(94vw,26rem)] max-w-none flex-col gap-0 overflow-y-auto rounded-2xl border-white/10 bg-ink p-0 text-white md:w-fit md:max-w-[94vw] md:flex-row md:overflow-hidden",
+            // phone: a full-screen sheet that never scrolls as a whole: video on top, details scroll
+            // under it, so the close button stays on screen. md and up: side by side, like a desktop post.
+            "left-0 top-0 flex h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden rounded-none border-0 bg-ink p-0 text-white md:left-1/2 md:top-1/2 md:h-auto md:max-h-[94dvh] md:w-fit md:max-w-[94vw] md:-translate-x-1/2 md:-translate-y-1/2 md:flex-row md:rounded-2xl md:border md:border-white/10",
             // the close cross of ui/dialog, made a real 44px target that shows on any frame
             "[&>button]:right-2 rtl:[&>button]:left-2 rtl:[&>button]:right-auto [&>button]:top-2 [&>button]:z-20 [&>button]:grid [&>button]:h-11 [&>button]:w-11 [&>button]:place-items-center [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:opacity-100 [&>button]:ring-1 [&>button]:ring-white/30",
           )}
         >
-          <div
-            // the video's own shape; the width leaves room for the 22rem details column
-            style={{ "--r": ratio, aspectRatio: ratio } as React.CSSProperties}
-            className={cn(
-              "relative w-full shrink-0 bg-black md:w-[min(calc(94vw-22rem),60rem,calc(86dvh*var(--r)))]",
-              isVertical(v) && "max-h-[62dvh] md:max-h-none",
-            )}
-          >
-            {v.youtubeId ? (
-              <iframe
-                key={v.id}
-                src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?autoplay=1&rel=0`}
-                title={v.title[lang]}
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
-            ) : (
-              <video
-                key={v.id}
-                src={v.src ?? undefined}
-                poster={v.poster ?? undefined}
-                preload="none"
-                controls
-                autoPlay
-                playsInline
-                className="absolute inset-0 h-full w-full"
-              />
-            )}
-            {onStep && step(-1)}
-            {onStep && step(1)}
+          <div className="flex shrink-0 justify-center bg-black">
+            <div
+              // The box is always the video's own shape (no bars): on a phone as wide as the screen
+              // until it is 70% of the screen tall; on desktop it leaves room for the 22rem details column.
+              style={{ "--r": ratio, aspectRatio: ratio } as React.CSSProperties}
+              className="relative w-[min(100%,calc(70dvh*var(--r)))] shrink-0 md:w-[min(calc(94vw-22rem),60rem,calc(86dvh*var(--r)))]"
+            >
+              {v.youtubeId ? (
+                <iframe
+                  key={v.id}
+                  src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?autoplay=1&playsinline=1&rel=0`}
+                  title={v.title[lang]}
+                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              ) : (
+                <video
+                  key={v.id}
+                  src={v.src ?? undefined}
+                  poster={v.poster ?? undefined}
+                  preload="none"
+                  controls
+                  playsInline
+                  ref={autoplay}
+                  className="absolute inset-0 h-full w-full"
+                />
+              )}
+              {onStep && step(-1)}
+              {onStep && step(1)}
+            </div>
           </div>
-          <div className="flex min-h-0 flex-col p-4 sm:p-5 md:w-[22rem] md:shrink-0 md:overflow-y-auto md:pt-14">
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5 md:w-[22rem] md:flex-none md:shrink-0 md:pt-14">
             <DialogTitle className="text-start text-lg font-bold leading-snug">
               {client}
             </DialogTitle>
