@@ -29,6 +29,8 @@ const arabic = IBM_Plex_Sans_Arabic({
   weight: ["400", "500", "600", "700"],
   variable: "--font-arabic",
   display: "swap",
+  // English pages never use it; /ar still gets it through the CSS, just without the preload hint
+  preload: false,
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -93,7 +95,7 @@ export async function SiteShell({ lang, children }: { lang: Lang; children: Reac
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
             <Script id="ga4" strategy="afterInteractive">
               {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}

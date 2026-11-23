@@ -16,7 +16,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
       onClick={() => setLang(other)}
       lang={other}
       aria-label={`${c.language}: ${c.switchTo}`}
-      className={`inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-sm font-medium text-foreground/80 transition hover:border-primary/40 hover:text-primary ${className}`}
+      className={`inline-flex h-11 items-center gap-1.5 sm:h-9 rounded-full border border-border bg-surface px-3 text-sm font-medium text-foreground/80 transition hover:border-primary/40 hover:text-primary ${className}`}
     >
       <Globe className="h-4 w-4" />
       {c.switchTo}
