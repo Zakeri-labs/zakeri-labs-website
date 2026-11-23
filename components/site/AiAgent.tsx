@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ArrowUp, MessageCircle, X } from "lucide-react";
 
 import { gsap, prefersReducedMotion } from "./motion";
@@ -28,6 +29,8 @@ export function AiAgent() {
   const c = useCopy(COMMON);
   const a = c.agent;
   const { lang } = useI18n();
+  // the portfolio grid runs edge to edge on phones: the dock would sit on its tiles
+  const onPortfolio = /\/portfolio(\/|$)/.test(usePathname() ?? "");
   const [open, setOpen] = useState(false);
   const [teaser, setTeaser] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -160,6 +163,7 @@ export function AiAgent() {
         className={cn(
           "fixed bottom-20 end-1 z-40 flex flex-col items-end gap-2 transition duration-300 lg:bottom-5 min-[1400px]:end-6",
           away && !open && "pointer-events-none translate-x-16 opacity-0 rtl:-translate-x-16",
+          onPortfolio && !open && "max-md:hidden",
         )}
       >
         {teaser && !open && (
@@ -186,7 +190,8 @@ export function AiAgent() {
             className="group relative flex items-center rounded-full border border-white/15 bg-card/90 p-0.5 font-semibold shadow-[var(--shadow-lift)] backdrop-blur transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="absolute -inset-1 -z-10 animate-pulse rounded-full bg-brand opacity-30 blur-md" />
-            <span className="relative grid h-8 w-8 place-items-center rounded-full bg-[#0a0f26] lg:h-10 lg:w-10">
+            {/* 38px + padding + border = a 44px target */}
+            <span className="relative grid h-[38px] w-[38px] place-items-center rounded-full bg-[#0a0f26] lg:h-10 lg:w-10">
               <Image
                 src="/brand/idrak-mark.svg"
                 alt=""

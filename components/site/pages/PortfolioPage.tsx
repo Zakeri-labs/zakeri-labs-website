@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import {
   CalendarCheck,
   Check,
@@ -17,6 +17,7 @@ import {
   Play,
   Search,
   Smartphone,
+  Volume2,
 } from "lucide-react";
 
 import { Eyebrow, FinalCta, Reveal, Section, SectionHeading } from "@/components/site/blocks";
@@ -82,8 +83,9 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
         )}
       </span>
       <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 pt-6 sm:p-3 sm:pt-8">
+        {/* the business only: the full title is in the button's label */}
         <span className="line-clamp-2 text-start text-[11px] font-semibold leading-snug text-white sm:text-sm">
-          {title}
+          {title.split(" · ")[0]}
         </span>
       </span>
     </button>
@@ -107,21 +109,45 @@ function Lightbox({
   const t = useCopy(PORTFOLIO);
   const { lang } = useI18n();
   const [copied, setCopied] = useState(false);
-  useEffect(() => setCopied(false), [v]);
+  // autoplay fell back to muted: a "tap for sound" pill shows over the video
+  const [needSound, setNeedSound] = useState(false);
+  useEffect(() => {
+    setCopied(false);
+    setNeedSound(false);
+  }, [v]);
+  const video = useRef<HTMLVideoElement | null>(null);
   // Phones block autoplay with sound (always on iOS, and a direct /portfolio/C16 link has no tap
-  // at all): then start muted, the visitor unmutes in the controls. Stable, so a re-render
+  // at all): then start muted and offer the pill. Stable, so a re-render
   // (e.g. "copy link") does not restart a video the visitor paused.
   const autoplay = useCallback((el: HTMLVideoElement | null) => {
-    el?.play().catch(() => {
+    video.current = el;
+    el?.play().catch((e: DOMException) => {
+      if (e.name !== "NotAllowedError") return;
       el.muted = true;
-      el.play().catch(() => {});
+      el.play().then(
+        () => setNeedSound(true),
+        () => {},
+      );
     });
   }, []);
+  const unmute = () => {
+    const el = video.current;
+    if (!el) return;
+    el.muted = false;
+    el.play().catch(() => {});
+    setNeedSound(false);
+  };
 
   // "Teeb Al Arab Perfumes · Arabic Instagram reel": the business, then what was made for it
   const [client, ...restOfTitle] = (v?.title[lang] ?? "").split(" · ");
   const kind = restOfTitle.join(" · ");
   const ratio = v?.width && v.height ? v.width / v.height : 16 / 9;
+  const tall = !!v && isVertical(v);
+  // the cover goes through the image optimizer, not the raw 1080x1920 JPEG
+  const poster = v?.poster
+    ? getImageProps({ src: v.poster, alt: "", width: 414, height: Math.round(414 / ratio) }).props
+        .src
+    : undefined;
 
   const whatsapp = v
     ? `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent(
@@ -172,17 +198,26 @@ function Lightbox({
           className={cn(
             // phone: a full-screen sheet that never scrolls as a whole: video on top, details scroll
             // under it, so the close button stays on screen. md and up: side by side, like a desktop post.
-            "left-0 top-0 flex h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden rounded-none border-0 bg-ink p-0 text-white md:left-1/2 md:top-1/2 md:h-auto md:max-h-[94dvh] md:w-fit md:max-w-[94vw] md:-translate-x-1/2 md:-translate-y-1/2 md:flex-row md:rounded-2xl md:border md:border-white/10",
+            // sm:rounded-none beats ui/dialog's sm:rounded-lg: square below md, the old 16px (rounded-lg) from md.
+            "left-0 top-0 flex h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden rounded-none border-0 sm:rounded-none bg-ink p-0 text-white md:left-1/2 md:top-1/2 md:h-auto md:max-h-[94dvh] md:w-fit md:max-w-[94vw] md:-translate-x-1/2 md:-translate-y-1/2 md:flex-row md:rounded-lg md:border md:border-white/10",
             // the close cross of ui/dialog, made a real 44px target that shows on any frame
             "[&>button]:right-2 rtl:[&>button]:left-2 rtl:[&>button]:right-auto [&>button]:top-2 [&>button]:z-20 [&>button]:grid [&>button]:h-11 [&>button]:w-11 [&>button]:place-items-center [&>button]:rounded-full [&>button]:bg-black/55 [&>button]:opacity-100 [&>button]:ring-1 [&>button]:ring-white/30",
           )}
         >
-          <div className="flex shrink-0 justify-center bg-black">
+          {/* Arrows sit on this black band, so beside a reel they are in the side bars, not on it.
+              A wide or square film gets a 56px top bar on phones for the close button. */}
+          <div
+            className={cn(
+              "relative flex shrink-0 items-center justify-center bg-black",
+              !tall && "pt-14 md:pt-0",
+            )}
+          >
             <div
               // The box is always the video's own shape (no bars): on a phone as wide as the screen
-              // until it is 70% of the screen tall; on desktop it leaves room for the 22rem details column.
+              // until it is 60% of the screen tall (details and the WhatsApp button stay in view);
+              // on desktop it leaves room for the 22rem details column.
               style={{ "--r": ratio, aspectRatio: ratio } as React.CSSProperties}
-              className="relative w-[min(100%,calc(70dvh*var(--r)))] shrink-0 md:w-[min(calc(94vw-22rem),60rem,calc(86dvh*var(--r)))]"
+              className="relative w-[min(100%,calc(60dvh*var(--r)))] shrink-0 md:w-[min(calc(94vw-22rem),60rem,calc(86dvh*var(--r)))]"
             >
               {v.youtubeId ? (
                 <iframe
@@ -197,7 +232,8 @@ function Lightbox({
                 <video
                   key={v.id}
                   src={v.src ?? undefined}
-                  poster={v.poster ?? undefined}
+                  poster={poster}
+                  onVolumeChange={(e) => !e.currentTarget.muted && setNeedSound(false)}
                   preload="none"
                   controls
                   playsInline
@@ -205,11 +241,21 @@ function Lightbox({
                   className="absolute inset-0 h-full w-full"
                 />
               )}
-              {onStep && step(-1)}
-              {onStep && step(1)}
+              {needSound && (
+                <button
+                  type="button"
+                  onClick={unmute}
+                  className="absolute left-1/2 top-3 z-10 inline-flex min-h-11 -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-black/70 px-4 text-sm font-semibold text-white ring-1 ring-white/30 backdrop-blur focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Volume2 className="h-4 w-4" />
+                  {t.sample.tapForSound}
+                </button>
+              )}
             </div>
+            {onStep && step(-1)}
+            {onStep && step(1)}
           </div>
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5 md:w-[22rem] md:flex-none md:shrink-0 md:pt-14">
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain p-4 pb-0 sm:p-5 sm:pb-0 md:w-[22rem] md:flex-none md:shrink-0 md:pb-5 md:pt-14">
             <DialogTitle className="text-start text-lg font-bold leading-snug">
               {client}
             </DialogTitle>
@@ -236,18 +282,21 @@ function Lightbox({
             >
               {v.description[lang] || v.title[lang]}
             </DialogDescription>
-            <div className="mt-5 flex flex-wrap gap-2 md:mt-auto md:pt-6">
+            {/* phones: the main action stays pinned to the bottom of the sheet while the details scroll */}
+            <div className="sticky bottom-0 z-10 -mx-4 mt-5 bg-ink px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 sm:-mx-5 sm:px-5 md:static md:mx-0 md:mt-auto md:bg-transparent md:px-0 md:pb-0 md:pt-6">
               <a
                 href={whatsapp}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`WhatsApp: ${t.sample.whatsapp}`}
                 onClick={() => track("whatsapp_contact_clicked", { sample: v.code ?? v.id })}
-                className="inline-flex min-h-11 basis-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#1fae5b] px-5 text-sm font-semibold text-white transition hover:bg-[#189a4f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#1fae5b] px-5 text-sm font-semibold text-white transition hover:bg-[#189a4f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <MessageCircle className="h-4 w-4 shrink-0" />
                 {t.sample.whatsapp}
               </a>
+            </div>
+            <div className="flex flex-wrap gap-2 pb-[max(1rem,env(safe-area-inset-bottom))] md:mt-2 md:pb-0">
               <LocalizedLink
                 href={`/contact?interest=ai-video${v.code ? `&sample=${v.code}` : ""}`}
                 className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -317,10 +366,27 @@ export function PortfolioPage({
     localizePathname("/portfolio", lang) + (f === "all" ? "" : `?industry=${f}`);
   const grid = useRef<HTMLUListElement>(null);
   const opener = useRef<HTMLElement | null>(null);
+  // Opened from a card: the player gets its own history entry, so the phone's Back button closes it.
+  // A direct /portfolio/<code> link has no entry under it to go back to, so it keeps replaceState.
+  const pushed = useRef(false);
+  useEffect(() => {
+    const onPop = () => {
+      if (!pushed.current) return;
+      pushed.current = false;
+      setOpen(null);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
   const show = (v: PublicVideo | null) => {
+    if (!v && pushed.current) return window.history.back(); // popstate closes it
     if (v && !open) opener.current = document.activeElement as HTMLElement | null;
     setOpen(v);
-    window.history.replaceState(null, "", v ? samplePath(v, lang) : listUrl(filter));
+    const url = v ? samplePath(v, lang) : listUrl(filter);
+    if (v && !open) {
+      window.history.pushState(null, "", url);
+      pushed.current = true;
+    } else window.history.replaceState(null, "", url);
     if (v)
       track("portfolio_video_play", {
         video_id: v.id,
@@ -373,16 +439,17 @@ export function PortfolioPage({
   return (
     <>
       {/* Short header, not the full PageHero: like a profile, the grid starts on the first screen */}
-      <Section className="pb-4 pt-8 lg:pb-6 lg:pt-12">
+      <Section className="pb-3 pt-0 sm:pb-4 sm:pt-8 lg:pb-6 lg:pt-12">
         <Eyebrow>{t.hero.eyebrow}</Eyebrow>
-        <h1 className="mt-3 max-w-3xl text-2xl font-extrabold leading-tight sm:text-4xl">
+        <h1 className="mt-2 max-w-3xl text-xl font-extrabold leading-tight sm:mt-3 sm:text-4xl">
           {t.hero.title}
         </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground/75 sm:text-base">
+        {/* phones: no intro and no stats line, so the first row of tiles is on the first screen (375x548) */}
+        <p className="mt-2 hidden max-w-2xl text-sm leading-relaxed text-foreground/75 sm:block sm:text-base">
           {t.hero.intro}
         </p>
         {videos.length > 0 && (
-          <p className="mt-2 text-sm font-medium text-foreground/70">
+          <p className="mt-2 hidden text-sm font-medium text-foreground/70 sm:block">
             {t.stats
               .replace("{samples}", String(videos.length))
               .replace("{industries}", String(present.length))}
@@ -395,7 +462,7 @@ export function PortfolioPage({
           <p className="text-center text-muted-foreground">{t.empty}</p>
         ) : (
           <>
-            <label className="relative mb-2 block sm:max-w-md">
+            <label className="relative mb-1 block sm:mb-2 sm:max-w-md">
               <span className="sr-only">{t.search}</span>
               <Search className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/50" />
               <input
@@ -404,7 +471,7 @@ export function PortfolioPage({
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t.search}
                 enterKeyHint="search"
-                className="h-12 w-full rounded-full border border-border bg-white/[0.04] pe-4 ps-11 text-base text-foreground placeholder:text-foreground/45 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="h-11 w-full rounded-full sm:h-12 border border-border bg-white/[0.04] pe-4 ps-11 text-base text-foreground placeholder:text-foreground/45 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               />
             </label>
             {present.length > 0 && (
@@ -413,7 +480,7 @@ export function PortfolioPage({
                 ref={tabs}
                 role="group"
                 aria-label={t.filterLabel}
-                className="sticky top-[72px] z-30 -mx-4 mb-4 flex gap-2 overflow-x-auto bg-background/85 px-4 py-3 backdrop-blur sm:static sm:bg-transparent sm:backdrop-blur-none [scrollbar-width:none] sm:mx-0 sm:mb-6 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
+                className="sticky top-[72px] z-30 -mx-4 mb-2 flex gap-2 overflow-x-auto bg-background/85 px-4 py-2 backdrop-blur sm:py-3 sm:static sm:bg-transparent sm:backdrop-blur-none [scrollbar-width:none] sm:mx-0 sm:mb-6 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
               >
                 {(["all", ...present] as const).map((f) => (
                   <button

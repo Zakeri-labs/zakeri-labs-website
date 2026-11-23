@@ -79,6 +79,7 @@ export function Footer({
                     <li key={link.href}>
                       <Link
                         href={link.href}
+                        prefetch={false}
                         className="text-sm text-muted-foreground transition hover:text-primary"
                       >
                         {link.label}
@@ -132,10 +133,18 @@ export function Footer({
           </p>
           <div className="flex flex-col gap-2 sm:items-end">
             <p className="flex flex-wrap items-center gap-x-4 gap-y-2 font-medium text-foreground/70">
-              <Link href="/privacy" className="whitespace-nowrap transition hover:text-primary">
+              <Link
+                href="/privacy"
+                prefetch={false}
+                className="whitespace-nowrap transition hover:text-primary"
+              >
                 {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
               </Link>
-              <Link href="/terms" className="whitespace-nowrap transition hover:text-primary">
+              <Link
+                href="/terms"
+                prefetch={false}
+                className="whitespace-nowrap transition hover:text-primary"
+              >
                 {lang === "ar" ? "شروط الخدمة" : "Terms"}
               </Link>
             </p>
