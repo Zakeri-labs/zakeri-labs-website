@@ -327,7 +327,7 @@ function Lightbox({
 }
 
 export function PortfolioPage({
-  videos,
+  videos: all,
   initial,
 }: {
   videos: PublicVideo[];
@@ -336,9 +336,11 @@ export function PortfolioPage({
 }) {
   const t = useCopy(PORTFOLIO);
   const { lang } = useI18n();
+  // Zakeri, 24 Nov 2026: the gallery shows reels only for now; a shared film link (/portfolio/S5) still opens.
+  const videos = all.filter((v) => kindOf(v) === "reel");
   const [filter, setFilter] = useState<Industry | "all">("all");
   const [open, setOpen] = useState<PublicVideo | null>(
-    () => (initial && videos.find((v) => v.code === initial)) || null,
+    () => (initial && all.find((v) => v.code === initial)) || null,
   );
   const present = INDUSTRIES.filter((k) => videos.some((v) => v.industry === k));
   const [query, setQuery] = useState("");
@@ -362,11 +364,11 @@ export function PortfolioPage({
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const id = q.get("v");
-    const v = id && videos.find((x) => x.id === id || x.code === normalizeCode(id));
+    const v = id && all.find((x) => x.id === id || x.code === normalizeCode(id));
     if (v) setOpen(v);
     const industry = q.get("industry");
     if (isIndustry(industry) && videos.some((x) => x.industry === industry)) setFilter(industry);
-  }, [videos]);
+  }, [all, videos]);
 
   const listUrl = (f: Industry | "all") =>
     localizePathname("/portfolio", lang) + (f === "all" ? "" : `?industry=${f}`);
