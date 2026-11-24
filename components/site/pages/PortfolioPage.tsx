@@ -57,7 +57,7 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
       title={title}
       onClick={onPlay}
       aria-label={`${t.play}: ${title}${v.code ? ` (#${v.code})` : ""}`}
-      className="group relative block aspect-[9/16] w-full overflow-hidden rounded-md bg-gradient-to-br from-ink to-violet/30 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:rounded-xl"
+      className="group relative block aspect-[4/5] w-full overflow-hidden rounded-xl bg-gradient-to-br from-ink to-violet/30 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:aspect-[9/16]"
     >
       {v.poster && (
         <Image
@@ -65,28 +65,34 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
           alt=""
           fill
           priority={eager}
-          sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 33vw"
+          sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, calc(100vw - 32px)"
           className="object-cover transition duration-500 group-hover:scale-[1.05] motion-reduce:transition-none"
         />
       )}
       <span className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/40 transition group-hover:via-black/25" />
       {v.code && (
-        <span className="absolute start-1.5 top-1.5 rounded-full bg-black/55 px-2 py-0.5 text-[11px] font-bold tracking-wide text-white ring-1 ring-white/25 sm:start-2.5 sm:top-2.5 sm:text-xs">
+        <span className="absolute start-3 top-3 rounded-full bg-black/55 px-2.5 py-0.5 text-xs font-bold tracking-wide text-white ring-1 ring-white/25 sm:start-2.5 sm:top-2.5 sm:px-2">
           <span dir="ltr">#{v.code}</span>
         </span>
       )}
-      <span className="absolute end-1.5 top-1.5 rounded-full bg-black/55 p-1 text-white sm:end-2.5 sm:top-2.5">
+      <span className="absolute end-3 top-3 grid h-11 w-11 place-items-center rounded-full bg-black/55 text-white sm:end-2.5 sm:top-2.5 sm:h-auto sm:w-auto sm:p-1">
         {wide ? (
-          <Clapperboard className="h-3.5 w-3.5" />
+          <Clapperboard className="h-5 w-5 sm:h-3.5 sm:w-3.5" />
         ) : (
-          <Play className="h-3.5 w-3.5" fill="currentColor" />
+          <Play className="h-5 w-5 sm:h-3.5 sm:w-3.5" fill="currentColor" />
         )}
       </span>
-      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 pt-6 sm:p-3 sm:pt-8">
+      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 pt-16 sm:from-black/80 sm:via-transparent sm:p-3 sm:pt-8">
         {/* the business only: the full title is in the button's label */}
-        <span className="line-clamp-2 text-start text-[11px] font-semibold leading-snug text-white sm:text-sm">
+        <span className="line-clamp-2 text-start text-lg font-bold leading-snug text-white sm:text-sm sm:font-semibold">
           {title.split(" · ")[0]}
         </span>
+        {/* phones show one card per row, so there is room for the industry tag */}
+        {v.industry && (
+          <span className="mt-1 block text-sm font-medium text-white/80 sm:hidden">
+            {t.industries[v.industry]}
+          </span>
+        )}
       </span>
     </button>
   );
@@ -503,16 +509,16 @@ export function PortfolioPage({
                 ))}
               </div>
             )}
-            {/* Profile-style grid: every sample is a 9:16 card, like a reels tab.
+            {/* Profile-style grid: every sample is a 9:16 card, like a reels tab (phones: one large 4:5 card per row).
                 ponytail: every tile is rendered (covers lazy-load); add a plain "show more" (slice) when it passes ~100 samples. */}
             <ul
               ref={grid}
               data-grid
-              className="grid grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-3"
+              className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-3"
             >
               {shown.map((v, i) => (
                 <li key={v.id}>
-                  <Tile v={v} onPlay={() => show(v)} eager={!initial && i < 6} />
+                  <Tile v={v} onPlay={() => show(v)} eager={!initial && i < 2} />
                 </li>
               ))}
             </ul>
