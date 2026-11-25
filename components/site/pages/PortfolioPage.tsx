@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image, { getImageProps } from "next/image";
 import {
   CalendarCheck,
@@ -26,6 +26,7 @@ import { gsap, prefersReducedMotion, useGSAP } from "@/components/site/motion";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { PORTFOLIO } from "@/lib/content/portfolio";
 import { useCopy, useI18n } from "@/lib/i18n";
+import { mixBusinesses } from "@/lib/portfolio-mix";
 import { INDUSTRIES, isIndustry, normalizeCode, type Industry } from "@/lib/industries";
 import { localizePathname, type Lang } from "@/lib/locales";
 import { SITE } from "@/lib/site";
@@ -45,6 +46,38 @@ const isWide = (v: PublicVideo) => !!v.width && !!v.height && v.width > v.height
 const samplePath = (v: PublicVideo, lang: Lang) =>
   localizePathname("/portfolio", lang) + (v.code ? `/${v.code}` : `?v=${v.id}`);
 
+/**
+ * A sample added by the content panel has no cover image yet: a frame of the video stands in. It loads only while the
+ * card is on screen and is dropped when the card leaves, so a phone never holds many video decoders at once.
+ * ponytail: a frame per card costs about 0.5-2 MB; a real poster made when the file is added is the upgrade.
+ */
+function FrameCover({ src }: { src: string }) {
+  const box = useRef<HTMLSpanElement>(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setNear(e.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <span ref={box} aria-hidden className="pointer-events-none absolute inset-0">
+      {near && (
+        <video
+          src={`${src}#t=1.5`}
+          preload="metadata"
+          muted
+          playsInline
+          tabIndex={-1}
+          disablePictureInPicture
+          className="h-full w-full object-cover"
+        />
+      )}
+    </span>
+  );
+}
+
 function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager: boolean }) {
   const t = useCopy(PORTFOLIO);
   const { lang } = useI18n();
@@ -59,6 +92,7 @@ function Tile({ v, onPlay, eager }: { v: PublicVideo; onPlay: () => void; eager:
       aria-label={`${t.play}: ${title}${v.code ? ` (#${v.code})` : ""}`}
       className="group relative block aspect-[3/4] w-full overflow-hidden rounded-xl bg-gradient-to-br from-ink to-violet/30 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:aspect-[9/16]"
     >
+      {!v.poster && v.src && <FrameCover src={v.src} />}
       {v.poster && (
         <Image
           src={v.poster}
@@ -337,7 +371,7 @@ export function PortfolioPage({
   const t = useCopy(PORTFOLIO);
   const { lang } = useI18n();
   // Zakeri, 24 Nov 2026: the gallery shows reels only for now; a shared film link (/portfolio/S5) still opens.
-  const videos = all.filter((v) => kindOf(v) === "reel");
+  const videos = useMemo(() => all.filter((v) => kindOf(v) === "reel"), [all]);
   const [filter, setFilter] = useState<Industry | "all">("all");
   const [open, setOpen] = useState<PublicVideo | null>(
     () => (initial && all.find((v) => v.code === initial)) || null,
@@ -345,20 +379,23 @@ export function PortfolioPage({
   const present = INDUSTRIES.filter((k) => videos.some((v) => v.industry === k));
   const [query, setQuery] = useState("");
   const words = query.trim().toLowerCase().replace(/^#/, "").split(/\s+/).filter(Boolean);
-  const shown = videos.filter((v) => {
-    if (filter !== "all" && v.industry !== filter) return false;
-    if (!words.length) return true;
-    const hay = [
-      v.title.en,
-      v.title.ar,
-      v.description[lang],
-      v.code,
-      v.industry && t.industries[v.industry],
-    ]
-      .join(" ")
-      .toLowerCase();
-    return words.every((w) => hay.includes(w));
-  });
+  // mixed after the tab and the search, so one business is spread out inside a tab too
+  const shown = mixBusinesses(
+    videos.filter((v) => {
+      if (filter !== "all" && v.industry !== filter) return false;
+      if (!words.length) return true;
+      const hay = [
+        v.title.en,
+        v.title.ar,
+        v.description[lang],
+        v.code,
+        v.industry && t.industries[v.industry],
+      ]
+        .join(" ")
+        .toLowerCase();
+      return words.every((w) => hay.includes(w));
+    }),
+  );
 
   // ?v=<id or code> opens that video (links sent before codes); ?industry=<slug> opens that tab.
   useEffect(() => {
