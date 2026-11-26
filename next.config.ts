@@ -49,6 +49,13 @@ const nextConfig: NextConfig = {
         has: [{ type: "host" as const, value: "(.*\\.)?zakeri\\.dev" }],
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      // client logos: unhashed names, so a day of browser cache, not immutable
+      {
+        source: "/clients/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+        ],
+      },
     ];
   },
   async redirects() {
