@@ -200,6 +200,11 @@ const en = {
       },
     ],
   },
+  clients: {
+    eyebrow: "Our clients",
+    title: "Businesses that work with IDRAK",
+    text: "Signed contracts and delivered work for real businesses, not demos.",
+  },
   founder: {
     eyebrow: "Founder & CEO",
     name: "Mohammadreza Zakeri",
@@ -419,6 +424,11 @@ const ar: HomeCopy = {
       { role: "customer", text: "3×4 لو سمحت" },
       { role: "ai", text: "متوفر ✓ سجّلت طلبك — سيؤكد لك زميلي السعر وموعد التوصيل الآن." },
     ],
+  },
+  clients: {
+    eyebrow: "عملاؤنا",
+    title: "شركات تعمل مع إدراك",
+    text: "عقود موقّعة وأعمال مسلّمة لشركات حقيقية، لا عروض تجريبية.",
   },
   founder: {
     eyebrow: "المؤسس والرئيس التنفيذي",
