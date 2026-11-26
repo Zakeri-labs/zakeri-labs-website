@@ -58,7 +58,6 @@ export function Clients({ id }: { id?: string }) {
           <h2 className="mt-4 text-balance text-3xl font-bold leading-tight sm:text-5xl">
             {c.title}
           </h2>
-          <p className="mt-4 text-balance text-muted-foreground sm:text-lg">{c.text}</p>
         </Reveal>
         <ul aria-label={c.eyebrow} className="mt-10 flex flex-wrap justify-center gap-3">
           {CLIENTS.map((l) => (

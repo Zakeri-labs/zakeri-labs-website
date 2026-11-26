@@ -202,8 +202,7 @@ const en = {
   },
   clients: {
     eyebrow: "Our clients",
-    title: "Businesses that work with IDRAK",
-    text: "Signed contracts and delivered work for real businesses, not demos.",
+    title: "Clients we’ve delivered for",
   },
   founder: {
     eyebrow: "Founder & CEO",
@@ -427,8 +426,7 @@ const ar: HomeCopy = {
   },
   clients: {
     eyebrow: "عملاؤنا",
-    title: "شركات تعمل مع إدراك",
-    text: "عقود موقّعة وأعمال مسلّمة لشركات حقيقية، لا عروض تجريبية.",
+    title: "عملاء أنجزنا لهم مشاريعهم",
   },
   founder: {
     eyebrow: "المؤسس والرئيس التنفيذي",
