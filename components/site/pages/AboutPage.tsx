@@ -17,6 +17,7 @@ import {
   TextLink,
   Visual,
 } from "@/components/site/blocks";
+import { Clients } from "@/components/site/Clients";
 import { LocalizedLink } from "@/components/site/LocalizedLink";
 import { ABOUT } from "@/lib/content/about";
 import { COMMON } from "@/lib/content/common";
@@ -63,6 +64,9 @@ export function AboutPage() {
           </Reveal>
         </div>
       </Section>
+
+      {/* ---------- Our clients ---------- */}
+      <Clients id="clients" />
 
       {/* ---------- Signature statement ---------- */}
       <section className="py-20 lg:py-24">

@@ -25,6 +25,7 @@ import {
   useGSAP,
   useMagnetic,
 } from "@/components/site/motion";
+import { Clients } from "@/components/site/Clients";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { COMMON } from "@/lib/content/common";
 import { HOME } from "@/lib/content/home";
@@ -48,6 +49,7 @@ export function HomePage({ menus }: { menus: NavMenus }) {
       <Work />
       <AiDemo />
       <Founder />
+      <Clients id="clients" />
       <How />
       <Final />
     </>
