@@ -35,7 +35,7 @@ const en: Legal = {
     {
       h: "Contact",
       p: [
-        `${SITE.legalName}, ${SITE.legalCity}. Email: ${SITE.email}. Phone / WhatsApp: ${SITE.phone}.`,
+        `${SITE.legalName}. Office: ${SITE.office.address.en}. Registered address (CR ${SITE.crNumber}): ${SITE.registeredAddress.en}. Email: ${SITE.email}. Phone / WhatsApp: ${SITE.phone}.`,
       ],
     },
   ],
@@ -71,7 +71,7 @@ const ar: Legal = {
     {
       h: "التواصل",
       p: [
-        `${SITE.legalName}، مسقط، سلطنة عُمان. البريد: ${SITE.email}. الهاتف / واتساب: ${SITE.phone}.`,
+        `${SITE.legalName}. المكتب: ${SITE.office.address.ar}. العنوان المسجّل (السجل التجاري رقم ${SITE.crNumber}): ${SITE.registeredAddress.ar}. البريد الإلكتروني: ${SITE.email}. الهاتف / واتساب: \u2066${SITE.phone.replace(/ /g, "\u00a0")}\u2069.`,
       ],
     },
   ],

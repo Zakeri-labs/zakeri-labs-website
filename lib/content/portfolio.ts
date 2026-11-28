@@ -1,6 +1,11 @@
 import { withOverrides } from "@/lib/content/overrides";
 
-/** /portfolio: the video and content-production portfolio (Mr Zakeri, 16 Nov 2026). No prices here. */
+/**
+ * /portfolio: the video and content-production portfolio (Mr Zakeri, 16 Nov 2026). Sellers send this page to
+ * leads, so it also carries the content packages, the services menu and the office (Zakeri's sales meeting,
+ * 28 Nov 2026). Package names, prices and contents are word for word from Zakeri's two images in Idrak Sales
+ * Team (28 Nov 11:57); services from his «Our Services Menu» image. Change them only from a new image.
+ */
 const en = {
   hero: {
     eyebrow: "Video portfolio",
@@ -51,6 +56,115 @@ const en = {
   empty: "New videos are on the way. Check back soon.",
   play: "Play video",
   close: "Close",
+  packages: {
+    eyebrow: "Social media content packages",
+    title: "Content Packages for Small Businesses",
+    intro: "From Idea to Published Content — Grow Your Business on Social Media",
+    currency: "OMR",
+    perMonth: "a month",
+    recommended: "Recommended",
+    was: "Was",
+    order: "Order on WhatsApp",
+    whatsappText: "Hi IDRAK, I'm interested in the {name} content package ({price} OMR a month).",
+    items: [
+      {
+        name: "Starter",
+        tagline: "Get Started",
+        price: "50",
+        was: "65",
+        features: [
+          "5 Videos (Edited & Ready)",
+          "Basic Captions",
+          "Cover Design",
+          "Simple Editing & Branding",
+        ],
+      },
+      {
+        name: "Growth",
+        tagline: "Build Consistency",
+        price: "84",
+        was: "",
+        features: [
+          "12 Videos (Edited & Ready)",
+          "Captions & Copywriting",
+          "Cover Design",
+          "Content Plan (Ideas & Daily Scenarios)",
+          "Publishing Guide (Best Time & Tips)",
+        ],
+      },
+      {
+        name: "Professional",
+        tagline: "Training & Content",
+        price: "97",
+        was: "",
+        features: [
+          "12 Videos (Edited & Ready)",
+          "Educational Videos (Social Media Training)",
+          "Captions & Copywriting",
+          "Cover Design",
+          "Highlight Setup (Branded Highlights)",
+          "Bio Optimization (Profile & Description)",
+          "Content Plan (Monthly Plan)",
+          "Publishing Guide (Best Time, Hashtags & Tips)",
+        ],
+      },
+      {
+        name: "Advanced",
+        tagline: "Full Growth Solution",
+        price: "150",
+        was: "",
+        features: [
+          "Unlimited Videos (Monthly Plan)",
+          "Educational Videos (Social Media Training)",
+          "Captions & Copywriting",
+          "Cover Design",
+          "Highlight Setup (Branded Highlights)",
+          "Bio Optimization (Profile & Description)",
+          "Full Content Strategy & Calendar",
+          "Performance Review & Growth Tips",
+          "Priority Support (WhatsApp)",
+        ],
+      },
+    ],
+  },
+  menu: {
+    eyebrow: "Our services menu",
+    title: "More than content: everything a business needs to grow.",
+    more: "See all services",
+    items: [
+      { title: "Content Production", text: "Professional, engaging content for your brand." },
+      { title: "Social Media Management", text: "Grow, engage and manage your presence." },
+      {
+        title: "Digital Advertising",
+        text: "Get more leads, bookings and sales with targeted ads.",
+      },
+      { title: "Google Maps & Local SEO", text: "Be easily found by customers in your area." },
+      {
+        title: "Website & Digital Platforms",
+        text: "A professional online presence that converts.",
+      },
+      { title: "AI & Automation", text: "Save time, reduce cost and serve customers 24/7." },
+      {
+        title: "CRM & Customer Retention",
+        text: "Manage customers, increase repeat sales and loyalty.",
+      },
+      {
+        title: "Strategy & Consulting",
+        text: "Expert guidance to plan, improve and grow your business.",
+      },
+    ],
+  },
+  office: {
+    eyebrow: "Visit or message us",
+    title: "Our office in Muscat.",
+    hours: "Office hours",
+    whatsapp: "Message us on WhatsApp",
+    whatsappText:
+      "Hi IDRAK, I saw your portfolio and I'd like to talk about content for my business.",
+    directions: "Get directions",
+    showMap: "Show map",
+    mapTitle: "IDRAK office location on Google Maps",
+  },
   service: {
     eyebrow: "The content service",
     title: "What our video and content production includes.",
@@ -140,6 +254,108 @@ const ar: typeof en = {
   empty: "فيديوهات جديدة قادمة قريباً. عاود الزيارة.",
   play: "تشغيل الفيديو",
   close: "إغلاق",
+  packages: {
+    eyebrow: "باقات محتوى للسوشيال ميديا",
+    title: "باقات صناعة المحتوى للشركات الصغيرة",
+    intro: "من الفكرة إلى محتوى جاهز للنشر — نمِّ أعمالك على منصات التواصل",
+    currency: "ريال عماني",
+    perMonth: "شهرياً",
+    recommended: "الأكثر مناسبة",
+    was: "السعر السابق",
+    order: "اطلب عبر واتساب",
+    whatsappText: "مرحباً إدراك، أرغب في الاشتراك في «{name}» ({price} ر.ع شهرياً).",
+    items: [
+      {
+        name: "باقة البداية",
+        tagline: "لبداية سريعة",
+        price: "50",
+        was: "65",
+        features: [
+          "5 فيديوهات (معدة وجاهزة للنشر)",
+          "تعليقات أساسية",
+          "تصميم الغلاف",
+          "مونتاج بسيط وهوية أساسية",
+        ],
+      },
+      {
+        name: "باقة النمو",
+        tagline: "بناء حضور ثابت",
+        price: "84",
+        was: "",
+        features: [
+          "12 فيديو (معد وجاهز للنشر)",
+          "كتابة النصوص والتعليقات",
+          "تصميم الغلاف",
+          "خطة محتوى (أفكار وسيناريوهات يومية)",
+          "دليل النشر (أفضل الأوقات والنصائح)",
+        ],
+      },
+      {
+        name: "الباقة الاحترافية",
+        tagline: "تعليم ومحتوى متكامل",
+        price: "97",
+        was: "",
+        features: [
+          "12 فيديو (معد وجاهز للنشر)",
+          "فيديوهات تعليمية (تدريب على السوشيال ميديا)",
+          "كتابة النصوص والتعليقات",
+          "تصميم الغلاف",
+          "إعداد الهايلايت (بهوية العلامة)",
+          "تحسين البايو (الملف التعريفي والوصف)",
+          "خطة محتوى (شهرية)",
+          "دليل النشر (أفضل الأوقات، الهاشتاقات، ونصائح عملية)",
+        ],
+      },
+      {
+        name: "الباقة المتقدمة",
+        tagline: "حل متكامل للنمو",
+        price: "150",
+        was: "",
+        features: [
+          "فيديوهات غير محدودة (خطة شهرية)",
+          "فيديوهات تعليمية (تدريب على السوشيال ميديا)",
+          "كتابة النصوص والتعليقات",
+          "تصميم الغلاف",
+          "إعداد الهايلايت (بهوية العلامة)",
+          "تحسين البايو (الملف التعريفي والوصف)",
+          "استراتيجية محتوى وجدول نشر كامل",
+          "مراجعة الأداء ونصائح للنمو",
+          "دعم أولوية (عبر واتساب)",
+        ],
+      },
+    ],
+  },
+  menu: {
+    eyebrow: "قائمة خدماتنا",
+    title: "أكثر من محتوى: كل ما يحتاجه عملك لينمو.",
+    more: "كل الخدمات",
+    items: [
+      { title: "إنتاج المحتوى", text: "محتوى احترافي وجذّاب لعلامتك التجارية." },
+      { title: "إدارة السوشيال ميديا", text: "نمِّ حضورك وتفاعل مع جمهورك وأدِر حساباتك." },
+      { title: "الإعلانات الرقمية", text: "عملاء وحجوزات ومبيعات أكثر بإعلانات موجّهة." },
+      { title: "خرائط جوجل والسيو المحلي", text: "ليجدك العملاء في منطقتك بسهولة." },
+      { title: "المواقع والمنصات الرقمية", text: "حضور رقمي احترافي يحوّل الزوار إلى عملاء." },
+      {
+        title: "الذكاء الاصطناعي والأتمتة",
+        text: "وفّر الوقت وقلّل التكاليف واخدم عملاءك على مدار الساعة.",
+      },
+      {
+        title: "إدارة العملاء والاحتفاظ بهم",
+        text: "نظّم بيانات عملائك وزِد المبيعات المتكررة وولاءهم.",
+      },
+      { title: "الاستراتيجية والاستشارات", text: "إرشاد متخصص لتخطيط عملك وتحسينه وتنميته." },
+    ],
+  },
+  office: {
+    eyebrow: "زورونا أو راسلونا",
+    title: "مكتبنا في مسقط.",
+    hours: "ساعات العمل",
+    whatsapp: "راسلنا على واتساب",
+    whatsappText: "مرحباً إدراك، شاهدت معرض أعمالكم وأرغب في الحديث عن المحتوى لنشاطي.",
+    directions: "الاتجاهات إلى مكتبنا",
+    showMap: "عرض الخريطة",
+    mapTitle: "موقع مكتب إدراك على خرائط جوجل",
+  },
   service: {
     eyebrow: "خدمة المحتوى",
     title: "ماذا تشمل خدمة إنتاج الفيديو والمحتوى لدينا.",

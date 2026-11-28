@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Navigation, Phone } from "lucide-react";
 
 import {
   Container,
@@ -15,14 +15,16 @@ import {
 } from "@/components/site/blocks";
 import { LeadWizard } from "@/components/site/LeadWizard";
 import { LocalizedLink } from "@/components/site/LocalizedLink";
+import { OfficeMap } from "@/components/site/PortfolioSales";
 import { COMMON } from "@/lib/content/common";
 import { CONTACT } from "@/lib/content/contact";
-import { useCopy } from "@/lib/i18n";
+import { useCopy, useI18n } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 
 export function ContactPage() {
   const k = useCopy(CONTACT);
   const c = useCopy(COMMON);
+  const { lang } = useI18n();
 
   return (
     <>
@@ -90,16 +92,38 @@ export function ContactPage() {
                       </span>
                     </a>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-primary">
+                  <li className="flex items-start gap-3">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
                       <MapPin className="h-5 w-5" />
                     </span>
-                    <span className="font-semibold">{k.direct.location}</span>
+                    <span>
+                      <span className="block text-xs text-muted-foreground">
+                        {k.direct.location}
+                      </span>
+                      <address className="font-semibold not-italic leading-relaxed">
+                        {k.direct.address}
+                      </address>
+                      <span className="mt-1 block text-sm text-muted-foreground">
+                        {SITE.office.hours[lang]}
+                      </span>
+                      <a
+                        href={SITE.office.directionsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                      >
+                        <Navigation className="h-4 w-4" /> {k.direct.directions}
+                      </a>
+                    </span>
                   </li>
                 </ul>
               </div>
             </Reveal>
           </div>
+
+          <Reveal className="mt-6">
+            <OfficeMap showLabel={k.direct.showMap} title={k.direct.mapTitle} />
+          </Reveal>
         </Container>
       </section>
 

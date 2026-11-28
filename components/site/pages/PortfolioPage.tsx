@@ -22,6 +22,7 @@ import {
 
 import { Eyebrow, FinalCta, Reveal, Section, SectionHeading } from "@/components/site/blocks";
 import { LocalizedLink } from "@/components/site/LocalizedLink";
+import { OfficeCta, Packages, ServicesMenu } from "@/components/site/PortfolioSales";
 import { gsap, prefersReducedMotion, useGSAP } from "@/components/site/motion";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { PORTFOLIO } from "@/lib/content/portfolio";
@@ -570,7 +571,9 @@ export function PortfolioPage({
         )}
       </Section>
 
-      <Section tone="tint">
+      <Packages />
+
+      <Section>
         <SectionHeading
           eyebrow={t.service.eyebrow}
           title={t.service.title}
@@ -595,6 +598,9 @@ export function PortfolioPage({
         </div>
         <Reveal className="mt-8 max-w-2xl text-muted-foreground">{t.service.note}</Reveal>
       </Section>
+
+      <ServicesMenu />
+      <OfficeCta />
 
       <FinalCta
         eyebrow={t.final.eyebrow}
