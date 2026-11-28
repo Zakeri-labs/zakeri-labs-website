@@ -137,12 +137,12 @@ const SEO_COPY: Record<PublicPage, Record<Lang, SeoEntry>> = {
     en: {
       title: "Video Portfolio: Reels, Product Films & Pitch Videos | IDRAK Oman",
       description:
-        "Watch reels, product tours and pitch films produced by IDRAK in Oman, and see what our video and content production service includes, from script to final cut.",
+        "Watch reels, product tours and pitch films produced by IDRAK in Oman, and see our monthly social media content packages from 50 OMR, made in Muscat.",
     },
     ar: {
       title: "معرض الفيديو: ريلز وأفلام منتجات وعروض | إدراك عُمان",
       description:
-        "شاهد الريلز وجولات المنتجات وأفلام العروض التي أنتجتها إدراك في عُمان، وتعرّف على ما تشمله خدمة إنتاج الفيديو والمحتوى لدينا من النص إلى النسخة النهائية.",
+        "شاهد الريلز وجولات المنتجات وأفلام العروض التي أنتجتها إدراك في عُمان، وتعرّف على باقات المحتوى الشهرية للسوشيال ميديا التي تبدأ من 50 ر.ع، من مسقط.",
     },
   },
   contact: {
@@ -363,12 +363,21 @@ export function getOrganizationJsonLd(lang: Lang) {
     email: SITE.email,
     telephone: `+${SITE.phoneRaw}`,
     description: COMMON[lang].footer.description,
-    foundingLocation: "Muscat, Oman",
+    foundingLocation: { "@type": "Place", name: "Muscat, Oman" },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Muscat",
-      addressRegion: "Muscat Governorate",
-      addressCountry: "OM",
+      streetAddress: SITE.office.street,
+      addressLocality: SITE.office.locality,
+      addressRegion: SITE.office.region,
+      addressCountry: SITE.office.country,
+    },
+    geo: { "@type": "GeoCoordinates", latitude: SITE.office.lat, longitude: SITE.office.lng },
+    hasMap: SITE.office.mapUrl,
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: SITE.office.openDays,
+      opens: SITE.office.opens,
+      closes: SITE.office.closes,
     },
     // Local SEO: based in Muscat, serving Oman and the GCC.
     areaServed: [

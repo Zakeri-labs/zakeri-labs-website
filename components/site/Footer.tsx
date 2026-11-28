@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import { Cta } from "./blocks";
 import { LocalizedLink as Link } from "./LocalizedLink";
@@ -119,6 +119,17 @@ export function Footer({
                     <Mail className="h-4 w-4 shrink-0 text-primary" /> {SITE.email}
                   </a>
                 </li>
+                <li>
+                  <a
+                    href={SITE.office.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-start gap-2 transition hover:text-primary"
+                  >
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{" "}
+                    {SITE.office.area[lang]}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -127,8 +138,9 @@ export function Footer({
         <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {SITE.name}. {c.footer.rights}
-            <span className="mt-1 block" dir="ltr">
-              {SITE.legalName} · CR {SITE.crNumber} · {SITE.legalCity}
+            <span className="mt-1 block rtl:text-right" dir="ltr">
+              {SITE.legalName} · <span className="whitespace-nowrap">CR {SITE.crNumber}</span> ·{" "}
+              {SITE.legalCity}
             </span>
           </p>
           <div className="flex flex-col gap-2 sm:items-end">

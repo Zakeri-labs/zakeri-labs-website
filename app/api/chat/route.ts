@@ -4,6 +4,7 @@ import { DETAIL_PAGES, type DetailKind } from "@/lib/content/detail";
 import { HOW } from "@/lib/content/how";
 import { PRODUCTS } from "@/lib/content/products";
 import { SERVICES } from "@/lib/content/services";
+import { PORTFOLIO } from "@/lib/content/portfolio";
 import { SITE } from "@/lib/site";
 
 const MODEL = "google/gemini-2.5-flash";
@@ -29,7 +30,7 @@ const s = SERVICES.en;
 const p = PRODUCTS.en;
 const h = HOW.en;
 const KNOWLEDGE = `
-COMPANY: ${SITE.name} (legal: ${SITE.legalName}, CR ${SITE.crNumber}), based in Muscat, Oman. Founder & CEO: ${SITE.founder}.
+COMPANY: ${SITE.name} (legal: ${SITE.legalName}, CR ${SITE.crNumber}), based in Al Khoudh, Al Seeb, Muscat, Oman. Office: ${SITE.office.address.en} (Arabic: ${SITE.office.address.ar}), map ${SITE.office.mapUrl}. Founder & CEO: ${SITE.founder}.
 Positioning: AI that creates business value — more sales, lower costs, better performance. We start with the business challenge, not the technology.
 Contact: WhatsApp/phone ${SITE.phone}, email ${SITE.email}, or the contact form on /contact.
 
@@ -48,7 +49,9 @@ READY-MADE PRODUCTS:
 
 HOW WE WORK: ${h.approach.steps.map((x) => `${x.title}: ${x.text}`).join(" ")}
 Ways to start: ${h.ways.items.map((x) => `${x.title} — ${x.text}`).join(" ")}
-Pricing: ${h.pricing.paragraphs.join(" ")} No fixed public price list.
+Pricing: ${h.pricing.paragraphs.join(" ")} Software, automation and AI projects have no fixed public price list.
+CONTENT PACKAGES (monthly, the only fixed public prices; full list at /portfolio#packages): ${PORTFOLIO.en.packages.items.map((x, i) => `${x.name} (Arabic: ${PORTFOLIO.ar.packages.items[i].name}) ${x.price} OMR a month: ${x.features.join(", ")}`).join(". ")}.
+Office hours: ${SITE.office.hours.en}.
 FAQ: ${s.faq.items.map((f) => `Q: ${f.q} A: ${f.a}`).join(" ")}
 `.trim();
 
@@ -56,7 +59,7 @@ const SYSTEM = `You are "IDRAK AI", the assistant on the IDRAK AI Solutions webs
 Rules:
 - Reply in the visitor's language (Arabic, English, or Persian). Keep answers short: 2–5 sentences or a few bullets. Warm, confident, practical.
 - Only use the knowledge below. Never invent prices, timelines, client names, results or features. If you don't know, say so and offer to connect them with the team.
-- Pricing: explain it depends on scope; offer a quick conversation.
+- Pricing: content packages have fixed monthly prices (CONTENT PACKAGES below; in Arabic use their Arabic names and ر.ع). Everything else depends on scope; offer a quick conversation.
 - Always steer toward the next step: ask about their business challenge, then suggest the contact form (/contact) or WhatsApp (${SITE.phone}).
 - Plain text only (no markdown tables or headings).
 

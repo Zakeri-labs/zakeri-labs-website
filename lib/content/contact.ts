@@ -1,4 +1,5 @@
 import { withOverrides } from "@/lib/content/overrides";
+import { SITE } from "@/lib/site";
 
 const en = {
   hero: {
@@ -25,7 +26,11 @@ const en = {
     title: "Prefer to Talk Directly?",
     phone: "Phone",
     email: "Email",
-    location: "Muscat, Oman",
+    location: "Address",
+    address: SITE.office.address.en,
+    directions: "Get directions",
+    showMap: "Show map",
+    mapTitle: "IDRAK office location on Google Maps",
   },
   next: {
     eyebrow: "What happens next",
@@ -118,7 +123,10 @@ const en = {
         q: "Can I contact IDRAK about more than one service?",
         a: "Yes. Some business challenges may involve a combination of automation, content, video or digital solutions.",
       },
-      { q: "Where is IDRAK based?", a: "IDRAK AI Solutions is based in Muscat, Oman." },
+      {
+        q: "Where is IDRAK based?",
+        a: `IDRAK AI Solutions is based in Muscat. Our office: ${SITE.office.address.en}.`,
+      },
     ],
   },
 };
@@ -149,7 +157,11 @@ const ar: ContactCopy = {
     title: "تفضّل الحديث مباشرة؟",
     phone: "الهاتف",
     email: "البريد الإلكتروني",
-    location: "مسقط، عُمان",
+    location: "العنوان",
+    address: SITE.office.address.ar,
+    directions: "الاتجاهات إلى مكتبنا",
+    showMap: "عرض الخريطة",
+    mapTitle: "موقع مكتب إدراك على خرائط جوجل",
   },
   next: {
     eyebrow: "ماذا يحدث بعد ذلك",
@@ -242,7 +254,10 @@ const ar: ContactCopy = {
         q: "هل يمكنني التواصل مع إدراك بشأن أكثر من خدمة؟",
         a: "نعم. قد تتطلب بعض تحديات العمل مزيجاً من الأتمتة أو المحتوى أو الفيديو أو الحلول الرقمية.",
       },
-      { q: "أين يقع مقر إدراك؟", a: "مقرّ إدراك للحلول الذكية في مسقط، عُمان." },
+      {
+        q: "أين يقع مقر إدراك؟",
+        a: `يقع مقرّ إدراك للحلول الذكية في مسقط، وعنوان مكتبنا: ${SITE.office.address.ar}.`,
+      },
     ],
   },
 };
